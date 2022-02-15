@@ -1,0 +1,234 @@
+@charset "utf-8";
+body,
+html {
+  height: 100%;
+  min-height: 100%;
+}
+
+#Wrap {
+  width: 100%;
+  min-height: 100%;
+  min-width: 1200px;
+  position: relative;
+}
+/* Skip Navigation*/
+#skip-nav {
+  position: relative;
+  z-index: 9999;
+}
+#skip-nav a {
+  display: block;
+  height: 1px;
+  width: 1px;
+  margin-bottom: -1px;
+  overflow: hidden;
+  font-size: 20px;
+  color: #fff;
+  font-weight: bold;
+  background: #0779d1;
+  white-space: nowrap;
+  text-align: center;
+}
+#skip-nav a:focus,
+#skipNav a:active {
+  height: auto;
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+/* Header */
+header {
+  background: #5b73e8;
+  padding: 0 30px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  min-width: 1200px;
+  z-index: 100;
+}
+#header {
+  padding: 10px 0;
+}
+#header,
+#header nav {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+#header nav {
+  justify-content: space-between;
+}
+header h1 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  margin-right: 50px;
+  line-height: 24px;
+}
+header #gnb a {
+  display: inline-block;
+  padding: 0 20px;
+  color: #fff;
+}
+header .top-menu {
+  display: flex;
+  align-items: center;
+}
+header .top-menu select {
+  border-radius: 5px;
+  background: #556bd8;
+  border: 1px solid #556bd8;
+  color: #fff;
+}
+header .top-menu a {
+  display: inline-block;
+  color: #fff;
+  font-size: 12px;
+}
+header .top-menu > div {
+  display: flex;
+  word-break: keep-all;
+  font-size: 14px;
+}
+header .top-menu > div.profile {
+  margin: 0 10px;
+}
+header .top-menu > div.profile span {
+  display: inline-block;
+  border-radius: 3px;
+  background: #292e48;
+  font-size: 10px;
+  color: #d5e40d;
+  padding: 0 5px;
+  margin-left: 5px;
+}
+header .top-menu > div.top-menu1 a {
+  margin: 0 8px;
+  position: relative;
+}
+header .top-menu > div.top-menu1 a:first-child::after {
+  content: '';
+  width: 1px;
+  height: 12px;
+  background: #8193ed;
+  position: absolute;
+  right: -9px;
+  top: 2px;
+}
+header .top-menu > div.top-menu2 a {
+  margin: 0 4px;
+  display: inline-block;
+}
+header .top-menu > div.top-menu2 a.alarm {
+  background: url('../asset/images/ico-notice.png') no-repeat;
+  width: 16px;
+  height: 18px;
+  position: relative;
+}
+header .top-menu > div.top-menu2 a.alarm .new {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 100px 100px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: #fb0000;
+}
+header .top-menu > div.top-menu2 a.setting {
+  background: url('../asset/images/ico-settings.png') no-repeat;
+  width: 18px;
+  height: 18px;
+}
+/* container */
+#container .location {
+  background: #4e5c7e;
+  height: 55px;
+  line-height: 55px;
+  padding: 0 30px;
+  color: #fff;
+  font-size: 14px;
+}
+#container .location span {
+  margin-right: 20px;
+  padding-right: 20px;
+  position: relative;
+  opacity: 0.8;
+}
+#container .location span::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  /* background: url('../asset/images/ico_location.png') no-repeat; */
+  width: 4px;
+  height: 7px;
+  top: 7px;
+}
+#container .full-content {
+  min-height: 700px;
+  min-width: 1200px;
+  margin-top: 56px;
+}
+#container .content .titWrap h3 {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+footer {
+  text-align: center;
+  font-size: 12px;
+  border-top: 1px solid #e2e2e2;
+  padding-top: 20px;
+}
+
+/* lnb */
+#lnb > ul {
+  margin-top: 50px;
+  border-top: 1px solid #595e6b;
+}
+#lnb > ul > li > a {
+  display: block;
+  padding: 15px 30px;
+  color: #fff;
+  /* background: #393f4f url('../asset/images/ico_up.png') no-repeat right 20px top 50%; */
+  border-bottom: 1px solid #595e6b;
+}
+#lnb > ul > li a:hover {
+  background-color: #4169cb;
+  border-bottom: 1px solid #4169cb;
+}
+#lnb > ul > li.on > a {
+  /* background: #4169cb url('../asset/images/ico_down.png') no-repeat right 20px top 50%; */
+  border-bottom: 0;
+}
+#lnb > ul > li > ul {
+  display: none;
+  background: #303541;
+  padding: 10px 0;
+}
+#lnb > ul > li > ul > li > a {
+  display: block;
+  padding: 10px 30px;
+  color: #fff;
+  font-size: 14px;
+}
+#lnb > ul > li > ul > li > a:hover {
+  background-color: transparent;
+  border-bottom: 0;
+  color: #8eafff;
+}
+#lnb > ul > li > ul > li > a.on {
+  color: #8eafff;
+  font-weight: bold;
+}
+#lnb > ul > li > ul > li.on a {
+  color: #d91c1b;
+  background: #f5f2ec url('http://cfile9.uf.tistory.com/image/257B794F570C5C0D1A05E1') no-repeat 95% 3px;
+}
+#lnb > ul li.noDepth a {
+  background-image: none !important;
+}
