@@ -27,6 +27,14 @@ export default function Container() {
     setStandardDate(addDayCount(standardDate))
   }
 
+  const handleDayCount = (count) => {
+    setDayCount(count)
+
+    if (count === 1) {
+      setStandardDate(new Date())
+    }
+  }
+
   return (
     <>
       <section>{isDisplayCreateReservation && <CreateReservation />}</section>
@@ -39,16 +47,16 @@ export default function Container() {
           </div>
           <div className='date-selectWrap dF-s'>
             <div className='date-view'>
-              <button type='button' className={dayCount === 7 ? 'btn btn-middle gray active' : 'btn btn-middle gray'} onClick={() => setDayCount(7)}>
+              <button type='button' className={dayCount === 7 ? 'btn btn-middle gray active' : 'btn btn-middle gray'} onClick={() => handleDayCount(7)}>
                 7일보기
               </button>
-              <button type='button' className={dayCount === 15 ? 'btn btn-middle gray active' : 'btn btn-middle gray'} onClick={() => setDayCount(15)}>
+              <button type='button' className={dayCount === 15 ? 'btn btn-middle gray active' : 'btn btn-middle gray'} onClick={() => handleDayCount(15)}>
                 15일보기
               </button>
-              <button type='button' className={dayCount === 30 ? 'btn btn-middle gray active' : 'btn btn-middle gray'} onClick={() => setDayCount(30)}>
+              <button type='button' className={dayCount === 30 ? 'btn btn-middle gray active' : 'btn btn-middle gray'} onClick={() => handleDayCount(30)}>
                 30일보기
               </button>
-              <button type='button' className={dayCount === 1 ? 'btn btn-middle gray active' : 'btn btn-middle gray'} onClick={() => setDayCount(1)}>
+              <button type='button' className={dayCount === 1 ? 'btn btn-middle gray active' : 'btn btn-middle gray'} onClick={() => handleDayCount(1)}>
                 오늘
               </button>
             </div>
