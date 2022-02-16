@@ -170,7 +170,7 @@ export default function Price({ price, targetIndex, reservation, date }) {
     <>
       <div ref={drop}>
         <div style={{ display: 'grid', position: 'relative', width: '100%', height: '100%' }}>
-          <a href='/#' className='none' style={{ display: 'block', placeSelf: 'center' }} ref={ref} onClick={handleCreateReservation}>
+          <a href='/#' className={reservation?.startIndex === targetIndex ? '' : 'none'} style={{ display: 'block', placeSelf: 'center' }} ref={ref} onClick={handleCreateReservation}>
             {`${price}만`}
           </a>
 

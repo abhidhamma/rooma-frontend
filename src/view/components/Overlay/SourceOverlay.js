@@ -7,7 +7,7 @@ export default function SourceOverlay({ data }) {
         top: 0,
         left: 0,
         height: '100%',
-        width: `${hoverLength}00%`,
+        width: `calc(${hoverLength}00% + ${hoverLength}px)`,
         zIndex: 1,
         opacity: 0.7,
         backgroundColor: 'white',
