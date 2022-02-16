@@ -9,12 +9,12 @@ export default function ReservationInfo({ display }) {
         <div className='term-box'>
           <dl>
             <dt>체크인</dt>
-            <dd>{display?.dateInfo?.startDateLocale.toString()}</dd>
+            <dd>{display?.dateInfo?.checkIn.toString()}</dd>
           </dl>
           <span>{`${display?.dateInfo?.night.toString()}박`}</span>
           <dl>
             <dt>체크아웃</dt>
-            <dd>{display?.dateInfo?.endDateLocale.toString()}</dd>
+            <dd>{display?.dateInfo?.checkOut.toString()}</dd>
           </dl>
         </div>
         <div className='info-box'>

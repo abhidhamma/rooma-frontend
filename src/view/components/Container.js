@@ -1,7 +1,9 @@
+import { toDate } from 'date-fns'
 import { addDays, formatWithOptions } from 'date-fns/fp'
 import { ko } from 'date-fns/locale'
 import { useRecoilState, useSetRecoilState } from 'recoil'
 import { dayCountAtom, displayAtom, isDisplayCreateReservationAtom, reservationListAtom, roomTypeListAtom, standardDateAtom } from '../../data/state'
+import { addDate, betweenDate, stringToDate } from '../../other/util/dateUtil'
 import CreateReservation from './CreateReservation'
 import ReservationInfo from './ReservationInfo'
 import ReservationScheulerHeader from './ReservationScheuler/ReservationScheulerHeader'
@@ -34,6 +36,14 @@ export default function Container() {
       setStandardDate(new Date())
     }
   }
+
+  console.log(reservationList)
+  console.log(roomTypeList)
+  // const t1 = new Date()
+  // const t2 = addDate(new Date(), 1)
+  // console.log(t1)
+  // console.log(t2)
+  // console.log(betweenDate(t1, t2))
 
   return (
     <>

@@ -1,13 +1,15 @@
 import { useEffect, useRef, useState } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
 import { useRecoilState, useRecoilValue } from 'recoil'
-import { currentReservationAtom, dayCountAtom, displayAtom, isDisplayCreateReservationAtom, reservationListAtom, roomTypeListAtom } from '../../../data/state'
+import { currentReservationAtom, dayCountAtom, displayAtom, isDisplayCreateReservationAtom, reservationListAtom, roomTypeListAtom, standardDateAtom } from '../../../data/state'
 import ReservationOverlay from '../Overlay/ReservationOverlay'
 import TargetOverlay from '../Overlay/TargetOverlay'
 import SourceOverlay from '../Overlay/SourceOverlay'
 import CreateReservation from '../CreateReservation'
+import { addyyyyMMdd, betweenyyyyMMdd, formatyyyyMMdd } from '../../../other/util/dateUtil'
 
-export default function Price({ price, targetIndex, reservation, date }) {
+export default function Price({ price, currentDate, reservation, roomNumber }) {
+  console.log(reservation)
   const [overlay, setOverlay] = useState({
     hoverColor: '',
     hoverData: '',
@@ -20,6 +22,7 @@ export default function Price({ price, targetIndex, reservation, date }) {
   const [reservationList, setReservationList] = useRecoilState(reservationListAtom)
   const [roomTypeList, setRoomTypeList] = useRecoilState(roomTypeListAtom)
   const [isDisplayCreateReservation, setIsDisplayCreateReservation] = useRecoilState(isDisplayCreateReservationAtom)
+  const standardDate = useRecoilValue(standardDateAtom)
 
   //useDrag, useDrop
   const [{ isDragging }, drag, preview] = useDrag(
@@ -43,55 +46,37 @@ export default function Price({ price, targetIndex, reservation, date }) {
     () => ({
       accept: 'item',
       canDrop: (item, monitor) => {
-        const startIndex = item.startIndex
-        const endIndex = item.endIndex
-
+        const checkIn = item.checkIn
+        const checkOut = item.checkOut
         //1.예약 겹치지 않게하기
-        const otherReservationIndexList = getOtherReservationIndexList(reservationList, startIndex, endIndex)
-        //console.log('otherReservationIndexList : ', otherReservationIndexList)
-
-        if (otherReservationIndexList.indexOf(targetIndex) > -1) {
+        const otherReservationIndexList = getOtherReservationIndexList(reservationList, checkIn, checkOut)
+        // console.log('otherReservationIndexList : ', otherReservationIndexList)
+        if (otherReservationIndexList.indexOf(currentDate) > -1) {
           return false
         }
 
-        //2.width 100%넘는 예약 넘치지 않게하기
-        let itemListLength = 0
-
-        const roomTypeListLength = roomTypeList.length
-
-        const lastRoomType = roomTypeList[roomTypeListLength - 1]
-
-        const monthPriceList = lastRoomType.monthPriceList
-        const monthPriceListLength = monthPriceList.length
-
-        const lastPriceList = monthPriceList[monthPriceListLength - 1]
-        const lastPriceListLength = lastPriceList.length
-        const lastIndexId = lastPriceList[lastPriceListLength - 1].id
-
-        itemListLength = lastIndexId + 1
-
-        const rowLength = 30
-        const reservationLength = endIndex - startIndex + 1
-
-        const canNotDropIndexList = getCanNotDropIndexList(itemListLength, rowLength, reservationLength)
-        //console.log('canNotDropIndexList : ', canNotDropIndexList)
-        if (canNotDropIndexList.indexOf(targetIndex) > -1) {
-          return false
-        }
-
+        // //2.width 100%넘는 예약 넘치지 않게하기
+        // const startDate = formatyyyyMMdd(standardDate)
+        // const endDate = addyyyyMMdd(startDate, dayCount)
+        // const reservationLength = betweenyyyyMMdd(checkIn, checkOut)
+        // const canNotDropIndexList = getCanNotDropIndexList(startDate, endDate, reservationLength)
+        // console.log('canNotDropIndexList : ', canNotDropIndexList)
+        // if (canNotDropIndexList.indexOf(currentDate) > -1) {
+        //   return false
+        // }
         return true
       },
       drop: (item) => {
         const sourceReservation = item
-        const sourceStartIndex = item.startIndex
-        const sourceEndIndex = item.endIndex
-        const gap = sourceEndIndex - sourceStartIndex
+        const sourcecheckIn = item.checkIn
+        const sourcecheckOut = item.checkOut
+        const night = betweenyyyyMMdd(sourcecheckIn, sourcecheckOut)
 
         setReservationList((prevState) => {
-          const filteredState = prevState.filter((reserv) => reserv.startIndex !== sourceStartIndex)
-          return [...filteredState, { ...sourceReservation, startIndex: targetIndex, endIndex: targetIndex + gap }]
+          const filteredState = prevState.filter((reserv) => reserv.checkIn !== sourcecheckIn)
+          return [...filteredState, { ...sourceReservation, checkIn: currentDate, checkOut: addyyyyMMdd(currentDate, night), location: roomNumber }]
         })
-        setCurrentReservation({ ...sourceReservation, startIndex: targetIndex, endIndex: targetIndex + gap })
+        setCurrentReservation({ ...sourceReservation, checkIn: currentDate, checkOut: addyyyyMMdd(currentDate, night), location: roomNumber })
       },
       collect: (monitor) => ({
         isOver: !!monitor.isOver(),
@@ -108,40 +93,40 @@ export default function Price({ price, targetIndex, reservation, date }) {
         setOverlay({
           hoverColor: item.color,
           hoverData: item.data,
-          hoverLength: item.endIndex - item.startIndex + 1,
+          hoverLength: betweenyyyyMMdd(item.checkIn, item.checkOut),
         })
       },
     }),
     [currentReservation, reservationList]
   )
 
-  const getOtherReservationIndexList = (reservationList, sourceStartIndex, sourceEndIndex) => {
+  const getOtherReservationIndexList = (reservationList, sourceCheckIn, sourceCheckOut) => {
     const otherReservationIndexList = []
-    const sourceLength = sourceEndIndex - sourceStartIndex + 1
+    const sourceLength = betweenyyyyMMdd(sourceCheckIn, sourceCheckOut)
 
     for (reservation of reservationList) {
-      const startIndex = reservation.startIndex
-      const endIndex = reservation.endIndex
+      const checkIn = reservation.checkIn
+      const checkOut = reservation.checkOut
 
       //드래그중인 예약 자신이 존재하는칸은 드래그할 수 있다
-      if (startIndex === sourceStartIndex) {
+      if (checkIn === sourceCheckIn) {
         continue
       }
 
-      //한칸짜리, 여러칸짜리 다른 예약과 겹칠 수 없도록 하기
-      if (startIndex === endIndex) {
-        otherReservationIndexList.push(startIndex)
+      //한칸짜리, 여러칸짜리 예약이 다른 예약과 겹칠 수 없도록 하기
+      if (addyyyyMMdd(checkIn, 1) === checkOut) {
+        otherReservationIndexList.push(checkIn)
       } else {
-        for (let i = startIndex; i <= endIndex; i++) {
+        for (let i = checkIn; i !== checkOut; i = addyyyyMMdd(i, 1)) {
+          if (i === checkOut) {
+            break
+          }
           otherReservationIndexList.push(i)
         }
       }
       //드래그중인 예약의 길이가 1보다 클경우 다른예약과 겹칠 수 없도록 하기
       if (sourceLength > 1) {
-        for (let i = startIndex; i > startIndex - sourceLength; i--) {
-          if (i < 0) {
-            break
-          }
+        for (let i = checkIn; i !== addyyyyMMdd(checkIn, -sourceLength); i = addyyyyMMdd(i, -1)) {
           otherReservationIndexList.push(i)
         }
       }
@@ -149,15 +134,14 @@ export default function Price({ price, targetIndex, reservation, date }) {
     return otherReservationIndexList
   }
 
-  const getCanNotDropIndexList = (itemListLength, rowLength, reservationLength) => {
+  const getCanNotDropIndexList = (startDate, endDate, reservationLength) => {
     const canNotDropIndexList = []
-    const itemListLengthToIndex = itemListLength - 1 //30-1 = 29
-    const reservationLengthToIndex = reservationLength - 1 // 3-1 = 2
+    const rowLength = betweenyyyyMMdd(startDate, endDate)
 
-    for (let i = itemListLengthToIndex; i > 0; i = i - rowLength) {
-      for (let j = i; j > i - reservationLengthToIndex; j--) {
-        canNotDropIndexList.push(j)
-      }
+    let count = 0
+    for (let i = rowLength; i > rowLength - (reservationLength - 1); i--) {
+      count += 1
+      canNotDropIndexList.push(addyyyyMMdd(endDate, -count))
     }
 
     return canNotDropIndexList
@@ -166,16 +150,38 @@ export default function Price({ price, targetIndex, reservation, date }) {
   const handleCreateReservation = () => {
     setIsDisplayCreateReservation(!isDisplayCreateReservation)
   }
+
+  //checkIn부터 checkOut까지의 값을 모두 넣고 indexOf로 currentDate와 동일한게 있는지 찾는다
+  const getReservationDateArray = () => {
+    const checkIn = reservation?.checkIn
+    const checkOut = reservation?.checkOut
+    if (reservation === undefined && checkIn === undefined && checkOut === undefined) {
+      return []
+    }
+
+    const reservationDateArray = []
+
+    for (let i = checkIn; i !== checkOut; i = addyyyyMMdd(i, 1)) {
+      reservationDateArray.push(i)
+    }
+    console.log(reservationDateArray)
+
+    return reservationDateArray
+  }
+  const reservationDateArray = getReservationDateArray()
+  console.log(currentDate)
+  console.log(reservationDateArray?.indexOf(currentDate))
+
   return (
     <>
       <div ref={drop}>
         <div style={{ display: 'grid', position: 'relative', width: '100%', height: '100%' }}>
-          <a href='/#' className={reservation?.startIndex === targetIndex ? '' : 'none'} style={{ display: 'block', placeSelf: 'center' }} ref={ref} onClick={handleCreateReservation}>
+          <a href='/#' className={reservation?.checkIn === currentDate ? '' : 'none'} style={{ display: 'block', placeSelf: 'center' }} ref={ref} onClick={handleCreateReservation}>
             {`${price}만`}
           </a>
 
           {/* reservation */}
-          {reservation?.startIndex === targetIndex && !isDragging && <ReservationOverlay data={reservation} drag={drag} date={date} />}
+          {reservationDateArray?.indexOf(currentDate) > -1 && !isDragging && <ReservationOverlay data={reservation} drag={drag} dayCount={dayCount} currentDate={currentDate} />}
           {/* hover overlay */}
           {isOver && <TargetOverlay data={overlay} />}
           {/* source overlay */}
