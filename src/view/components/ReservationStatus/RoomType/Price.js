@@ -1,11 +1,11 @@
 import { useRef, useState } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
-import { useRecoilState, useRecoilValue } from 'recoil'
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import ReservationOverlay from '../Overlay/ReservationOverlay'
 import TargetOverlay from '../Overlay/TargetOverlay'
 import SourceOverlay from '../Overlay/SourceOverlay'
 import { addyyyyMMdd, betweenyyyyMMdd } from '../../../../other/util/common/dateUtil'
-import { currentReservationAtom, dayCountAtom, isDisplayCreateReservationAtom, reservationListAtom } from '../../../../service/state/reservation/atom'
+import { currentReservationAtom, dayCountAtom, displayAtom, isDisplayCreateReservationAtom, reservationListAtom } from '../../../../service/state/reservation/atom'
 import { getReservationDateArray } from '../../../../other/util/reservation/reservation'
 
 export default function Price({ price, currentDate, reservation, roomNumber }) {
@@ -20,6 +20,7 @@ export default function Price({ price, currentDate, reservation, roomNumber }) {
   const [currentReservation, setCurrentReservation] = useRecoilState(currentReservationAtom)
   const [reservationList, setReservationList] = useRecoilState(reservationListAtom)
   const [isDisplayCreateReservation, setIsDisplayCreateReservation] = useRecoilState(isDisplayCreateReservationAtom)
+  const [display, setDisplay] = useRecoilState(displayAtom)
   //const standardDate = useRecoilValue(standardDateAtom)
 
   //useDrag, useDrop
@@ -98,6 +99,7 @@ export default function Price({ price, currentDate, reservation, roomNumber }) {
         return true
       },
       drop: (item) => {
+        setDisplay({ ...display, display: 'none' })
         setCurrentReservation({ checkIn: null, checkOut: null, color: null, data: null })
         const sourceReservation = item
         const sourcecheckIn = item.checkIn
