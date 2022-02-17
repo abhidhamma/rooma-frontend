@@ -75,9 +75,19 @@ export default function Price({ price, currentDate, reservation, roomNumber }) {
         const location = item.location
         //1.예약 겹치지 않게하기
         const otherReservationIndexList = getOtherReservationIndexList(reservationList, checkIn, checkOut)
-        // console.log('otherReservationIndexList : ', otherReservationIndexList)
-        if (otherReservationIndexList.indexOf({ checkIn: currentDate, location }) > -1) {
-          return false
+        console.log('otherReservationIndexList : ', otherReservationIndexList)
+        for (let i = 0; i < otherReservationIndexList.length; i++) {
+          const reservation = otherReservationIndexList[i]
+          //예약의 체크인 === 드래그중인 예약이 아니라(x) 드래그되고있는 위치의 날짜 currentDate
+          //예약의 방이름 === 드래그중인 예약이 아니라(x) 드래그되고있는 위치의 방이름 currentDate
+          if (reservation.checkIn === currentDate && reservation.location === roomNumber) {
+            console.log(reservation.checkIn)
+            console.log(currentDate)
+            console.log(reservation.location)
+            console.log(location)
+            console.log('false!!')
+            return false
+          }
         }
 
         // //2.width 100%넘는 예약 넘치지 않게하기
@@ -152,7 +162,7 @@ export default function Price({ price, currentDate, reservation, roomNumber }) {
 
       //한칸짜리, 여러칸짜리 예약이 다른 예약과 겹칠 수 없도록 하기
       if (addyyyyMMdd(checkIn, 1) === checkOut) {
-        otherReservationIndexList.push(checkIn)
+        otherReservationIndexList.push({ checkIn, location })
       } else {
         for (let i = checkIn; i !== checkOut; i = addyyyyMMdd(i, 1)) {
           if (i === checkOut) {
