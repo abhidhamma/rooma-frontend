@@ -74,7 +74,7 @@ export default function Price({ price, currentDate, reservation, roomNumber }) {
         const checkOut = item.checkOut
         const location = item.location
         //1.예약 겹치지 않게하기
-        const otherReservationIndexList = getOtherReservationIndexList(reservationList, checkIn, checkOut)
+        const otherReservationIndexList = getOtherReservationIndexList(reservationList, checkIn, checkOut, location)
         console.log('otherReservationIndexList : ', otherReservationIndexList)
         for (let i = 0; i < otherReservationIndexList.length; i++) {
           const reservation = otherReservationIndexList[i]
@@ -115,12 +115,17 @@ export default function Price({ price, currentDate, reservation, roomNumber }) {
         })
 
         setReservationList((prevState) => {
-          const filteredState = prevState.filter((reserv) => {
-            return reserv.checkIn !== sourcecheckIn || reserv.location !== sourceLocation
-            // const draggingReservation = { checkIn: sourcecheckIn, location: sourceLocation }
-            // const OtherReservation = { checkIn: reserv.checkIn, location: reserv.location }
-            // return draggingReservation !== OtherReservation
-          })
+          const filteredState = prevState.filter((reserv) => reserv.checkIn !== sourcecheckIn || reserv.location !== sourceLocation)
+          // const filteredState = []
+          // for (let i = 0; i < prevState.length; i++) {
+          //   const checkIn = prevState[i].checkIn
+          //   const location = prevState[i].location
+          //   if (checkIn === sourcecheckIn && location === sourceLocation) {
+          //     continue
+          //   }
+          //   filteredState.push(prevState[i])
+          //}
+
           return [...filteredState, { ...sourceReservation, checkIn: currentDate, checkOut: addyyyyMMdd(currentDate, night), location: roomNumber }]
         })
         setCurrentReservation({ ...sourceReservation, checkIn: currentDate, checkOut: addyyyyMMdd(currentDate, night), location: roomNumber })
@@ -146,35 +151,37 @@ export default function Price({ price, currentDate, reservation, roomNumber }) {
     [currentReservation, reservationList, overlay, setReservationList, setCurrentReservation, setOverlay]
   )
 
-  const getOtherReservationIndexList = (reservationList, sourceCheckIn, sourceCheckOut) => {
+  const getOtherReservationIndexList = (reservationList, sourceCheckIn, sourceCheckOut, sourceLocation) => {
     const otherReservationIndexList = []
     const sourceLength = betweenyyyyMMdd(sourceCheckIn, sourceCheckOut)
 
+    console.log(reservationList)
     for (reservation of reservationList) {
+      const name = reservation.data
       const checkIn = reservation.checkIn
       const checkOut = reservation.checkOut
       const location = reservation.location
 
       //드래그중인 예약 자신이 존재하는칸은 드래그할 수 있다
-      if (checkIn === sourceCheckIn) {
+      if (checkIn === sourceCheckIn && location === sourceLocation) {
         continue
       }
 
       //한칸짜리, 여러칸짜리 예약이 다른 예약과 겹칠 수 없도록 하기
       if (addyyyyMMdd(checkIn, 1) === checkOut) {
-        otherReservationIndexList.push({ checkIn, location })
+        otherReservationIndexList.push({ checkIn, location, name })
       } else {
         for (let i = checkIn; i !== checkOut; i = addyyyyMMdd(i, 1)) {
-          if (i === checkOut) {
-            break
-          }
-          otherReservationIndexList.push({ checkIn: i, location })
+          // if (i === checkOut) {
+          //   break
+          // }
+          otherReservationIndexList.push({ checkIn: i, location, name })
         }
       }
       //드래그중인 예약의 길이가 1보다 클경우 다른예약과 겹칠 수 없도록 하기
       if (sourceLength > 1) {
         for (let i = checkIn; i !== addyyyyMMdd(checkIn, -sourceLength); i = addyyyyMMdd(i, -1)) {
-          otherReservationIndexList.push({ checkIn: i, location })
+          otherReservationIndexList.push({ checkIn: i, location, name })
         }
       }
     }
