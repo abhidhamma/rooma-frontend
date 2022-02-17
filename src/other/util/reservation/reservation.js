@@ -8,7 +8,7 @@ import { addyyyyMMdd, formatddE, formatyyyyMMdd } from '../common/dateUtil'
 */
 export const getReservationDateArray = (checkIn, checkOut) => {
   if (checkIn === undefined || checkOut === undefined) {
-    console.log('getReservationDateArray error')
+    console.log('getReservationDateArray not exist')
     return []
   }
 

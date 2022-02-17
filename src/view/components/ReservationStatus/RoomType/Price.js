@@ -27,7 +27,22 @@ export default function Price({ price, currentDate, reservation, roomNumber }) {
     () => ({
       type: 'item',
       item: () => {
-        const [reservation] = reservationList.filter((item) => item.checkIn === currentDate)
+        let [reservation] = reservationList.filter((item) => item.checkIn === currentDate)
+
+        if (reservation === undefined) {
+          //찾는방법 동일한 roomNumber내에서 모든 checkIn과 checkOut 중에서 해당 버튼에 해당되는곳을 찾는다
+
+          //1.roomNumber로 필터
+          const filterRoomNumber = reservationList.filter((item) => item.location === roomNumber)
+
+          //2.currentDate가 포함되는것 하나 찾기
+          for (let i = 0; i < filterRoomNumber.length; i++) {
+            const reservationDateArray = getReservationDateArray(filterRoomNumber[i].checkIn, filterRoomNumber[i].checkOut)
+            if (reservationDateArray.indexOf(currentDate) > -1) {
+              reservation = filterRoomNumber[i]
+            }
+          }
+        }
         if (reservation === undefined) {
           setOverlay({
             hoverColor: currentReservation.color,
@@ -60,7 +75,7 @@ export default function Price({ price, currentDate, reservation, roomNumber }) {
         const location = item.location
         //1.예약 겹치지 않게하기
         const otherReservationIndexList = getOtherReservationIndexList(reservationList, checkIn, checkOut)
-        console.log('otherReservationIndexList : ', otherReservationIndexList)
+        // console.log('otherReservationIndexList : ', otherReservationIndexList)
         if (otherReservationIndexList.indexOf({ checkIn: currentDate, location }) > -1) {
           return false
         }
@@ -96,8 +111,6 @@ export default function Price({ price, currentDate, reservation, roomNumber }) {
             // const OtherReservation = { checkIn: reserv.checkIn, location: reserv.location }
             // return draggingReservation !== OtherReservation
           })
-          console.log('filteredState')
-          console.log(filteredState)
           return [...filteredState, { ...sourceReservation, checkIn: currentDate, checkOut: addyyyyMMdd(currentDate, night), location: roomNumber }]
         })
         setCurrentReservation({ ...sourceReservation, checkIn: currentDate, checkOut: addyyyyMMdd(currentDate, night), location: roomNumber })
