@@ -1,15 +1,13 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
 import { useRecoilState, useRecoilValue } from 'recoil'
-import { currentReservationAtom, dayCountAtom, displayAtom, isDisplayCreateReservationAtom, reservationListAtom, roomTypeListAtom, standardDateAtom } from '../../../data/state'
+import { currentReservationAtom, dayCountAtom, isDisplayCreateReservationAtom, reservationListAtom } from '../../../data/state'
 import ReservationOverlay from '../Overlay/ReservationOverlay'
 import TargetOverlay from '../Overlay/TargetOverlay'
 import SourceOverlay from '../Overlay/SourceOverlay'
-import CreateReservation from '../CreateReservation'
-import { addyyyyMMdd, betweenyyyyMMdd, formatyyyyMMdd } from '../../../other/util/dateUtil'
+import { addyyyyMMdd, betweenyyyyMMdd } from '../../../other/util/dateUtil'
 
 export default function Price({ price, currentDate, reservation, roomNumber }) {
-  console.log(reservation)
   const [overlay, setOverlay] = useState({
     hoverColor: '',
     hoverData: '',
@@ -20,12 +18,11 @@ export default function Price({ price, currentDate, reservation, roomNumber }) {
   const dayCount = useRecoilValue(dayCountAtom)
   const [currentReservation, setCurrentReservation] = useRecoilState(currentReservationAtom)
   const [reservationList, setReservationList] = useRecoilState(reservationListAtom)
-  const [roomTypeList, setRoomTypeList] = useRecoilState(roomTypeListAtom)
   const [isDisplayCreateReservation, setIsDisplayCreateReservation] = useRecoilState(isDisplayCreateReservationAtom)
-  const standardDate = useRecoilValue(standardDateAtom)
+  //const standardDate = useRecoilValue(standardDateAtom)
 
   //useDrag, useDrop
-  const [{ isDragging }, drag, preview] = useDrag(
+  const [{ isDragging }, drag] = useDrag(
     () => ({
       type: 'item',
       item: () => {
@@ -42,10 +39,10 @@ export default function Price({ price, currentDate, reservation, roomNumber }) {
     }),
     [currentReservation, reservationList]
   )
-  const [{ isOver, canDrop }, drop] = useDrop(
+  const [{ isOver }, drop] = useDrop(
     () => ({
       accept: 'item',
-      canDrop: (item, monitor) => {
+      canDrop: (item) => {
         const checkIn = item.checkIn
         const checkOut = item.checkOut
         //1.예약 겹치지 않게하기
@@ -134,18 +131,18 @@ export default function Price({ price, currentDate, reservation, roomNumber }) {
     return otherReservationIndexList
   }
 
-  const getCanNotDropIndexList = (startDate, endDate, reservationLength) => {
-    const canNotDropIndexList = []
-    const rowLength = betweenyyyyMMdd(startDate, endDate)
+  // const getCanNotDropIndexList = (startDate, endDate, reservationLength) => {
+  //   const canNotDropIndexList = []
+  //   const rowLength = betweenyyyyMMdd(startDate, endDate)
 
-    let count = 0
-    for (let i = rowLength; i > rowLength - (reservationLength - 1); i--) {
-      count += 1
-      canNotDropIndexList.push(addyyyyMMdd(endDate, -count))
-    }
+  //   let count = 0
+  //   for (let i = rowLength; i > rowLength - (reservationLength - 1); i--) {
+  //     count += 1
+  //     canNotDropIndexList.push(addyyyyMMdd(endDate, -count))
+  //   }
 
-    return canNotDropIndexList
-  }
+  //   return canNotDropIndexList
+  // }
 
   const handleCreateReservation = () => {
     setIsDisplayCreateReservation(!isDisplayCreateReservation)
@@ -164,13 +161,10 @@ export default function Price({ price, currentDate, reservation, roomNumber }) {
     for (let i = checkIn; i !== checkOut; i = addyyyyMMdd(i, 1)) {
       reservationDateArray.push(i)
     }
-    console.log(reservationDateArray)
 
     return reservationDateArray
   }
   const reservationDateArray = getReservationDateArray()
-  console.log(currentDate)
-  console.log(reservationDateArray?.indexOf(currentDate))
 
   return (
     <>

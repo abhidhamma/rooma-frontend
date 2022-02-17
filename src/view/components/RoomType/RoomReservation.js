@@ -1,12 +1,12 @@
-import { useRecoilState, useRecoilValue } from 'recoil'
+import { useRecoilValue } from 'recoil'
 import { dayCountAtom, reservationListAtom, standardDateAtom } from '../../../data/state'
 import { addyyyyMMdd, formatyyyyMMdd } from '../../../other/util/dateUtil'
 import Price from './Price'
 
 export default function RoomReservation({ monthPrice, roomNumber }) {
-  const [reservationList, setReservationList] = useRecoilState(reservationListAtom)
+  const reservationList = useRecoilValue(reservationListAtom)
   const dayCount = useRecoilValue(dayCountAtom)
-  const [standardDate, setStandardDate] = useRecoilState(standardDateAtom)
+  const standardDate = useRecoilValue(standardDateAtom)
 
   const firstIndex = monthPrice.findIndex((day) => formatyyyyMMdd(day.date) === formatyyyyMMdd(standardDate))
   const lastIndex = firstIndex + dayCount
@@ -42,8 +42,8 @@ export default function RoomReservation({ monthPrice, roomNumber }) {
                 return isContain && reservation.location === roomNumber
               })
 
-              //standardDate와 dayCount로 이전달력에서 넘어와야하는게 있는지 확인하고
-              //그걸 필요한 Price의 date에 주면된다
+              //standardDate와 dayCount로 이전달력에서 넘어와야하는 예약이 있는지 확인하고
+              //그걸 필요한 Price의 reservation에 주면된다
               let isHangOnTwoCalendar = false
               //걸쳐있는 예약인지 확인하려면 endDate, endDate+1 둘다 들어있는 array면 된다
               const reservationDateArray = getReservationDateArray(currentReservation)
@@ -51,9 +51,6 @@ export default function RoomReservation({ monthPrice, roomNumber }) {
               const prevEndDate = addyyyyMMdd(startDate, -1)
 
               if (reservationDateArray.indexOf(startDate) > -1 && reservationDateArray.indexOf(prevEndDate) > -1 && currentDate === formatyyyyMMdd(standardDate)) {
-                console.log('isHangOnTwoCalendar')
-                console.log(day)
-                console.log(reservationDateArray)
                 isHangOnTwoCalendar = true
               }
 

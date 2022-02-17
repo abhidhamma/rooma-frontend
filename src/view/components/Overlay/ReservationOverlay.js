@@ -1,9 +1,9 @@
-import { useRecoilState, useRecoilValue } from 'recoil'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { displayAtom, standardDateAtom } from '../../../data/state'
 import { addyyyyMMdd, betweenyyyyMMdd, formatMMddE, formatyyyyMMdd, stringToDate } from '../../../other/util/dateUtil'
 
 export default function ReservationOverlay({ data, drag, dayCount, currentDate }) {
-  const [display, setDisplay] = useRecoilState(displayAtom)
+  const setDisplay = useSetRecoilState(displayAtom)
   const standardDate = useRecoilValue(standardDateAtom)
 
   const checkIn = formatMMddE(stringToDate(data.checkIn))
@@ -36,31 +36,19 @@ export default function ReservationOverlay({ data, drag, dayCount, currentDate }
     return reservationDateArray
   }
 
-  console.log('start')
   //이전달력에서 이어지는 경우 길이를 줄인다
   const reservationDateArray = getReservationDateArray({ checkIn: data.checkIn, checkOut: data.checkOut })
 
-  console.log(reservationDateArray)
   //걸쳐있는 예약인지 확인하려면 endDate, endDate+1 둘다 들어있는 array면 된다
   const startDate = formatyyyyMMdd(standardDate)
   const prevEndDate = addyyyyMMdd(startDate, -1)
-  console.log(startDate)
-  console.log(prevEndDate)
-  console.log(currentDate === startDate)
 
   if (reservationDateArray.indexOf(startDate) > -1 && reservationDateArray.indexOf(prevEndDate) > -1 && currentDate === startDate) {
     //여기서 length를 바꾸면 된다
     let originLength = betweenyyyyMMdd(data.checkIn, data.checkOut) // 4 // 2
     let prevLength = betweenyyyyMMdd(data.checkIn, startDate) // 3 // 1
     length = originLength - prevLength
-
-    console.log('originLength : ')
-    console.log(originLength)
-
-    console.log('prevLength : ')
-    console.log(prevLength)
   }
-  console.log('end')
 
   const showInfo = () => {
     setDisplay({
