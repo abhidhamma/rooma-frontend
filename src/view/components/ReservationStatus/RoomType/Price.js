@@ -27,11 +27,7 @@ export default function Price({ price, currentDate, reservation, roomNumber }) {
     () => ({
       type: 'item',
       item: () => {
-        console.log('item')
         let [reservation] = reservationList.filter((item) => item.checkIn === currentDate && item.location === roomNumber)
-        console.log('1')
-        console.log(reservation)
-        console.log(overlay)
 
         //양쪽 달력에 걸칠때 드래그 할 수 있도록 하기
         if (reservation === undefined) {
@@ -48,11 +44,7 @@ export default function Price({ price, currentDate, reservation, roomNumber }) {
             }
           }
         }
-        console.log('2')
-        console.log(reservation)
         if (reservation === undefined) {
-          console.log('3')
-          console.log(currentReservation)
           setOverlay({
             hoverColor: currentReservation.color,
             hoverData: currentReservation.data,
@@ -84,7 +76,7 @@ export default function Price({ price, currentDate, reservation, roomNumber }) {
         const location = item.location
         //1.예약 겹치지 않게하기
         const otherReservationIndexList = getOtherReservationIndexList(reservationList, checkIn, checkOut, location)
-        console.log('otherReservationIndexList : ', otherReservationIndexList)
+        // console.log('otherReservationIndexList : ', otherReservationIndexList)
         for (let i = 0; i < otherReservationIndexList.length; i++) {
           const reservation = otherReservationIndexList[i]
           //예약의 체크인 === 드래그중인 예약이 아니라(x) 드래그되고있는 위치의 날짜 currentDate
