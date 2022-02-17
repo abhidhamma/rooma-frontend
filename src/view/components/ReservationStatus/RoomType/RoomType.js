@@ -1,5 +1,3 @@
-import { useRecoilValue } from 'recoil'
-import { dayCountAtom } from '../../../data/state'
 import RoomReservation from './RoomReservation'
 
 export default function RoomType({ roomType }) {

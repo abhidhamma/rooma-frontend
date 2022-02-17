@@ -1,5 +1,5 @@
-import Container from './view/components/Container'
-import Header from './view/components/Header'
+import Header from './view/components/Common/Header'
+import Container from './view/components/ReservationStatus/Container'
 
 function App() {
   return (

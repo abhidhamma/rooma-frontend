@@ -1,6 +1,7 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil'
-import { displayAtom, standardDateAtom } from '../../../data/state'
-import { addyyyyMMdd, betweenyyyyMMdd, formatMMddE, formatyyyyMMdd, stringToDate } from '../../../other/util/dateUtil'
+import { addyyyyMMdd, betweenyyyyMMdd, formatMMddE, formatyyyyMMdd, stringToDate } from '../../../../other/util/common/dateUtil'
+import { getReservationDateArray } from '../../../../other/util/reservation/reservation'
+import { displayAtom, standardDateAtom } from '../../../../service/state/reservation/atom'
 
 export default function ReservationOverlay({ data, drag, dayCount, currentDate }) {
   const setDisplay = useSetRecoilState(displayAtom)
@@ -9,6 +10,7 @@ export default function ReservationOverlay({ data, drag, dayCount, currentDate }
   const checkIn = formatMMddE(stringToDate(data.checkIn))
   const checkOut = formatMMddE(stringToDate(data.checkOut))
   const night = betweenyyyyMMdd(data.checkIn, data.checkOut)
+  // const length = getReservationOverlayLength()
   let length = betweenyyyyMMdd(data.checkIn, data.checkOut)
 
   //달력끝을 넘어가는 경우 길이를 줄인다
@@ -20,24 +22,11 @@ export default function ReservationOverlay({ data, drag, dayCount, currentDate }
     length = length + gap
   }
 
-  const getReservationDateArray = (reservation) => {
-    const checkIn = reservation?.checkIn
-    const checkOut = reservation?.checkOut
-    if (reservation === undefined && checkIn === undefined && checkOut === undefined) {
-      return []
-    }
-
-    const reservationDateArray = []
-
-    for (let i = checkIn; i !== checkOut; i = addyyyyMMdd(i, 1)) {
-      reservationDateArray.push(i)
-    }
-
-    return reservationDateArray
-  }
-
   //이전달력에서 이어지는 경우 길이를 줄인다
-  const reservationDateArray = getReservationDateArray({ checkIn: data.checkIn, checkOut: data.checkOut })
+  let reservationDateArray = []
+  if (data !== undefined) {
+    reservationDateArray = getReservationDateArray(data.checkIn, data.checkOut)
+  }
 
   //걸쳐있는 예약인지 확인하려면 endDate, endDate+1 둘다 들어있는 array면 된다
   const startDate = formatyyyyMMdd(standardDate)
