@@ -27,8 +27,13 @@ export default function Price({ price, currentDate, reservation, roomNumber }) {
     () => ({
       type: 'item',
       item: () => {
-        let [reservation] = reservationList.filter((item) => item.checkIn === currentDate)
+        console.log('item')
+        let [reservation] = reservationList.filter((item) => item.checkIn === currentDate && item.location === roomNumber)
+        console.log('1')
+        console.log(reservation)
+        console.log(overlay)
 
+        //양쪽 달력에 걸칠때 드래그 할 수 있도록 하기
         if (reservation === undefined) {
           //찾는방법 동일한 roomNumber내에서 모든 checkIn과 checkOut 중에서 해당 버튼에 해당되는곳을 찾는다
 
@@ -43,7 +48,11 @@ export default function Price({ price, currentDate, reservation, roomNumber }) {
             }
           }
         }
+        console.log('2')
+        console.log(reservation)
         if (reservation === undefined) {
+          console.log('3')
+          console.log(currentReservation)
           setOverlay({
             hoverColor: currentReservation.color,
             hoverData: currentReservation.data,
@@ -81,11 +90,6 @@ export default function Price({ price, currentDate, reservation, roomNumber }) {
           //예약의 체크인 === 드래그중인 예약이 아니라(x) 드래그되고있는 위치의 날짜 currentDate
           //예약의 방이름 === 드래그중인 예약이 아니라(x) 드래그되고있는 위치의 방이름 currentDate
           if (reservation.checkIn === currentDate && reservation.location === roomNumber) {
-            console.log(reservation.checkIn)
-            console.log(currentDate)
-            console.log(reservation.location)
-            console.log(location)
-            console.log('false!!')
             return false
           }
         }
@@ -102,7 +106,7 @@ export default function Price({ price, currentDate, reservation, roomNumber }) {
         return true
       },
       drop: (item) => {
-        console.log('drop')
+        setCurrentReservation({ checkIn: null, checkOut: null, color: null, data: null })
         const sourceReservation = item
         const sourcecheckIn = item.checkIn
         const sourcecheckOut = item.checkOut
@@ -129,7 +133,6 @@ export default function Price({ price, currentDate, reservation, roomNumber }) {
 
           return [...filteredState, { ...sourceReservation, checkIn: currentDate, checkOut: addyyyyMMdd(currentDate, night), location: roomNumber }]
         })
-        //setCurrentReservation({ ...sourceReservation, checkIn: currentDate, checkOut: addyyyyMMdd(currentDate, night), location: roomNumber })
       },
       collect: (monitor) => ({
         isOver: !!monitor.isOver(),
@@ -156,7 +159,6 @@ export default function Price({ price, currentDate, reservation, roomNumber }) {
     const otherReservationIndexList = []
     const sourceLength = betweenyyyyMMdd(sourceCheckIn, sourceCheckOut)
 
-    console.log(reservationList)
     for (reservation of reservationList) {
       const name = reservation.data
       const checkIn = reservation.checkIn
