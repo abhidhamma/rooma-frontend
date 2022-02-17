@@ -102,6 +102,7 @@ export default function Price({ price, currentDate, reservation, roomNumber }) {
         return true
       },
       drop: (item) => {
+        console.log('drop')
         const sourceReservation = item
         const sourcecheckIn = item.checkIn
         const sourcecheckOut = item.checkOut
@@ -128,7 +129,7 @@ export default function Price({ price, currentDate, reservation, roomNumber }) {
 
           return [...filteredState, { ...sourceReservation, checkIn: currentDate, checkOut: addyyyyMMdd(currentDate, night), location: roomNumber }]
         })
-        setCurrentReservation({ ...sourceReservation, checkIn: currentDate, checkOut: addyyyyMMdd(currentDate, night), location: roomNumber })
+        //setCurrentReservation({ ...sourceReservation, checkIn: currentDate, checkOut: addyyyyMMdd(currentDate, night), location: roomNumber })
       },
       collect: (monitor) => ({
         isOver: !!monitor.isOver(),
