@@ -3,18 +3,18 @@ import { addyyyyMMdd, formatddE, formatyyyyMMdd } from '../common/dateUtil'
 
 /*
 위치 : RoomReservation, Price, ReservationOverlay
-설명 : 입실일과 퇴실일을 받아서 길이를 리턴한다
-매개변수 : checkIn(입실일), checkOut(퇴실일)
+설명 : 두 날짜를 받아서 첫번째 날짜에서 두번째날짜 이전일까지를 담은 array를 리턴한다
+매개변수 : startDate, endDate
 */
-export const getReservationDateArray = (checkIn, checkOut) => {
-  if (checkIn === undefined || checkOut === undefined) {
+export const getDateArray = (startDate, endDate) => {
+  if (startDate === undefined || endDate === undefined) {
     console.log('getReservationDateArray not exist')
     return []
   }
 
   const reservationDateArray = []
 
-  for (let i = checkIn; i !== checkOut; i = addyyyyMMdd(i, 1)) {
+  for (let i = startDate; i !== endDate; i = addyyyyMMdd(i, 1)) {
     reservationDateArray.push(i)
   }
 

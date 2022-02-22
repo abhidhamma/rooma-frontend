@@ -18,4 +18,4 @@ export const formatyyyyMMddE = formatWithOptions(locale, 'yyyy.MM.dd(E)')
 export const stringToDate = (yyyyMMdd) => toDate(parseISO(yyyyMMdd))
 export const betweenyyyyMMdd = (yyyyMMddEarlier, yyyyMMddLater) => differenceInCalendarDays(stringToDate(yyyyMMddLater), stringToDate(yyyyMMddEarlier))
 
-export const addyyyyMMdd = (yyyymmdd, days) => formatyyyyMMdd(addDays(days)(stringToDate(yyyymmdd)))
+export const addyyyyMMdd = (yyyyMMdd, days) => formatyyyyMMdd(addDays(days)(stringToDate(yyyyMMdd)))

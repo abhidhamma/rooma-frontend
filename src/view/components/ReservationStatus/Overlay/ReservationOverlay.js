@@ -1,6 +1,6 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { addyyyyMMdd, betweenyyyyMMdd, formatMMddE, formatyyyyMMdd, stringToDate } from '../../../../other/util/common/dateUtil'
-import { getReservationDateArray } from '../../../../other/util/reservation/reservation'
+import { getDateArray } from '../../../../other/util/reservation/reservation'
 import { displayAtom, standardDateAtom } from '../../../../service/state/reservation/atom'
 
 export default function ReservationOverlay({ data, drag, dayCount, currentDate }) {
@@ -25,7 +25,7 @@ export default function ReservationOverlay({ data, drag, dayCount, currentDate }
   //이전달력에서 이어지는 경우 길이를 줄인다
   let reservationDateArray = []
   if (data !== undefined) {
-    reservationDateArray = getReservationDateArray(data.checkIn, data.checkOut)
+    reservationDateArray = getDateArray(data.checkIn, data.checkOut)
   }
 
   //걸쳐있는 예약인지 확인하려면 endDate, endDate+1 둘다 들어있는 array면 된다

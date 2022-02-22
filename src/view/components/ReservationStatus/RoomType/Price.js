@@ -6,7 +6,7 @@ import TargetOverlay from '../Overlay/TargetOverlay'
 import SourceOverlay from '../Overlay/SourceOverlay'
 import { addyyyyMMdd, betweenyyyyMMdd } from '../../../../other/util/common/dateUtil'
 import { currentReservationAtom, dayCountAtom, displayAtom, isDisplayCreateReservationAtom, reservationListAtom } from '../../../../service/state/reservation/atom'
-import { getReservationDateArray } from '../../../../other/util/reservation/reservation'
+import { getDateArray } from '../../../../other/util/reservation/reservation'
 
 export default function Price({ price, currentDate, reservation, roomNumber }) {
   const [overlay, setOverlay] = useState({
@@ -39,7 +39,7 @@ export default function Price({ price, currentDate, reservation, roomNumber }) {
 
           //2.currentDate가 포함되는것 하나 찾기
           for (let i = 0; i < filterRoomNumber.length; i++) {
-            const reservationDateArray = getReservationDateArray(filterRoomNumber[i].checkIn, filterRoomNumber[i].checkOut)
+            const reservationDateArray = getDateArray(filterRoomNumber[i].checkIn, filterRoomNumber[i].checkOut)
             if (reservationDateArray.indexOf(currentDate) > -1) {
               reservation = filterRoomNumber[i]
             }
@@ -206,7 +206,7 @@ export default function Price({ price, currentDate, reservation, roomNumber }) {
   let reservationDateArray = []
 
   if (reservation !== undefined) {
-    reservationDateArray = getReservationDateArray(reservation?.checkIn, reservation?.checkOut)
+    reservationDateArray = getDateArray(reservation?.checkIn, reservation?.checkOut)
   }
 
   return (
