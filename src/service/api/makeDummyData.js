@@ -28,37 +28,16 @@ export default function makeDummyData(roomTypeCount) {
   // }
 
   const dummyData = []
-  // for (let i = 0; i < roomTypeCount; i++) {
-  //   dummyData.push({
-  //     roomTypeName: '디럭스더블',
-  //     roomNumbers: ['101호', '102호'],
-  //     roomNumberData: [makePriceData(), makePriceData()],
-  //   })
-  // }
-  dummyData.push({
-    roomTypeName: '스탠다드',
-    roomNumbers: ['101호', '102호'],
-    roomNumberData: [makePriceData(), makePriceData()],
-  })
-  dummyData.push({
-    roomTypeName: '슈페리어',
-    roomNumbers: ['103호', '104호'],
-    roomNumberData: [makePriceData(), makePriceData()],
-  })
-  dummyData.push({
-    roomTypeName: '디럭스',
-    roomNumbers: ['105호', '106호'],
-    roomNumberData: [makePriceData(), makePriceData()],
-  })
-  dummyData.push({
-    roomTypeName: '디럭스더블',
-    roomNumbers: ['107호', '108호'],
-    roomNumberData: [makePriceData(), makePriceData()],
-  })
-  dummyData.push({
-    roomTypeName: '스위트룸',
-    roomNumbers: ['109호', '110호'],
-    roomNumberData: [makePriceData(), makePriceData()],
-  })
+  let roomTypeNumberCount = 1
+  let roomNumberCount = 1
+  for (let i = 0; i < roomTypeCount; i++) {
+    dummyData.push({
+      roomTypeName: `디럭스더블${roomTypeNumberCount}`,
+      roomNumbers: [`${roomNumberCount}호`, `${roomNumberCount + 1}호`],
+      roomNumberData: [makePriceData(), makePriceData()],
+    })
+    roomTypeCount += 1
+    roomNumberCount += 2
+  }
   return dummyData
 }
