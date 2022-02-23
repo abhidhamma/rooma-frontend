@@ -36,7 +36,7 @@ export default function makeDummyData(roomTypeCount) {
       roomNumbers: [`${roomNumberCount}호`, `${roomNumberCount + 1}호`],
       roomNumberData: [makePriceData(), makePriceData()],
     })
-    roomTypeCount += 1
+    roomTypeNumberCount += 1
     roomNumberCount += 2
   }
   return dummyData

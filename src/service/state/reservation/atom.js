@@ -16,7 +16,7 @@ import {
 //객실가격의 더미데이터를 저장하는 atom
 export const roomTypeListAtom = atom({
   key: ROOMTYPE_LIST_ATOM,
-  default: makeDummyData(5),
+  default: makeDummyData(10),
 })
 
 //예약자정보의 더미데이터를 저장하는 atom
