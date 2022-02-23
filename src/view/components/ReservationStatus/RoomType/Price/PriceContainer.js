@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
-import { useRecoilState, useRecoilValue } from 'recoil'
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { getDateArray } from '../../../../../other/util/reservation/reservation'
 import { dayCountAtom, displayAtom, isDisplayCreateReservationAtom, lockedRoomListAtom, reservationListAtom, standardDateAtom } from '../../../../../service/state/reservation/atom'
 import { dropEffect, itemEffect, throttleCanDropEffect, throttleHoverEffect } from './PriceFunction'
@@ -13,7 +13,7 @@ export default function PriceContainer({ price, currentDate, roomNumber, reserva
   const [reservationList, setReservationList] = useRecoilState(reservationListAtom)
   const lockedRoomList = useRecoilValue(lockedRoomListAtom)
   const [isDisplayCreateReservation, setIsDisplayCreateReservation] = useRecoilState(isDisplayCreateReservationAtom)
-  const [display, setDisplay] = useRecoilState(displayAtom)
+  const setDisplay = useSetRecoilState(displayAtom)
   const standardDate = useRecoilValue(standardDateAtom)
 
   const filteredReservationList = reservationList.filter((reservation) => reservation.location === roomNumber)
@@ -22,7 +22,7 @@ export default function PriceContainer({ price, currentDate, roomNumber, reserva
   const [{ isDragging }, drag] = useDrag(
     () => ({
       type: 'item',
-      item: () => itemEffect(filteredReservationList, currentDate, standardDate, setOverlay, roomNumber),
+      item: () => itemEffect(filteredReservationList, currentDate, standardDate, setOverlay, roomNumber, setDisplay),
       collect: (monitor) => ({
         isDragging: !!monitor.isDragging(),
       }),
@@ -33,14 +33,14 @@ export default function PriceContainer({ price, currentDate, roomNumber, reserva
     () => ({
       accept: 'item',
       canDrop: (item) => throttleCanDropEffect(item, reservationList, lockedRoomList, currentDate, roomNumber),
-      drop: (item) => dropEffect(item, display, setDisplay, setOverlay, setReservationList, currentDate, roomNumber),
+      drop: (item) => dropEffect(item, setDisplay, setOverlay, setReservationList, currentDate, roomNumber),
       collect: (monitor) => ({
         isOver: !!monitor.isOver(),
         canDrop: !!monitor.canDrop(),
       }),
       hover: (item) => throttleHoverEffect(item, setOverlay),
     }),
-    [reservationList, overlay, setReservationList, setOverlay]
+    [reservationList]
   )
 
   const handleCreateReservation = () => {

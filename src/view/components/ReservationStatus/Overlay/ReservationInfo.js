@@ -1,4 +1,8 @@
-export default function ReservationInfo({ display }) {
+import { useRecoilValue } from 'recoil'
+import { displayAtom } from '../../../../service/state/reservation/atom'
+
+export default function ReservationInfo() {
+  const display = useRecoilValue(displayAtom)
   return (
     <div className='summary-info' style={{ position: 'absolute', top: '87px', left: '618px', display: display.display }}>
       <div className='top-info'>

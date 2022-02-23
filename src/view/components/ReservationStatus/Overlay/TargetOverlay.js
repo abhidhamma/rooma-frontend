@@ -1,4 +1,5 @@
 export default function TargetOverlay({ data }) {
+  console.log('TargetOverlay', data.hoverData, 'render')
   return (
     <div
       style={{

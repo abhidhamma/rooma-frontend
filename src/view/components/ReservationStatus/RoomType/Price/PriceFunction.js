@@ -2,14 +2,17 @@ import _ from 'lodash'
 import { addyyyyMMdd, betweenyyyyMMdd, formatyyyyMMdd } from '../../../../../other/util/common/dateUtil'
 import { getDateArray } from '../../../../../other/util/reservation/reservation'
 
-export const itemEffect = (filteredReservationList, currentDate, standardDate, setOverlay, roomNumber) => {
+export const itemEffect = (filteredReservationList, currentDate, standardDate, setOverlay, roomNumber, setDisplay) => {
   let [reservation] = filteredReservationList.filter((item) => item.checkIn === currentDate)
+  console.log('firstReservation')
+  console.log(reservation)
 
   //양쪽 달력에 걸칠때 드래그 할 수 있도록 하기
   reservation = getReservationWhenHangOverTwoCalendar(reservation, filteredReservationList, currentDate, standardDate, roomNumber)
-
-  console.log('item')
+  console.log('secondReservation')
   console.log(reservation)
+
+  setDisplay((prev) => ({ ...prev, display: 'none' }))
   setOverlay({
     hoverColor: reservation.color,
     hoverData: reservation.data,
@@ -18,8 +21,8 @@ export const itemEffect = (filteredReservationList, currentDate, standardDate, s
   return reservation
 }
 
-export const dropEffect = (item, display, setDisplay, setOverlay, setReservationList, currentDate, roomNumber) => {
-  setDisplay({ ...display, display: 'none' })
+export const dropEffect = (item, setDisplay, setOverlay, setReservationList, currentDate, roomNumber) => {
+  setDisplay((prev) => ({ ...prev, display: 'none' }))
   const sourceReservation = item
   const sourcecheckIn = item.checkIn
   const sourcecheckOut = item.checkOut
@@ -43,17 +46,15 @@ export const throttleCanDropEffect = _.throttle((item, reservationList, lockedRo
   const checkOut = item.checkOut
   const location = item.location
   return getIsCanNotDrop(reservationList, lockedRoomList, checkIn, checkOut, location, currentDate, roomNumber)
-}, 200)
+}, 500)
 
 export const throttleHoverEffect = _.throttle((item, setOverlay) => {
-  console.log('hover')
-  console.log(item)
   setOverlay({
     hoverColor: item.color,
     hoverData: item.data,
     hoverLength: betweenyyyyMMdd(item.checkIn, item.checkOut),
   })
-}, 200)
+}, 500)
 
 export const getReservationWhenHangOverTwoCalendar = (reservation, filteredReservationList, currentDate, standardDate, roomNumber) => {
   if (reservation === undefined && currentDate === formatyyyyMMdd(standardDate)) {

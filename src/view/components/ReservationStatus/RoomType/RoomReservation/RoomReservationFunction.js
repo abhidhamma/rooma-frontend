@@ -29,6 +29,21 @@ export const getCurrentReservationList = (reservationList, standardDate, dayCoun
   })
 }
 
+export const getCurrentLockedRoomList = (lockedRoomList, standardDate, dayCount, roomNumber) => {
+  const currentyyyyMMdd = formatyyyyMMdd(standardDate)
+  const endyyyyMMdd = addyyyyMMdd(currentyyyyMMdd, dayCount)
+  const currentCalendarDateArray = getDateArray(currentyyyyMMdd, endyyyyMMdd)
+  return lockedRoomList.filter((lockedRoom) => {
+    if (lockedRoom.location !== roomNumber) {
+      return false
+    }
+    if (currentCalendarDateArray.indexOf(lockedRoom.targetDate) > -1) {
+      return true
+    }
+    return false
+  })
+}
+
 //표시될 예약이 있는경우 가격 리스트에 포함시키기
 export const getCurrentCalendar = (currentMonthPriceList, currentReservationList, currentLockedRoomList, standardDate) => {
   let priceList = currentMonthPriceList

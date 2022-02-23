@@ -2,6 +2,7 @@ import { formatyyyyMMdd } from '../../../../../other/util/common/dateUtil'
 import Price from '../Price'
 
 export default function RoomReservationPresenter({ currentCalendarList, roomNumber }) {
+  console.log('RoomReservationPresenter render!')
   return (
     <>
       {currentCalendarList.length === 0 ? (

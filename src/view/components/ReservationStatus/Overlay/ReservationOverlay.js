@@ -3,7 +3,8 @@ import { addyyyyMMdd, betweenyyyyMMdd, formatMMddE, formatyyyyMMdd, stringToDate
 import { getDateArray } from '../../../../other/util/reservation/reservation'
 import { displayAtom, standardDateAtom } from '../../../../service/state/reservation/atom'
 
-export default function ReservationOverlay({ data, drag, dayCount, currentDate }) {
+function ReservationOverlay({ data, drag, dayCount, currentDate }) {
+  console.log('ReservationOverlay', data.data, 'render')
   const setDisplay = useSetRecoilState(displayAtom)
   const standardDate = useRecoilValue(standardDateAtom)
 
@@ -40,6 +41,7 @@ export default function ReservationOverlay({ data, drag, dayCount, currentDate }
   }
 
   const showInfo = () => {
+    console.log('showInfo called...')
     setDisplay({
       display: 'block',
       name: data.data,
@@ -51,6 +53,7 @@ export default function ReservationOverlay({ data, drag, dayCount, currentDate }
     })
   }
   const hideInfo = () => {
+    console.log('hideInfo called...')
     setDisplay({
       display: 'none',
       name: data.data,
@@ -63,8 +66,8 @@ export default function ReservationOverlay({ data, drag, dayCount, currentDate }
   }
   return (
     <div
-      onMouseOver={showInfo}
-      onMouseOut={hideInfo}
+      onMouseEnter={showInfo}
+      onMouseLeave={hideInfo}
       ref={drag}
       style={{
         display: 'grid',
@@ -81,3 +84,5 @@ export default function ReservationOverlay({ data, drag, dayCount, currentDate }
     </div>
   )
 }
+
+export default ReservationOverlay

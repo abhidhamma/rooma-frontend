@@ -1,5 +1,5 @@
 import { useRecoilValue } from 'recoil'
-import { displayAtom, isDisplayCreateReservationAtom, reservationListAtom, roomTypeListAtom } from '../../../service/state/reservation/atom'
+import { isDisplayCreateReservationAtom, roomTypeListAtom } from '../../../service/state/reservation/atom'
 import CreateReservation from './Popup/CreateReservation'
 import ReservationInfo from './Overlay/ReservationInfo'
 import ReservationScheulerHeader from './ReservationScheuler/ReservationScheulerHeader'
@@ -8,7 +8,7 @@ import ReservationStatusHeader from './ReservationStatusHeader'
 
 export default function Container() {
   const roomTypeList = useRecoilValue(roomTypeListAtom)
-  const display = useRecoilValue(displayAtom)
+
   const isDisplayCreateReservation = useRecoilValue(isDisplayCreateReservationAtom)
 
   // console.log(reservationList)
@@ -29,7 +29,7 @@ export default function Container() {
                 <RoomType key={index} roomType={roomType} />
               ))}
               {/* <!-- S:layer --> */}
-              <ReservationInfo display={display} />
+              <ReservationInfo />
               {/* <!-- E:layer --> */}
             </div>
           </div>
