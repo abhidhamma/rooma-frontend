@@ -1,12 +1,10 @@
 import { useState } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
 import { useRecoilState, useRecoilValue } from 'recoil'
-import { betweenyyyyMMdd } from '../../../../../other/util/common/dateUtil'
 import { getDateArray } from '../../../../../other/util/reservation/reservation'
 import { dayCountAtom, displayAtom, isDisplayCreateReservationAtom, lockedRoomListAtom, reservationListAtom, standardDateAtom } from '../../../../../service/state/reservation/atom'
-import { dropEffect, getReservationWhenHangOverTwoCalendar, throttleCanDropEffect, throttleHoverEffect } from './PriceFunction'
+import { dropEffect, itemEffect, throttleCanDropEffect, throttleHoverEffect } from './PriceFunction'
 import PricePresenter from './PricePresenter'
-import _ from 'lodash'
 
 export default function PriceContainer({ price, currentDate, roomNumber, reservation, lockedRoom }) {
   const [overlay, setOverlay] = useState({ hoverColor: '', hoverData: '', hoverLength: '' })
@@ -72,19 +70,4 @@ export default function PriceContainer({ price, currentDate, roomNumber, reserva
   }
 
   return <PricePresenter {...data} />
-}
-
-const itemEffect = (filteredReservationList, currentDate, standardDate, setOverlay, roomNumber) => {
-  console.log('item')
-  let [reservation] = filteredReservationList.filter((item) => item.checkIn === currentDate)
-
-  //양쪽 달력에 걸칠때 드래그 할 수 있도록 하기
-  reservation = getReservationWhenHangOverTwoCalendar(reservation, filteredReservationList, currentDate, standardDate, roomNumber)
-
-  setOverlay({
-    hoverColor: reservation.color,
-    hoverData: reservation.data,
-    hoverLength: betweenyyyyMMdd(reservation.checkIn, reservation.checkOut),
-  })
-  return reservation
 }

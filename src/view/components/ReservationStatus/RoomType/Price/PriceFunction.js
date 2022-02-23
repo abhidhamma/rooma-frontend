@@ -2,8 +2,23 @@ import _ from 'lodash'
 import { addyyyyMMdd, betweenyyyyMMdd, formatyyyyMMdd } from '../../../../../other/util/common/dateUtil'
 import { getDateArray } from '../../../../../other/util/reservation/reservation'
 
+export const itemEffect = (filteredReservationList, currentDate, standardDate, setOverlay, roomNumber) => {
+  let [reservation] = filteredReservationList.filter((item) => item.checkIn === currentDate)
+
+  //양쪽 달력에 걸칠때 드래그 할 수 있도록 하기
+  reservation = getReservationWhenHangOverTwoCalendar(reservation, filteredReservationList, currentDate, standardDate, roomNumber)
+
+  console.log('item')
+  console.log(reservation)
+  setOverlay({
+    hoverColor: reservation.color,
+    hoverData: reservation.data,
+    hoverLength: betweenyyyyMMdd(reservation.checkIn, reservation.checkOut),
+  })
+  return reservation
+}
+
 export const dropEffect = (item, display, setDisplay, setOverlay, setReservationList, currentDate, roomNumber) => {
-  console.log('drop')
   setDisplay({ ...display, display: 'none' })
   const sourceReservation = item
   const sourcecheckIn = item.checkIn
@@ -31,6 +46,8 @@ export const throttleCanDropEffect = _.throttle((item, reservationList, lockedRo
 }, 200)
 
 export const throttleHoverEffect = _.throttle((item, setOverlay) => {
+  console.log('hover')
+  console.log(item)
   setOverlay({
     hoverColor: item.color,
     hoverData: item.data,

@@ -1,5 +1,5 @@
 export default function SourceOverlay({ data }) {
-  const { hoverColor, hoverData, hoverLength } = data
+  const { hoverColor, hoverLength } = data
   return (
     <div
       style={{
