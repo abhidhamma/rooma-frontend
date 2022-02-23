@@ -8,7 +8,6 @@ import ReservationStatusHeader from './ReservationStatusHeader'
 
 export default function Container() {
   const roomTypeList = useRecoilValue(roomTypeListAtom)
-  const reservationList = useRecoilValue(reservationListAtom)
   const display = useRecoilValue(displayAtom)
   const isDisplayCreateReservation = useRecoilValue(isDisplayCreateReservationAtom)
 

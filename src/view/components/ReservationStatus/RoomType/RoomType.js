@@ -15,9 +15,9 @@ export default function RoomType({ roomType }) {
         ))}
       </div>
       <div className='room-state'>
-        {roomType.monthPriceList.map((monthPrice, index) => {
+        {roomType.roomNumberData.map((monthPriceList, index) => {
           const roomNumber = roomType.roomNumbers[index]
-          return <RoomReservation key={index} monthPrice={monthPrice} roomNumber={roomNumber} />
+          return <RoomReservation key={index} monthPriceList={monthPriceList} roomNumber={roomNumber} />
         })}
       </div>
     </div>

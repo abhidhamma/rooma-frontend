@@ -7,6 +7,7 @@ import {
   DAY_COUNT_ATOM,
   DISPLAY_ATOM,
   IS_DISPLAY_CREATE_RESERVATION_ATOM,
+  LOCKED_ROOM_LIST_ATOM,
   RESERVATION_LIST_ATOM,
   ROOMTYPE_LIST_ATOM,
   STANDARD_DATE_ATOM,
@@ -15,7 +16,7 @@ import {
 //객실가격의 더미데이터를 저장하는 atom
 export const roomTypeListAtom = atom({
   key: ROOMTYPE_LIST_ATOM,
-  default: makeDummyData(1),
+  default: makeDummyData(3),
 })
 
 //예약자정보의 더미데이터를 저장하는 atom
@@ -31,6 +32,18 @@ export const reservationListAtom = atom({
   ],
 })
 
+//잠금객실 정보를 저장하는 atom
+export const lockedRoomListAtom = atom({
+  key: LOCKED_ROOM_LIST_ATOM,
+  default: [
+    { targetDate: fromToday(20), location: '101호' },
+    { targetDate: fromToday(21), location: '101호' },
+    { targetDate: fromToday(22), location: '101호' },
+    { targetDate: fromToday(20), location: '102호' },
+    { targetDate: fromToday(21), location: '102호' },
+    { targetDate: fromToday(22), location: '102호' },
+  ],
+})
 //Price컴포넌트에 예약이 있을때, 현재예약을 표시해주는 atom
 export const currentReservationAtom = atom({
   key: CURRENT_RESERVATION_ATOM,
