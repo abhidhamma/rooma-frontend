@@ -13,9 +13,8 @@ export const getCurrentMonthPrice = (monthPriceList, standardDate, dayCount) => 
 export const getCurrentReservationList = (reservationList, standardDate, dayCount, roomNumber) => {
   //이 달력뒤에 예약이 있을 수 있으므로 겹치지 않도록
   //reservation을 찾는 범위를 현재달력의 가장 긴 예약만큼 더 준다
-  const filteredReservationList = reservationList.filter((reservation) => reservation.location === roomNumber)
-  const longestLength = filteredReservationList.map((reservation) => betweenyyyyMMdd(reservation.checkIn, reservation.checkOut)).reduce((prev, current) => Math.max(prev, current))
-
+  const filteredReservationList = reservationList.filter((reservation) => reservation.location === roomNumber).map((reservation) => betweenyyyyMMdd(reservation.checkIn, reservation.checkOut))
+  const longestLength = filteredReservationList.length === 0 ? 0 : filteredReservationList.reduce((prev, current) => Math.max(prev, current))
   const currentyyyyMMdd = formatyyyyMMdd(standardDate)
   const endyyyyMMdd = addyyyyMMdd(currentyyyyMMdd, dayCount + longestLength)
   const currentCalendarDateArray = getDateArray(currentyyyyMMdd, endyyyyMMdd)
