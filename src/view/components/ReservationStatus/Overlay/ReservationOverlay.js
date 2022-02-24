@@ -10,7 +10,6 @@ function ReservationOverlay({ data, drag, dayCount, currentDate }) {
   const checkIn = formatMMddE(stringToDate(data.checkIn))
   const checkOut = formatMMddE(stringToDate(data.checkOut))
   const night = betweenyyyyMMdd(data.checkIn, data.checkOut)
-  // const length = getReservationOverlayLength()
   let length = betweenyyyyMMdd(data.checkIn, data.checkOut)
 
   //달력끝을 넘어가는 경우 길이를 줄인다

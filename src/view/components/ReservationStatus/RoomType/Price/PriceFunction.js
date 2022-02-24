@@ -37,11 +37,12 @@ export const dropEffect = (item, setDisplay, setOverlay, setReservationList, cur
   })
 }
 
-export const throttleCanDropEffect = _.throttle((item, filteredReservationList, lockedRoomList, currentDate, roomNumber) => {
+export const throttleCanDropEffect = _.throttle((item, filteredReservationList, lockedRoomList, lockedRoom, currentDate, roomNumber) => {
   const checkIn = item.checkIn
   const checkOut = item.checkOut
   const location = item.location
-  return getIsCanNotDrop(filteredReservationList, lockedRoomList, checkIn, checkOut, location, currentDate, roomNumber)
+  const isLockedRoom = lockedRoom?.targetDate !== undefined
+  return getIsCanNotDrop(filteredReservationList, lockedRoomList, isLockedRoom, checkIn, checkOut, location, currentDate, roomNumber)
 }, 200)
 
 export const throttleHoverEffect = _.throttle((item, setOverlay) => {
@@ -67,7 +68,12 @@ export const getReservationWhenHangOverTwoCalendar = (reservation, filteredReser
   return reservation
 }
 
-const getIsCanNotDrop = (filteredReservationList, lockedRoomList, sourceCheckIn, sourceCheckOut, sourceLocation, currentDate, roomNumber) => {
+const getIsCanNotDrop = (filteredReservationList, lockedRoomList, isLoockedRoom, sourceCheckIn, sourceCheckOut, sourceLocation, currentDate, roomNumber) => {
+  //0.자신이 잠긴방일경우 false 리턴
+  if (isLoockedRoom) {
+    return false
+  }
+
   //1.서로다른 예약끼리 겹치지 않게하기
   const otherReservationIndexList = getOtherReservationIndexList(filteredReservationList, sourceCheckIn, sourceCheckOut, sourceLocation)
   // console.log('otherReservationIndexList : ', otherReservationIndexList)

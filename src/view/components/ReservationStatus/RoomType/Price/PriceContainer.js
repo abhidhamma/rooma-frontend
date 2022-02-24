@@ -28,7 +28,7 @@ export default function PriceContainer({ price, currentDate, roomNumber, reserva
   const [{ isOver }, drop] = useDrop(
     () => ({
       accept: 'item',
-      canDrop: (item) => throttleCanDropEffect(item, currentReservationList, lockedRoomList, currentDate, roomNumber),
+      canDrop: (item) => throttleCanDropEffect(item, currentReservationList, lockedRoomList, lockedRoom, currentDate, roomNumber),
       drop: (item) => dropEffect(item, setDisplay, setOverlay, setReservationList, currentDate, roomNumber),
       collect: (monitor) => ({
         isOver: !!monitor.isOver(),
@@ -36,7 +36,7 @@ export default function PriceContainer({ price, currentDate, roomNumber, reserva
       }),
       hover: (item) => throttleHoverEffect(item, setOverlay),
     }),
-    [currentReservationList, lockedRoomList, currentDate, roomNumber]
+    [currentReservationList, lockedRoomList, lockedRoom, currentDate, roomNumber]
   )
 
   const handleCreateReservation = () => {
