@@ -15,5 +15,5 @@ export default function RoomReservationContainer({ monthPriceList, roomNumber })
 
   const currentCalendarList = getCurrentCalendar(currentMonthPriceList, currentReservationList, currentLockedRoomList, standardDate)
 
-  return <RoomReservationPresenter currentCalendarList={currentCalendarList} roomNumber={roomNumber} />
+  return <RoomReservationPresenter currentCalendarList={currentCalendarList} currentReservationList={currentReservationList} roomNumber={roomNumber} />
 }

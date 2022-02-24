@@ -1,38 +1,38 @@
-import { useState } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { getDateArray } from '../../../../../other/util/reservation/reservation'
-import { dayCountAtom, displayAtom, isDisplayCreateReservationAtom, lockedRoomListAtom, reservationListAtom, standardDateAtom } from '../../../../../service/state/reservation/atom'
+import { dayCountAtom, displayAtom, isDisplayCreateReservationAtom, lockedRoomListAtom, overlayAtom, reservationListAtom, standardDateAtom } from '../../../../../service/state/reservation/atom'
 import { dropEffect, itemEffect, throttleCanDropEffect, throttleHoverEffect } from './PriceFunction'
 import PricePresenter from './PricePresenter'
 
-export default function PriceContainer({ price, currentDate, roomNumber, reservation, lockedRoom }) {
-  const [overlay, setOverlay] = useState({ hoverColor: '', hoverData: '', hoverLength: '' })
-
+export default function PriceContainer({ price, currentDate, roomNumber, reservation, lockedRoom, currentReservationList }) {
+  if (currentDate === '20220305' && roomNumber === '1호') {
+    console.log('리렌더링되는 이유')
+    console.log(price, currentDate, roomNumber, reservation, lockedRoom, currentReservationList)
+  }
   const dayCount = useRecoilValue(dayCountAtom)
-  const [reservationList, setReservationList] = useRecoilState(reservationListAtom)
-  const lockedRoomList = useRecoilValue(lockedRoomListAtom)
-  const [isDisplayCreateReservation, setIsDisplayCreateReservation] = useRecoilState(isDisplayCreateReservationAtom)
-  const setDisplay = useSetRecoilState(displayAtom)
   const standardDate = useRecoilValue(standardDateAtom)
-
-  const filteredReservationList = reservationList.filter((reservation) => reservation.location === roomNumber)
+  const lockedRoomList = useRecoilValue(lockedRoomListAtom)
+  const setDisplay = useSetRecoilState(displayAtom)
+  const setOverlay = useSetRecoilState(overlayAtom)
+  const setReservationList = useSetRecoilState(reservationListAtom)
+  const setIsDisplayCreateReservation = useSetRecoilState(isDisplayCreateReservationAtom)
 
   //useDrag, useDrop
   const [{ isDragging }, drag] = useDrag(
     () => ({
       type: 'item',
-      item: () => itemEffect(filteredReservationList, currentDate, standardDate, setOverlay, roomNumber, setDisplay),
+      item: () => itemEffect(currentReservationList, currentDate, standardDate, setOverlay, roomNumber, setDisplay),
       collect: (monitor) => ({
         isDragging: !!monitor.isDragging(),
       }),
     }),
-    [reservationList, reservation, currentDate]
+    [currentReservationList, currentDate, standardDate, setOverlay, roomNumber, setDisplay]
   )
   const [{ isOver }, drop] = useDrop(
     () => ({
       accept: 'item',
-      canDrop: (item) => throttleCanDropEffect(item, reservationList, lockedRoomList, currentDate, roomNumber),
+      canDrop: (item) => throttleCanDropEffect(item, currentReservationList, lockedRoomList, currentDate, roomNumber),
       drop: (item) => dropEffect(item, setDisplay, setOverlay, setReservationList, currentDate, roomNumber),
       collect: (monitor) => ({
         isOver: !!monitor.isOver(),
@@ -40,11 +40,11 @@ export default function PriceContainer({ price, currentDate, roomNumber, reserva
       }),
       hover: (item) => throttleHoverEffect(item, setOverlay),
     }),
-    [reservationList]
+    [currentReservationList, lockedRoomList, currentDate, roomNumber]
   )
 
   const handleCreateReservation = () => {
-    setIsDisplayCreateReservation(!isDisplayCreateReservation)
+    setIsDisplayCreateReservation((prev) => !prev)
   }
 
   //달력이 걸치는 경우? checkIn부터 checkOut까지의 값을 모두 넣고 indexOf로 currentDate와 동일한게 있는지 찾는다
@@ -63,7 +63,6 @@ export default function PriceContainer({ price, currentDate, roomNumber, reserva
     reservation,
     lockedRoom,
     currentDate,
-    overlay,
     dayCount,
     reservationDateArray,
     handleCreateReservation,

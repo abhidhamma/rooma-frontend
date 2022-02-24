@@ -1,4 +1,4 @@
-import { addyyyyMMdd, formatyyyyMMdd } from '../../../../../other/util/common/dateUtil'
+import { addyyyyMMdd, formatyyyyMMdd, betweenyyyyMMdd } from '../../../../../other/util/common/dateUtil'
 import { getDateArray } from '../../../../../other/util/reservation/reservation'
 
 //현재 보일 캘린더의 날짜별 가격 목록
@@ -9,15 +9,21 @@ export const getCurrentMonthPrice = (monthPriceList, standardDate, dayCount) => 
 }
 
 //현재 보일 캘린더에 포함될 예약 목록
+
 export const getCurrentReservationList = (reservationList, standardDate, dayCount, roomNumber) => {
+  //이 달력뒤에 예약이 있을 수 있으므로 겹치지 않도록
+  //reservation을 찾는 범위를 현재달력의 가장 긴 예약만큼 더 준다
+  const filteredReservationList = reservationList.filter((reservation) => reservation.location === roomNumber)
+  const longestLength = filteredReservationList.map((reservation) => betweenyyyyMMdd(reservation.checkIn, reservation.checkOut)).reduce((prev, current) => Math.max(prev, current))
+
   const currentyyyyMMdd = formatyyyyMMdd(standardDate)
-  const endyyyyMMdd = addyyyyMMdd(currentyyyyMMdd, dayCount)
+  const endyyyyMMdd = addyyyyMMdd(currentyyyyMMdd, dayCount + longestLength)
   const currentCalendarDateArray = getDateArray(currentyyyyMMdd, endyyyyMMdd)
+
   return reservationList.filter((reservation) => {
     if (reservation.location !== roomNumber) {
       return false
     }
-
     const reservationDateArray = getDateArray(reservation.checkIn, reservation.checkOut)
     for (let i = 0; i < reservationDateArray.length; i++) {
       const reservationDate = reservationDateArray[i]

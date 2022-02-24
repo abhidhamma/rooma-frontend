@@ -4,7 +4,6 @@ import { getDateArray } from '../../../../other/util/reservation/reservation'
 import { displayAtom, standardDateAtom } from '../../../../service/state/reservation/atom'
 
 function ReservationOverlay({ data, drag, dayCount, currentDate }) {
-  console.log('ReservationOverlay', data.data, 'render')
   const setDisplay = useSetRecoilState(displayAtom)
   const standardDate = useRecoilValue(standardDateAtom)
 
@@ -41,7 +40,6 @@ function ReservationOverlay({ data, drag, dayCount, currentDate }) {
   }
 
   const showInfo = () => {
-    console.log('showInfo called...')
     setDisplay({
       display: 'block',
       name: data.data,
@@ -53,7 +51,6 @@ function ReservationOverlay({ data, drag, dayCount, currentDate }) {
     })
   }
   const hideInfo = () => {
-    console.log('hideInfo called...')
     setDisplay({
       display: 'none',
       name: data.data,

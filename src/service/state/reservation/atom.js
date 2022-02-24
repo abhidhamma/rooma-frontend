@@ -8,6 +8,7 @@ import {
   DISPLAY_ATOM,
   IS_DISPLAY_CREATE_RESERVATION_ATOM,
   LOCKED_ROOM_LIST_ATOM,
+  OVERLAY_ATOM,
   RESERVATION_LIST_ATOM,
   ROOMTYPE_LIST_ATOM,
   STANDARD_DATE_ATOM,
@@ -75,4 +76,10 @@ export const displayAtom = atom({
     display: 'none',
     name: '홍길동',
   },
+})
+
+//overlay의 상태를 저장하는 atom
+export const overlayAtom = atom({
+  key: OVERLAY_ATOM,
+  default: { hoverColor: '', hoverData: '', hoverLength: '' },
 })

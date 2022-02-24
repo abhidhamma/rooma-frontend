@@ -4,13 +4,9 @@ import { getDateArray } from '../../../../../other/util/reservation/reservation'
 
 export const itemEffect = (filteredReservationList, currentDate, standardDate, setOverlay, roomNumber, setDisplay) => {
   let [reservation] = filteredReservationList.filter((item) => item.checkIn === currentDate)
-  console.log('firstReservation')
-  console.log(reservation)
 
   //양쪽 달력에 걸칠때 드래그 할 수 있도록 하기
   reservation = getReservationWhenHangOverTwoCalendar(reservation, filteredReservationList, currentDate, standardDate, roomNumber)
-  console.log('secondReservation')
-  console.log(reservation)
 
   setDisplay((prev) => ({ ...prev, display: 'none' }))
   setOverlay({
@@ -41,11 +37,11 @@ export const dropEffect = (item, setDisplay, setOverlay, setReservationList, cur
   })
 }
 
-export const throttleCanDropEffect = _.throttle((item, reservationList, lockedRoomList, currentDate, roomNumber) => {
+export const throttleCanDropEffect = _.throttle((item, filteredReservationList, lockedRoomList, currentDate, roomNumber) => {
   const checkIn = item.checkIn
   const checkOut = item.checkOut
   const location = item.location
-  return getIsCanNotDrop(reservationList, lockedRoomList, checkIn, checkOut, location, currentDate, roomNumber)
+  return getIsCanNotDrop(filteredReservationList, lockedRoomList, checkIn, checkOut, location, currentDate, roomNumber)
 }, 200)
 
 export const throttleHoverEffect = _.throttle((item, setOverlay) => {
@@ -71,9 +67,9 @@ export const getReservationWhenHangOverTwoCalendar = (reservation, filteredReser
   return reservation
 }
 
-const getIsCanNotDrop = (reservationList, lockedRoomList, sourceCheckIn, sourceCheckOut, sourceLocation, currentDate, roomNumber) => {
+const getIsCanNotDrop = (filteredReservationList, lockedRoomList, sourceCheckIn, sourceCheckOut, sourceLocation, currentDate, roomNumber) => {
   //1.서로다른 예약끼리 겹치지 않게하기
-  const otherReservationIndexList = getOtherReservationIndexList(reservationList, sourceCheckIn, sourceCheckOut, sourceLocation)
+  const otherReservationIndexList = getOtherReservationIndexList(filteredReservationList, sourceCheckIn, sourceCheckOut, sourceLocation)
   // console.log('otherReservationIndexList : ', otherReservationIndexList)
   for (let i = 0; i < otherReservationIndexList.length; i++) {
     const otherReservation = otherReservationIndexList[i]

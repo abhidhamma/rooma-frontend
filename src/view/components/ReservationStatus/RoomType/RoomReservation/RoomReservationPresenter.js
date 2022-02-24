@@ -1,8 +1,9 @@
 import { formatyyyyMMdd } from '../../../../../other/util/common/dateUtil'
 import Price from '../Price'
 
-export default function RoomReservationPresenter({ currentCalendarList, roomNumber }) {
+export default function RoomReservationPresenter({ currentCalendarList, currentReservationList, roomNumber }) {
   console.log('RoomReservationPresenter render!')
+  console.log('!!!!!!!!!!구분선!!!!!!!!!!')
   return (
     <>
       {currentCalendarList.length === 0 ? (
@@ -16,9 +17,9 @@ export default function RoomReservationPresenter({ currentCalendarList, roomNumb
             const currentLockedRoom = day.lockedRoom
 
             return currentReservation === undefined ? (
-              <Price key={dayId} price={day.price} currentDate={currentDate} roomNumber={roomNumber} lockedRoom={currentLockedRoom} />
+              <Price key={dayId} price={day.price} currentDate={currentDate} roomNumber={roomNumber} lockedRoom={currentLockedRoom} currentReservationList={currentReservationList} />
             ) : (
-              <Price key={dayId} price={day.price} currentDate={currentDate} roomNumber={roomNumber} reservation={currentReservation} />
+              <Price key={dayId} price={day.price} currentDate={currentDate} roomNumber={roomNumber} reservation={currentReservation} currentReservationList={currentReservationList} />
             )
           })}
         </div>

@@ -1,5 +1,8 @@
-export default function TargetOverlay({ data }) {
-  console.log('TargetOverlay', data.hoverData, 'render')
+import { useRecoilValue } from 'recoil'
+import { overlayAtom } from '../../../../service/state/reservation/atom'
+
+export default function TargetOverlay() {
+  const overlay = useRecoilValue(overlayAtom)
   return (
     <div
       style={{
@@ -8,12 +11,12 @@ export default function TargetOverlay({ data }) {
         top: 0,
         left: 0,
         height: '100%',
-        width: `calc(${data.hoverLength}00% + ${data.hoverLength}px)`,
+        width: `calc(${overlay.hoverLength}00% + ${overlay.hoverLength}px)`,
         zIndex: 1,
-        backgroundColor: data.hoverColor,
+        backgroundColor: overlay.hoverColor,
         color: 'white',
       }}>
-      <div style={{ placeSelf: 'center' }}>{data.hoverData}</div>
+      <div style={{ placeSelf: 'center' }}>{overlay.hoverData}</div>
     </div>
   )
 }

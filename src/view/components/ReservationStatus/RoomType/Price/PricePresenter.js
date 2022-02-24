@@ -2,7 +2,7 @@ import ReservationOverlay from '../../Overlay/ReservationOverlay'
 import SourceOverlay from '../../Overlay/SourceOverlay'
 import TargetOverlay from '../../Overlay/TargetOverlay'
 
-export default function PricePresenter({ drop, reservation, currentDate, price, reservationDateArray, isDragging, isOver, overlay, handleCreateReservation, dayCount, drag, lockedRoom }) {
+export default function PricePresenter({ drop, reservation, currentDate, price, reservationDateArray, isDragging, isOver, handleCreateReservation, dayCount, drag, lockedRoom }) {
   return (
     <>
       <div ref={drop}>
@@ -21,9 +21,9 @@ export default function PricePresenter({ drop, reservation, currentDate, price, 
         {/* reservation */}
         {reservationDateArray?.indexOf(currentDate) > -1 && !isDragging && <ReservationOverlay data={reservation} drag={drag} dayCount={dayCount} currentDate={currentDate} />}
         {/* hover overlay */}
-        {isOver && overlay.hoverColor !== '' && <TargetOverlay data={overlay} />}
+        {isOver && <TargetOverlay />}
         {/* source overlay */}
-        {isDragging && overlay.hoverColor !== '' && <SourceOverlay data={overlay} />}
+        {isDragging && <SourceOverlay />}
       </div>
     </>
   )

@@ -1,5 +1,8 @@
-export default function SourceOverlay({ data }) {
-  const { hoverColor, hoverLength } = data
+import { useRecoilValue } from 'recoil'
+import { overlayAtom } from '../../../../service/state/reservation/atom'
+
+export default function SourceOverlay() {
+  const overlay = useRecoilValue(overlayAtom)
   return (
     <div
       style={{
@@ -7,11 +10,11 @@ export default function SourceOverlay({ data }) {
         top: 0,
         left: 0,
         height: '100%',
-        width: `calc(${hoverLength}00% + ${hoverLength}px)`,
+        width: `calc(${overlay.hoverLength}00% + ${overlay.hoverLength}px)`,
         zIndex: 1,
         opacity: 0.7,
         backgroundColor: 'white',
-        border: `3px solid ${hoverColor}`,
+        border: `3px solid ${overlay.hoverColor}`,
       }}></div>
   )
 }
