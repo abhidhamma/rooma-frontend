@@ -6,10 +6,6 @@ import { dropEffect, itemEffect, throttleCanDropEffect, throttleHoverEffect } fr
 import PricePresenter from './PricePresenter'
 
 export default function PriceContainer({ price, currentDate, roomNumber, reservation, lockedRoom, currentReservationList }) {
-  if (currentDate === '20220305' && roomNumber === '1호') {
-    console.log('리렌더링되는 이유')
-    console.log(price, currentDate, roomNumber, reservation, lockedRoom, currentReservationList)
-  }
   const dayCount = useRecoilValue(dayCountAtom)
   const standardDate = useRecoilValue(standardDateAtom)
   const lockedRoomList = useRecoilValue(lockedRoomListAtom)
