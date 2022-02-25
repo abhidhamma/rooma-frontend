@@ -2,9 +2,9 @@ import { useRecoilValue } from 'recoil'
 import { isDisplayCreateReservationAtom, roomTypeListAtom } from '../../../service/state/reservation/atom'
 import CreateReservation from './Popup/CreateReservation'
 import ReservationInfo from './Overlay/ReservationInfo'
-import ReservationScheulerHeader from './ReservationScheuler/ReservationScheulerHeader'
 import RoomType from './RoomType/RoomType'
 import ReservationStatusHeader from './ReservationStatusHeader'
+import ReservationSchedulerHeader from './TableHeader/ReservationSchedulerHeader'
 
 export default function Container() {
   const roomTypeList = useRecoilValue(roomTypeListAtom)
@@ -23,7 +23,7 @@ export default function Container() {
         <div className='full-content reserv-state'>
           <ReservationStatusHeader />
           <div className='timetable'>
-            <ReservationScheulerHeader />
+            <ReservationSchedulerHeader />
             <div className='scheduler-view'>
               {roomTypeList.map((roomType, index) => (
                 <RoomType key={index} roomType={roomType} />

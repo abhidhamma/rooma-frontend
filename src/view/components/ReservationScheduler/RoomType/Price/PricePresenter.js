@@ -1,8 +1,16 @@
+import React from 'react'
+import { getDateArray } from '../../../../../other/util/reservation/reservation'
 import ReservationOverlay from '../../Overlay/ReservationOverlay'
 import SourceOverlay from '../../Overlay/SourceOverlay'
 import TargetOverlay from '../../Overlay/TargetOverlay'
 
-export default function PricePresenter({ drop, reservation, currentDate, price, reservationDateArray, isDragging, isOver, handleCreateReservation, dayCount, drag, lockedRoom }) {
+function PricePresenter({ drop, reservation, currentDate, price, isDragging, isOver, handleCreateReservation, dayCount, drag, lockedRoom }) {
+  //달력이 걸치는 경우? checkIn부터 checkOut까지의 값을 모두 넣고 indexOf로 currentDate와 동일한게 있는지 찾는다
+  let reservationDateArray = []
+
+  if (reservation !== undefined) {
+    reservationDateArray = getDateArray(reservation?.checkIn, reservation?.checkOut)
+  }
   return (
     <>
       <div ref={drop}>
@@ -28,3 +36,4 @@ export default function PricePresenter({ drop, reservation, currentDate, price, 
     </>
   )
 }
+export default React.memo(PricePresenter)

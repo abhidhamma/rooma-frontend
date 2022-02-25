@@ -867,15 +867,15 @@ select,
 textarea {
   position: relative;
   width: 100%;
-  padding: 0 10px;
-  font-size: 14px;
+  padding: 0 15px;
   border: 1px solid #c0c6cf;
   box-sizing: border-box;
   box-shadow: none;
   -webkit-appearance: none;
   font-family: /*'Noto Sans CJK WF',*/ 'Noto Sans KR';
-  height: 36px;
+  height: 42px;
   outline: 0;
+  border-radius: 5px;
 }
 select {
   background: url(../asset/images/ico_select.png) right 14px center no-repeat;
@@ -889,7 +889,7 @@ input::-moz-focus-inner {
 textarea {
   overflow: auto;
   vertical-align: top;
-  padding: 10px;
+  padding: 15px;
   resize: none;
 }
 input[type='text']:disabled,
@@ -958,11 +958,22 @@ input[type='tel'].error {
 .btn.gray {
   background: #f2f2f2;
 }
+.btn.purple {
+  background: #5b73e8;
+  border: 1px solid #5b73e8;
+  color: #fff;
+}
+.btn.line1 {
+  background: #fff;
+  border: 1px solid #5b73e8;
+  color: #5b73e8;
+}
 .btn-large {
   font-size: 18px;
   padding: 0 60px;
   height: 60px;
   line-height: 58px;
+  border-radius: 8px;
 }
 .btn-middle {
   font-size: 14px;
@@ -1349,4 +1360,94 @@ input[type='radio']:checked + label {
   background-color: rgba(0, 0, 0, 0.5);
   width: 100%;
   height: 100vh;
+}
+
+/* wirte */
+.writeArea {
+  border-top: #e4e4e4 1px solid;
+}
+.writeArea section {
+  border-bottom: #e4e4e4 1px solid;
+  padding: 30px 0;
+}
+.writeArea .two {
+  display: flex;
+}
+.writeArea dl {
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+.writeArea dl dt {
+  width: 190px;
+  font-weight: 500;
+}
+.writeArea dl dd {
+  flex: 1;
+}
+.writeArea .two dl {
+  flex: 1;
+}
+.writeArea .two dl input {
+  width: 350px;
+}
+.writeArea dl.addr p {
+  width: 785px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+.writeArea dl.addr p:last-child {
+  margin-bottom: 0;
+}
+.writeArea button {
+  border-radius: 5px;
+  background: #c7cde8;
+  height: 42px;
+  font-size: 14px;
+  color: #2e3450;
+  word-break: keep-all;
+  padding: 0 15px;
+}
+.writeArea button:hover {
+  background: #5b73e8;
+  color: #fff;
+}
+.writeArea input + button {
+  margin-left: 5px;
+}
+.writeArea dl textarea {
+  height: 200px;
+}
+.writeArea .rowAdd dd .row.tit {
+  font-size: 14px;
+  color: #5b73e8;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+.writeArea .rowAdd dd .row {
+  display: flex;
+}
+.writeArea .rowAdd dd .row > div {
+  flex: 1;
+  margin-right: 10px;
+}
+.writeArea .rowAdd dd .row .btn {
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 1px solid #5b73e8;
+}
+.writeArea .rowAdd dd .row .btn.minus {
+  background: #fff url('../asset/images/minus.png') center center no-repeat;
+}
+.writeArea .rowAdd dd .row .btn.plus {
+  background: #fff url('../asset/images/plus.png') center center no-repeat;
+}
+.writeArea .rowAdd dd .row .btn.minus:hover {
+  background: #5b73e8 url('../asset/images/minus_w.png') center center no-repeat;
+}
+.writeArea .rowAdd dd .row .btn.plus:hover {
+  background: #5b73e8 url('../asset/images/plus_w.png') center center no-repeat;
 }

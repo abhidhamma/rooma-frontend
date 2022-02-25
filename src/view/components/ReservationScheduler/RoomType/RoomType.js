@@ -1,6 +1,9 @@
+import { useRecoilValue } from 'recoil'
+import { reservationListAtom } from '../../../../service/state/reservation/atom'
 import RoomReservation from './RoomReservation'
 
 export default function RoomType({ roomType }) {
+  const reservationList = useRecoilValue(reservationListAtom)
   return (
     <div className='scheduler-rows dF-f'>
       {/* <!-- 01 --> */}
@@ -13,7 +16,8 @@ export default function RoomType({ roomType }) {
       <div className='room-state'>
         {roomType.roomNumberData.map((monthPriceList, index) => {
           const roomNumber = roomType.roomNumbers[index]
-          return <RoomReservation key={roomNumber} monthPriceList={monthPriceList} roomNumber={roomNumber} />
+          const filteredReservationList = reservationList.filter((reservation) => reservation.location === roomNumber)
+          return <RoomReservation key={roomNumber} monthPriceList={monthPriceList} roomNumber={roomNumber} filteredReservationList={filteredReservationList} />
         })}
       </div>
     </div>

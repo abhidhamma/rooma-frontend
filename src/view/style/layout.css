@@ -174,9 +174,17 @@ header .top-menu > div.top-menu2 a.setting {
   min-width: 1200px;
   margin-top: 56px;
 }
-#container .content .titWrap h3 {
-  font-size: 20px;
-  margin-bottom: 20px;
+#container .content {
+  min-height: 700px;
+  min-width: 1200px;
+  max-width: 1200px;
+  margin: 66px auto 0;
+  padding: 0 20px 80px;
+}
+#container .titWrap h3 {
+  font-size: 28px;
+  padding: 20px 0;
+  line-height: 28px;
 }
 footer {
   text-align: center;

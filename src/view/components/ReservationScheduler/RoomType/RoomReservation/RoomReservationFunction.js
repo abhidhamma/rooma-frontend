@@ -8,8 +8,7 @@ export const getCurrentMonthPrice = (monthPriceList, standardDate, dayCount) => 
   return monthPriceList.slice(firstIndex, lastIndex + 1)
 }
 
-//현재 보일 캘린더에 포함될 예약 목록
-
+//현재 보일 캘린더의 기간동안 각 호실별로 포함될 예약 목록
 export const getCurrentReservationList = (reservationList, standardDate, dayCount, roomNumber) => {
   //이 달력뒤에 예약이 있을 수 있으므로 겹치지 않도록
   //reservation을 찾는 범위를 현재달력의 가장 긴 예약만큼 더 준다

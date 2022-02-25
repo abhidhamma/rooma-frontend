@@ -15,7 +15,7 @@ export default function Header() {
           </div>
           <div className='top-menu'>
             <select>
-              <option>나인뿌띠끄호텔</option>
+              <option>신라호텔</option>
             </select>
             <div className='profile'>
               <a href='/#'>admin</a>

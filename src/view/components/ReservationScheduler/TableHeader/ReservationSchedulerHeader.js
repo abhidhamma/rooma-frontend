@@ -4,7 +4,7 @@ import { getReservationSchedulerDateArray } from '../../../../other/util/reserva
 import { dayCountAtom, standardDateAtom } from '../../../../service/state/reservation/atom'
 import Day from './Day'
 
-export default function ReservationScheulerHeader() {
+export default function ReservationSchedulerHeader() {
   const standardDate = useRecoilValue(standardDateAtom)
   const dayCount = useRecoilValue(dayCountAtom)
 

@@ -1,7 +1,10 @@
+import _ from 'lodash'
+import React from 'react'
 import { formatyyyyMMdd } from '../../../../../other/util/common/dateUtil'
 import Price from '../Price'
 
-export default function RoomReservationPresenter({ currentCalendarList, currentReservationList, roomNumber }) {
+function RoomReservationPresenter({ currentCalendarList, currentReservationList, roomNumber }) {
+  console.log('RoomReservationPresenter render : ', roomNumber)
   return (
     <>
       {currentCalendarList.length === 0 ? (
@@ -25,3 +28,4 @@ export default function RoomReservationPresenter({ currentCalendarList, currentR
     </>
   )
 }
+export default React.memo(RoomReservationPresenter)

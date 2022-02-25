@@ -1,11 +1,9 @@
-import Header from './view/components/Common/Header'
-import Container from './view/components/ReservationStatus/Container'
+import Router from './view/router/Router'
 
 function App() {
   return (
     <div className='Wrap'>
-      <Header />
-      <Container />
+      <Router />
     </div>
   )
 }
