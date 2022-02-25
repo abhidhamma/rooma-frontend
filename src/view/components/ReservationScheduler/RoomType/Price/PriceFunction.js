@@ -37,13 +37,13 @@ export const dropEffect = (item, setDisplay, setOverlay, setReservationList, cur
   })
 }
 
-export const throttleCanDropEffect = _.throttle((item, filteredReservationList, lockedRoomList, lockedRoom, currentDate, roomNumber) => {
+export const canDropEffect = (item, filteredReservationList, lockedRoomList, lockedRoom, currentDate, roomNumber) => {
   const checkIn = item.checkIn
   const checkOut = item.checkOut
   const location = item.location
   const isLockedRoom = lockedRoom?.targetDate !== undefined
   return getIsCanNotDrop(filteredReservationList, lockedRoomList, isLockedRoom, checkIn, checkOut, location, currentDate, roomNumber)
-}, 100)
+}
 
 export const throttleHoverEffect = _.throttle((item, setOverlay) => {
   setOverlay({

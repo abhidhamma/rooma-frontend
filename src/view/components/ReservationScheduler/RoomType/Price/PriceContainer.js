@@ -3,7 +3,7 @@ import React, { useCallback } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { dayCountAtom, displayAtom, isDisplayCreateReservationAtom, lockedRoomListAtom, overlayAtom, reservationListAtom, standardDateAtom } from '../../../../../service/state/reservation/atom'
-import { dropEffect, itemEffect, throttleCanDropEffect, throttleHoverEffect } from './PriceFunction'
+import { canDropEffect, dropEffect, itemEffect, throttleHoverEffect } from './PriceFunction'
 import PricePresenter from './PricePresenter'
 
 function PriceContainer({ price, currentDate, roomNumber, reservation, lockedRoom, currentReservationList }) {
@@ -30,7 +30,7 @@ function PriceContainer({ price, currentDate, roomNumber, reservation, lockedRoo
   const [{ isOver }, drop] = useDrop(
     () => ({
       accept: 'item',
-      canDrop: (item) => throttleCanDropEffect(item, currentReservationList, lockedRoomList, lockedRoom, currentDate, roomNumber),
+      canDrop: (item) => canDropEffect(item, currentReservationList, lockedRoomList, lockedRoom, currentDate, roomNumber),
       drop: (item) => dropEffect(item, setDisplay, setOverlay, setReservationList, currentDate, roomNumber),
       // collect: (monitor) => ({
       //   isOver: !!monitor.isOver(),
