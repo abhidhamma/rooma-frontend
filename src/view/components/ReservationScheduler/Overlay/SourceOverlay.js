@@ -1,5 +1,5 @@
 import { useRecoilValue } from 'recoil'
-import { overlayAtom } from '../../../../service/state/reservation/atom'
+import { overlayAtom } from '../../../../service/state/reservation'
 
 export default function SourceOverlay() {
   const overlay = useRecoilValue(overlayAtom)

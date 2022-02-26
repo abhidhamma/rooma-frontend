@@ -1,5 +1,5 @@
 import { useRecoilValue } from 'recoil'
-import { isDisplayCreateReservationAtom, roomTypeListAtom } from '../../../service/state/reservation/atom'
+import { isDisplayCreateReservationAtom, roomTypeListAtom } from '../../../service/state/reservation'
 import CreateReservation from './Popup/CreateReservation'
 import ReservationInfo from './Overlay/ReservationInfo'
 import RoomType from './RoomType/RoomType'
@@ -10,19 +10,25 @@ import { useEffect, useState } from 'react'
 import Loading from './Loading'
 
 export default function Container() {
+  //전역상태
   const roomTypeList = useRecoilValue(roomTypeListAtom)
   const isDisplayCreateReservation = useRecoilValue(isDisplayCreateReservationAtom)
-  const { scrollY, canScrollCheck } = useScroll()
 
+  //지역상태
   const [renderRestRoomType, setRenderRestRoomType] = useState(10)
 
-  // console.log(roomTypeList)
+  //지역변수
+  const roomTypeListLength = roomTypeList.length
 
-  //스크롤 하면 나머지를 모두 렌더링 하기
+  //hook
+  const { scrollY, canScrollCheck } = useScroll()
+
+  //함수
+  //10개를 먼저 렌더링하고 스크롤 하면 나머지를 모두 렌더링 하기
   const makeRoomTypes = (length) => {
     const roomTypes = roomTypeList.slice(0, length).map((roomType, index) => <RoomType key={index} roomType={roomType} />)
 
-    if (length === 10) {
+    if (length === 10 && roomTypeListLength > 10) {
       roomTypes.push(<Loading />)
     }
 
@@ -31,7 +37,7 @@ export default function Container() {
 
   useEffect(() => {
     if (scrollY > 0 && canScrollCheck) {
-      setRenderRestRoomType(roomTypeList.length)
+      setRenderRestRoomType(roomTypeListLength)
     }
   }, [scrollY])
 

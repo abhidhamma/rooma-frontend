@@ -1,6 +1,6 @@
 import { atom } from 'recoil'
-import makeDummyData from '../../api/makeDummyData'
-import { formatyyyyMMdd } from '../../../other/util/common/dateUtil'
+import makeDummyData from '../api/makeDummyData'
+import { formatyyyyMMdd } from '../../other/util/common/dateUtil'
 import { addDays } from 'date-fns/fp'
 import {
   CURRENT_RESERVATION_ATOM,
@@ -12,12 +12,12 @@ import {
   RESERVATION_LIST_ATOM,
   ROOMTYPE_LIST_ATOM,
   STANDARD_DATE_ATOM,
-} from '../../../other/constant/atomKeys'
+} from '../../other/constant/atomKeys'
 
 //객실가격의 더미데이터를 저장하는 atom
 export const roomTypeListAtom = atom({
   key: ROOMTYPE_LIST_ATOM,
-  default: makeDummyData(100),
+  default: makeDummyData(5),
 })
 
 //예약자정보의 더미데이터를 저장하는 atom

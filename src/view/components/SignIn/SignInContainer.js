@@ -25,7 +25,9 @@ export default function SignInContainer() {
                 <div className='center mgb_25 mgt_15'>
                   <p>로그인을 위해서는 아이디,비밀번호 입력이 필요합니다</p>
                 </div>
-                <SignInInput />
+                <div className='inputArea'>
+                  <SignInInput />
+                </div>
               </div>
             </div>
           </div>

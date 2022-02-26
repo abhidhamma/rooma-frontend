@@ -1,5 +1,5 @@
 import { useRecoilValue } from 'recoil'
-import { reservationListAtom } from '../../../../service/state/reservation/atom'
+import { reservationListAtom } from '../../../../service/state/reservation'
 import RoomReservation from './RoomReservation'
 
 export default function RoomType({ roomType, style }) {

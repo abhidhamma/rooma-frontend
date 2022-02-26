@@ -1,9 +1,26 @@
+import { Link, useNavigate } from 'react-router-dom'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
+import { removeItem } from '../../../other/util/common/localStorage'
+import { isLoggedInAtom } from '../../../service/state/common/common'
+import { userAtom } from '../../../service/state/common/user'
+
 export default function Header() {
+  const setIsLoggedIn = useSetRecoilState(isLoggedInAtom)
+  const user = useRecoilValue(userAtom)
+  let navigate = useNavigate()
+  console.log(user)
+  const removeUser = () => {
+    removeItem('user')
+    setIsLoggedIn(false)
+    navigate('/')
+  }
   return (
     // <!-- S:Header -->
     <header>
       <div id='header'>
-        <h1>ROOMA</h1>
+        <h1>
+          <Link to={'/reservationScheduler'}>ROOMA</Link>
+        </h1>
         <nav>
           <div id='gnb'>
             <a href='/#'>대시보드</a>
@@ -18,12 +35,12 @@ export default function Header() {
               <option>신라호텔</option>
             </select>
             <div className='profile'>
-              <a href='/#'>admin</a>
+              <a href='/#'>{user?.name ? user.name : 'admin'}</a>
               <span>접속중</span>
             </div>
             <div className='top-menu1'>
               <a href='/#'>업체관리</a>
-              <a href='/#'>로그아웃</a>
+              <a onClick={removeUser}>로그아웃</a>
             </div>
             <div className='top-menu2'>
               <a href='/#' className='alarm'>

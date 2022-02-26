@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import React, { useMemo } from 'react'
 import { useRecoilValue } from 'recoil'
-import { dayCountAtom, lockedRoomListAtom, standardDateAtom } from '../../../../../service/state/reservation/atom'
+import { dayCountAtom, lockedRoomListAtom, standardDateAtom } from '../../../../../service/state/reservation'
 import { getCurrentCalendar, getCurrentLockedRoomList, getCurrentMonthPrice, getCurrentReservationList } from './RoomReservationFunction'
 import RoomReservationPresenter from './RoomReservationPresenter'
 

@@ -1,7 +1,7 @@
 import { addDays } from 'date-fns/fp'
 import { useRecoilState } from 'recoil'
 import { formatyyyyMMddE } from '../../../other/util/common/dateUtil'
-import { dayCountAtom, standardDateAtom } from '../../../service/state/reservation/atom'
+import { dayCountAtom, standardDateAtom } from '../../../service/state/reservation'
 
 export default function ReservationStatusHeader() {
   const [dayCount, setDayCount] = useRecoilState(dayCountAtom)

@@ -1,5 +1,5 @@
 import { useRecoilValue } from 'recoil'
-import { displayAtom } from '../../../../service/state/reservation/atom'
+import { displayAtom } from '../../../../service/state/reservation'
 
 export default function ReservationInfo() {
   const display = useRecoilValue(displayAtom)
