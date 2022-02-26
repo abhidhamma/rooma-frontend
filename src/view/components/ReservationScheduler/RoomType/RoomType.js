@@ -2,10 +2,10 @@ import { useRecoilValue } from 'recoil'
 import { reservationListAtom } from '../../../../service/state/reservation/atom'
 import RoomReservation from './RoomReservation'
 
-export default function RoomType({ roomType }) {
+export default function RoomType({ roomType, style }) {
   const reservationList = useRecoilValue(reservationListAtom)
   return (
-    <div className='scheduler-rows dF-f'>
+    <div className='scheduler-rows dF-f' style={style}>
       {/* <!-- 01 --> */}
       <div className='room-type'>{roomType.roomTypeName}</div>
       <div className='room-number'>

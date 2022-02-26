@@ -7,7 +7,6 @@ import { canDropEffect, dropEffect, itemEffect, throttleHoverEffect } from './Pr
 import PricePresenter from './PricePresenter'
 
 function PriceContainer({ price, currentDate, roomNumber, reservation, lockedRoom, currentReservationList }) {
-  console.log('PriceContainer render')
   const dayCount = useRecoilValue(dayCountAtom)
   const standardDate = useRecoilValue(standardDateAtom)
   const lockedRoomList = useRecoilValue(lockedRoomListAtom)
