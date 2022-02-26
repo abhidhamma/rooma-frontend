@@ -7,6 +7,7 @@ import ReservationStatusHeader from './ReservationStatusHeader'
 import ReservationSchedulerHeader from './TableHeader/ReservationSchedulerHeader'
 import { useScroll } from '../../hook/useScroll'
 import { useEffect, useState } from 'react'
+import Loading from './Loading'
 
 export default function Container() {
   const roomTypeList = useRecoilValue(roomTypeListAtom)
@@ -19,7 +20,13 @@ export default function Container() {
 
   //스크롤 하면 나머지를 모두 렌더링 하기
   const makeRoomTypes = (length) => {
-    return roomTypeList.slice(0, length).map((roomType, index) => <RoomType key={index} roomType={roomType} />)
+    const roomTypes = roomTypeList.slice(0, length).map((roomType, index) => <RoomType key={index} roomType={roomType} />)
+
+    if (length === 10) {
+      roomTypes.push(<Loading />)
+    }
+
+    return roomTypes
   }
 
   useEffect(() => {
