@@ -18,8 +18,8 @@ jobs:
           script: |
             cd react/rooma-frontend
             git pull origin master
-            ls -al
-            pm2 list
+            npm install
+            pm2 restart 0
 #       - name: Checkout source code.   # 레포지토리 체크아웃
 #         uses: actions/checkout@master
 
