@@ -19,7 +19,7 @@ export default function Header() {
     <header>
       <div id='header'>
         <h1>
-          <Link to={'/reservationScheduler'}>ROOMA</Link>
+          <Link to={'/reservationScheduler'}>자동배포테스트</Link>
         </h1>
         <nav>
           <div id='gnb'>
