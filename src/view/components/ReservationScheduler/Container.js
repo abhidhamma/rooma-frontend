@@ -15,7 +15,7 @@ export default function Container() {
   const isDisplayCreateReservation = useRecoilValue(isDisplayCreateReservationAtom)
 
   //지역상태
-  const [renderRestRoomType, setRenderRestRoomType] = useState(10)
+  const [renderRestRoomType, setRenderRestRoomType] = useState(15)
 
   //지역변수
   const roomTypeListLength = roomTypeList.length
@@ -28,7 +28,7 @@ export default function Container() {
   const makeRoomTypes = (length) => {
     const roomTypes = roomTypeList.slice(0, length).map((roomType, index) => <RoomType key={index} roomType={roomType} />)
 
-    if (length === 10 && roomTypeListLength > 10) {
+    if (length === 15 && roomTypeListLength > 15) {
       roomTypes.push(<Loading />)
     }
 
