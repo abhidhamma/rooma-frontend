@@ -36,6 +36,6 @@ jobs:
         run: npm run build
       - name: Serve                   # React Serve
         run: |
-          npm install pm2
-          pm2 serve build 3000
+          chmod +x ./pm2_runner.sh
+          bash ./pm2_runner.sh
             
