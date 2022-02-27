@@ -37,5 +37,5 @@ jobs:
       - name: Serve                   # React Serve
         run: |
           whereis pm2
-          /usr/bin/pm2 restart 0
+          sudo pm restart 0
             
