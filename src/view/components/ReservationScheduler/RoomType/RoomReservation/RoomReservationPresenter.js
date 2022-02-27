@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import React from 'react'
 import { formatyyyyMMdd } from '../../../../../other/util/common/dateUtil'
 import Price from '../Price'

@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useRecoilValue } from 'recoil'
-import App from '../../App'
 import { isLoggedInAtom } from '../../service/state/common/common'
 import ReservationScheduler from '../pages/ReservationScheduler'
 import SignIn from '../pages/SignIn'

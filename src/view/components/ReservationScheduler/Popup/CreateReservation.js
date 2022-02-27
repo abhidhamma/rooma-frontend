@@ -24,7 +24,7 @@ export default function CreateReservation() {
       }}>
       <div className='popWrap'>
         <a
-          href='/#'
+          href='#'
           className='pop-close layer-close'
           style={{
             width: '18px',
@@ -95,28 +95,28 @@ export default function CreateReservation() {
               </div>
               <div className='r-right'>
                 <div className='reserv-state'>
-                  <a href='/#' className={isReservationButtonOpen ? 'c1 drop' : 'c1 drop down'} onClick={() => setIsReservationButtonOpen(!isReservationButtonOpen)}>
+                  <a href='#' className={isReservationButtonOpen ? 'c1 drop' : 'c1 drop down'} onClick={() => setIsReservationButtonOpen(!isReservationButtonOpen)}>
                     예약완료
                   </a>
                   <ul className='category-menu c1' style={{ display: isReservationButtonOpen ? 'block' : 'none' }}>
                     <li>
-                      <a href='/#'>입금완료</a>
+                      <a href='#'>입금완료</a>
                     </li>
                     <li>
-                      <a href='/#'>입금완료</a>
+                      <a href='#'>입금완료</a>
                     </li>
                   </ul>
                 </div>
                 <div className='reserv-state mgt_20'>
-                  <a href='/#' className={isCheckInButtonOpen ? 'c2 drop' : 'c2 drop down'} onClick={() => setIsCheckInButtonOpen(!isCheckInButtonOpen)}>
+                  <a href='#' className={isCheckInButtonOpen ? 'c2 drop' : 'c2 drop down'} onClick={() => setIsCheckInButtonOpen(!isCheckInButtonOpen)}>
                     입실전
                   </a>
                   <ul className='category-menu c2' style={{ display: isCheckInButtonOpen ? 'block' : 'none' }}>
                     <li>
-                      <a href='/#'>입실전</a>
+                      <a href='#'>입실전</a>
                     </li>
                     <li>
-                      <a href='/#'>입실전</a>
+                      <a href='#'>입실전</a>
                     </li>
                   </ul>
                 </div>
@@ -360,7 +360,7 @@ export default function CreateReservation() {
           </div>
 
           <div className='pop-footer'>
-            <a href='/#' className='btn-reserv'>
+            <a href='#' className='btn-reserv'>
               예약하기
             </a>
           </div>

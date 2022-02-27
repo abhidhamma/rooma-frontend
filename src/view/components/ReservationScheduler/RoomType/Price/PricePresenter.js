@@ -20,7 +20,7 @@ function PricePresenter({ drop, reservation, currentDate, price, isDragging, isO
           </div>
         ) : (
           <div style={{ display: 'grid', position: 'relative', width: '100%', height: '100%' }}>
-            <a href='/#' className={reservation?.checkIn === currentDate ? '' : 'none'} style={{ display: 'block', placeSelf: 'center' }} onClick={handleCreateReservation}>
+            <a href='#' className={reservation?.checkIn === currentDate ? '' : 'none'} style={{ display: 'block', placeSelf: 'center' }} onClick={handleCreateReservation}>
               {`${price}만`}
             </a>
           </div>
