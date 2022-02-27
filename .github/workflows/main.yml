@@ -17,6 +17,9 @@ jobs:
           port: ${{ secrets.REMOTE_PORT }}
           script: |
             cd react/rooma-frontend
+            git pull origin master
+            ls -al
+            pm list
 #       - name: Checkout source code.   # 레포지토리 체크아웃
 #         uses: actions/checkout@master
 
@@ -34,6 +37,6 @@ jobs:
 
 #       - name: Build                   # React Build
 #         run: npm run build
-      - name: Serve                   # React Serve
-        run: ls
+#       - name: Serve                   # React Serve
+#         run: ls
             
