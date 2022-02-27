@@ -35,5 +35,7 @@ jobs:
       - name: Build                   # React Build
         run: npm run build
       - name: Serve                   # React Serve
-        run: npx serve -s build -n
+        run: |
+          pm2 stop all
+          pm2 serve build --spa
             
