@@ -17,23 +17,27 @@ jobs:
           port: ${{ secrets.REMOTE_PORT }}
           script: |
             cd react/rooma-frontend
-      - name: Checkout source code.   # 레포지토리 체크아웃
-        uses: actions/checkout@master
+            git pull origin master
+            npm install
+            npm run build
+            pm2 restart 0
+#       - name: Checkout source code.   # 레포지토리 체크아웃
+#         uses: actions/checkout@master
 
-      - name: Cache node modules      # node modules 캐싱
-        uses: actions/cache@v1
-        with:
-          path: node_modules
-          key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.OS }}-build-
-            ${{ runner.OS }}-
+#       - name: Cache node modules      # node modules 캐싱
+#         uses: actions/cache@v1
+#         with:
+#           path: node_modules
+#           key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
+#           restore-keys: |
+#             ${{ runner.OS }}-build-
+#             ${{ runner.OS }}-
 
-      - name: Install Dependencies    # 의존 파일 설치
-        run: npm install
+#       - name: Install Dependencies    # 의존 파일 설치
+#         run: npm install
 
-      - name: Build                   # React Build
-        run: npm run build
-      - name: Serve                   # React Serve
-        run: npx serve -s build -n
+#       - name: Build                   # React Build
+#         run: npm run build
+#       - name: Serve                   # React Serve
+#         run: ls
             
