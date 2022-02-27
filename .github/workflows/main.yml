@@ -35,7 +35,5 @@ jobs:
       - name: Build                   # React Build
         run: npm run build
       - name: Serve                   # React Serve
-        run: |
-          chmod +x ./pm2_runner.sh
-          bash ./pm2_runner.sh
+        run: bash ./pm2_runner.sh
             
