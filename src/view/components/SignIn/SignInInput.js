@@ -1,10 +1,10 @@
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import useAuthCallback from '../../../service/hook/useAuthCallback'
-import { signinSelector } from '../../../service/state/auth'
+import { signInSelector } from '../../../service/state/auth'
 
 export default function SignInInput() {
-  const signinCallback = useAuthCallback('Sign in')
+  const signInCallback = useAuthCallback('Sign In')
 
   let navigate = useNavigate()
   const {
@@ -14,18 +14,18 @@ export default function SignInInput() {
     // formState: { errors },
   } = useForm()
 
-  const onSubmit = (signinData) => {
-    if (signinData.username === '') {
+  const onSubmit = (signInData) => {
+    if (signInData.username === '') {
       alert('아이디를 입력해주세요.')
       return
     }
 
-    if (signinData.password === '') {
+    if (signInData.password === '') {
       alert('비밀번호를 입력해주세요.')
       return
     }
 
-    signinCallback(signinSelector(signinData)).then((isSuccess) => {
+    signInCallback(signInSelector(signInData)).then((isSuccess) => {
       if (isSuccess) {
         navigate('/reservationScheduler')
       } else {

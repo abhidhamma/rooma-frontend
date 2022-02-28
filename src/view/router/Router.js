@@ -3,6 +3,7 @@ import { useRecoilValue } from 'recoil'
 import { isLoggedInAtom } from '../../service/state/common/common'
 import ReservationScheduler from '../pages/ReservationScheduler'
 import SignIn from '../pages/SignIn'
+import SignUp from '../pages/SignUp'
 
 export default function Router() {
   console.log('router called...')
@@ -13,8 +14,13 @@ export default function Router() {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<SignIn />} />
-        {/* <Route path='signUp' element={<SignUp />} /> */}
-        {isLoggedIn && <Route path='reservationScheduler' element={<ReservationScheduler />} />}
+
+        {isLoggedIn && (
+          <>
+            <Route path='signUp' element={<SignUp />} />
+            <Route path='reservationScheduler' element={<ReservationScheduler />} />
+          </>
+        )}
         <Route path='*' element={<Navigate to='/' />} />
       </Routes>
     </BrowserRouter>

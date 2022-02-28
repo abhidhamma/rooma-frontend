@@ -39,7 +39,7 @@ export default function Header() {
               <span>접속중</span>
             </div>
             <div className='top-menu1'>
-              <a href='#'>업체관리</a>
+              <Link to={'/signUp'}>업체관리</Link>
               <a onClick={removeUser}>로그아웃</a>
             </div>
             <div className='top-menu2'>

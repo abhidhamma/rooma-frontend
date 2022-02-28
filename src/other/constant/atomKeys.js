@@ -17,4 +17,5 @@ export const AUTH_RESULT_ATOM_KEY = 'authResultAtom'
 export const USER_ATOM_KEY = 'userAtom'
 
 //selector
-export const SIGNIN_SELECTOR_KEY = 'signinSelector'
+export const SIGNIN_SELECTOR_KEY = 'signInSelector'
+export const SIGNUP_SELECTOR_KEY = 'signUpSelector'
