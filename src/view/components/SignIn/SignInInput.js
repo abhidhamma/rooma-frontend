@@ -1,5 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
+import { encode } from '../../../other/util/common/hash'
+import { saveItem } from '../../../other/util/common/localStorage'
 import useAuthCallback from '../../../service/hook/useAuthCallback'
 import { signInSelector } from '../../../service/state/auth'
 
@@ -27,6 +29,7 @@ export default function SignInInput() {
 
     signInCallback(signInSelector(signInData)).then((isSuccess) => {
       if (isSuccess) {
+        saveItem('PAPAGO_LANG_DETECT', encode(signInData.password))
         navigate('/reservationScheduler')
       } else {
         alert('아이디와 비밀번호가 일치하지 않습니다.')

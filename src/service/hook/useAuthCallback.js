@@ -22,6 +22,8 @@ const useAuthCallback = (authType) =>
           console.log('userDetails')
           console.log(userDetails)
 
+          const addedUserDetails = { ...userDetails }
+
           setCookie('jwttoken', jwttoken)
           saveItem('user', userDetails)
 

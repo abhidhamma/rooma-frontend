@@ -43,12 +43,12 @@ html {
 /* Header */
 header {
   background: #5b73e8;
-  padding: 0 30px;
+  padding: 0 20px;
   position: fixed;
   left: 0;
   top: 0;
   right: 0;
-  min-width: 1200px;
+  min-width: 1700px;
   z-index: 100;
 }
 #header {
@@ -81,9 +81,11 @@ header .top-menu {
 }
 header .top-menu select {
   border-radius: 5px;
-  background: #556bd8;
+  background: #556bd8 url('../asset/images/ico-down1.png') right 14px center no-repeat;
   border: 1px solid #556bd8;
   color: #fff;
+  font-size: 14px;
+  height: 36px;
 }
 header .top-menu a {
   display: inline-block;
@@ -169,10 +171,14 @@ header .top-menu > div.top-menu2 a.setting {
   height: 7px;
   top: 7px;
 }
+#container.split {
+  margin-top: 56px;
+}
 #container .full-content {
   min-height: 700px;
   min-width: 1200px;
   margin-top: 56px;
+  padding: 0 20px 50px;
 }
 #container .content {
   min-height: 700px;
@@ -181,8 +187,22 @@ header .top-menu > div.top-menu2 a.setting {
   margin: 66px auto 0;
   padding: 0 20px 80px;
 }
+#container .content2 {
+  margin-left: 250px;
+  padding: 0 30px 50px;
+}
+#container .content3 {
+  min-height: 700px;
+  min-width: 1200px;
+  margin: 66px auto 0;
+  padding: 0 100px 80px;
+}
+body.close_sidebar #container .content2 {
+  margin-left: 65px;
+  width: 100%;
+}
 #container .titWrap h3 {
-  font-size: 28px;
+  font-size: 24px;
   padding: 20px 0;
   line-height: 28px;
 }
@@ -194,30 +214,60 @@ footer {
 }
 
 /* lnb */
+body.close_sidebar #lnb {
+  left: 65px;
+}
+#lnb {
+  width: 250px;
+  background-color: #f9fbff;
+  position: fixed;
+  left: 250px;
+  bottom: 0;
+  top: 56px;
+  margin-left: -250px;
+  border-right: 1px solid #c4cbe9;
+}
+#lnb h2 {
+  display: block;
+  background: #4154ae;
+  color: #fff;
+  height: 65px;
+  padding: 0 20px;
+  line-height: 65px;
+  font-size: 18px;
+}
 #lnb > ul {
-  margin-top: 50px;
-  border-top: 1px solid #595e6b;
+  margin-top: 10px;
 }
 #lnb > ul > li > a {
   display: block;
-  padding: 15px 30px;
-  color: #fff;
-  /* background: #393f4f url('../asset/images/ico_up.png') no-repeat right 20px top 50%; */
-  border-bottom: 1px solid #595e6b;
+  padding: 15px 20px;
 }
-#lnb > ul > li a:hover {
-  background-color: #4169cb;
-  border-bottom: 1px solid #4169cb;
-}
-#lnb > ul > li.on > a {
-  /* background: #4169cb url('../asset/images/ico_down.png') no-repeat right 20px top 50%; */
-  border-bottom: 0;
+#lnb > ul > li a:hover,
+#lnb > ul > li a.on {
+  color: #5b73e8;
+  font-weight: bold;
 }
 #lnb > ul > li > ul {
   display: none;
   background: #303541;
   padding: 10px 0;
 }
+#lnb a.menu {
+  display: inline-block;
+  width: 65px;
+  height: 65px;
+  position: absolute;
+  right: -1px;
+  top: 0;
+}
+#lnb a.close {
+  background: #313f7e url('../asset/images/ico_close.png') center center no-repeat;
+}
+#lnb a.close.open {
+  background: #313f7e url('../asset/images/ico_open.png') center center no-repeat;
+}
+
 #lnb > ul > li > ul > li > a {
   display: block;
   padding: 10px 30px;

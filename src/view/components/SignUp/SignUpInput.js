@@ -1,76 +1,16 @@
+import _ from 'lodash'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import useApiCallback from '../../../service/hook/useApiCallback'
 import { signUpSelector } from '../../../service/state/auth'
 
 export default function SignUpInput() {
-  const signUpCallback = useApiCallback('Sign Up')
   const { register, handleSubmit } = useForm()
   let navigate = useNavigate()
+  const signUpCallback = useApiCallback('Sign Up')
 
-  const onSubmit = (signUpData) => {
-    let formData = new FormData()
-    Object.keys(signUpData).map((key) => formData.append(key, signUpData[key]))
-
-    if (signUpData.cpId === '') {
-      alert('업체아이디를 입력해주세요.')
-      return
-    }
-    if (signUpData.cpPw === '') {
-      alert('비밀번호를 입력해주세요.')
-      return
-    }
-    if (signUpData.confirmCpPw === '') {
-      alert('비밀번호확인을 입력해주세요.')
-      return
-    }
-    if (signUpData.cpPw !== signUpData.confirmCpPw) {
-      alert('비밀번호와 비밀번호확인이 다릅니다.')
-      return
-    }
-    if (signUpData.name === '') {
-      alert('업체명을 입력해주세요.')
-      return
-    }
-    if (signUpData.ownerName === '') {
-      alert('대표명을 입력해주세요.')
-      return
-    }
-    if (signUpData.hp === '') {
-      alert('휴대폰번호를 입력해주세요.')
-      return
-    }
-    if (signUpData.email === '') {
-      alert('이메일을 입력해주세요.')
-      return
-    }
-    if (signUpData.zipcode === '') {
-      alert('우편번호를 입력해주세요.')
-      return
-    }
-    if (signUpData.address1 === '') {
-      alert('주소를 입력해주세요.')
-      return
-    }
-    if (signUpData.address2 === '') {
-      alert('상세주소를 입력해주세요.')
-      return
-    }
-
-    signUpCallback(signUpSelector(formData)).then((result) => {
-      const { data } = result
-      if (data.status === 'OK') {
-        alert('등록되었습니다.')
-        navigate('/')
-      } else {
-        alert(data.message)
-      }
-    })
-  }
-
-  const cancelSignUp = () => {
-    navigate('/')
-  }
+  const onSubmit = _.flow(validation, signUp(signUpCallback, navigate))
+  const cancelSignUp = () => navigate('/')
   return (
     <div className='content'>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -79,7 +19,6 @@ export default function SignUpInput() {
         </div>
         <div className='writeArea'>
           <section>
-            {/* <!-- 입력폼이 2개일때 --> */}
             <div className='two'>
               <dl>
                 <dt>업체아이디</dt>
@@ -94,7 +33,6 @@ export default function SignUpInput() {
                 </dd>
               </dl>
             </div>
-            {/* <!-- 입력폼이 2개일때 --> */}
             <div className='two'>
               <dl>
                 <dt>대표명</dt>
@@ -109,7 +47,6 @@ export default function SignUpInput() {
                 </dd>
               </dl>
             </div>
-            {/* <!-- 입력폼이 2개일때 --> */}
             <div className='two'>
               <dl>
                 <dt>계좌번호</dt>
@@ -124,7 +61,6 @@ export default function SignUpInput() {
                 </dd>
               </dl>
             </div>
-            {/* <!-- 입력폼이 2개일때 --> */}
             <div className='two'>
               <dl>
                 <dt>E-mail</dt>
@@ -139,7 +75,6 @@ export default function SignUpInput() {
                 </dd>
               </dl>
             </div>
-            {/* <!-- 입력폼이 2개일때 --> */}
             <div className='two'>
               <dl>
                 <dt>팩스</dt>
@@ -204,4 +139,66 @@ export default function SignUpInput() {
       </form>
     </div>
   )
+}
+const validation = (signUpData) => {
+  if (signUpData.cpId === '') {
+    alert('업체아이디를 입력해주세요.')
+    return
+  }
+  if (signUpData.cpPw === '') {
+    alert('비밀번호를 입력해주세요.')
+    return
+  }
+  if (signUpData.confirmCpPw === '') {
+    alert('비밀번호확인을 입력해주세요.')
+    return
+  }
+  if (signUpData.cpPw !== signUpData.confirmCpPw) {
+    alert('비밀번호와 비밀번호확인이 다릅니다.')
+    return
+  }
+  if (signUpData.name === '') {
+    alert('업체명을 입력해주세요.')
+    return
+  }
+  if (signUpData.ownerName === '') {
+    alert('대표명을 입력해주세요.')
+    return
+  }
+  if (signUpData.hp === '') {
+    alert('휴대폰번호를 입력해주세요.')
+    return
+  }
+  if (signUpData.email === '') {
+    alert('이메일을 입력해주세요.')
+    return
+  }
+  if (signUpData.zipcode === '') {
+    alert('우편번호를 입력해주세요.')
+    return
+  }
+  if (signUpData.address1 === '') {
+    alert('주소를 입력해주세요.')
+    return
+  }
+  if (signUpData.address2 === '') {
+    alert('상세주소를 입력해주세요.')
+    return
+  }
+  return signUpData
+}
+
+const signUp = (signUpCallback, navigate) => (signUpData) => {
+  let formData = new FormData()
+  Object.keys(signUpData).map((key) => formData.append(key, signUpData[key]))
+
+  signUpCallback(signUpSelector(formData)).then((result) => {
+    const { data } = result
+    if (data.status === 'OK') {
+      alert('등록되었습니다.')
+      navigate('/')
+    } else {
+      alert(data.message)
+    }
+  })
 }

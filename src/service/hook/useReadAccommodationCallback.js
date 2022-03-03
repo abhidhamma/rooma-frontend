@@ -1,13 +1,14 @@
 import { useRecoilCallback } from 'recoil'
 import { defaultValuesAtom } from '../state/common/form'
 
-const useApiCallback = (apiType) =>
+const useReadAccommodationCallback = (apiType) =>
   useRecoilCallback(({ snapshot, refresh, set }) => async (api) => {
-    console.log(`useApiCallback ${apiType} Called...`)
+    console.log(`useReadAccommodationCallback ${apiType} Called...`)
     const release = snapshot.retain()
+    let result = null
     try {
-      console.log('useApiCallback try')
-      const result = await snapshot.getPromise(api)
+      console.log('useReadAccommodationCallback try')
+      result = await snapshot.getPromise(api)
 
       // 나중에 set할거 매개변수에 넣어서 명시해주는 방향으로 하자
       // set(accommodationListAtom, () => result.data.data.list)
@@ -18,6 +19,7 @@ const useApiCallback = (apiType) =>
     } finally {
       release()
     }
+    return result
   })
 
-export default useApiCallback
+export default useReadAccommodationCallback

@@ -26,7 +26,8 @@ export default function Header() {
             <a href='#'>대시보드</a>
             <a href='#'>예약현황</a>
             <a href='#'>예약관리</a>
-            <a href='#'>숙소관리</a>
+            <Link to={'/accommodation'}>숙소관리</Link>
+            {/* <a href='#'>숙소관리</a> */}
             <a href='#'>요금관리</a>
             <a href='#'>공지사항</a>
           </div>

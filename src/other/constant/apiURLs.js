@@ -1,7 +1,4 @@
 export const IS_PRODUCTION = process.env.REACT_APP_NODE_ENV === 'production'
-console.log('IS_PRODUCTION')
-console.log(process.env.REACT_APP_NODE_ENV)
-console.log(process.env.REACT_APP_SERVER_URL)
 
 // API server 주소
 export const SERVER_URL = IS_PRODUCTION ? process.env.REACT_APP_SERVER_URL : 'http://localhost:7070'
@@ -27,3 +24,16 @@ const V1_SLUG = 'v1'
 const v1Url = (rest) => `${SERVER_URL}/${API_SLUG}/${V1_SLUG}/${rest}`
 const ADDCOMPANY_SLUG = 'company/add'
 export const ADDCOMPANY_URL = v1Url(ADDCOMPANY_SLUG)
+
+//accommodation
+const CREATE_ACCOMMODATION_SLUG = 'accmd/add'
+export const CREATE_ACCOMMODATION_URL = v1Url(CREATE_ACCOMMODATION_SLUG)
+
+const READ_ACCOMMODATION_LIST_SLUG = 'accmd/list'
+export const READ_ACCOMMODATION_LIST_URL = v1Url(READ_ACCOMMODATION_LIST_SLUG)
+
+const READ_ACCOMMODATION_SLUG = 'accmd'
+export const READ_ACCOMMODATION_URL = v1Url(READ_ACCOMMODATION_SLUG)
+
+const UPDATE_ACCOMMODATION_SLUG = 'accmd/update'
+export const UPDATE_ACCOMMODATION_URL = v1Url(UPDATE_ACCOMMODATION_SLUG)
