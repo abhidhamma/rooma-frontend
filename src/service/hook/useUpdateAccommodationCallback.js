@@ -7,9 +7,10 @@ const useUpdateAccommodationCallback = (apiType) =>
     const release = snapshot.retain()
     try {
       console.log('useUpdateAccommodationCallback try')
-      const result = await snapshot.getPromise(api)
+      const { data } = await snapshot.getPromise(api)
 
-      set(defaultValuesAtom, () => result.data.data)
+      set(defaultValuesAtom, () => data.data)
+      return data
     } catch (error) {
       throw error
     } finally {

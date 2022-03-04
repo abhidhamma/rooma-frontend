@@ -1,13 +1,13 @@
 import { useRecoilCallback } from 'recoil'
 import { TOTAL_COUNT_ATOM } from '../../other/constant/atomKeys'
-import { accommodationListAtom } from '../state/accommodation'
-import { defaultValuesAtom } from '../state/common/form'
+import { accommodationListAtom, readAccommodationListSelector } from '../state/accommodation'
 import { totalCountAtom } from '../state/common/paging'
 
 const useReadAccommodationListCallback = (apiType) =>
   useRecoilCallback(({ snapshot, refresh, set }) => async (api) => {
     console.log(`useReadAccommodationListCallback ${apiType} Called...`)
     const release = snapshot.retain()
+
     try {
       console.log('useReadAccommodationListCallback try')
       const result = await snapshot.getPromise(api)
@@ -18,6 +18,7 @@ const useReadAccommodationListCallback = (apiType) =>
     } catch (error) {
       throw error
     } finally {
+      refresh(api)
       release()
     }
   })

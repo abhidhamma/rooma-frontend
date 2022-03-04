@@ -1,6 +1,8 @@
+import { useNavigate } from 'react-router-dom'
 import SideBar from '../SideBar'
 
-export default function AccommodationForm({ register, handleSubmit, onSubmit }) {
+export default function AccommodationForm({ register, handleSubmit, onSubmit, submitText }) {
+  let navigate = useNavigate()
   return (
     <>
       {/* <!-- S:Container --> */}
@@ -98,7 +100,7 @@ export default function AccommodationForm({ register, handleSubmit, onSubmit }) 
                 <dl>
                   <dt>계좌번호</dt>
                   <dd>
-                    <input type='text' placeholder='계좌번호를 입력해주세요' {...register('bankAccount')} defaultValue={'하나은행 1111-2222'} />
+                    <input type='text' placeholder='계좌번호를 입력해주세요' {...register('bankAccount')} />
                   </dd>
                 </dl>
               </section>
@@ -106,14 +108,14 @@ export default function AccommodationForm({ register, handleSubmit, onSubmit }) 
                 <dl>
                   <dt>판매시작일</dt>
                   <dd>
-                    <input type='text' {...register('saleStartdate')} defaultValue={'2022-03-02'} />
+                    <input type='text' {...register('saleStartdate')} />
                     <span className='ex'>예) 2022-01-26</span>
                   </dd>
                 </dl>
                 <dl>
                   <dt>판매종료일</dt>
                   <dd>
-                    <input type='text' {...register('saleEnddate')} defaultValue={'2022-03-01'} />
+                    <input type='text' {...register('saleEnddate')} />
                     <span className='ex'>예) 2022-01-26 [선택입력] 입력하지 않으면 계속 판매로 간주합니다.</span>
                   </dd>
                 </dl>
@@ -349,10 +351,10 @@ export default function AccommodationForm({ register, handleSubmit, onSubmit }) 
                     </div>
                     <div className='row'>
                       <div>
-                        <input type='text' {...register('checkinTime')} defaultValue={'15:00'} />
+                        <input type='text' {...register('checkinTime')} />
                       </div>
                       <div>
-                        <input type='text' {...register('checkoutTime')} defaultValue={'11:00'} />
+                        <input type='text' {...register('checkoutTime')} />
                       </div>
                     </div>
                   </dd>
@@ -497,9 +499,9 @@ export default function AccommodationForm({ register, handleSubmit, onSubmit }) 
             </div>
             <div className='center mgt_30'>
               <button type='submit' className='btn btn-large purple'>
-                등록
+                {submitText}
               </button>
-              <button type='button' className='btn btn-large line1'>
+              <button type='button' className='btn btn-large line1' onClick={() => cancel(navigate)}>
                 취소
               </button>
             </div>
@@ -510,4 +512,8 @@ export default function AccommodationForm({ register, handleSubmit, onSubmit }) 
       {/* <!-- E:Container --> */}
     </>
   )
+}
+
+const cancel = (navigate) => {
+  navigate('/accommodation')
 }

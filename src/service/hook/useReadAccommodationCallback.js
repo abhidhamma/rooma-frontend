@@ -5,21 +5,22 @@ const useReadAccommodationCallback = (apiType) =>
   useRecoilCallback(({ snapshot, refresh, set }) => async (api) => {
     console.log(`useReadAccommodationCallback ${apiType} Called...`)
     const release = snapshot.retain()
-    let result = null
+
     try {
       console.log('useReadAccommodationCallback try')
-      result = await snapshot.getPromise(api)
+      const { data } = await snapshot.getPromise(api)
 
       // 나중에 set할거 매개변수에 넣어서 명시해주는 방향으로 하자
       // set(accommodationListAtom, () => result.data.data.list)
       // set(totalCountAtom, () => result.data.data.totalCount)
-      set(defaultValuesAtom, () => result.data.data)
+      set(defaultValuesAtom, () => data.data)
+      return data
     } catch (error) {
       throw error
     } finally {
+      refresh(api)
       release()
     }
-    return result
   })
 
 export default useReadAccommodationCallback

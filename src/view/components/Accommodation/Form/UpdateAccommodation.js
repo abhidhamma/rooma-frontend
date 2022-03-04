@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useRecoilValue } from 'recoil'
 import { getFormDataFromJson } from '../../../../other/util/common/axiosUtil'
 import useReadAccommodationCallback from '../../../../service/hook/useReadAccommodationCallback'
@@ -13,6 +13,7 @@ import AccommodationForm from './Form'
 export default function UpdateAccommodation() {
   const updateAccommodationCallback = useUpdateAccommodationCallback('update Accommodation')
   const readAccommodationCallback = useReadAccommodationCallback('read Accommodation')
+  let navigate = useNavigate()
 
   const defaultValues = useRecoilValue(defaultValuesAtom)
 
@@ -36,7 +37,19 @@ export default function UpdateAccommodation() {
     defaultValues: defaultValues,
   })
 
-  const onSubmit = _.flow(addAcNo, getFormDataFromJson, updateAccommodationSelector, updateAccommodationCallback)
+  const onSubmit = _.flow(addAcNo, getFormDataFromJson, updateAccommodationSelector, updateAccommodationCallback, handleResult(navigate))
 
-  return <AccommodationForm register={register} handleSubmit={handleSubmit} onSubmit={onSubmit} />
+  return <AccommodationForm register={register} handleSubmit={handleSubmit} onSubmit={onSubmit} submitText={'수정'} />
+}
+
+const validate = () => {}
+
+const handleResult = (navigate) => async (data) => {
+  const { message } = await data
+  if (message === '성공') {
+    alert('수정되었습니다.')
+    navigate('/accommodation')
+  } else {
+    alert('오류가 발생했습니다. 잠시후에 다시 시도해주세요.')
+  }
 }
