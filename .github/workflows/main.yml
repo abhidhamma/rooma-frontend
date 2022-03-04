@@ -17,7 +17,7 @@ jobs:
           port: ${{ secrets.REMOTE_PORT }}
           script: |
             cd react/rooma-frontend
-            git checkout origin master
+            git pull origin master
             npm install
             npm run build
             pm2 restart 0
