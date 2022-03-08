@@ -1,13 +1,13 @@
 import { atom } from 'recoil'
-import { IS_LOGGED_IN_ATOM, RENDER_COUNT_ATOM } from '../../../other/constant/atomKeys'
-import { loadItem } from '../../../other/util/common/localStorage'
+import { IS_LOGGED_IN_ATOM_KEY, RENDER_COUNT_ATOM_KEY } from '@constant/atomKeys'
+import { loadItem } from '@util/common/localStorage'
 //테스트용으로 렌더횟수를 세는 atom
 export const renderCountAtom = atom({
-  key: RENDER_COUNT_ATOM,
+  key: RENDER_COUNT_ATOM_KEY,
   default: 0,
 })
 export const isLoggedInAtom = atom({
-  key: IS_LOGGED_IN_ATOM,
+  key: IS_LOGGED_IN_ATOM_KEY,
   default: loadItem('user') !== null, //이렇게 하면 자동로그인
   //default: false,
 })

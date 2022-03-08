@@ -1,5 +1,5 @@
 import { useRecoilCallback } from 'recoil'
-import { defaultValuesAtom } from '../state/common/form'
+import { defaultValuesAtom } from '@state/common/form'
 
 const useUpdateAccommodationCallback = (apiType) =>
   useRecoilCallback(({ snapshot, refresh, set }) => async (api) => {

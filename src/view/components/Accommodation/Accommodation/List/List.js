@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom'
 import { useRecoilValue } from 'recoil'
-import { currentPageAtom, totalCountAtom } from '../../../../service/state/common/paging'
-import SideBar from '../SideBar'
-import AccommodationTable from './Table'
+import { currentPageAtom, totalCountAtom } from '@state/common/paging'
+import SideBar from '@components/Accommodation/SideBar'
+import AccommodationTable from '@components/Accommodation/Accommodation/List/Table'
 
 export default function AccommodationList() {
   const totalCount = useRecoilValue(totalCountAtom)
@@ -12,7 +12,7 @@ export default function AccommodationList() {
       {/* <!-- S:Container --> */}
       <div id='container' className='split'>
         {/* <!-- S:lnb --> */}
-        <SideBar />
+        <SideBar active={0} />
         {/* <!-- E:lnb --> */}
         {/* <!-- S:content --> */}
         <div className='content2'>
@@ -31,12 +31,14 @@ export default function AccommodationList() {
               <button className='btn-search mgr_5' type='button'>
                 <span className='hidden'>검색</span>
               </button>
-              <Link to={'/accommodation/new'} className={'btn btn-middle purple'}>
+              <Link to={'/accommodation/accommodation/new'} className={'btn btn-middle purple'}>
                 숙소추가
               </Link>
             </div>
           </div>
+          {/* <Suspense fallback={<div>loading...</div>}> */}
           <AccommodationTable />
+          {/* </Suspense> */}
         </div>
         {/* <!-- E:content --> */}
       </div>

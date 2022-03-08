@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom'
 import { useRecoilValue } from 'recoil'
-import { isLoggedInAtom } from '../../service/state/common/common'
-import SignInContainer from '../components/SignIn/SignInContainer'
+import { isLoggedInAtom } from '@state/common/common'
+import SignInContainer from '@components/SignIn/SignInContainer'
 
 export default function SignIn() {
   console.log('SignIn called...')

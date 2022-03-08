@@ -1,9 +1,9 @@
 import { useRecoilCallback } from 'recoil'
-import { setCookie } from '../../other/util/common/cookie'
-import { loadItem, saveItem } from '../../other/util/common/localStorage'
-import { authResultAtom } from '../state/auth'
-import { isLoggedInAtom } from '../state/common/common'
-import { userAtom } from '../state/common/user'
+import { setCookie } from '@util/common/cookie'
+import { loadItem, saveItem } from '@util/common/localStorage'
+import { authResultAtom } from '@state/auth'
+import { isLoggedInAtom } from '@state/common/common'
+import { userAtom } from '@state/common/user'
 
 const useAuthCallback = (authType) =>
   useRecoilCallback(
@@ -22,7 +22,7 @@ const useAuthCallback = (authType) =>
           console.log('userDetails')
           console.log(userDetails)
 
-          const addedUserDetails = { ...userDetails }
+          // const addedUserDetails = { ...userDetails }
 
           setCookie('jwttoken', jwttoken)
           saveItem('user', userDetails)

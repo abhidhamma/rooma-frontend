@@ -1,9 +1,9 @@
 import axios from 'axios'
-import { signIn } from '../../service/api/auth'
-import { SERVER_URL } from '../constant/apiURLs'
-import { getCookie, setCookie } from '../util/common/cookie'
-import { decode } from '../util/common/hash'
-import { loadItem } from '../util/common/localStorage'
+import { signIn } from '@api/auth'
+import { SERVER_URL } from '@constant/apiURLs'
+import { getCookie, setCookie } from '@util/common/cookie'
+import { decode } from '@util/common/hash'
+import { loadItem } from '@util/common/localStorage'
 
 // axios 설정
 const clientConfig = () => {

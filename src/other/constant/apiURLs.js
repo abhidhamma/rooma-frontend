@@ -4,11 +4,12 @@ export const IS_PRODUCTION = process.env.REACT_APP_NODE_ENV === 'production'
 export const SERVER_URL = IS_PRODUCTION ? process.env.REACT_APP_SERVER_URL : 'http://localhost:7070'
 
 // client 주소
-export const CLIENT_URL = IS_PRODUCTION ? `${window.location.protocol}//${window.location.host}` : 'http://localhost:3000'
+export const CLIENT_URL = IS_PRODUCTION
+  ? `${window.location.protocol}//${window.location.host}`
+  : 'http://localhost:3000'
 
 // API
 const API_SLUG = 'api'
-const makeUrl = () => ``
 // auth
 const AUTH_SLUG = 'auth'
 const authUrl = (rest) => `${SERVER_URL}/${API_SLUG}/${AUTH_SLUG}/${rest}`
@@ -25,7 +26,7 @@ const v1Url = (rest) => `${SERVER_URL}/${API_SLUG}/${V1_SLUG}/${rest}`
 const ADDCOMPANY_SLUG = 'company/add'
 export const ADDCOMPANY_URL = v1Url(ADDCOMPANY_SLUG)
 
-//accommodation
+//숙소관리 - 숙소등록관리
 const CREATE_ACCOMMODATION_SLUG = 'accmd/add'
 export const CREATE_ACCOMMODATION_URL = v1Url(CREATE_ACCOMMODATION_SLUG)
 
@@ -37,3 +38,16 @@ export const READ_ACCOMMODATION_URL = v1Url(READ_ACCOMMODATION_SLUG)
 
 const UPDATE_ACCOMMODATION_SLUG = 'accmd/update'
 export const UPDATE_ACCOMMODATION_URL = v1Url(UPDATE_ACCOMMODATION_SLUG)
+
+//숙소관리 - 객실타입등록관리
+const CREATE_ROOMTYPE_SLUG = 'roomtype/add'
+export const CREATE_ROOMTYPE_URL = v1Url(CREATE_ROOMTYPE_SLUG)
+
+const READ_ROOMTYPE_SLUG = 'roomtype'
+export const READ_ROOMTYPE_URL = v1Url(READ_ROOMTYPE_SLUG)
+
+const READ_ROOMTYPE_LIST_SLUG = 'roomtype/list'
+export const READ_ROOMTYPE_LIST_URL = v1Url(READ_ROOMTYPE_LIST_SLUG)
+
+const UPDATE_ROOMTYPE_SLUG = 'roomtype/update'
+export const UPDATE_ROOMTYPE_URL = v1Url(UPDATE_ROOMTYPE_SLUG)

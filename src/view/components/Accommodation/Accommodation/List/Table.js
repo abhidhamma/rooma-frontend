@@ -1,10 +1,13 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { useRecoilState, useRecoilValue } from 'recoil'
-import { getFormDataFromJson } from '../../../../other/util/common/axiosUtil'
-import useReadAccommodationListCallback from '../../../../service/hook/useReadAccommodationListCallback'
-import { accommodationListAtom, readAccommodationListSelector } from '../../../../service/state/accommodation'
-import { currentPageAtom } from '../../../../service/state/common/paging'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
+import { getFormDataFromJson } from '@util/common/axiosUtil'
+import useReadAccommodationListCallback from '@hook/apiHook/useReadAccommodationListCallback'
+import {
+  accommodationListAtom,
+  readAccommodationListSelector,
+} from '@state/accommodation/accommodation'
+import { currentPageAtom, totalCountAtom } from '@state/common/paging'
 import ButtonGroup from './ButtonGroup'
 import Paging from './Paging'
 
@@ -13,7 +16,8 @@ export default function AccommodationTable() {
 
   const readAccommodationListCallback = useReadAccommodationListCallback('accommodationList')
   const accommodationList = useRecoilValue(accommodationListAtom)
-  const [currentPage, setCurrentPage] = useRecoilState(currentPageAtom)
+  const currentPage = useRecoilValue(currentPageAtom)
+  const setTotalCount = useSetRecoilState(totalCountAtom)
 
   const rowCount = 7
   const currentIndex = (currentPage - 1) * rowCount
@@ -21,7 +25,15 @@ export default function AccommodationTable() {
   console.log(accommodationList)
 
   const data = { cpNo: '1', name: '', startRow: `${currentIndex}`, rowCount: `${rowCount}` }
+  // const {
+  //   data: {
+  //     data: { list, totalCount },
+  //   },
+  // } = useRecoilValue(readAccommodationListSelector(getFormDataFromJson(data)))
+  // console.log('selector called!')
+  // console.log(list, totalCount)
   useEffect(() => {
+    // setTotalCount(totalCount)
     readAccommodationListCallback(readAccommodationListSelector(getFormDataFromJson(data)))
   }, [currentIndex])
   return (
@@ -74,7 +86,9 @@ export default function AccommodationTable() {
               </td>
               <td>{accommodation.acNo}</td>
               <td>
-                <Link to={`/accommodation/${accommodation.acNo}`}>{accommodation.name}</Link>
+                <Link to={`/accommodation/accommodation/${accommodation.acNo}`}>
+                  {accommodation.name}
+                </Link>
               </td>
               <td>{accommodation.nickname}</td>
               <td>{accommodation.address1}</td>

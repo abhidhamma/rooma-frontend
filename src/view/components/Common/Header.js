@@ -1,8 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
-import { removeItem } from '../../../other/util/common/localStorage'
-import { isLoggedInAtom } from '../../../service/state/common/common'
-import { userAtom } from '../../../service/state/common/user'
+import { removeItem } from '@util/common/localStorage'
+import { isLoggedInAtom } from '@state/common/common'
+import { userAtom } from '@state/common/user'
 
 export default function Header() {
   const setIsLoggedIn = useSetRecoilState(isLoggedInAtom)
@@ -26,7 +26,7 @@ export default function Header() {
             <a href='#'>대시보드</a>
             <a href='#'>예약현황</a>
             <a href='#'>예약관리</a>
-            <Link to={'/accommodation'}>숙소관리</Link>
+            <Link to={'/accommodation/accommodation'}>숙소관리</Link>
             <a href='#'>요금관리</a>
             <a href='#'>공지사항</a>
           </div>

@@ -2,7 +2,7 @@ import _ from 'lodash'
 import React, { useCallback } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
-import { dayCountAtom, displayAtom, isDisplayCreateReservationAtom, lockedRoomListAtom, overlayAtom, reservationListAtom, standardDateAtom } from '../../../../../service/state/reservation'
+import { dayCountAtom, displayAtom, isDisplayCreateReservationAtom, lockedRoomListAtom, overlayAtom, reservationListAtom, standardDateAtom } from '@state/reservation'
 import { canDropEffect, dropEffect, itemEffect, throttleHoverEffect } from './PriceFunction'
 import PricePresenter from './PricePresenter'
 

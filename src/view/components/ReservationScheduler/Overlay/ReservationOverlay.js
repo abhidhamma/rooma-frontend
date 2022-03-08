@@ -1,7 +1,7 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil'
-import { addyyyyMMdd, betweenyyyyMMdd, formatMMddE, formatyyyyMMdd, stringToDate } from '../../../../other/util/common/dateUtil'
-import { getDateArray } from '../../../../other/util/reservation/reservation'
-import { displayAtom, standardDateAtom } from '../../../../service/state/reservation'
+import { addyyyyMMdd, betweenyyyyMMdd, formatMMddE, formatyyyyMMdd, stringToDate } from '@util/common/dateUtil'
+import { getDateArray } from '@util/reservation/reservation'
+import { displayAtom, standardDateAtom } from '@state/reservation'
 
 function ReservationOverlay({ data, drag, dayCount, currentDate }) {
   const setDisplay = useSetRecoilState(displayAtom)

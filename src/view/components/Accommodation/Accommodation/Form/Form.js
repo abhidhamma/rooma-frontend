@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import SideBar from '../SideBar'
+import SideBar from '@components/Accommodation/SideBar'
 
 export default function AccommodationForm({ register, handleSubmit, onSubmit, submitText }) {
   let navigate = useNavigate()
@@ -8,7 +8,7 @@ export default function AccommodationForm({ register, handleSubmit, onSubmit, su
       {/* <!-- S:Container --> */}
       <div id='container' className='split'>
         {/* <!-- S:lnb --> */}
-        <SideBar />
+        <SideBar active={0} />
         {/* <!-- E:lnb --> */}
         {/* <!-- S:content --> */}
         <div className='content2'>
@@ -51,7 +51,12 @@ export default function AccommodationForm({ register, handleSubmit, onSubmit, su
                 <dl>
                   <dt>숙소명</dt>
                   <dd>
-                    <input type='text' placeholder='숙소명을 입력해주세요' className='w70' {...register('name')} />
+                    <input
+                      type='text'
+                      placeholder='숙소명을 입력해주세요'
+                      className='w70'
+                      {...register('name')}
+                    />
                   </dd>
                 </dl>
                 <dl>
@@ -82,13 +87,21 @@ export default function AccommodationForm({ register, handleSubmit, onSubmit, su
                 <dl>
                   <dt>위도</dt>
                   <dd>
-                    <input type='text' placeholder='위도를 입력해주세요' {...register('positionX')} />
+                    <input
+                      type='text'
+                      placeholder='위도를 입력해주세요'
+                      {...register('positionX')}
+                    />
                   </dd>
                 </dl>
                 <dl>
                   <dt>경도</dt>
                   <dd>
-                    <input type='text' placeholder='경도를 입력해주세요' {...register('positionY')} />
+                    <input
+                      type='text'
+                      placeholder='경도를 입력해주세요'
+                      {...register('positionY')}
+                    />
                   </dd>
                 </dl>
                 {/* <dl>
@@ -100,7 +113,11 @@ export default function AccommodationForm({ register, handleSubmit, onSubmit, su
                 <dl>
                   <dt>계좌번호</dt>
                   <dd>
-                    <input type='text' placeholder='계좌번호를 입력해주세요' {...register('bankAccount')} />
+                    <input
+                      type='text'
+                      placeholder='계좌번호를 입력해주세요'
+                      {...register('bankAccount')}
+                    />
                   </dd>
                 </dl>
               </section>
@@ -116,7 +133,9 @@ export default function AccommodationForm({ register, handleSubmit, onSubmit, su
                   <dt>판매종료일</dt>
                   <dd>
                     <input type='text' {...register('saleEnddate')} />
-                    <span className='ex'>예) 2022-01-26 [선택입력] 입력하지 않으면 계속 판매로 간주합니다.</span>
+                    <span className='ex'>
+                      예) 2022-01-26 [선택입력] 입력하지 않으면 계속 판매로 간주합니다.
+                    </span>
                   </dd>
                 </dl>
               </section>
@@ -434,7 +453,9 @@ export default function AccommodationForm({ register, handleSubmit, onSubmit, su
                   <dd>
                     <input type='text' defaultValue={'3'} />
                     <span className='mgl_10'>일</span>
-                    <span className='ex'>(로부터 기한까지 입금하지 않는 경우 예약을 자동으로 취소합니다.)</span>
+                    <span className='ex'>
+                      (로부터 기한까지 입금하지 않는 경우 예약을 자동으로 취소합니다.)
+                    </span>
                   </dd>
                 </dl>
               </section>
@@ -443,7 +464,9 @@ export default function AccommodationForm({ register, handleSubmit, onSubmit, su
                   <dt>태그</dt>
                   <dd>
                     <input type='text' className='w70' />
-                    <p className='ex mgt_5'>","로 분리하세요. (예 : 커플형펜션,가족형펜션,서귀포,바닷가전망,수영장 등)</p>
+                    <p className='ex mgt_5'>
+                      ","로 분리하세요. (예 : 커플형펜션,가족형펜션,서귀포,바닷가전망,수영장 등)
+                    </p>
                   </dd>
                 </dl>
               </section>
@@ -491,7 +514,9 @@ export default function AccommodationForm({ register, handleSubmit, onSubmit, su
                     <ul className='mgt_20 txtlist'>
                       <li>- 권장 크기 : 1000 x 1000</li>
                       <li>- 추가이미지는 최대 7개까지 설정할 수 있습니다.</li>
-                      <li>- 이미지는 JPG, PNG 형식의 파일로 이미지 1장당 3MB이하로 등록이 가능합니다.</li>
+                      <li>
+                        - 이미지는 JPG, PNG 형식의 파일로 이미지 1장당 3MB이하로 등록이 가능합니다.
+                      </li>
                     </ul>
                   </dd>
                 </dl>
@@ -501,7 +526,11 @@ export default function AccommodationForm({ register, handleSubmit, onSubmit, su
               <button type='submit' className='btn btn-large purple'>
                 {submitText}
               </button>
-              <button type='button' className='btn btn-large line1' onClick={() => cancel(navigate)}>
+              <button
+                type='button'
+                className='btn btn-large line1'
+                onClick={() => cancel(navigate)}
+              >
                 취소
               </button>
             </div>

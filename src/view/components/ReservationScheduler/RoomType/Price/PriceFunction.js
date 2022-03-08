@@ -1,6 +1,6 @@
 import _ from 'lodash'
-import { addyyyyMMdd, betweenyyyyMMdd, formatyyyyMMdd } from '../../../../../other/util/common/dateUtil'
-import { getDateArray } from '../../../../../other/util/reservation/reservation'
+import { addyyyyMMdd, betweenyyyyMMdd, formatyyyyMMdd } from '@util/common/dateUtil'
+import { getDateArray } from '@util/reservation/reservation'
 
 export const itemEffect = (filteredReservationList, currentDate, standardDate, setOverlay, roomNumber, setDisplay) => {
   let [reservation] = filteredReservationList.filter((item) => item.checkIn === currentDate)

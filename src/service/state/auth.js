@@ -1,7 +1,7 @@
 import { atom, selectorFamily } from 'recoil'
-import { AUTH_RESULT_ATOM_KEY, SIGNIN_SELECTOR_KEY, SIGNUP_SELECTOR_KEY } from '../../other/constant/atomKeys'
-import { signIn } from '../api/auth'
-import { addCompany } from '../api/company'
+import { AUTH_RESULT_ATOM_KEY, SIGNIN_SELECTOR_KEY, SIGNUP_SELECTOR_KEY } from '@constant/atomKeys'
+import { signIn } from '@api/auth'
+import { addCompany } from '@api/company'
 
 //atom
 export const authResultAtom = atom({

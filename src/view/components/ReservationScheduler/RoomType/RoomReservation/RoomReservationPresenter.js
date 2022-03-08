@@ -1,6 +1,6 @@
 import React from 'react'
-import { formatyyyyMMdd } from '../../../../../other/util/common/dateUtil'
-import Price from '../Price'
+import { formatyyyyMMdd } from '@util/common/dateUtil'
+import Price from '@components/ReservationScheduler/RoomType/Price'
 
 function RoomReservationPresenter({ currentCalendarList, currentReservationList, roomNumber }) {
   return (

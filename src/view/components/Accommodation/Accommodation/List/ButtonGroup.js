@@ -15,7 +15,7 @@ export default function ButtonGroup() {
         </a>
       </div>
       <div>
-        <Link to={'/accommodation/new'} className={'btn btn-middle purple'}>
+        <Link to={'/accommodation/accommodation/new'} className={'btn btn-middle purple'}>
           숙소추가
         </Link>
       </div>

@@ -1,5 +1,5 @@
 import { addDays, isSaturday, isSunday } from 'date-fns/fp'
-import { addyyyyMMdd, formatddE, formatyyyyMMdd } from '../common/dateUtil'
+import { addyyyyMMdd, formatddE, formatyyyyMMdd } from '@util/common/dateUtil'
 
 /*
 위치 : RoomReservation, Price, ReservationOverlay

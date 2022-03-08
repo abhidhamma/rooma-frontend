@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useSetRecoilState } from 'recoil'
-import { isDisplayCreateReservationAtom } from '../../../../service/state/reservation'
+import { isDisplayCreateReservationAtom } from '@state/reservation'
 
 export default function CreateReservation() {
   const [isReservationButtonOpen, setIsReservationButtonOpen] = useState(false)

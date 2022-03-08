@@ -1,8 +1,8 @@
 import React from 'react'
-import { getDateArray } from '../../../../../other/util/reservation/reservation'
-import ReservationOverlay from '../../Overlay/ReservationOverlay'
-import SourceOverlay from '../../Overlay/SourceOverlay'
-import TargetOverlay from '../../Overlay/TargetOverlay'
+import { getDateArray } from '@util/reservation/reservation'
+import ReservationOverlay from '@components/ReservationScheduler/Overlay/ReservationOverlay'
+import SourceOverlay from '@components/ReservationScheduler/Overlay/SourceOverlay'
+import TargetOverlay from '@components/ReservationScheduler/Overlay/TargetOverlay'
 
 function PricePresenter({ drop, reservation, currentDate, price, isDragging, isOver, handleCreateReservation, dayCount, drag, lockedRoom }) {
   //달력이 걸치는 경우? checkIn부터 checkOut까지의 값을 모두 넣고 indexOf로 currentDate와 동일한게 있는지 찾는다

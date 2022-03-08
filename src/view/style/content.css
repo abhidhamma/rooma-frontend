@@ -316,21 +316,84 @@ a {
   padding: 15px 20px;
   background: #f5f6f7;
 }
-.reserv-input section:first-child {
+.reserv-input section.add-group {
   border: 1px solid #5b73e8;
-  padding: 0;
+}
+
+.reserv-input section.add-group .top-btn {
+  margin-bottom: -15px;
+  text-align: center;
   display: flex;
+  justify-content: flex-end;
 }
-.reserv-input section:first-child .r-left {
-  flex: 1;
-  padding: 15px;
+.reserv-input section.add-group .top-btn a {
+  border-radius: 5px;
+  display: inline-block;
+  font-size: 12px;
+  height: 30px;
+  line-height: 28px;
+  padding: 0 10px;
 }
-.reserv-input section:first-child .r-right {
-  width: 250px;
-  background: #f4f6fe;
-  padding: 20px;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
+.reserv-input section.add-group .top-btn a + a {
+  margin-left: 5px;
+}
+.reserv-input section.add-group .top-btn a.close {
+  border: 1px solid #5b73e8;
+  color: #5b73e8;
+  width: 94px;
+}
+.reserv-input section.add-group .top-btn a.close::after {
+  content: '옵션 정보 닫기';
+}
+.reserv-input section.add-group .top-btn a.open {
+  border: 1px solid #5b73e8;
+  color: #fff;
+  background: #5b73e8;
+}
+.reserv-input section.add-group .top-btn a.open::after {
+  content: '옵션 정보 열기';
+}
+.reserv-input section.add-group .top-btn a.cancle {
+  border: 1px solid #f46a6a;
+  color: #fff;
+  background: #f46a6a;
+}
+.reserv-input .add-gr {
+  display: inline-block;
+  border-radius: 5px;
+  background: #5b68a1;
+  border: 1px solid #5b68a1;
+  height: 38px;
+  line-height: 36px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  padding: 0 15px;
+}
+.reserv-input .resev-num {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.reserv-input .resev-num dl {
+  display: flex;
+  align-items: center;
+}
+.reserv-input .resev-num dt {
+  display: inline-block;
+  background: #d8dbe8;
+  color: #353c5a;
+  height: 40px;
+  border-radius: 100px 100px;
+  line-height: 40px;
+  padding: 0 15px;
+  margin-right: 10px;
+}
+.reserv-input .resev-num dd {
+  font-size: 18px;
+}
+.reserv-input .resev-num .r-right {
+  display: flex;
 }
 .reserv-input section {
   border-radius: 10px 10px;
@@ -384,22 +447,25 @@ a {
 .r-right a {
   display: block;
   position: relative;
-  padding: 0 75px 0 26px;
-  font-size: 20px;
-  height: 64px;
-  line-height: 64px;
+  padding: 0 15px;
+  font-size: 16px;
+  height: 50px;
+  line-height: 50px;
   text-decoration: none;
   font-weight: 500;
+  border-radius: 5px;
+  width: 160px;
 }
 .r-right a.c1 {
-  background: #d5dcff;
-  border: 1px solid #bfc8f5;
-  color: #5b73e8;
+  background: #5b73e8;
+  border: 1px solid #5b73e8;
+  color: #fff;
+  margin-right: 10px;
 }
 .r-right a.c2 {
-  background: #ffeed5;
-  border: 1px solid #e1bf8c;
-  color: #e65d3a;
+  background: #ef893c;
+  border: 1px solid #ef893c;
+  color: #fff;
 }
 .r-right .reserv-state {
   position: relative;
@@ -420,27 +486,26 @@ a {
   height: 12px;
   margin-top: -3px;
 }
+
+.r-right .reserv-state a.c2.drop:before,
+.r-right .reserv-state a.c2:before,
 .r-right .reserv-state a.c1.drop:before,
 .r-right .reserv-state a.c1:before {
-  background: url('../asset/images/ico-up2.png') no-repeat left 0;
-}
-.r-right .reserv-state a.c1.down:before {
-  background: url('../asset/images/ico-down2.png') no-repeat left 0;
-}
-.r-right .reserv-state a.c2.drop:before,
-.r-right .reserv-state a.c2:before {
   background: url('../asset/images/ico-up1.png') no-repeat left 0;
 }
-.r-right .reserv-state a.c2.down:before {
+.r-right .reserv-state a.c2.down:before,
+.r-right .reserv-state a.c1.down:before {
   background: url('../asset/images/ico-down1.png') no-repeat left 0;
 }
 .category-menu {
   position: absolute;
-  top: 63px;
+  top: 51px;
   right: 0;
   left: 0;
   display: none;
   z-index: 10;
+  width: 160px;
+  border-radius: 5px;
 }
 .category-menu.c1 {
   border: 1px solid #bfc8f5;
@@ -454,9 +519,9 @@ a {
 }
 .category-menu > li > a {
   display: block;
-  height: 70px;
-  line-height: 70px;
-  padding-left: 26px;
+  height: 50px;
+  line-height: 50px;
+  padding-left: 15px;
 }
 .category-menu.c1 > li > a {
   border-bottom: 1px solid #bfc8f5;
@@ -550,4 +615,324 @@ a {
 }
 .summary-info .btm-info .price-box dl:last-child dd {
   color: #e63a3a;
+}
+.state-select {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+  background: #fff;
+  z-index: 11;
+  padding: 15px;
+}
+.state-select li a {
+  font-size: 14px;
+  display: block;
+  text-align: left;
+  padding: 10px 15px;
+}
+.state-select li a:hover {
+  background: #6848c2;
+  border-radius: 3px;
+  color: #fff;
+}
+/* 요금관리 */
+.price-input table {
+  width: 100%;
+}
+.price-input table th {
+  background: #f5f6f8;
+  padding: 12px 0;
+}
+.price-input table th.bg {
+  background: #fffbf8;
+  color: #841919;
+}
+.price-input table th,
+.price-input table td {
+  font-size: 14px;
+  border: 1px solid #e4e4e4;
+}
+.price-input table td {
+  padding: 7px;
+}
+.price-input table td a.make {
+  color: #fff;
+  background: #5b73e8;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 5px;
+  display: inline-block;
+  padding: 0 20px;
+}
+.price-input table td .n-input {
+  border: 1px solid #dfdfdf;
+  border-radius: 5px;
+  position: relative;
+}
+.price-input table td .n-input input {
+  height: 40px;
+  line-height: 40px;
+  border: 0;
+  padding: 0 30px 0 10px;
+}
+.price-input table td .n-input span {
+  position: absolute;
+  right: 10px;
+  top: 12px;
+}
+.price-input table td.bg {
+  background: #f1f3fe;
+  text-align: center;
+  color: #5b73e8;
+  font-weight: bold;
+}
+.price-input table tr.date th {
+  background: #fffbf8;
+  padding: 6px 0;
+  font-weight: normal;
+}
+.price-input section {
+  margin-bottom: 50px;
+}
+.price-input h4 {
+  font-size: 18px;
+  padding-left: 55px;
+  margin-bottom: 15px;
+  background: url('../asset/images/ico_h4.png') no-repeat 15px 50%;
+  height: 34px;
+  line-height: 34px;
+}
+.ex-txt {
+  font-size: 14px;
+  padding: 25px 15px;
+  line-height: 18px;
+}
+.ex-txt strong {
+  color: #5b73e8;
+}
+
+.imgList {
+  display: flex;
+}
+.imgList li {
+  margin-right: 10px;
+}
+.imgList .thumnail {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+.imgList .thumnail .thumnailAdd {
+  display: inline-block;
+  width: 120px;
+  height: 120px;
+  background: #fafafa url('../asset/images/btn_add2.png') center center no-repeat;
+  cursor: pointer;
+  border: 1px dashed #e2e2e2;
+  cursor: pointer;
+}
+.imgList .thumnail .thumnailAdd input {
+  opacity: 0;
+  width: 120px;
+  height: 120px;
+  cursor: pointer;
+}
+.imgList .thumnail a {
+  position: absolute;
+  right: 0;
+  height: 20px;
+  width: 20px;
+  top: 0;
+  background: url('../asset/images/btn_delete2.png') no-repeat;
+  display: inline-block;
+}
+.imgList .thumnail img {
+  width: 120px;
+  height: 120px;
+}
+.imgList span {
+  display: block;
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+.imgList span em {
+  color: #d62828;
+  font-weight: bold;
+  margin-right: 3px;
+}
+.roomSetting {
+  max-width: 995px;
+}
+.roomSetting .word .row.tit {
+  color: #252525 !important;
+}
+.roomSetting .roomName {
+  flex-wrap: wrap;
+}
+.roomSetting .roomName > div,
+.roomSetting .roomName {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.roomSetting .roomName > div {
+  flex: 0 0 33.3%;
+  margin-bottom: 10px;
+}
+.roomSetting .roomName > div span {
+  font-size: 14px;
+  margin-right: 10px;
+  word-break: keep-all;
+}
+.roomSetting .roomName > div input {
+  margin-right: 15px;
+  padding: 0 35px 0 15px;
+}
+.writeArea .roomSetting .ex {
+  margin-left: 0 !important;
+  margin-bottom: 20px;
+}
+.writeArea .roomSetting .delete {
+  position: absolute;
+  background: url('../asset/images/close2.png') no-repeat center center;
+  width: 20px;
+  height: 20px;
+  right: 25px;
+}
+.writeArea .roomSetting .sell-num {
+  background: #eaecf8;
+  padding: 15px 25px;
+  display: flex;
+  align-items: center;
+}
+.writeArea .roomSetting .sell-num span {
+  margin-right: 15px;
+}
+.writeArea .roomSetting .sell-num select {
+  background-color: #fff;
+  width: 150px;
+  min-width: 150px;
+  margin-right: 15px;
+}
+
+/* 레이어 */
+.quick-layer {
+  position: absolute;
+  top: 57px;
+  background: #fff;
+  box-shadow: 0 10px 15px 0px rgba(82, 88, 95, 0.15);
+  border-radius: 5px 5px;
+  overflow: hidden;
+  z-index: 10;
+}
+.quick-layer div.tit {
+  font-size: 14px;
+  color: #fff;
+  padding: 12px 30px;
+  background: #5b73e8;
+  text-align: center;
+  position: relative;
+}
+.quick-layer div.tit a {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  position: absolute;
+  top: 11px;
+}
+.quick-layer div.tit a.month-next {
+  background: url('../asset/images/ico_open.png') no-repeat center center;
+  right: 10px;
+}
+.quick-layer div.tit a.month-prev {
+  background: url('../asset/images/ico_close.png') no-repeat center center;
+  left: 10px;
+}
+.quick-layer.sel-date {
+  z-index: 99;
+}
+.quick-layer .dateArea {
+  margin-bottom: 5px;
+}
+.quick-layer .dateArea table {
+  width: 100%;
+}
+.quick-layer .dateArea table th {
+  background: #ebebeb;
+  padding: 5px 0;
+}
+.quick-layer .dateArea table th,
+.quick-layer .dateArea table td {
+  font-size: 12px;
+  text-align: center;
+  padding: 8px 0;
+  border: 0;
+}
+.quick-layer .dateArea table .sun {
+  color: #f46a6a;
+}
+.quick-layer .dateArea table .sat {
+  color: #50a5f1;
+}
+.quick-layer .dateArea table td div {
+  cursor: pointer;
+}
+.quick-layer .dateArea table td div:hover,
+.quick-layer .dateArea table td div.today {
+  color: #5b73e8;
+  font-weight: bold;
+}
+
+.periodWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.periodWrap .year {
+  margin-right: 15px;
+}
+.periodWrap .year select {
+  font-size: 24px;
+  font-weight: bold;
+  border: 0;
+  background: url(../asset/images/ico_select3.png) right 14px center no-repeat;
+  cursor: pointer;
+  padding: 0 50px 0 15px;
+}
+.periodWrap .month {
+  display: flex;
+  align-items: center;
+}
+.periodWrap .month a {
+  font-size: 20px;
+  font-weight: bold;
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  text-align: center;
+  line-height: 60px;
+}
+.periodWrap .month a.selected,
+.periodWrap .month a:hover {
+  background: #5b73e8;
+  border-radius: 100px 100px;
+  color: #fff;
+}
+.periodWrap select:hover {
+  border: 0;
+}
+.periodWrap .month .next,
+.periodWrap .month .prev {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px 6px;
+  border: 1px solid #d8d8d8;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+.periodWrap .month .next {
+  background: url('../asset/images/btn_cal_next.png') no-repeat center;
+  margin-left: 15px;
+}
+.periodWrap .month .prev {
+  background: url('../asset/images/btn_cal_prev.png') no-repeat center;
+  margin-right: 15px;
 }

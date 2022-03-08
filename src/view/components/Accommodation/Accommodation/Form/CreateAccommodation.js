@@ -1,10 +1,11 @@
 import _ from 'lodash'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { getFormDataFromJson } from '../../../../other/util/common/axiosUtil'
-import useCreateAccommodationCallback from '../../../../service/hook/useCreateAccommodationCallback'
-import { createAccommodationSelector } from '../../../../service/state/accommodation'
+import { getFormDataFromJson } from '@util/common/axiosUtil'
+import useCreateAccommodationCallback from '@hook/apiHook/useCreateAccommodationCallback'
+import { createAccommodationSelector } from '@state/accommodation/accommodation'
 import AccommodationForm from './Form'
+import { validateAccommodationInput } from '@util/validation/validateAccommodationInput'
 
 export default function CreateAccommodation() {
   const createAccommodationCallback = useCreateAccommodationCallback('create Accommodation')
@@ -39,19 +40,34 @@ export default function CreateAccommodation() {
     notice: '',
   }
   const { register, handleSubmit } = useForm({ defaultValues })
-  const onSubmit = _.flow(getFormDataFromJson, createAccommodationSelector, createAccommodationCallback, handleResult(navigate))
+  const onSubmit = _.flow(
+    validateAccommodationInput,
+    getFormDataFromJson,
+    createAccommodation(createAccommodationCallback, navigate)
+  )
 
-  return <AccommodationForm register={register} handleSubmit={handleSubmit} onSubmit={onSubmit} submitText={'등록'} />
+  return (
+    <AccommodationForm
+      register={register}
+      handleSubmit={handleSubmit}
+      onSubmit={onSubmit}
+      submitText={'등록'}
+    />
+  )
 }
 
-const validate = () => {}
-
-const handleResult = (navigate) => async (data) => {
-  const { message } = await data
-  if (message === '성공') {
-    alert('등록되었습니다.')
-    navigate('/accommodation')
-  } else {
-    alert('오류가 발생했습니다. 잠시후에 다시 시도해주세요.')
+const createAccommodation = (createAccommodationCallback, navigate) => (formData) => {
+  if (formData === false) {
+    return
   }
+
+  createAccommodationCallback(createAccommodationSelector(formData)).then((data) => {
+    const { message } = data
+    if (message === '성공') {
+      alert('등록되었습니다.')
+      navigate('/accommodation')
+    } else {
+      alert('오류가 발생했습니다. 잠시후에 다시 시도해주세요.')
+    }
+  })
 }

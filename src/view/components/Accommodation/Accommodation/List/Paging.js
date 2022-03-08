@@ -1,5 +1,5 @@
 import { useRecoilState, useRecoilValue } from 'recoil'
-import { currentPageAtom, totalCountAtom } from '../../../../service/state/common/paging'
+import { currentPageAtom, totalCountAtom } from '@state/common/paging'
 export default function Paging() {
   console.log('paging...')
   const [currentPage, setCurrentPage] = useRecoilState(currentPageAtom)

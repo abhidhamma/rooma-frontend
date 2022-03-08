@@ -1,5 +1,5 @@
-import { AUTHENTICATE_URL } from '../../other/constant/apiURLs'
-import client from '../../other/config/axiosClient'
+import { AUTHENTICATE_URL } from "@constant/apiURLs"
+import client from "@config/axiosClient"
 
 export const signIn = ({ username, password }) =>
   client.post(AUTHENTICATE_URL, {

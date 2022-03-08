@@ -3,11 +3,11 @@ import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useRecoilValue } from 'recoil'
-import { getFormDataFromJson } from '../../../../other/util/common/axiosUtil'
-import useReadAccommodationCallback from '../../../../service/hook/useReadAccommodationCallback'
-import useUpdateAccommodationCallback from '../../../../service/hook/useUpdateAccommodationCallback'
-import { readAccommodationSelector, updateAccommodationSelector } from '../../../../service/state/accommodation'
-import { defaultValuesAtom } from '../../../../service/state/common/form'
+import { getFormDataFromJson } from '@util/common/axiosUtil'
+import useReadAccommodationCallback from '@hook/apiHook/useReadAccommodationCallback'
+import useUpdateAccommodationCallback from '@hook/apiHook/useUpdateAccommodationCallback'
+import { readAccommodationSelector, updateAccommodationSelector } from '@state/accommodation/accommodation'
+import { defaultValuesAtom } from '@state/common/form'
 import AccommodationForm from './Form'
 
 export default function UpdateAccommodation() {
@@ -37,12 +37,25 @@ export default function UpdateAccommodation() {
     defaultValues: defaultValues,
   })
 
-  const onSubmit = _.flow(addAcNo, getFormDataFromJson, updateAccommodationSelector, updateAccommodationCallback, handleResult(navigate))
+  const onSubmit = _.flow(
+    addAcNo,
+    getFormDataFromJson,
+    updateAccommodationSelector,
+    updateAccommodationCallback,
+    handleResult(navigate)
+  )
 
-  return <AccommodationForm register={register} handleSubmit={handleSubmit} onSubmit={onSubmit} submitText={'수정'} />
+  return (
+    <AccommodationForm
+      register={register}
+      handleSubmit={handleSubmit}
+      onSubmit={onSubmit}
+      submitText={'수정'}
+    />
+  )
 }
 
-const validate = () => {}
+// const validate = () => {}
 
 const handleResult = (navigate) => async (data) => {
   const { message } = await data

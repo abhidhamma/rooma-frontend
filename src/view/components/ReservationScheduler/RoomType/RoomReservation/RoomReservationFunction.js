@@ -1,5 +1,5 @@
-import { addyyyyMMdd, formatyyyyMMdd, betweenyyyyMMdd } from '../../../../../other/util/common/dateUtil'
-import { getDateArray } from '../../../../../other/util/reservation/reservation'
+import { addyyyyMMdd, formatyyyyMMdd, betweenyyyyMMdd } from '@util/common/dateUtil'
+import { getDateArray } from '@util/reservation/reservation'
 
 //현재 보일 캘린더의 날짜별 가격 목록
 export const getCurrentMonthPrice = (monthPriceList, standardDate, dayCount) => {

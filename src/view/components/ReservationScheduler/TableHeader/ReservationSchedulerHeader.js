@@ -1,7 +1,7 @@
 import { useRecoilValue } from 'recoil'
-import { today } from '../../../../other/util/common/dateUtil'
-import { getReservationSchedulerDateArray } from '../../../../other/util/reservation/reservation'
-import { dayCountAtom, standardDateAtom } from '../../../../service/state/reservation'
+import { today } from '@util/common/dateUtil'
+import { getReservationSchedulerDateArray } from '@util/reservation/reservation'
+import { dayCountAtom, standardDateAtom } from '@state/reservation'
 import Day from './Day'
 
 export default function ReservationSchedulerHeader() {

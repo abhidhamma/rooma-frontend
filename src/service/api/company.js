@@ -1,7 +1,6 @@
-import { ADDCOMPANY_URL } from '../../other/constant/apiURLs'
-import client from '../../other/config/axiosClient'
+import { ADDCOMPANY_URL } from '@constant/apiURLs'
+import client from '@config/axiosClient'
+import { formDataHeaderConfig } from '@util/common/axiosUtil'
 
 export const addCompany = (formData) =>
-  client.post(ADDCOMPANY_URL, formData, {
-    headers: { 'Content-Type': 'multipart/form-data' },
-  })
+  client.post(ADDCOMPANY_URL, formData, formDataHeaderConfig)
