@@ -1,5 +1,5 @@
-import Header from '@components/Common/Header'
-import SignUpContainer from '@components/SignUp'
+import Header from '@components/common/Header'
+import SignUpContainer from '@components/other/SignUp'
 
 export default function SignUp() {
   return (

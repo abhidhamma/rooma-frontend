@@ -1,10 +1,14 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useRecoilValue } from 'recoil'
 import { isLoggedInAtom } from '@state/common/common'
-import ReservationScheduler from '@pages/ReservationScheduler'
+import ReservationStatus from '@pages/ReservationStatus'
 import SignIn from '@pages/SignIn'
 import SignUp from '@pages/SignUp'
 import AccommodationRoute from './menu/Accommodation'
+import ReservationManagement from '@pages/ReservationManagement'
+import ReservationManagementList from '@components/menu/ReservationManagement/List/List'
+import PriceManagementList from '@components/menu/PriceManagement/List/List'
+import PriceManagement from '@pages/PriceManagement'
 
 export default function Router() {
   //유저라는 이름으로 localStorage에 넣기만 하면 접근할 수 있게된다 이거하고 바꾸자
@@ -16,12 +20,38 @@ export default function Router() {
 
         {isLoggedIn && (
           <>
-            {/* 로그인 메인 */}
-            <Route path='reservationScheduler' element={<ReservationScheduler />} />
+            {/* 로그인 메인(임시로 예약현황 사용) */}
+            <Route path='reservationStatus' element={<ReservationStatus />} />
             {/* 회원가입 */}
             <Route path='signUp' element={<SignUp />} />
-            {/* 숙소관리 메뉴*/}
-            <Route path='accommodation/*' element={<AccommodationRoute />} />
+
+            {/* 
+            메뉴
+            1.대시보드, 2.예약현황, 3.예약관리, 4.숙소관리, 5.요금관리, 
+            6.정산관리, 7.키관리, 8.청소관리, 9.공지사항, 10.메뉴추가) 
+            */}
+            {/* 1.대시보드 메뉴*/}
+            {/* 2.예약현황 메뉴*/}
+            {/* 로그인후 메인으로 사용중 */}
+            {/* 3.예약관리 메뉴*/}
+            <Route path='reservationManagement' element={<ReservationManagement />}>
+              <Route index element={<ReservationManagementList />} />
+              {/* 추후 route추가 */}
+            </Route>
+
+            {/* 4.숙소관리 메뉴*/}
+            <Route path='accommodationManagement/*' element={<AccommodationRoute />} />
+            {/* 5.요금관리 메뉴*/}
+            <Route path='priceManagement' element={<PriceManagement />}>
+              <Route index element={<PriceManagementList />} />
+              {/* 추후 route추가 */}
+            </Route>
+
+            {/* 6.정산관리 메뉴*/}
+            {/* 7.키관리 메뉴*/}
+            {/* 8.청소관리 메뉴*/}
+            {/* 9.공지사항 메뉴*/}
+            {/* 10.메뉴추가 메뉴*/}
           </>
         )}
         <Route path='*' element={<Navigate to='/' />} />

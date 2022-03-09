@@ -19,15 +19,15 @@ export default function Header() {
     <header>
       <div id='header'>
         <h1>
-          <Link to={'/reservationScheduler'}>ROOMA</Link>
+          <Link to={'/reservationStatus'}>ROOMA</Link>
         </h1>
         <nav>
           <div id='gnb'>
             <a href='#'>대시보드</a>
             <a href='#'>예약현황</a>
-            <a href='#'>예약관리</a>
-            <Link to={'/accommodation/accommodation'}>숙소관리</Link>
-            <a href='#'>요금관리</a>
+            <Link to={'/reservationManagement'}>예약관리</Link>
+            <Link to={'/accommodationManagement/accommodation'}>숙소관리</Link>
+            <Link to={'/priceManagement'}>요금관리</Link>
             <a href='#'>공지사항</a>
           </div>
           <div className='top-menu'>
