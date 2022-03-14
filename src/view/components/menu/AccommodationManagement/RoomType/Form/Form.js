@@ -1,15 +1,19 @@
 import SideBar from '@components/menu/AccommodationManagement/SideBar'
-import { useForm } from 'react-hook-form'
+import { Suspense } from 'react'
+import AccommodationListSelect from './AccommodationListSelect'
 import RoomSetting from './RoomSetting'
 
-export default function RoomTypeForm({ submitText }) {
-  const defaultValues = {
-    numberOfRooms: 0,
-    prefix: '디럭스',
-    roomNumber: '101',
-    suffix: '호',
-  }
-  const { register, handleSubmit, watch, reset, getValues } = useForm({ defaultValues })
+export default function RoomTypeForm({
+  register,
+  handleSubmit,
+  onSubmit,
+  submitText,
+  titleText,
+  watch,
+  reset,
+  getValues,
+}) {
+  console.log('RoomTypeForm rendered...')
   return (
     <>
       {/* <!-- S:Container --> */}
@@ -18,40 +22,57 @@ export default function RoomTypeForm({ submitText }) {
         <SideBar active={1} />
         {/* <!-- E:lnb --> */}
         {/* <!-- S:content --> */}
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <input type={'hidden'} {...register('cpNo')} />
+          <input type={'hidden'} {...register('originPrice')} />
+          <input type={'hidden'} {...register('salePrice')} />
+          <input type={'hidden'} {...register('providerPrice')} />
+          <input type={'hidden'} {...register('roomTypeCd')} />
+          <input type={'hidden'} {...register('roomMakeConfig')} />
+          <input type={'hidden'} {...register('roomShortDesc')} />
           <div className='content2'>
             <div className='titWrap'>
-              <h3>객실타입등록관리</h3>
+              <h3>{titleText}</h3>
             </div>
             <div className='writeArea v1'>
               <section>
                 <dl>
                   <dt>사용여부</dt>
                   <dd>
-                    <select className='auto'>
-                      <option>사용</option>
-                      <option>미사용</option>
+                    <select className='auto' {...register('useYn')}>
+                      <option value={'Y'}>사용</option>
+                      <option value={'N'}>미사용</option>
                     </select>
                   </dd>
                 </dl>
                 <dl>
                   <dt>숙소명</dt>
                   <dd>
-                    <select>
-                      <option>숙소명선택</option>
-                    </select>
+                    <Suspense
+                      fallback={
+                        <select>
+                          <option>숙소명선택</option>
+                        </select>
+                      }
+                    >
+                      <AccommodationListSelect register={register} />
+                    </Suspense>
                   </dd>
                 </dl>
                 <dl>
                   <dt>객실타입명</dt>
                   <dd>
-                    <input type='text' placeholder='객실타입명을 입력해주세요' />
+                    <input
+                      type='text'
+                      placeholder='객실타입명을 입력해주세요'
+                      {...register('roomTypeName')}
+                    />
                   </dd>
                 </dl>
               </section>
               <RoomSetting
                 register={register}
-                numberOfRooms={watch('numberOfRooms')}
+                roomTotalNum={Number(watch('roomTotalNum'))}
                 prefix={watch('prefix')}
                 roomNumber={watch('roomNumber')}
                 suffix={watch('suffix')}
@@ -62,14 +83,14 @@ export default function RoomTypeForm({ submitText }) {
                 <dl>
                   <dt>판매시작일</dt>
                   <dd>
-                    <input type='text' />
+                    <input type='text' {...register('saleStartdate')} />
                     <span className='ex'>예) 2022-01-26</span>
                   </dd>
                 </dl>
                 <dl>
                   <dt>판매종료일</dt>
                   <dd>
-                    <input type='text' />
+                    <input type='text' {...register('saleEnddate')} />
                     <span className='ex'>
                       예) 2022-01-26 [선택입력] 입력하지 않으면 계속 판매로 간주합니다.
                     </span>
@@ -80,33 +101,40 @@ export default function RoomTypeForm({ submitText }) {
                 <dl>
                   <dt>객실구성</dt>
                   <dd>
-                    <input type='text' />
+                    <input type='text' {...register('roomComposition')} />
                     <span className='ex'> (예 : 방2+거실+주방+욕조)</span>
                   </dd>
                 </dl>
                 <dl>
                   <dt>전망</dt>
                   <dd>
-                    <select>
-                      <option>바다전망</option>
+                    <select {...register('viewType')}>
+                      <option value={'바다전망'}>바다전망</option>
+                      <option value={'산전망'}>산전망</option>
                     </select>
                   </dd>
                 </dl>
                 <dl>
                   <dt>기준인원</dt>
                   <dd>
-                    <select className='auto'>
-                      <option>1명</option>
+                    <select className='auto' {...register('basicPersionNum')}>
+                      <option value={'1'}>1명</option>
+                      <option value={'2'}>2명</option>
+                      <option value={'3'}>3명</option>
+                      <option value={'4'}>4명</option>
                     </select>
-                    <input type='text' />
+                    <input type='text' {...register('addPersionConfig')} />
                     <span className='ex'>(예 : 조식포함 , 조식불포함 등 7자 이내)</span>
                   </dd>
                 </dl>
                 <dl>
                   <dt>최대인원</dt>
                   <dd>
-                    <select className='auto'>
-                      <option>1명</option>
+                    <select className='auto' {...register('maxPersionNum')}>
+                      <option value={'1'}>1명</option>
+                      <option value={'2'}>2명</option>
+                      <option value={'3'}>3명</option>
+                      <option value={'4'}>4명</option>
                     </select>
                   </dd>
                 </dl>
@@ -124,10 +152,10 @@ export default function RoomTypeForm({ submitText }) {
                     </div>
                     <div className='row'>
                       <div>
-                        <input type='text' />
+                        <input type='text' {...register('addBreakfastConfigName')} />
                       </div>
                       <div>
-                        <input type='text' />
+                        <input type='text' {...register('addBreakfastConfigPrice')} />
                         <span className='won'>원</span>
                       </div>
                       <div>
@@ -153,10 +181,10 @@ export default function RoomTypeForm({ submitText }) {
                     </div>
                     <div className='row'>
                       <div>
-                        <input type='text' />
+                        <input type='text' {...register('addEtcConfigName')} />
                       </div>
                       <div>
-                        <input type='text' />
+                        <input type='text' {...register('addEtcConfigPrice')} />
                         <span className='won'>원</span>
                       </div>
                       <div>
@@ -179,49 +207,89 @@ export default function RoomTypeForm({ submitText }) {
                       <ul>
                         <li>
                           <span className='check'>
-                            <input id='check01' type='checkbox' />
+                            <input
+                              id='check01'
+                              type='checkbox'
+                              value={'조식'}
+                              {...register('check1')}
+                            />
                             <label htmlFor='check01'>조식</label>
                           </span>
                         </li>
                         <li>
                           <span className='check'>
-                            <input id='check02' type='checkbox' />
+                            <input
+                              id='check02'
+                              type='checkbox'
+                              value={'취사기능'}
+                              {...register('check2')}
+                            />
                             <label htmlFor='check02'>취사기능</label>
                           </span>
                         </li>
                         <li>
                           <span className='check'>
-                            <input id='check03' type='checkbox' />
+                            <input
+                              id='check03'
+                              type='checkbox'
+                              value={'풀빌라'}
+                              {...register('check3')}
+                            />
                             <label htmlFor='check03'>풀빌라</label>
                           </span>
                         </li>
                         <li>
                           <span className='check'>
-                            <input id='check04' type='checkbox' />
+                            <input
+                              id='check04'
+                              type='checkbox'
+                              value={'월풀(자쿠지)'}
+                              {...register('check4')}
+                            />
                             <label htmlFor='check04'>월풀(자쿠지)</label>
                           </span>
                         </li>
                         <li>
                           <span className='check'>
-                            <input id='check05' type='checkbox' />
+                            <input
+                              id='check05'
+                              type='checkbox'
+                              value={'화장실2개이상'}
+                              {...register('check5')}
+                            />
                             <label htmlFor='check05'>화장실2개이상</label>
                           </span>
                         </li>
                         <li>
                           <span className='check'>
-                            <input id='check06' type='checkbox' />
+                            <input
+                              id='check06'
+                              type='checkbox'
+                              value={'단독(독채)형'}
+                              {...register('check6')}
+                            />
                             <label htmlFor='check06'>단독(독채)형</label>
                           </span>
                         </li>
                         <li>
                           <span className='check'>
-                            <input id='check07' type='checkbox' />
+                            <input
+                              id='check07'
+                              type='checkbox'
+                              value={'복층형'}
+                              {...register('check7')}
+                            />
                             <label htmlFor='check07'>복층형</label>
                           </span>
                         </li>
                         <li>
                           <span className='check'>
-                            <input id='check08' type='checkbox' />
+                            <input
+                              id='check08'
+                              type='checkbox'
+                              value={'순수온돌방'}
+                              {...register('check8')}
+                            />
                             <label htmlFor='check08'>순수온돌방</label>
                           </span>
                         </li>
@@ -232,13 +300,13 @@ export default function RoomTypeForm({ submitText }) {
                 <dl>
                   <dt>객실편의시설</dt>
                   <dd>
-                    <input type='text' className='w100' />
+                    <input type='text' className='w100' {...register('convInfo')} />
                   </dd>
                 </dl>
                 <dl>
                   <dt>특이사항</dt>
                   <dd>
-                    <input type='text' className='w100' />
+                    <input type='text' className='w100' {...register('etcInfo')} />
                   </dd>
                 </dl>
               </section>
@@ -295,7 +363,7 @@ export default function RoomTypeForm({ submitText }) {
               </section>
             </div>
             <div className='center mgt_30'>
-              <button type='button' className='btn btn-large purple'>
+              <button type='submit' className='btn btn-large purple'>
                 {submitText}
               </button>
               <button type='button' className='btn btn-large line1'>

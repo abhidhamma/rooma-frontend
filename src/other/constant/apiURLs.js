@@ -51,3 +51,16 @@ export const READ_ROOMTYPE_LIST_URL = v1Url(READ_ROOMTYPE_LIST_SLUG)
 
 const UPDATE_ROOMTYPE_SLUG = 'roomtype/update'
 export const UPDATE_ROOMTYPE_URL = v1Url(UPDATE_ROOMTYPE_SLUG)
+
+//숙소관리 - 객실관리
+const CREATE_ROOM_SLUG = 'room/add'
+export const CREATE_ROOM_URL = v1Url(CREATE_ROOM_SLUG)
+
+const READ_ROOM_SLUG = 'room'
+export const READ_ROOM_URL = v1Url(READ_ROOM_SLUG)
+
+const READ_ROOM_LIST_SLUG = 'room/list'
+export const READ_ROOM_LIST_URL = v1Url(READ_ROOM_LIST_SLUG)
+
+const UPDATE_ROOM_SLUG = 'room/update'
+export const UPDATE_ROOM_URL = v1Url(UPDATE_ROOM_SLUG)

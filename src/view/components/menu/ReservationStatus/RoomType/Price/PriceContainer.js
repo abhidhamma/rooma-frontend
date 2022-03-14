@@ -2,11 +2,26 @@ import _ from 'lodash'
 import React, { useCallback } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
-import { dayCountAtom, displayAtom, isDisplayCreateReservationAtom, lockedRoomListAtom, overlayAtom, reservationListAtom, standardDateAtom } from '@state/reservation'
+import {
+  dayCountAtom,
+  displayAtom,
+  isDisplayCreateReservationAtom,
+  lockedRoomListAtom,
+  overlayAtom,
+  reservationListAtom,
+  standardDateAtom,
+} from '@state/reservation'
 import { canDropEffect, dropEffect, itemEffect, throttleHoverEffect } from './PriceFunction'
 import PricePresenter from './PricePresenter'
 
-function PriceContainer({ price, currentDate, roomNumber, reservation, lockedRoom, currentReservationList }) {
+function PriceContainer({
+  price,
+  currentDate,
+  roomNumber,
+  reservation,
+  lockedRoom,
+  currentReservationList,
+}) {
   const dayCount = useRecoilValue(dayCountAtom)
   const standardDate = useRecoilValue(standardDateAtom)
   const lockedRoomList = useRecoilValue(lockedRoomListAtom)
@@ -19,7 +34,15 @@ function PriceContainer({ price, currentDate, roomNumber, reservation, lockedRoo
   const [{ isDragging }, drag] = useDrag(
     () => ({
       type: 'item',
-      item: () => itemEffect(currentReservationList, currentDate, standardDate, setOverlay, roomNumber, setDisplay),
+      item: () =>
+        itemEffect(
+          currentReservationList,
+          currentDate,
+          standardDate,
+          setOverlay,
+          roomNumber,
+          setDisplay
+        ),
       // collect: (monitor) => ({
       //   isDragging: !!monitor.isDragging(),
       // }),
@@ -29,8 +52,17 @@ function PriceContainer({ price, currentDate, roomNumber, reservation, lockedRoo
   const [{ isOver }, drop] = useDrop(
     () => ({
       accept: 'item',
-      canDrop: (item) => canDropEffect(item, currentReservationList, lockedRoomList, lockedRoom, currentDate, roomNumber),
-      drop: (item) => dropEffect(item, setDisplay, setOverlay, setReservationList, currentDate, roomNumber),
+      canDrop: (item) =>
+        canDropEffect(
+          item,
+          currentReservationList,
+          lockedRoomList,
+          lockedRoom,
+          currentDate,
+          roomNumber
+        ),
+      drop: (item) =>
+        dropEffect(item, setDisplay, setOverlay, setReservationList, currentDate, roomNumber),
       // collect: (monitor) => ({
       //   isOver: !!monitor.isOver(),
       //   canDrop: !!monitor.canDrop(),
@@ -59,5 +91,7 @@ function PriceContainer({ price, currentDate, roomNumber, reservation, lockedRoo
     />
   )
 }
-const filteredReservationListPropsEqual = (prev, next) => _.isEqual(prev.currentReservationList, next.currentReservationList) && _.isEqual(prev.reservation, next.reservation)
+const filteredReservationListPropsEqual = (prev, next) =>
+  _.isEqual(prev.currentReservationList, next.currentReservationList) &&
+  _.isEqual(prev.reservation, next.reservation)
 export default React.memo(PriceContainer, filteredReservationListPropsEqual)

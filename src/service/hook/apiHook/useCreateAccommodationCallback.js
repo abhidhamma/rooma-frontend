@@ -2,7 +2,7 @@ import { useRecoilCallback } from 'recoil'
 
 const useCreateAccommodationCallback = (apiType) =>
   useRecoilCallback(({ snapshot, refresh, set }) => async (api) => {
-    console.log(`useCreateAccommodationCallback ${apiType} Called...`)
+    console.log(`${apiType} Called...`)
     const release = snapshot.retain()
 
     try {

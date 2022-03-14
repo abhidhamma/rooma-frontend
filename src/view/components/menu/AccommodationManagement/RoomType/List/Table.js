@@ -1,10 +1,10 @@
+import Paging from '@components/common/Paging'
 import { Suspense } from 'react'
 import ButtonGroup from '../../common/ButtonGroup'
-import Paging from '@components/common/Paging'
-import ReadAccommodationList from './ReadAccommodationList'
+import ReadRoomTypeList from './ReadRoomTypeList'
 
-export default function AccommodationTable() {
-  console.log('AccommodationTable called...')
+export default function RoomTypeTable() {
+  console.log('RoomTypeTable called...')
   return (
     <>
       <table className='tbl-list'>
@@ -19,10 +19,12 @@ export default function AccommodationTable() {
           <col width='' />
           <col width='' />
           <col width='' />
+          <col width='' />
+          <col width='' />
           <col width='130px' />
         </colgroup>
-        <thead>
-          <tr>
+        <tbody>
+          <tr key={0}>
             <th>
               <span className='only check'>
                 <input id='check1' type='checkbox' />
@@ -34,15 +36,15 @@ export default function AccommodationTable() {
             <th>번호</th>
             <th>업체명</th>
             <th>숙소명</th>
-            <th>지역</th>
-            <th>등급</th>
+            <th>객실타입명</th>
+            <th>객실수</th>
             <th>판매시작일</th>
             <th>판매종료일</th>
+            <th>등록일</th>
             <th>담당자</th>
+            <th>요금</th>
             <th>사용</th>
           </tr>
-        </thead>
-        <tbody>
           <Suspense
             fallback={
               <tr>
@@ -50,11 +52,11 @@ export default function AccommodationTable() {
               </tr>
             }
           >
-            <ReadAccommodationList />
+            <ReadRoomTypeList />
           </Suspense>
         </tbody>
       </table>
-      <ButtonGroup addText={'숙소추가'} addHref={'/accommodationManagement/accommodation/new'} />
+      <ButtonGroup addText={'객실타입추가'} addHref={'/accommodationManagement/roomType/new'} />
       <Paging />
     </>
   )

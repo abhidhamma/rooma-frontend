@@ -1,10 +1,10 @@
 import { atom, selectorFamily } from 'recoil'
 import {
   ACCOMODATION_LIST_ATOM_KEY,
-  CREATE_ACCOMMODATION_KEY,
-  READ_ACCOMMODATION_KEY,
-  READ_ACCOMMODATION_LIST_KEY,
-  UPDATE_ACCOMMODATION_KEY,
+  CREATE_ACCOMMODATION_SELECTOR_KEY,
+  READ_ACCOMMODATION_SELECTOR_KEY,
+  READ_ACCOMMODATION_LIST_SELECTOR_KEY,
+  UPDATE_ACCOMMODATION_SELECTOR_KEY,
 } from '@constant/atomKeys'
 import {
   createAccommodation,
@@ -20,12 +20,12 @@ export const accommodationListAtom = atom({
 })
 //selector
 export const createAccommodationSelector = selectorFamily({
-  key: CREATE_ACCOMMODATION_KEY,
+  key: CREATE_ACCOMMODATION_SELECTOR_KEY,
   get: (formData) => async () => await createAccommodation(formData),
 })
 
 export const readAccommodationSelector = selectorFamily({
-  key: READ_ACCOMMODATION_KEY,
+  key: READ_ACCOMMODATION_SELECTOR_KEY,
   get:
     ({ acNo }) =>
     async () =>
@@ -33,11 +33,11 @@ export const readAccommodationSelector = selectorFamily({
 })
 
 export const readAccommodationListSelector = selectorFamily({
-  key: READ_ACCOMMODATION_LIST_KEY,
+  key: READ_ACCOMMODATION_LIST_SELECTOR_KEY,
   get: (formData) => async () => await readAccommodationList(formData),
 })
 
 export const updateAccommodationSelector = selectorFamily({
-  key: UPDATE_ACCOMMODATION_KEY,
+  key: UPDATE_ACCOMMODATION_SELECTOR_KEY,
   get: (formData) => async () => await updateAccommodation(formData),
 })

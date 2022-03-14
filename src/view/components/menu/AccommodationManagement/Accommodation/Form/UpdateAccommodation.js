@@ -64,7 +64,7 @@ const handleResult = (navigate) => async (data) => {
   const { message } = await data
   if (message === '성공') {
     alert('수정되었습니다.')
-    navigate('/accommodationManagement')
+    navigate('/accommodationManagement/accommodation')
   } else {
     alert('오류가 발생했습니다. 잠시후에 다시 시도해주세요.')
   }

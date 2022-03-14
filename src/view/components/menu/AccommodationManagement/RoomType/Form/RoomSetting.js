@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react'
 
 export default function RoomSetting({
   register,
-  numberOfRooms,
+  roomTotalNum,
   prefix,
   roomNumber,
   suffix,
@@ -14,11 +14,11 @@ export default function RoomSetting({
   const selectRef = useRef(null)
 
   useEffect(() => {
-    handleRoomNameArray(numberOfRooms, prefix, roomNumber, suffix, 'INIT', reset, getValues)
+    handleRoomNameArray(roomTotalNum, prefix, roomNumber, suffix, 'INIT', reset, getValues)
   }, [])
   useEffect(() => {
     handleRoomNameArray(
-      numberOfRooms,
+      roomTotalNum,
       prefix,
       roomNumber,
       suffix,
@@ -26,36 +26,36 @@ export default function RoomSetting({
       reset,
       getValues
     )
-  }, [numberOfRooms])
+  }, [roomTotalNum])
 
   useEffect(() => {
-    handleRoomNameArray(
-      numberOfRooms,
-      prefix,
-      roomNumber,
-      suffix,
-      'CHANGE_NAMING',
-      reset,
-      getValues
-    )
+    handleRoomNameArray(roomTotalNum, prefix, roomNumber, suffix, 'CHANGE_NAMING', reset, getValues)
   }, [prefix, roomNumber, suffix])
 
   const increaseRoomCount = () => {
     reset({
       ...getValues(),
-      numberOfRooms: numberOfRooms === 99 ? numberOfRooms : numberOfRooms + 1,
+      roomTotalNum: roomTotalNum === 99 ? roomTotalNum : roomTotalNum + 1,
     })
   }
   const decreaseRoomCount = () => {
     reset({
       ...getValues(),
-      numberOfRooms: numberOfRooms === 0 ? numberOfRooms : numberOfRooms - 1,
+      roomTotalNum: roomTotalNum === 0 ? roomTotalNum : roomTotalNum - 1,
     })
   }
 
-  const { ref, ...rest } = register('numberOfRooms')
+  const setValue = (name) => (e) => {
+    const value = e.target.value
+    reset({
+      ...getValues(),
+      [name]: value,
+    })
+  }
+
+  const { ref, ...rest } = register('roomTotalNum')
   console.log('variables')
-  console.log(numberOfRooms)
+  console.log(roomTotalNum)
   console.log(prefix)
   console.log(roomNumber)
   console.log(suffix)
@@ -75,7 +75,7 @@ export default function RoomSetting({
                   ref(e)
                   selectRef.current = e
                 }}
-                value={numberOfRooms}
+                defaultValue={roomTotalNum}
               >
                 <option key={0} value={0}>
                   선택
@@ -99,13 +99,17 @@ export default function RoomSetting({
               </div>
               <div className='row'>
                 <div>
-                  <input type='text' {...register('prefix')} />
+                  <input type='text' {...register('prefix')} onChange={setValue('prefix')} />
                 </div>
                 <div>
-                  <input type='text' {...register('roomNumber')} />
+                  <input
+                    type='text'
+                    {...register('roomNumber')}
+                    onChange={setValue('roomNumber')}
+                  />
                 </div>
                 <div>
-                  <input type='text' {...register('suffix')} />
+                  <input type='text' {...register('suffix')} onChange={setValue('suffix')} />
                 </div>
               </div>
             </div>
@@ -114,7 +118,7 @@ export default function RoomSetting({
               <br />
               {`입력예: 1) '디럭스', 2) '102', 3) '호' => 디럭스102호, 디럭스103호, 디럭스104호, 디럭스105호...`}
             </p>
-            <div className='roomName'>{makeRooms(numberOfRooms, register, getValues, reset)}</div>
+            <div className='roomName'>{makeRooms(roomTotalNum, register, getValues, reset)}</div>
           </div>
         </dd>
       </dl>
@@ -133,27 +137,27 @@ const makeOptions = (maxRoomCount) => {
   return _.flow(count, mapOption)(maxRoomCount + 1)
 }
 
-const makeRooms = (numberOfRooms, register, getValues, reset) => {
+const makeRooms = (roomTotalNum, register, getValues, reset) => {
   console.log('makeRooms called...')
   const resetRoomNames = () => {
     //undefined인거 걸러내고 array에 넣어서 순서대로 담아준다
     const tempArr = []
 
-    for (let i = 1; i <= numberOfRooms + 1; i++) {
+    for (let i = 1; i <= roomTotalNum + 1; i++) {
       const roomName = `room${i}`
       if (getValues()[roomName] !== undefined) {
         tempArr.push(getValues()[roomName])
       }
     }
 
-    for (let i = 1; i <= numberOfRooms; i++) {
+    for (let i = 1; i <= roomTotalNum; i++) {
       const roomName = `room${i}`
       reset({ ...getValues(), [roomName]: tempArr[i - 1] })
     }
   }
 
   const removeCurrentInput = (roomName) => {
-    reset({ ...getValues(), numberOfRooms: Number(numberOfRooms) - 1, [roomName]: undefined })
+    reset({ ...getValues(), roomTotalNum: Number(roomTotalNum) - 1, [roomName]: undefined })
     resetRoomNames()
   }
 
@@ -179,11 +183,11 @@ const makeRooms = (numberOfRooms, register, getValues, reset) => {
       </div>
     )
   })
-  return _.flow(count, mapRoom)(Number(numberOfRooms) + 1)
+  return _.flow(count, mapRoom)(Number(roomTotalNum) + 1)
 }
 
-const handleRoomNameArray = (numberOfRooms, prefix, roomNumber, suffix, type, reset, getValues) => {
-  for (let i = 1; i <= numberOfRooms; i++) {
+const handleRoomNameArray = (roomTotalNum, prefix, roomNumber, suffix, type, reset, getValues) => {
+  for (let i = 1; i <= roomTotalNum; i++) {
     const roomName = `room${i}`
     const value = getValues()[roomName]
     const defaultValue = `${prefix} ${
@@ -193,7 +197,8 @@ const handleRoomNameArray = (numberOfRooms, prefix, roomNumber, suffix, type, re
     console.log(type)
     console.log(defaultValue)
     //무조건 defalutValue를 넣는경우
-    if (type === 'INIT' || type === 'CHANGE_NAMING') {
+    if (type === 'INIT') {
+    } else if (type === 'CHANGE_NAMING') {
       reset({ ...getValues(), [roomName]: defaultValue })
     } else if (type === 'CHANGE_ROOM_COUNT') {
       if (value === undefined || value === '') {

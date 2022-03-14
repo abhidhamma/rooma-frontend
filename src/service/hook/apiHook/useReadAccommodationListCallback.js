@@ -3,9 +3,11 @@ import { accommodationListAtom } from '@state/accommodation/accommodation'
 import { totalCountAtom } from '@state/common/paging'
 
 const useReadAccommodationListCallback = (apiType) =>
-  useRecoilCallback(({ snapshot, refresh, set }) => async (api) => {
+  useRecoilCallback(({ snapshot, refresh, set, reset }) => async (api) => {
     console.log(`useReadAccommodationListCallback ${apiType} Called...`)
     const release = snapshot.retain()
+
+    reset(accommodationListAtom)
 
     try {
       console.log('useReadAccommodationListCallback try')

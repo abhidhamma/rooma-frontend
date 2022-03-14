@@ -35,7 +35,7 @@ export default function AccommodationForm({ register, handleSubmit, onSubmit, su
                 <dl>
                   <dt>회사명</dt>
                   <dd>
-                    <input type='text' defaultValue={'롯데호텔'} disabled />
+                    <input type='text' defaultValue={'신라호텔'} disabled />
                   </dd>
                 </dl>
                 <dl>

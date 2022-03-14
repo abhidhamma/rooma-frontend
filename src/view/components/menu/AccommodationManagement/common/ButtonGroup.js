@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-export default function ButtonGroup() {
+export default function ButtonGroup({ addText, addHref }) {
   return (
     <div className='btnArea two mgt_20'>
       <div>
@@ -15,8 +15,8 @@ export default function ButtonGroup() {
         </a>
       </div>
       <div>
-        <Link to={'/accommodationManagement/accommodation/new'} className={'btn btn-middle purple'}>
-          숙소추가
+        <Link to={addHref} className={'btn btn-middle purple'}>
+          {addText}
         </Link>
       </div>
     </div>

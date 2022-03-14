@@ -8,10 +8,21 @@ import CreateRoomType from '@components/menu/AccommodationManagement/RoomType/Fo
 import UpdateRoomType from '@components/menu/AccommodationManagement/RoomType/Form/UpdateRoomType'
 import RoomTypeList from '@components/menu/AccommodationManagement/RoomType/List/List'
 import AccommodationManagement from '@pages/AccommodationManagement'
+import { accommodationListAtom } from '@state/accommodation/accommodation'
+import { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
+import { useResetRecoilState } from 'recoil'
 
 //숙소관리 메뉴에 해당하는 경로
 export default function AccommodationRoute() {
+  const resetAccommodationList = useResetRecoilState(accommodationListAtom)
+
+  useEffect(() => {
+    resetAccommodationList()
+    return () => {
+      resetAccommodationList()
+    }
+  }, [])
   return (
     <>
       <Routes>

@@ -1,8 +1,10 @@
-import { useRecoilState, useRecoilValue } from 'recoil'
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil'
 import { currentPageAtom, totalCountAtom } from '@state/common/paging'
+import { useEffect } from 'react'
 export default function Paging() {
   console.log('paging...')
   const [currentPage, setCurrentPage] = useRecoilState(currentPageAtom)
+  const resetCurrentPage = useResetRecoilState(currentPageAtom)
   const totalCount = useRecoilValue(totalCountAtom)
   console.log(totalCount)
   const pageLength = 5
@@ -12,6 +14,10 @@ export default function Paging() {
   const pagingArray = makePagingArray(pageStart, pageLength)
   const nextPageStart = pageStart + pageLength
   const prevPageStart = pageStart - pageLength
+
+  useEffect(() => {
+    resetCurrentPage()
+  }, [])
 
   return (
     <div className='paging'>

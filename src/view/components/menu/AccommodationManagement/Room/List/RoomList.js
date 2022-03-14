@@ -11,7 +11,7 @@ export default function RoomList() {
       {/* <!-- S:content --> */}
       <div className='content2'>
         <div className='titWrap'>
-          <h3>객실타입등록관리</h3>
+          <h3>객실등록관리</h3>
         </div>
         <div className='searchWrap'>
           <span className='num'>Total 3,768건 1 페이지</span>

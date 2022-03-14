@@ -12,9 +12,9 @@ import { formDataHeaderConfig } from '@util/common/axiosUtil'
 export const createRoomType = (formData) =>
   client.post(CREATE_ROOMTYPE_URL, formData, formDataHeaderConfig)
 
-export const readRoomType = ({ acNo }) =>
+export const readRoomType = ({ rtNo }) =>
   client.get(READ_ROOMTYPE_URL, {
-    params: { acNo },
+    params: { rtNo },
   })
 
 export const readRoomTypeList = (formData) =>

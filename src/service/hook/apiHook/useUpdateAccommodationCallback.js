@@ -14,6 +14,7 @@ const useUpdateAccommodationCallback = (apiType) =>
     } catch (error) {
       throw error
     } finally {
+      refresh(api)
       release()
     }
   })

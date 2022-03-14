@@ -21,19 +21,18 @@ export const OVERLAY_ATOM_KEY = 'overlayAtom'
 //auth
 export const AUTH_RESULT_ATOM_KEY = 'authResultAtom'
 export const USER_ATOM_KEY = 'userAtom'
-
 //accommodation - 숙소등록관리
 export const ACCOMODATION_LIST_ATOM_KEY = 'accommodationListAtomKey'
-export const CREATE_ACCOMMODATION_KEY = 'createAccommodationKey'
-export const READ_ACCOMMODATION_LIST_KEY = 'readAccommodationListKey'
-export const READ_ACCOMMODATION_KEY = 'readAccommodationKey'
-export const UPDATE_ACCOMMODATION_KEY = 'updateAccommodationKey'
+export const CREATE_ACCOMMODATION_SELECTOR_KEY = 'createAccommodationKey'
+export const READ_ACCOMMODATION_LIST_SELECTOR_KEY = 'readAccommodationListKey'
+export const READ_ACCOMMODATION_SELECTOR_KEY = 'readAccommodationKey'
+export const UPDATE_ACCOMMODATION_SELECTOR_KEY = 'updateAccommodationKey'
 
 //accommodation - 객실타입등록관리
-export const CREATE_ROOMTYPE_KEY = 'createRoomTypeKey'
-export const READ_ROOMTYPE_LIST_KEY = 'readRoomTypeListKey'
-export const READ_ROOMTYPE_KEY = 'readRoomTypeKey'
-export const UPDATE_ROOMTYPE_KEY = 'updateRoomTypeKey'
+export const CREATE_ROOMTYPE_SELECTOR_KEY = 'createRoomTypeKey'
+export const READ_ROOMTYPE_LIST_SELECTOR_KEY = 'readRoomTypeListKey'
+export const READ_ROOMTYPE_SELECTOR_KEY = 'readRoomTypeKey'
+export const UPDATE_ROOMTYPE_SELECTOR_KEY = 'updateRoomTypeKey'
 
 //selector
 export const SIGNIN_SELECTOR_KEY = 'signInSelector'

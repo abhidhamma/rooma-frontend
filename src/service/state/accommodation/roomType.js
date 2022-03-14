@@ -1,9 +1,9 @@
 import { selectorFamily } from 'recoil'
 import {
-  CREATE_ROOMTYPE_KEY,
-  READ_ROOMTYPE_KEY,
-  READ_ROOMTYPE_LIST_KEY,
-  UPDATE_ROOMTYPE_KEY,
+  CREATE_ROOMTYPE_SELECTOR_KEY,
+  READ_ROOMTYPE_SELECTOR_KEY,
+  READ_ROOMTYPE_LIST_SELECTOR_KEY,
+  UPDATE_ROOMTYPE_SELECTOR_KEY,
 } from '@constant/atomKeys'
 import {
   createRoomType,
@@ -14,24 +14,24 @@ import {
 
 //selector
 export const createRoomTypeSelector = selectorFamily({
-  key: CREATE_ROOMTYPE_KEY,
+  key: CREATE_ROOMTYPE_SELECTOR_KEY,
   get: (formData) => async () => await createRoomType(formData),
 })
 
 export const readRoomTypeSelector = selectorFamily({
-  key: READ_ROOMTYPE_KEY,
+  key: READ_ROOMTYPE_SELECTOR_KEY,
   get:
-    ({ acNo }) =>
+    ({ rtNo }) =>
     async () =>
-      await readRoomType({ acNo }),
+      await readRoomType({ rtNo }),
 })
 
 export const readRoomTypeListSelector = selectorFamily({
-  key: READ_ROOMTYPE_LIST_KEY,
+  key: READ_ROOMTYPE_LIST_SELECTOR_KEY,
   get: (formData) => async () => await readRoomTypeList(formData),
 })
 
 export const updateRoomTypeSelector = selectorFamily({
-  key: UPDATE_ROOMTYPE_KEY,
+  key: UPDATE_ROOMTYPE_SELECTOR_KEY,
   get: (formData) => async () => await updateRoomType(formData),
 })
