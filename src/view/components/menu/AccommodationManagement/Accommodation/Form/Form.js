@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import SideBar from '@components/menu/AccommodationManagement/SideBar'
+import image from '@asset/images/@sample.png'
 
 export default function AccommodationForm({ register, handleSubmit, onSubmit, submitText }) {
   let navigate = useNavigate()
@@ -480,13 +481,13 @@ export default function AccommodationForm({ register, handleSubmit, onSubmit, su
                           <em>[대표]</em>대표이미지
                         </span>
                         <div className='thumnail'>
-                          <img src='../images/@sample.png' alt='' />
+                          <img src={image} alt='' />
                         </div>
                       </li>
                       <li>
                         <span>추가이미지1</span>
                         <div className='thumnail'>
-                          <img src='../images/@sample.png' alt='' />
+                          <img src={image} alt='' />
                           <a href='#'>
                             <span className='hdn'>삭제</span>
                           </a>
@@ -495,7 +496,7 @@ export default function AccommodationForm({ register, handleSubmit, onSubmit, su
                       <li>
                         <span>추가이미지2</span>
                         <div className='thumnail'>
-                          <img src='../images/@sample.png' alt='' />
+                          <img src={image} alt='' />
                           <a href='#'>
                             <span className='hdn'>삭제</span>
                           </a>
@@ -544,5 +545,5 @@ export default function AccommodationForm({ register, handleSubmit, onSubmit, su
 }
 
 const cancel = (navigate) => {
-  navigate('/accommodationManagement')
+  navigate('/accommodationManagement/accommodation')
 }

@@ -1,11 +1,11 @@
-import ButtonGroup from '../../common/ButtonGroup'
 import Paging from '@components/common/Paging'
-import ReadAccommodationList from './ReadAccommodationList'
 import { totalCountAtom } from '@state/common/paging'
 import { useRecoilValue } from 'recoil'
+import ButtonGroup from '../../common/ButtonGroup'
+import ReadRoomList from './ReadRoomList'
 
-export default function AccommodationTable() {
-  console.log('AccommodationTable called...')
+export default function RoomTable() {
+  console.log('RoomTable called...')
   const totalCount = useRecoilValue(totalCountAtom)
   return (
     <>
@@ -22,8 +22,9 @@ export default function AccommodationTable() {
           <col width='' />
           <col width='' />
           <col width='130px' />
+          <col width='' />
         </colgroup>
-        <thead>
+        <tbody>
           <tr>
             <th>
               <span className='only check'>
@@ -34,18 +35,16 @@ export default function AccommodationTable() {
               </span>
             </th>
             <th>번호</th>
-            <th>업체명</th>
             <th>숙소명</th>
-            <th>지역</th>
-            <th>등급</th>
+            <th>객실타입명</th>
+            <th>객실명</th>
             <th>판매시작일</th>
             <th>판매종료일</th>
+            <th>등록일</th>
             <th>담당자</th>
             <th>사용</th>
           </tr>
-        </thead>
-        <tbody>
-          <ReadAccommodationList />
+          <ReadRoomList />
         </tbody>
       </table>
       {totalCount === 0 && (
@@ -57,10 +56,10 @@ export default function AccommodationTable() {
             alignContent: 'center',
           }}
         >
-          결과가 없습니다. 숙소명의 전체이름을 검색해주세요.
+          결과가 없습니다. 객실명에 포함되는 문자열을 검색해주세요.
         </div>
       )}
-      <ButtonGroup addText={'숙소추가'} addHref={'/accommodationManagement/accommodation/new'} />
+      <ButtonGroup addText={'객실추가'} addHref={'/accommodationManagement/room/new'} />
       <Paging />
     </>
   )

@@ -1,12 +1,18 @@
-import { Link } from 'react-router-dom'
-import { useRecoilValue } from 'recoil'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { currentPageAtom, totalCountAtom } from '@state/common/paging'
 import SideBar from '@components/menu/AccommodationManagement/SideBar'
 import AccommodationTable from '@components/menu/AccommodationManagement/Accommodation/List/Table'
+import { useRef } from 'react'
+import { searchKeywordAtom } from '@state/common/search'
+import SearchBox from '../../common/SearchBox'
 
 export default function AccommodationList() {
   const totalCount = useRecoilValue(totalCountAtom)
   const currentPage = useRecoilValue(currentPageAtom)
+
+  const setSearchKeyword = useSetRecoilState(searchKeywordAtom)
+  const searchKeywordRef = useRef('')
+  const handleSearchKeyword = () => setSearchKeyword(searchKeywordRef.current.value)
   return (
     <>
       {/* <!-- S:Container --> */}
@@ -23,21 +29,11 @@ export default function AccommodationList() {
             <span className='num'>
               Total {totalCount}건 {currentPage}페이지
             </span>
-            <div className='searchBox'>
-              <select className='mgr_5'>
-                <option>숙소명</option>
-              </select>
-              <input type='text' placeholder='검색어를 입력하세요' className='mgr_5' />
-              <button className='btn-search mgr_5' type='button'>
-                <span className='hidden'>검색</span>
-              </button>
-              <Link
-                to={'/accommodationManagement/accommodation/new'}
-                className={'btn btn-middle purple'}
-              >
-                숙소추가
-              </Link>
-            </div>
+            <SearchBox
+              linkTo={'/accommodationManagement/accommodation/new'}
+              linkText={'숙소추가'}
+              optionName={'숙소명'}
+            />
           </div>
           {/* <Suspense fallback={<div>loading...</div>}> */}
           <AccommodationTable />

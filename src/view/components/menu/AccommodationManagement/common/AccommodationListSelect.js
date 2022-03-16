@@ -11,7 +11,7 @@ export default function AccommodationListSelect({ register }) {
   } = useRecoilValue(readAccommodationListSelector(getFormDataFromJson(parameter)))
   return (
     <select {...register('acNo')}>
-      <option>숙소명선택</option>
+      <option value={'unSelected'}>숙소명선택</option>
       {list.map((accommodation) => (
         <option key={accommodation.acNo} value={accommodation.acNo}>
           {accommodation.name}

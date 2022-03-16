@@ -5,6 +5,8 @@ export const IS_LOGGED_IN_ATOM_KEY = 'isLoggedInAtom'
 export const TOTAL_COUNT_ATOM_KEY = 'totalCountAtom'
 export const CURRENT_PAGE_ATOM_KEY = 'currentPageAtom'
 export const CURRENT_INDEX_ATOM_KEY = 'currentIndexAtom'
+//common-search
+export const SEARCH_KEYWORD_ATOM_KEY = 'searchKeywordAtom'
 //common-form
 export const DEFAULT_VALUES_ATOM_KEY = 'defaultValuesAtom'
 //reservation
@@ -34,6 +36,11 @@ export const READ_ROOMTYPE_LIST_SELECTOR_KEY = 'readRoomTypeListKey'
 export const READ_ROOMTYPE_SELECTOR_KEY = 'readRoomTypeKey'
 export const UPDATE_ROOMTYPE_SELECTOR_KEY = 'updateRoomTypeKey'
 
+//accommodation - 객실관리
+export const CREATE_ROOM_SELECTOR_KEY = 'createRoomSelectorKey'
+export const READ_ROOM_SELECTOR_KEY = 'readRoomSelectorKey'
+export const READ_ROOM_LIST_SELECTOR_KEY = 'readRoomListSelectorKey'
+export const UPDATE_ROOM_SELECTOR_KEY = 'updateRoomSelectorKey'
 //selector
 export const SIGNIN_SELECTOR_KEY = 'signInSelector'
 export const SIGNUP_SELECTOR_KEY = 'signUpSelector'

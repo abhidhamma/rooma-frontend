@@ -1,7 +1,9 @@
 import SideBar from '@components/menu/AccommodationManagement/SideBar'
 import { Suspense } from 'react'
-import AccommodationListSelect from './AccommodationListSelect'
+import { useNavigate } from 'react-router-dom'
+import AccommodationListSelect from '../../common/AccommodationListSelect'
 import RoomSetting from './RoomSetting'
+import image from '@asset/images/@sample.png'
 
 export default function RoomTypeForm({
   register,
@@ -14,6 +16,7 @@ export default function RoomTypeForm({
   getValues,
 }) {
   console.log('RoomTypeForm rendered...')
+  let navigate = useNavigate()
   return (
     <>
       {/* <!-- S:Container --> */}
@@ -320,13 +323,13 @@ export default function RoomTypeForm({
                           <em>[대표]</em>대표이미지
                         </span>
                         <div className='thumnail'>
-                          <img src='../asset/images/@sample.png' alt='' />
+                          <img src={image} alt='' />
                         </div>
                       </li>
                       <li>
                         <span>추가이미지1</span>
                         <div className='thumnail'>
-                          <img src='../../../../asset/images/@sample.png' alt='' />
+                          <img src={image} alt='' />
                           <a href='#'>
                             <span className='hdn'>삭제</span>
                           </a>
@@ -335,7 +338,7 @@ export default function RoomTypeForm({
                       <li>
                         <span>추가이미지2</span>
                         <div className='thumnail'>
-                          <img src='../../../../asset/images/@sample.png' alt='' />
+                          <img src={image} alt='' />
                           <a href='#'>
                             <span className='hdn'>삭제</span>
                           </a>
@@ -366,7 +369,11 @@ export default function RoomTypeForm({
               <button type='submit' className='btn btn-large purple'>
                 {submitText}
               </button>
-              <button type='button' className='btn btn-large line1'>
+              <button
+                onClick={() => cancel(navigate)}
+                type='button'
+                className='btn btn-large line1'
+              >
                 취소
               </button>
             </div>
@@ -378,4 +385,7 @@ export default function RoomTypeForm({
       {/* <!-- E:Container --> */}
     </>
   )
+}
+const cancel = (navigate) => {
+  navigate('/accommodationManagement/roomType')
 }

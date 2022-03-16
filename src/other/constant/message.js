@@ -16,7 +16,7 @@ export const ZIPCODE_IS_EMPTY = makeEmptyMessage('우편번호')
 export const ADDRESS1_IS_EMPTY = makeEmptyMessage('주소')
 export const ADDRESS2_IS_EMPTY = makeEmptyMessage('상세주소')
 
-//createAccommodation
+//Accommodation
 export const ACCOMODATION_NAME_IS_EMPTY = makeEmptyMessage('숙소명')
 export const TEL_IS_EMPTY = makeEmptyMessage('전화번호')
 //주소 ADDRESS1_IS_EMPTY 사용
@@ -31,6 +31,10 @@ export const CHECKINTIME_IS_EMPTY = makeEmptyMessage('체크인')
 export const CHECKOUTTIME_IS_EMPTY = makeEmptyMessage('체크아웃')
 export const DESCROPTION_IS_EMPTY = makeEmptyMessage('숙소안내')
 export const NOTICE_IS_EMPTY = makeEmptyMessage('안내/유의사항')
+
+//RoomType
+
+//Room
 
 const makeDifferentMessage = (name1, name2) => `${name1}와(과) ${name2}이(가) 다릅니다.`
 //signUp

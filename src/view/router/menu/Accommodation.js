@@ -3,7 +3,7 @@ import UpdateAccommodation from '@components/menu/AccommodationManagement/Accomm
 import AccommodationList from '@components/menu/AccommodationManagement/Accommodation/List/List'
 import CreateRoom from '@components/menu/AccommodationManagement/Room/Form/CreateRoom'
 import UpdateRoom from '@components/menu/AccommodationManagement/Room/Form/UpdateRoom'
-import RoomList from '@components/menu/AccommodationManagement/Room/List/RoomList'
+import RoomList from '@components/menu/AccommodationManagement/Room/List/List'
 import CreateRoomType from '@components/menu/AccommodationManagement/RoomType/Form/CreateRoomType'
 import UpdateRoomType from '@components/menu/AccommodationManagement/RoomType/Form/UpdateRoomType'
 import RoomTypeList from '@components/menu/AccommodationManagement/RoomType/List/List'

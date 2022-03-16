@@ -1,18 +1,28 @@
+import { readAccommodationListSelector } from '@state/accommodation/accommodation'
 import { readRoomTypeListSelector } from '@state/accommodation/roomType'
 import { currentPageAtom, totalCountAtom } from '@state/common/paging'
+import { searchKeywordAtom } from '@state/common/search'
 import { getFormDataFromJson } from '@util/common/axiosUtil'
+import _ from 'lodash/fp'
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useRecoilRefresher_UNSTABLE, useRecoilValue, useSetRecoilState } from 'recoil'
+import UseYn from '../../common/UseYn'
 
 export default function ReadRoomTypeList() {
   const currentPage = useRecoilValue(currentPageAtom)
+  const searchKeyword = useRecoilValue(searchKeywordAtom)
   const setTotalCount = useSetRecoilState(totalCountAtom)
 
   const rowCount = 7
   const currentIndex = (currentPage - 1) * rowCount
 
-  const data = { cpNo: '1', name: '', startRow: `${currentIndex}`, rowCount: `${rowCount}` }
+  const data = {
+    cpNo: '1',
+    roomTypeName: searchKeyword,
+    startRow: `${currentIndex}`,
+    rowCount: `${rowCount}`,
+  }
   const {
     data: {
       data: { list, totalCount },
@@ -22,48 +32,63 @@ export default function ReadRoomTypeList() {
     readRoomTypeListSelector(getFormDataFromJson(data))
   )
 
+  //숙소명 찾기
+  const parameter = { cpNo: '1', name: '', startRow: 0, rowCount: 999 }
+  const {
+    data: {
+      data: { list: cpList },
+    },
+  } = useRecoilValue(readAccommodationListSelector(getFormDataFromJson(parameter)))
+  let acNameMap = listToMap(cpList)
+
   useEffect(() => {
     setTotalCount(totalCount)
     resetReadRoomTypeListSelector()
-  }, [])
+  }, [currentIndex, totalCount])
   console.log('selector called!')
   console.log(list, totalCount)
   return (
     <>
-      {list.map((roomType) => (
-        <tr key={roomType.rtNo}>
-          <td>
-            <span className='only check'>
-              <input id='check2' type='checkbox' />
-              <label htmlFor='check2'>
-                <span className='hidden'>전체선택</span>
-              </label>
-            </span>
-          </td>
-          <td>{roomType.rtNo}</td>
-          <td>신라호텔</td>
-          <td>{roomType.acNo}</td>
-          {/* 숙소명 모든라인 다 요청해야하나? */}
-          <td>
-            <Link to={`/accommodationManagement/roomType/${roomType.rtNo}`}>
-              {roomType.roomTypeName}
-            </Link>
-          </td>
-          <td>{roomType.roomTotalNum}</td>
-          <td>{roomType.saleStartdate}</td>
-          <td>{roomType.saleEnddate}</td>
-          <td>{roomType.regDate.substring(0, 10)}</td>
-          <td>{roomType.regId}</td>
-          {/* 담당자 모르겠음 */}
-          <td>{roomType.originPrice}</td>
-          <td>
-            <select defaultValue={roomType.useYn}>
-              <option value={'N'}>미사용</option>
-              <option value={'Y'}>사용</option>
-            </select>
-          </td>
-        </tr>
-      ))}
+      {list
+        .map((roomType) => ({ ...roomType, acName: acNameMap[roomType.acNo] }))
+        .map((roomType) => (
+          <tr key={roomType.rtNo}>
+            <td>
+              <span className='only check'>
+                <input id='check2' type='checkbox' />
+                <label htmlFor='check2'>
+                  <span className='hidden'>전체선택</span>
+                </label>
+              </span>
+            </td>
+            <td>{roomType.rtNo}</td>
+            <td>신라호텔</td>
+            <td>{roomType.acName}</td>
+            <td>
+              <Link to={`/accommodationManagement/roomType/${roomType.rtNo}`}>
+                {roomType.roomTypeName}
+              </Link>
+            </td>
+            <td>{roomType.roomTotalNum}</td>
+            <td>{roomType.saleStartdate}</td>
+            <td>{roomType.saleEnddate}</td>
+            <td>{roomType.regDate.substring(0, 10)}</td>
+            <td>{roomType.regId}</td>
+            {/* 담당자 모르겠음 */}
+            <td>{roomType.originPrice}</td>
+            <td>
+              <UseYn type={'roomType'} rowData={roomType} />
+            </td>
+          </tr>
+        ))}
     </>
   )
+}
+const listToMap = (cpList) => {
+  let tempObject = {}
+  const eachList = _.each(({ acNo, name }) => {
+    tempObject = { ...tempObject, [acNo]: name }
+  })
+  eachList(cpList)
+  return tempObject
 }

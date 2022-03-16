@@ -1,10 +1,12 @@
 import Paging from '@components/common/Paging'
-import { Suspense } from 'react'
+import { totalCountAtom } from '@state/common/paging'
+import { useRecoilValue } from 'recoil'
 import ButtonGroup from '../../common/ButtonGroup'
 import ReadRoomTypeList from './ReadRoomTypeList'
 
 export default function RoomTypeTable() {
   console.log('RoomTypeTable called...')
+  const totalCount = useRecoilValue(totalCountAtom)
   return (
     <>
       <table className='tbl-list'>
@@ -45,17 +47,21 @@ export default function RoomTypeTable() {
             <th>요금</th>
             <th>사용</th>
           </tr>
-          <Suspense
-            fallback={
-              <tr>
-                <td>loading...</td>
-              </tr>
-            }
-          >
-            <ReadRoomTypeList />
-          </Suspense>
+          <ReadRoomTypeList />
         </tbody>
       </table>
+      {totalCount === 0 && (
+        <div
+          style={{
+            height: '50px',
+            display: 'grid',
+            justifyContent: 'center',
+            alignContent: 'center',
+          }}
+        >
+          결과가 없습니다. 객실타입명의 전체이름을 검색해주세요.
+        </div>
+      )}
       <ButtonGroup addText={'객실타입추가'} addHref={'/accommodationManagement/roomType/new'} />
       <Paging />
     </>

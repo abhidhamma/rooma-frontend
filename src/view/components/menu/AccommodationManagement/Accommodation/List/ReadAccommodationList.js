@@ -1,19 +1,26 @@
 import { readAccommodationListSelector } from '@state/accommodation/accommodation'
 import { currentPageAtom, totalCountAtom } from '@state/common/paging'
+import { searchKeywordAtom } from '@state/common/search'
 import { getFormDataFromJson } from '@util/common/axiosUtil'
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useRecoilRefresher_UNSTABLE, useRecoilValue, useSetRecoilState } from 'recoil'
+import UseYn from '../../common/UseYn'
 
 export default function ReadAccommodationList() {
+  const searchKeyword = useRecoilValue(searchKeywordAtom)
   const setTotalCount = useSetRecoilState(totalCountAtom)
-
   const currentPage = useRecoilValue(currentPageAtom)
 
   const rowCount = 7
   const currentIndex = (currentPage - 1) * rowCount
 
-  const data = { cpNo: '1', name: '', startRow: `${currentIndex}`, rowCount: `${rowCount}` }
+  const data = {
+    cpNo: '1',
+    name: searchKeyword,
+    startRow: `${currentIndex}`,
+    rowCount: `${rowCount}`,
+  }
   const {
     data: {
       data: { list, totalCount },
@@ -27,7 +34,7 @@ export default function ReadAccommodationList() {
   useEffect(() => {
     setTotalCount(totalCount)
     resetReadAccommodationListSelector()
-  }, [currentIndex])
+  }, [currentIndex, searchKeyword])
   return (
     <>
       {list.map((accommodation) => (
@@ -49,14 +56,11 @@ export default function ReadAccommodationList() {
           <td>{accommodation.name}</td>
           <td>{accommodation.address1}</td>
           <td>{accommodation.type}</td>
-          <td>21.11.29</td>
-          <td>21.11.29</td>
-          <td>최고관리자</td>
+          <td>{accommodation.saleStartdate}</td>
+          <td>{accommodation.saleEnddate}</td>
+          <td>{accommodation.regId}</td>
           <td>
-            <select>
-              <option>미사용</option>
-              <option>사용</option>
-            </select>
+            <UseYn type={'accommodation'} rowData={accommodation} />
           </td>
         </tr>
       ))}

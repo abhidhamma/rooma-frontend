@@ -1,11 +1,13 @@
 import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil'
 import { currentPageAtom, totalCountAtom } from '@state/common/paging'
 import { useEffect } from 'react'
+import { searchKeywordAtom } from '@state/common/search'
 export default function Paging() {
   console.log('paging...')
   const [currentPage, setCurrentPage] = useRecoilState(currentPageAtom)
   const resetCurrentPage = useResetRecoilState(currentPageAtom)
   const totalCount = useRecoilValue(totalCountAtom)
+  const searchKeyword = useRecoilValue(searchKeywordAtom)
   console.log(totalCount)
   const pageLength = 5
   const totalPage = Math.ceil(totalCount / 7)
@@ -17,7 +19,7 @@ export default function Paging() {
 
   useEffect(() => {
     resetCurrentPage()
-  }, [])
+  }, [searchKeyword])
 
   return (
     <div className='paging'>
