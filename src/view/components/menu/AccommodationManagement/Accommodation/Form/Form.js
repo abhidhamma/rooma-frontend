@@ -314,10 +314,10 @@ export default function AccommodationForm({ register, handleSubmit, onSubmit, su
                     </div>
                     <div className='row'>
                       <div>
-                        <input type='text' />
+                        <input type='text' {...register('addBreakfastName')} />
                       </div>
                       <div>
-                        <input type='text' />
+                        <input type='text' {...register('addBreakfastPrice')} />
                         <span className='won'>원</span>
                       </div>
                       <div>
@@ -343,10 +343,10 @@ export default function AccommodationForm({ register, handleSubmit, onSubmit, su
                     </div>
                     <div className='row'>
                       <div>
-                        <input type='text' />
+                        <input type='text' {...register('addExtName')} />
                       </div>
                       <div>
-                        <input type='text' />
+                        <input type='text' {...register('addExtPrice')} />
                         <span className='won'>원</span>
                       </div>
                       <div>

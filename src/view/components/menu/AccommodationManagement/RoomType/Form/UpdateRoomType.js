@@ -48,7 +48,7 @@ export default function UpdateRoomType() {
     _.flow(length, numberToArray, eachRoom)(defaultValues)
     return defaultValues
   }
-  //기타옵션
+
   //조식추가, 기타사항
   const makeBreakFastPriceInput = (defaultValues) => {
     const [addBreakfastConfigName, addBreakfastConfigPrice] = split(
@@ -69,6 +69,7 @@ export default function UpdateRoomType() {
     }
   }
 
+  //기타옵션
   const makeRoomOptionInputs = (defaultValues) => {
     const roomOptionArray = split(defaultValues.roomOptions)
     const checkBoxMap = {

@@ -29,6 +29,25 @@ export default function UpdateAccommodation() {
   )
 
   const split = _.split('|')
+
+  //조식추가, 기타사항
+  const makeBreakFastFeeInput = (defaultValues) => {
+    const [addBreakfastName, addBreakfastPrice] = split(defaultValues.addBreakfastFee)
+    return {
+      ...defaultValues,
+      addBreakfastName,
+      addBreakfastPrice,
+    }
+  }
+  const makeExtFeeInput = (defaultValues) => {
+    const [addExtName, addExtPrice] = split(defaultValues.addExtFee)
+    return {
+      ...defaultValues,
+      addExtName,
+      addExtPrice,
+    }
+  }
+
   const makeAccommodationOptionInputs = (defaultValues) => {
     const roomOptionArray = split(defaultValues?.options)
     const checkBoxMap = {
@@ -64,6 +83,11 @@ export default function UpdateAccommodation() {
   }
 
   const preprocessDefaultValues = (defaultValues) => {
+    //조식추가 나누기
+    defaultValues = makeBreakFastFeeInput(defaultValues)
+    //기타사항 나누기
+    defaultValues = makeExtFeeInput(defaultValues)
+    //기타옵션 나누기
     defaultValues = makeAccommodationOptionInputs(defaultValues)
     return defaultValues
   }

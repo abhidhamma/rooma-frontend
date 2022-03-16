@@ -20,7 +20,7 @@ export default function CreateAccommodation() {
 
   const defaultValues = {
     cpName: name,
-    cpNo: cpNo,
+    cpNo: 1,
     nickname: '롯데호텔',
     homepage: 'www.lottehotel.com',
     email: 'lottel@lotte.com',
@@ -29,7 +29,11 @@ export default function CreateAccommodation() {
     options: '',
     addPersionFee: '성인||20000//유아||10000',
     addBreakfastFee: '성인||20000//유아||10000',
+    addBreakfastName: '성인',
+    addBreakfastPrice: '20000',
     addExtFee: '바베큐||30000//고기||10000//숯||10000',
+    addExtName: '바베큐',
+    addExtPrice: '30000',
     useYn: 'Y',
     openYn: 'Y',
     name: '롯데호텔',
@@ -44,8 +48,8 @@ export default function CreateAccommodation() {
     area2: '2',
     checkinTime: '15:00',
     checkoutTime: '11:00',
-    description: '',
-    notice: '',
+    description: '안내',
+    notice: '유의사항',
   }
   const { register, handleSubmit } = useForm({ defaultValues })
 
@@ -113,6 +117,15 @@ const makeAccommodationFormOptions = (submitData) => {
   return _.flow(getOptionCount, numberToArray, filterChecked, mapRoomOption, join)(submitData)
 }
 export const preprocessAccommodationFormdata = (submitData) => {
+  //사용할 변수들
+  const { addBreakfastName, addBreakfastPrice, addExtName, addExtPrice } = submitData
+
+  //조식추가 합치기
+  submitData.addBreakfastFee = addBreakfastName + '|' + addBreakfastPrice
+
+  //기타사항 합치기
+  submitData.addExtFee = addExtName + '|' + addExtPrice
+
   submitData.options = makeAccommodationFormOptions(submitData)
   return submitData
 }
