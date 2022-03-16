@@ -1,18 +1,14 @@
-import { useRecoilValue, useSetRecoilState } from 'recoil'
+import { useRecoilValue } from 'recoil'
 import { currentPageAtom, totalCountAtom } from '@state/common/paging'
 import SideBar from '@components/menu/AccommodationManagement/SideBar'
 import AccommodationTable from '@components/menu/AccommodationManagement/Accommodation/List/Table'
-import { useRef } from 'react'
-import { searchKeywordAtom } from '@state/common/search'
 import SearchBox from '../../common/SearchBox'
+import { CREATE_ACCOMMODATION_URL } from '@constant/locationURLs'
 
 export default function AccommodationList() {
   const totalCount = useRecoilValue(totalCountAtom)
   const currentPage = useRecoilValue(currentPageAtom)
 
-  const setSearchKeyword = useSetRecoilState(searchKeywordAtom)
-  const searchKeywordRef = useRef('')
-  const handleSearchKeyword = () => setSearchKeyword(searchKeywordRef.current.value)
   return (
     <>
       {/* <!-- S:Container --> */}
@@ -30,7 +26,7 @@ export default function AccommodationList() {
               Total {totalCount}건 {currentPage}페이지
             </span>
             <SearchBox
-              linkTo={'/accommodationManagement/accommodation/new'}
+              linkTo={CREATE_ACCOMMODATION_URL}
               linkText={'숙소추가'}
               optionName={'숙소명'}
             />

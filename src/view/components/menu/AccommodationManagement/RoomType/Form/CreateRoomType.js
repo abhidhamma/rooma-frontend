@@ -78,9 +78,19 @@ const makeRoomNames = (submitData) => {
 
 const makeRoomOptions = (submitData) => {
   const getOptionCount = () => 8
-  const filterCkecked = _.filter((number) => submitData[`check${number}`] !== false)
-  const mapRoomOption = _.map((number) => submitData[`check${number}`])
-  return _.flow(getOptionCount, numberToArray, filterCkecked, mapRoomOption, join)(submitData)
+  const filterChecked = _.filter((number) => submitData[`check${number}`] !== false)
+  const checkBoxMap = {
+    check1: '조식',
+    check2: '취사기능',
+    check3: '풀빌라',
+    check4: '월풀(자쿠지)',
+    check5: '화장실2개이상',
+    check6: '단독(독채)형',
+    check7: '복층형',
+    check8: '순수온돌방',
+  }
+  const mapRoomOption = _.map((number) => checkBoxMap[`check${number}`])
+  return _.flow(getOptionCount, numberToArray, filterChecked, mapRoomOption, join)(submitData)
 }
 
 export const preprocessData = (submitData) => {

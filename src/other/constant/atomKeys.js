@@ -1,6 +1,8 @@
 //atom
 //common
 export const IS_LOGGED_IN_ATOM_KEY = 'isLoggedInAtom'
+//common-header
+export const CURRENT_COMPANY_ATOM_KEY = 'currentCompanyAtom'
 //common-paging
 export const TOTAL_COUNT_ATOM_KEY = 'totalCountAtom'
 export const CURRENT_PAGE_ATOM_KEY = 'currentPageAtom'
@@ -23,6 +25,9 @@ export const OVERLAY_ATOM_KEY = 'overlayAtom'
 //auth
 export const AUTH_RESULT_ATOM_KEY = 'authResultAtom'
 export const USER_ATOM_KEY = 'userAtom'
+
+//selector
+
 //accommodation - 숙소등록관리
 export const ACCOMODATION_LIST_ATOM_KEY = 'accommodationListAtomKey'
 export const CREATE_ACCOMMODATION_SELECTOR_KEY = 'createAccommodationKey'
@@ -41,6 +46,10 @@ export const CREATE_ROOM_SELECTOR_KEY = 'createRoomSelectorKey'
 export const READ_ROOM_SELECTOR_KEY = 'readRoomSelectorKey'
 export const READ_ROOM_LIST_SELECTOR_KEY = 'readRoomListSelectorKey'
 export const UPDATE_ROOM_SELECTOR_KEY = 'updateRoomSelectorKey'
-//selector
+
+//user
 export const SIGNIN_SELECTOR_KEY = 'signInSelector'
 export const SIGNUP_SELECTOR_KEY = 'signUpSelector'
+
+//company
+export const READ_COMPANY_SELECTOR_KEY = 'readCompanySelectorKey'

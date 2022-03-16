@@ -1,3 +1,4 @@
+import { makeUpdateAccommodationUrl } from '@constant/locationURLs'
 import { readAccommodationListSelector } from '@state/accommodation/accommodation'
 import { currentPageAtom, totalCountAtom } from '@state/common/paging'
 import { searchKeywordAtom } from '@state/common/search'
@@ -37,33 +38,33 @@ export default function ReadAccommodationList() {
   }, [currentIndex, searchKeyword])
   return (
     <>
-      {list.map((accommodation) => (
-        <tr key={accommodation.acNo}>
-          <td>
-            <span className='only check'>
-              <input id='check2' type='checkbox' />
-              <label htmlFor='check2'>
-                <span className='hidden'>전체선택</span>
-              </label>
-            </span>
-          </td>
-          <td>{accommodation.acNo}</td>
-          <td>
-            <Link to={`/accommodationManagement/accommodation/${accommodation.acNo}`}>
-              신라호텔
-            </Link>
-          </td>
-          <td>{accommodation.name}</td>
-          <td>{accommodation.address1}</td>
-          <td>{accommodation.type}</td>
-          <td>{accommodation.saleStartdate}</td>
-          <td>{accommodation.saleEnddate}</td>
-          <td>{accommodation.regId}</td>
-          <td>
-            <UseYn type={'accommodation'} rowData={accommodation} />
-          </td>
-        </tr>
-      ))}
+      {list.map((accommodation) => {
+        const UPDATE_ACCOMMODATION_URL = makeUpdateAccommodationUrl(accommodation.acNo)
+        const textWithLink = (text) => <Link to={UPDATE_ACCOMMODATION_URL}>{text}</Link>
+        return (
+          <tr key={accommodation.acNo}>
+            <td>
+              <span className='only check'>
+                <input id='check2' type='checkbox' />
+                <label htmlFor='check2'>
+                  <span className='hidden'>전체선택</span>
+                </label>
+              </span>
+            </td>
+            <td>{textWithLink(accommodation.acNo)}</td>
+            <td>{textWithLink('신라호텔')}</td>
+            <td>{textWithLink(accommodation.name)}</td>
+            <td>{textWithLink(accommodation.address1)}</td>
+            <td>{textWithLink(accommodation.type)}</td>
+            <td>{textWithLink(accommodation.saleStartdate)}</td>
+            <td>{textWithLink(accommodation.saleEnddate)}</td>
+            <td>{textWithLink(accommodation.regId)}</td>
+            <td>
+              <UseYn type={'accommodation'} rowData={accommodation} />
+            </td>
+          </tr>
+        )
+      })}
     </>
   )
 }

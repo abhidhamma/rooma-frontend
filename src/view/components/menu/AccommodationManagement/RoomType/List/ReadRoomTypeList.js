@@ -1,3 +1,4 @@
+import { makeUpdateRoomTypeUrl } from '@constant/locationURLs'
 import { readAccommodationListSelector } from '@state/accommodation/accommodation'
 import { readRoomTypeListSelector } from '@state/accommodation/roomType'
 import { currentPageAtom, totalCountAtom } from '@state/common/paging'
@@ -51,36 +52,36 @@ export default function ReadRoomTypeList() {
     <>
       {list
         .map((roomType) => ({ ...roomType, acName: acNameMap[roomType.acNo] }))
-        .map((roomType) => (
-          <tr key={roomType.rtNo}>
-            <td>
-              <span className='only check'>
-                <input id='check2' type='checkbox' />
-                <label htmlFor='check2'>
-                  <span className='hidden'>전체선택</span>
-                </label>
-              </span>
-            </td>
-            <td>{roomType.rtNo}</td>
-            <td>신라호텔</td>
-            <td>{roomType.acName}</td>
-            <td>
-              <Link to={`/accommodationManagement/roomType/${roomType.rtNo}`}>
-                {roomType.roomTypeName}
-              </Link>
-            </td>
-            <td>{roomType.roomTotalNum}</td>
-            <td>{roomType.saleStartdate}</td>
-            <td>{roomType.saleEnddate}</td>
-            <td>{roomType.regDate.substring(0, 10)}</td>
-            <td>{roomType.regId}</td>
-            {/* 담당자 모르겠음 */}
-            <td>{roomType.originPrice}</td>
-            <td>
-              <UseYn type={'roomType'} rowData={roomType} />
-            </td>
-          </tr>
-        ))}
+        .map((roomType) => {
+          const UPDATE_ROOMTYPE_URL = makeUpdateRoomTypeUrl(roomType.rtNo)
+          const textWithLink = (text) => <Link to={UPDATE_ROOMTYPE_URL}>{text}</Link>
+          return (
+            <tr key={roomType.rtNo}>
+              <td>
+                <span className='only check'>
+                  <input id='check2' type='checkbox' />
+                  <label htmlFor='check2'>
+                    <span className='hidden'>전체선택</span>
+                  </label>
+                </span>
+              </td>
+              <td>{textWithLink(roomType.rtNo)}</td>
+              <td>{textWithLink('신라호텔')}</td>
+              <td>{textWithLink(roomType.acName)}</td>
+              <td>{textWithLink(roomType.roomTypeName)}</td>
+              <td>{textWithLink(roomType.roomTotalNum)}</td>
+              <td>{textWithLink(roomType.saleStartdate)}</td>
+              <td>{textWithLink(roomType.saleEnddate)}</td>
+              <td>{textWithLink(roomType.regDate.substring(0, 10))}</td>
+              <td>{textWithLink(roomType.regId)}</td>
+              {/* 담당자 모르겠음 */}
+              <td>{textWithLink(roomType.originPrice)}</td>
+              <td>
+                <UseYn type={'roomType'} rowData={roomType} />
+              </td>
+            </tr>
+          )
+        })}
     </>
   )
 }

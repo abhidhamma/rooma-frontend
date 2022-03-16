@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import _ from 'lodash/fp'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { getFormDataFromJson } from '@util/common/axiosUtil'
@@ -6,13 +6,21 @@ import useCreateAccommodationCallback from '@hook/apiHook/useCreateAccommodation
 import { createAccommodationSelector } from '@state/accommodation/accommodation'
 import AccommodationForm from './Form'
 import { validateAccommodationInput } from '@util/validation/validateAccommodationInput'
+import { useRecoilValue } from 'recoil'
+import { currentCompanyAtom } from '@state/common/common'
+import { numberToArray } from '@util/common/lodash'
 
 export default function CreateAccommodation() {
   const createAccommodationCallback = useCreateAccommodationCallback('create Accommodation')
+  const { name, cpNo } = useRecoilValue(currentCompanyAtom)
+
+  console.log('currentCompany')
+  console.log(name, cpNo)
   let navigate = useNavigate()
 
   const defaultValues = {
-    cpNo: '1',
+    cpName: name,
+    cpNo: cpNo,
     nickname: '롯데호텔',
     homepage: 'www.lottehotel.com',
     email: 'lottel@lotte.com',
@@ -40,7 +48,9 @@ export default function CreateAccommodation() {
     notice: '',
   }
   const { register, handleSubmit } = useForm({ defaultValues })
+
   const onSubmit = _.flow(
+    preprocessAccommodationFormdata,
     validateAccommodationInput,
     getFormDataFromJson,
     createAccommodation(createAccommodationCallback, navigate)
@@ -70,4 +80,39 @@ const createAccommodation = (createAccommodationCallback, navigate) => (formData
       alert('오류가 발생했습니다. 잠시후에 다시 시도해주세요.')
     }
   })
+}
+const join = _.join('|')
+const makeAccommodationFormOptions = (submitData) => {
+  const getOptionCount = () => 22
+  const filterChecked = _.filter((number) => submitData[`check${number}`] !== false)
+  const checkBoxMap = {
+    check1: '조식',
+    check2: '취사기능',
+    check3: '풀빌라',
+    check4: '월풀(자쿠지)',
+    check5: '화장실2개이상',
+    check6: '단독(독채)형',
+    check7: '복층형',
+    check8: '순수온돌방',
+    check9: '바베큐',
+    check10: '수영장',
+    check11: '인터넷',
+    check12: '노트북대여',
+    check13: '픽업유부',
+    check14: '세미나실',
+    check15: '노래방',
+    check16: '애완동물입장가능',
+    check17: '카페',
+    check18: '장애인시설',
+    check19: '통나무숙소',
+    check20: '산책로',
+    check21: '골프연습장',
+    check22: '체험학습장(텃밭)',
+  }
+  const mapRoomOption = _.map((number) => checkBoxMap[`check${number}`])
+  return _.flow(getOptionCount, numberToArray, filterChecked, mapRoomOption, join)(submitData)
+}
+export const preprocessAccommodationFormdata = (submitData) => {
+  submitData.options = makeAccommodationFormOptions(submitData)
+  return submitData
 }

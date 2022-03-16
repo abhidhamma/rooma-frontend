@@ -3,6 +3,8 @@ import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { removeItem } from '@util/common/localStorage'
 import { isLoggedInAtom } from '@state/common/common'
 import { userAtom } from '@state/common/user'
+import CompanySelect from './CompanySelect'
+import { Suspense } from 'react'
 
 export default function Header() {
   const setIsLoggedIn = useSetRecoilState(isLoggedInAtom)
@@ -31,9 +33,15 @@ export default function Header() {
             <a href='#'>공지사항</a>
           </div>
           <div className='top-menu'>
-            <select>
-              <option>신라호텔</option>
-            </select>
+            <Suspense
+              fallback={
+                <select>
+                  <option>업체목록</option>
+                </select>
+              }
+            >
+              <CompanySelect />
+            </Suspense>
             <div className='profile'>
               <a href='#'>{user?.name ? user.name : 'admin'}</a>
               <span>접속중</span>

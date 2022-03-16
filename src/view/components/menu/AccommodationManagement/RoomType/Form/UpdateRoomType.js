@@ -25,7 +25,7 @@ export default function UpdateRoomType() {
   let navigate = useNavigate()
 
   const {
-    data: { data: accommodationData },
+    data: { data: roomTypeData },
   } = useRecoilValue(readRoomTypeSelector({ rtNo }))
   const resetReadRoomTypeSelector = useRecoilRefresher_UNSTABLE(readRoomTypeSelector({ rtNo }))
 
@@ -69,6 +69,26 @@ export default function UpdateRoomType() {
     }
   }
 
+  const makeRoomOptionInputs = (defaultValues) => {
+    const roomOptionArray = split(defaultValues.roomOptions)
+    const checkBoxMap = {
+      [`조식`]: 'check1',
+      [`취사기능`]: 'check2',
+      [`풀빌라`]: 'check3',
+      [`월풀(자쿠지)`]: 'check4',
+      [`화장실2개이상`]: 'check5',
+      [`단독(독채)형`]: 'check6',
+      [`복층형`]: 'check7',
+      [`순수온돌방`]: 'check8',
+    }
+    const eachRoomOption = _.each((roomOption) => {
+      const name = checkBoxMap[roomOption]
+      defaultValues = { ...defaultValues, [name]: true }
+    })
+    eachRoomOption(roomOptionArray)
+    return defaultValues
+  }
+
   const preprocessDefaultValues = (defaultValues) => {
     //prefix, roomNumber, suffix 추가
     defaultValues = { ...defaultValues, prefix: '', roomNumber: '', suffix: '' }
@@ -78,12 +98,13 @@ export default function UpdateRoomType() {
     defaultValues = makeBreakFastPriceInput(defaultValues)
     //기타사항 나누기
     defaultValues = makeEtcPriceInput(defaultValues)
-    //기타옵션
+    //기타옵션 나누기
+    defaultValues = makeRoomOptionInputs(defaultValues)
     // ...
     return defaultValues
   }
 
-  const defaultValues = preprocessDefaultValues(accommodationData)
+  const defaultValues = preprocessDefaultValues(roomTypeData)
   const { register, handleSubmit, watch, reset, getValues } = useForm({ defaultValues })
 
   useEffect(() => {

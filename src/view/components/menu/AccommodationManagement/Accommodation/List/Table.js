@@ -3,6 +3,7 @@ import Paging from '@components/common/Paging'
 import ReadAccommodationList from './ReadAccommodationList'
 import { totalCountAtom } from '@state/common/paging'
 import { useRecoilValue } from 'recoil'
+import { CREATE_ACCOMMODATION_URL } from '@constant/locationURLs'
 
 export default function AccommodationTable() {
   console.log('AccommodationTable called...')
@@ -60,7 +61,7 @@ export default function AccommodationTable() {
           결과가 없습니다. 숙소명의 전체이름을 검색해주세요.
         </div>
       )}
-      <ButtonGroup addText={'숙소추가'} addHref={'/accommodationManagement/accommodation/new'} />
+      <ButtonGroup addText={'숙소추가'} addHref={CREATE_ACCOMMODATION_URL} />
       <Paging />
     </>
   )

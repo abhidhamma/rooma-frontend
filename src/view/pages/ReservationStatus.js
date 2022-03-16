@@ -1,6 +1,6 @@
 import { useRecoilValue } from 'recoil'
 import { isLoggedInAtom } from '@state/common/common'
-import Header from '@components/common/Header'
+import Header from '@components/common/Header/Header'
 import Container from '@components/menu/ReservationStatus/Container'
 
 export default function ReservationStatus() {

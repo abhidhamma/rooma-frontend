@@ -1,3 +1,4 @@
+import { makeUpdateRoomUrl } from '@constant/locationURLs'
 import { readAccommodationListSelector } from '@state/accommodation/accommodation'
 import { readRoomListSelector } from '@state/accommodation/room'
 import { readRoomTypeListSelector } from '@state/accommodation/roomType'
@@ -69,31 +70,33 @@ export default function ReadRoomList() {
       {list
         .map((room) => ({ ...room, rtName: rtNameMap[room.rtNo] }))
         .map((room) => ({ ...room, acName: acNameMap[room.acNo] }))
-        .map((room) => (
-          <tr key={room.rmNo}>
-            <td>
-              <span className='only check'>
-                <input id='check2' type='checkbox' />
-                <label htmlFor='check2'>
-                  <span className='hidden'>전체선택</span>
-                </label>
-              </span>
-            </td>
-            <td>{room.rmNo}</td>
-            <td>{room.acName}</td>
-            <td>{room.rtName}</td>
-            <td>
-              <Link to={`/accommodationManagement/room/${room.rmNo}`}>{room.name}</Link>
-            </td>
-            <td>{room.saleStartdate}</td>
-            <td>{room.saleEnddate}</td>
-            <td>{room.regDate.substring(0, 10)}</td>
-            <td>{room.regId}</td>
-            <td>
-              <UseYn type={'room'} rowData={room} />
-            </td>
-          </tr>
-        ))}
+        .map((room) => {
+          const UPDATE_ROOM_URL = makeUpdateRoomUrl(room.rmNo)
+          const textWithLink = (text) => <Link to={UPDATE_ROOM_URL}>{text}</Link>
+          return (
+            <tr key={room.rmNo}>
+              <td>
+                <span className='only check'>
+                  <input id='check2' type='checkbox' />
+                  <label htmlFor='check2'>
+                    <span className='hidden'>전체선택</span>
+                  </label>
+                </span>
+              </td>
+              <td>{textWithLink(room.rmNo)}</td>
+              <td>{textWithLink(room.acName)}</td>
+              <td>{textWithLink(room.rtName)}</td>
+              <td>{textWithLink(room.name)}</td>
+              <td>{textWithLink(room.saleStartdate)}</td>
+              <td>{textWithLink(room.saleEnddate)}</td>
+              <td>{textWithLink(room.regDate.substring(0, 10))}</td>
+              <td>{textWithLink(room.regId)}</td>
+              <td>
+                <UseYn type={'room'} rowData={room} />
+              </td>
+            </tr>
+          )
+        })}
     </>
   )
 }

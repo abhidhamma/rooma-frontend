@@ -36,7 +36,7 @@ export default function AccommodationForm({ register, handleSubmit, onSubmit, su
                 <dl>
                   <dt>회사명</dt>
                   <dd>
-                    <input type='text' defaultValue={'신라호텔'} disabled />
+                    <input type='text' disabled {...register('cpName')} defaultValue={'신라호텔'} />
                   </dd>
                 </dl>
                 <dl>
@@ -166,133 +166,133 @@ export default function AccommodationForm({ register, handleSubmit, onSubmit, su
                       <ul>
                         <li>
                           <span className='check'>
-                            <input id='check01' type='checkbox' />
+                            <input id='check01' type='checkbox' {...register('check1')} />
                             <label htmlFor='check01'>조식</label>
                           </span>
                         </li>
                         <li>
                           <span className='check'>
-                            <input id='check02' type='checkbox' />
+                            <input id='check02' type='checkbox' {...register('check2')} />
                             <label htmlFor='check02'>취사기능</label>
                           </span>
                         </li>
                         <li>
                           <span className='check'>
-                            <input id='check03' type='checkbox' />
+                            <input id='check03' type='checkbox' {...register('check3')} />
                             <label htmlFor='check03'>풀빌라</label>
                           </span>
                         </li>
                         <li>
                           <span className='check'>
-                            <input id='check04' type='checkbox' />
+                            <input id='check04' type='checkbox' {...register('check4')} />
                             <label htmlFor='check04'>월풀(자쿠지)</label>
                           </span>
                         </li>
                         <li>
                           <span className='check'>
-                            <input id='check05' type='checkbox' />
+                            <input id='check05' type='checkbox' {...register('check5')} />
                             <label htmlFor='check05'>화장실2개이상</label>
                           </span>
                         </li>
                         <li>
                           <span className='check'>
-                            <input id='check06' type='checkbox' />
+                            <input id='check06' type='checkbox' {...register('check6')} />
                             <label htmlFor='check06'>단독(독채)형</label>
                           </span>
                         </li>
                         <li>
                           <span className='check'>
-                            <input id='check07' type='checkbox' />
+                            <input id='check07' type='checkbox' {...register('check7')} />
                             <label htmlFor='check07'>복층형</label>
                           </span>
                         </li>
                         <li>
                           <span className='check'>
-                            <input id='check08' type='checkbox' />
+                            <input id='check08' type='checkbox' {...register('check8')} />
                             <label htmlFor='check08'>순수온돌방</label>
                           </span>
                         </li>
                         <li>
                           <span className='check'>
-                            <input id='check09' type='checkbox' />
+                            <input id='check09' type='checkbox' {...register('check9')} />
                             <label htmlFor='check09'>바베큐</label>
                           </span>
                         </li>
                         <li>
                           <span className='check'>
-                            <input id='check10' type='checkbox' />
+                            <input id='check10' type='checkbox' {...register('check10')} />
                             <label htmlFor='check10'>수영장</label>
                           </span>
                         </li>
                         <li>
                           <span className='check'>
-                            <input id='check11' type='checkbox' />
+                            <input id='check11' type='checkbox' {...register('check11')} />
                             <label htmlFor='check11'>인터넷</label>
                           </span>
                         </li>
                         <li>
                           <span className='check'>
-                            <input id='check12' type='checkbox' />
+                            <input id='check12' type='checkbox' {...register('check12')} />
                             <label htmlFor='check12'>노트북대여</label>
                           </span>
                         </li>
                         <li>
                           <span className='check'>
-                            <input id='check13' type='checkbox' />
+                            <input id='check13' type='checkbox' {...register('check13')} />
                             <label htmlFor='check13'>픽업유무</label>
                           </span>
                         </li>
                         <li>
                           <span className='check'>
-                            <input id='check14' type='checkbox' />
+                            <input id='check14' type='checkbox' {...register('check14')} />
                             <label htmlFor='check14'>세미나실</label>
                           </span>
                         </li>
                         <li>
                           <span className='check'>
-                            <input id='check15' type='checkbox' />
+                            <input id='check15' type='checkbox' {...register('check15')} />
                             <label htmlFor='check15'>노래방</label>
                           </span>
                         </li>
                         <li>
                           <span className='check'>
-                            <input id='check16' type='checkbox' />
+                            <input id='check16' type='checkbox' {...register('check16')} />
                             <label htmlFor='check16'>애완동물입장가능</label>
                           </span>
                         </li>
                         <li>
                           <span className='check'>
-                            <input id='check17' type='checkbox' />
+                            <input id='check17' type='checkbox' {...register('check17')} />
                             <label htmlFor='check17'>카페</label>
                           </span>
                         </li>
                         <li>
                           <span className='check'>
-                            <input id='check18' type='checkbox' />
+                            <input id='check18' type='checkbox' {...register('check18')} />
                             <label htmlFor='check18'>장애인시설</label>
                           </span>
                         </li>
                         <li>
                           <span className='check'>
-                            <input id='check19' type='checkbox' />
+                            <input id='check19' type='checkbox' {...register('check19')} />
                             <label htmlFor='check19'>통나무숙소</label>
                           </span>
                         </li>
                         <li>
                           <span className='check'>
-                            <input id='check20' type='checkbox' />
+                            <input id='check20' type='checkbox' {...register('check20')} />
                             <label htmlFor='check20'>산책로</label>
                           </span>
                         </li>
                         <li>
                           <span className='check'>
-                            <input id='check21' type='checkbox' />
+                            <input id='check21' type='checkbox' {...register('check21')} />
                             <label htmlFor='check21'>골프연습장</label>
                           </span>
                         </li>
                         <li>
                           <span className='check'>
-                            <input id='check22' type='checkbox' />
+                            <input id='check22' type='checkbox' {...register('check22')} />
                             <label htmlFor='check22'>체험학습장(텃밭)</label>
                           </span>
                         </li>
