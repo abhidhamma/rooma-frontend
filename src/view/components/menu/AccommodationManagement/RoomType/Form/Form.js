@@ -4,6 +4,11 @@ import { useNavigate } from 'react-router-dom'
 import AccommodationListSelect from '../../common/AccommodationListSelect'
 import RoomSetting from './RoomSetting'
 import image from '@asset/images/@sample.png'
+import AddOptionForm from '../../common/AddOptionForm'
+import {
+  breakfastConfigOptionCountAtom,
+  etcConfigOptionCountAtom,
+} from '@state/accommodation/roomType'
 
 export default function RoomTypeForm({
   register,
@@ -15,7 +20,6 @@ export default function RoomTypeForm({
   reset,
   getValues,
 }) {
-  console.log('RoomTypeForm rendered...')
   let navigate = useNavigate()
   return (
     <>
@@ -153,23 +157,12 @@ export default function RoomTypeForm({
                         <span className='hdn'>추가/삭제</span>
                       </div>
                     </div>
-                    <div className='row'>
-                      <div>
-                        <input type='text' {...register('addBreakfastConfigName')} />
-                      </div>
-                      <div>
-                        <input type='text' {...register('addBreakfastConfigPrice')} />
-                        <span className='won'>원</span>
-                      </div>
-                      <div>
-                        <button type='button' className='btn plus'>
-                          <span className='hdn'>추가</span>
-                        </button>
-                        <button type='button' className='btn minus'>
-                          <span className='hdn'>삭제</span>
-                        </button>
-                      </div>
-                    </div>
+                    <AddOptionForm
+                      register={register}
+                      firstInputName={'addBreakfastConfigName'}
+                      secondInputName={'addBreakfastConfigPrice'}
+                      optionCountAtom={breakfastConfigOptionCountAtom}
+                    />
                   </dd>
                 </dl>
                 <dl className='rowAdd'>
@@ -182,23 +175,12 @@ export default function RoomTypeForm({
                         <span className='hdn'>추가/삭제</span>
                       </div>
                     </div>
-                    <div className='row'>
-                      <div>
-                        <input type='text' {...register('addEtcConfigName')} />
-                      </div>
-                      <div>
-                        <input type='text' {...register('addEtcConfigPrice')} />
-                        <span className='won'>원</span>
-                      </div>
-                      <div>
-                        <button type='button' className='btn plus'>
-                          <span className='hdn'>추가</span>
-                        </button>
-                        <button type='button' className='btn minus'>
-                          <span className='hdn'>삭제</span>
-                        </button>
-                      </div>
-                    </div>
+                    <AddOptionForm
+                      register={register}
+                      firstInputName={'addEtcConfigName'}
+                      secondInputName={'addEtcConfigPrice'}
+                      optionCountAtom={etcConfigOptionCountAtom}
+                    />
                   </dd>
                 </dl>
               </section>

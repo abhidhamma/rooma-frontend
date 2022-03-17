@@ -46,8 +46,6 @@ export default function ReadRoomTypeList() {
     setTotalCount(totalCount)
     resetReadRoomTypeListSelector()
   }, [currentIndex, totalCount])
-  console.log('selector called!')
-  console.log(list, totalCount)
   return (
     <>
       {list

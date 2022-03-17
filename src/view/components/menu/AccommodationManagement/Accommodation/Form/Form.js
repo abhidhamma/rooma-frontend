@@ -1,6 +1,8 @@
 import { useNavigate } from 'react-router-dom'
 import SideBar from '@components/menu/AccommodationManagement/SideBar'
 import image from '@asset/images/@sample.png'
+import AddOptionForm from '../../common/AddOptionForm'
+import { breakfastOptionCountAtom, extOptionCountAtom } from '@state/accommodation/accommodation'
 
 export default function AccommodationForm({ register, handleSubmit, onSubmit, submitText }) {
   let navigate = useNavigate()
@@ -145,7 +147,7 @@ export default function AccommodationForm({ register, handleSubmit, onSubmit, su
                   <dt>지역1</dt>
                   <dd>
                     <select {...register('area1')}>
-                      <option value={'1'}>1</option>
+                      <option value={'1'}>1</option>-
                     </select>
                   </dd>
                 </dl>
@@ -312,23 +314,12 @@ export default function AccommodationForm({ register, handleSubmit, onSubmit, su
                         <span className='hdn'>추가/삭제</span>
                       </div>
                     </div>
-                    <div className='row'>
-                      <div>
-                        <input type='text' {...register('addBreakfastName')} />
-                      </div>
-                      <div>
-                        <input type='text' {...register('addBreakfastPrice')} />
-                        <span className='won'>원</span>
-                      </div>
-                      <div>
-                        <button type='button' className='btn plus'>
-                          <span className='hdn'>추가</span>
-                        </button>
-                        <button type='button' className='btn minus'>
-                          <span className='hdn'>삭제</span>
-                        </button>
-                      </div>
-                    </div>
+                    <AddOptionForm
+                      register={register}
+                      firstInputName={'addBreakfastName'}
+                      secondInputName={'addBreakfastPrice'}
+                      optionCountAtom={breakfastOptionCountAtom}
+                    />
                   </dd>
                 </dl>
                 <dl className='rowAdd'>
@@ -341,23 +332,12 @@ export default function AccommodationForm({ register, handleSubmit, onSubmit, su
                         <span className='hdn'>추가/삭제</span>
                       </div>
                     </div>
-                    <div className='row'>
-                      <div>
-                        <input type='text' {...register('addExtName')} />
-                      </div>
-                      <div>
-                        <input type='text' {...register('addExtPrice')} />
-                        <span className='won'>원</span>
-                      </div>
-                      <div>
-                        <button type='button' className='btn plus'>
-                          <span className='hdn'>추가</span>
-                        </button>
-                        <button type='button' className='btn minus'>
-                          <span className='hdn'>삭제</span>
-                        </button>
-                      </div>
-                    </div>
+                    <AddOptionForm
+                      register={register}
+                      firstInputName={'addExtName'}
+                      secondInputName={'addExtPrice'}
+                      optionCountAtom={extOptionCountAtom}
+                    />
                   </dd>
                 </dl>
               </section>

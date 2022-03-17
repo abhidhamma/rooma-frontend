@@ -1,14 +1,22 @@
 import useCreateAccommodationCallback from '@hook/apiHook/useCreateAccommodationCallback'
-import { createRoomTypeSelector } from '@state/accommodation/roomType'
+import {
+  breakfastConfigOptionCountAtom,
+  createRoomTypeSelector,
+  etcConfigOptionCountAtom,
+} from '@state/accommodation/roomType'
 import { getFormDataFromJson } from '@util/common/axiosUtil'
 import { numberToArray } from '@util/common/lodash'
 import _ from 'lodash/fp'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
+import { useRecoilValue } from 'recoil'
 import RoomTypeForm from './Form'
 
 export default function CreateRoomType() {
   const createRoomTypeCallback = useCreateAccommodationCallback('create RoomType')
+  const breakfastConfigOptionCount = useRecoilValue(breakfastConfigOptionCountAtom)
+  const etcConfigOptionCount = useRecoilValue(etcConfigOptionCountAtom)
+
   let navigate = useNavigate()
   const defaultValues = {
     //객실설정
@@ -49,7 +57,7 @@ export default function CreateRoomType() {
 
   // const onSubmit = _.flow(preprocessData)
   const onSubmit = _.flow(
-    preprocessData,
+    preprocessRoomTypeFormData(breakfastConfigOptionCount, etcConfigOptionCount),
     getFormDataFromJson,
     createRoomType(createRoomTypeCallback, navigate)
   )
@@ -66,14 +74,34 @@ export default function CreateRoomType() {
     />
   )
 }
-const join = _.join('|')
+const joinBar = _.join('||')
+const joinSlash = _.join('//')
 const makeRoomNames = (submitData) => {
   const { prefix, roomNumber, suffix } = submitData
-  const RoomSetting = prefix + '|' + roomNumber + '|' + suffix + '|'
+  const RoomSetting = prefix + '||' + roomNumber + '||' + suffix + '||'
   const getRoomTotalNum = (submitData) => Number(submitData.roomTotalNum)
   const mapRoomName = _.map((number) => submitData[`room${number}`])
   const addRoomSetting = (string) => RoomSetting + string
-  return _.flow(getRoomTotalNum, numberToArray, mapRoomName, join, addRoomSetting)(submitData)
+  return _.flow(getRoomTotalNum, numberToArray, mapRoomName, joinBar, addRoomSetting)(submitData)
+}
+
+const makeBreakfaseConfig = (submitData, breakfastConfigOptionCount) => {
+  const getOptionCount = () => Number(breakfastConfigOptionCount)
+  const mapPair = _.map((number) => {
+    const addBreakfastConfigName = submitData[`addBreakfastConfigName${number}`]
+    const addBreakfastConfigPrice = submitData[`addBreakfastConfigPrice${number}`]
+    return `${addBreakfastConfigName}||${addBreakfastConfigPrice}`
+  })
+  return _.flow(getOptionCount, numberToArray, mapPair, joinSlash)(submitData)
+}
+const makeEtcConfig = (submitData, etcConfigOptionCount) => {
+  const getOptionCount = () => Number(etcConfigOptionCount)
+  const mapPair = _.map((number) => {
+    const addEtcConfigName = submitData[`addEtcConfigName${number}`]
+    const addEtcConfigPrice = submitData[`addEtcConfigPrice${number}`]
+    return `${addEtcConfigName}||${addEtcConfigPrice}`
+  })
+  return _.flow(getOptionCount, numberToArray, mapPair, joinSlash)(submitData)
 }
 
 const makeRoomOptions = (submitData) => {
@@ -90,34 +118,28 @@ const makeRoomOptions = (submitData) => {
     check8: '순수온돌방',
   }
   const mapRoomOption = _.map((number) => checkBoxMap[`check${number}`])
-  return _.flow(getOptionCount, numberToArray, filterChecked, mapRoomOption, join)(submitData)
+  return _.flow(getOptionCount, numberToArray, filterChecked, mapRoomOption, joinBar)(submitData)
 }
 
-export const preprocessData = (submitData) => {
-  console.log('preprocessData1')
-  console.log(submitData)
+export const preprocessRoomTypeFormData =
+  (breakfastConfigOptionCount, etcConfigOptionCount) => (submitData) => {
+    //객실설정 방번호 합치기
+    const roomNames = makeRoomNames(submitData)
+    submitData.roomNames = roomNames
 
-  //사용할 변수들
-  const { addBreakfastConfigName, addBreakfastConfigPrice, addEtcConfigName, addEtcConfigPrice } =
-    submitData
+    //조식추가 합치기
+    submitData.addBreakfastConfig = makeBreakfaseConfig(submitData, breakfastConfigOptionCount)
+    //addBreakfastConfigName + '|' + addBreakfastConfigPrice
 
-  //객실설정 방번호 합치기
-  const roomNames = makeRoomNames(submitData)
-  submitData.roomNames = roomNames
+    //기타사항 합치기
+    submitData.addEtcConfig = makeEtcConfig(submitData, etcConfigOptionCount)
+    //addEtcConfigName + '|' + addEtcConfigPrice
 
-  //조식추가 합치기
-  submitData.addBreakfastConfig = addBreakfastConfigName + '|' + addBreakfastConfigPrice
+    //기타옵션 만들기
+    submitData.roomOptions = makeRoomOptions(submitData)
 
-  //기타사항 합치기
-  submitData.addEtcConfig = addEtcConfigName + '|' + addEtcConfigPrice
-
-  //기타옵션 만들기
-  submitData.roomOptions = makeRoomOptions(submitData)
-
-  console.log('preprocessData2')
-  console.log(submitData)
-  return submitData
-}
+    return submitData
+  }
 
 const createRoomType = (createRoomTypeCallback, navigate) => (formData) => {
   createRoomTypeCallback(createRoomTypeSelector(formData)).then((data) => {

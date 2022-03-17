@@ -10,7 +10,6 @@ export default function RoomSetting({
   reset,
   getValues,
 }) {
-  console.log('RoomSetting rendered...')
   const selectRef = useRef(null)
 
   useEffect(() => {
@@ -54,12 +53,6 @@ export default function RoomSetting({
   }
 
   const { ref, ...rest } = register('roomTotalNum')
-  console.log('variables')
-  console.log(roomTotalNum)
-  console.log(prefix)
-  console.log(roomNumber)
-  console.log(suffix)
-  console.log(getValues())
 
   return (
     <section>
@@ -138,7 +131,6 @@ const makeOptions = (maxRoomCount) => {
 }
 
 const makeRooms = (roomTotalNum, register, getValues, reset) => {
-  console.log('makeRooms called...')
   const resetRoomNames = () => {
     //undefined인거 걸러내고 array에 넣어서 순서대로 담아준다
     const tempArr = []
@@ -194,8 +186,6 @@ const handleRoomNameArray = (roomTotalNum, prefix, roomNumber, suffix, type, res
       roomNumber === '' ? roomNumber : Number(roomNumber) + Number(i - 1)
     }${suffix}`
 
-    console.log(type)
-    console.log(defaultValue)
     //무조건 defalutValue를 넣는경우
     if (type === 'INIT') {
     } else if (type === 'CHANGE_NAMING') {

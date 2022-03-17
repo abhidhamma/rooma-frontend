@@ -20,10 +20,7 @@ export default function AddEmployee({ register }) {
   }
 
   const makeEmployeeDom = () => {
-    const numberToArray = (employee) => {
-      console.log(_.range(0, employee, 1))
-      return _.range(0, employee, 1)
-    }
+    const numberToArray = (employee) => _.range(0, employee, 1)
     const ArrayToDom = (array) =>
       _.map(array, (num) => (
         <div className='row' key={num}>

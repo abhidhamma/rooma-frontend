@@ -3,7 +3,11 @@ import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { getFormDataFromJson } from '@util/common/axiosUtil'
 import useCreateAccommodationCallback from '@hook/apiHook/useCreateAccommodationCallback'
-import { createAccommodationSelector } from '@state/accommodation/accommodation'
+import {
+  breakfastOptionCountAtom,
+  createAccommodationSelector,
+  extOptionCountAtom,
+} from '@state/accommodation/accommodation'
 import AccommodationForm from './Form'
 import { validateAccommodationInput } from '@util/validation/validateAccommodationInput'
 import { useRecoilValue } from 'recoil'
@@ -12,6 +16,8 @@ import { numberToArray } from '@util/common/lodash'
 
 export default function CreateAccommodation() {
   const createAccommodationCallback = useCreateAccommodationCallback('create Accommodation')
+  const breakfastOptionCount = useRecoilValue(breakfastOptionCountAtom)
+  const extOptionCount = useRecoilValue(extOptionCountAtom)
   const { name, cpNo } = useRecoilValue(currentCompanyAtom)
 
   console.log('currentCompany')
@@ -54,7 +60,7 @@ export default function CreateAccommodation() {
   const { register, handleSubmit } = useForm({ defaultValues })
 
   const onSubmit = _.flow(
-    preprocessAccommodationFormdata,
+    preprocessAccommodationFormdata(breakfastOptionCount, extOptionCount),
     validateAccommodationInput,
     getFormDataFromJson,
     createAccommodation(createAccommodationCallback, navigate)
@@ -85,7 +91,8 @@ const createAccommodation = (createAccommodationCallback, navigate) => (formData
     }
   })
 }
-const join = _.join('|')
+const joinBar = _.join('||')
+const joinSlash = _.join('//')
 const makeAccommodationFormOptions = (submitData) => {
   const getOptionCount = () => 22
   const filterChecked = _.filter((number) => submitData[`check${number}`] !== false)
@@ -114,18 +121,37 @@ const makeAccommodationFormOptions = (submitData) => {
     check22: '체험학습장(텃밭)',
   }
   const mapRoomOption = _.map((number) => checkBoxMap[`check${number}`])
-  return _.flow(getOptionCount, numberToArray, filterChecked, mapRoomOption, join)(submitData)
+  return _.flow(getOptionCount, numberToArray, filterChecked, mapRoomOption, joinBar)(submitData)
 }
-export const preprocessAccommodationFormdata = (submitData) => {
-  //사용할 변수들
-  const { addBreakfastName, addBreakfastPrice, addExtName, addExtPrice } = submitData
 
-  //조식추가 합치기
-  submitData.addBreakfastFee = addBreakfastName + '|' + addBreakfastPrice
-
-  //기타사항 합치기
-  submitData.addExtFee = addExtName + '|' + addExtPrice
-
-  submitData.options = makeAccommodationFormOptions(submitData)
-  return submitData
+const makeBreakfastFee = (submitData, breakfastOptionCount) => {
+  const getOptionCount = () => Number(breakfastOptionCount)
+  const mapPair = _.map((number) => {
+    const addBreakfastName = submitData[`addBreakfastName${number}`]
+    const addBreakfastPrice = submitData[`addBreakfastPrice${number}`]
+    return `${addBreakfastName}||${addBreakfastPrice}`
+  })
+  return _.flow(getOptionCount, numberToArray, mapPair, joinSlash)(submitData)
 }
+const makeExtFee = (submitData, extOptionCount) => {
+  const getOptionCount = () => Number(extOptionCount)
+  const mapPair = _.map((number) => {
+    const addExtName = submitData[`addExtName${number}`]
+    const addExtPrice = submitData[`addExtPrice${number}`]
+    return `${addExtName}||${addExtPrice}`
+  })
+  return _.flow(getOptionCount, numberToArray, mapPair, joinSlash)(submitData)
+}
+export const preprocessAccommodationFormdata =
+  (breakfastOptionCount, extOptionCount) => (submitData) => {
+    //기타옵션 합치기
+    submitData.options = makeAccommodationFormOptions(submitData)
+
+    //조식추가 합치기
+    submitData.addBreakfastFee = makeBreakfastFee(submitData, breakfastOptionCount)
+
+    //기타사항 합치기
+    submitData.addExtFee = makeExtFee(submitData, extOptionCount)
+
+    return submitData
+  }

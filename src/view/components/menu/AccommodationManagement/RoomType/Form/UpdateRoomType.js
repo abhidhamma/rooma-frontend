@@ -1,25 +1,25 @@
 import useUpdateAccommodationCallback from '@hook/apiHook/useUpdateAccommodationCallback'
-import { readRoomTypeSelector, updateRoomTypeSelector } from '@state/accommodation/roomType'
+import {
+  breakfastConfigOptionCountAtom,
+  etcConfigOptionCountAtom,
+  readRoomTypeSelector,
+  updateRoomTypeSelector,
+} from '@state/accommodation/roomType'
 import { getFormDataFromJson } from '@util/common/axiosUtil'
 import { numberToArray } from '@util/common/lodash'
 import _ from 'lodash/fp'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useRecoilRefresher_UNSTABLE, useRecoilValue } from 'recoil'
-import { preprocessData } from './CreateRoomType'
+import { useRecoilRefresher_UNSTABLE, useRecoilState, useRecoilValue } from 'recoil'
+import { preprocessRoomTypeFormData } from './CreateRoomType'
 import RoomTypeForm from './Form'
 
 export default function UpdateRoomType() {
-  console.log('UpdateRoomType render...')
   //path variable받아오기
   let { roomTypeId } = useParams()
   const rtNo = roomTypeId
-  const addRtNo = (data) => {
-    console.log('addRtNo')
-    console.log(data)
-    return { ...data, rtNo }
-  }
+  const addRtNo = (data) => ({ ...data, rtNo })
 
   const updateRoomTypeCallback = useUpdateAccommodationCallback('update roomType')
   let navigate = useNavigate()
@@ -29,11 +29,17 @@ export default function UpdateRoomType() {
   } = useRecoilValue(readRoomTypeSelector({ rtNo }))
   const resetReadRoomTypeSelector = useRecoilRefresher_UNSTABLE(readRoomTypeSelector({ rtNo }))
 
-  const split = _.split('|')
+  const [breakfastConfigOptionCount, setBreakfastConfigOptionCount] = useRecoilState(
+    breakfastConfigOptionCountAtom
+  )
+  const [etcConfigOptionCount, setEtcConfigOptionCount] = useRecoilState(etcConfigOptionCountAtom)
+
+  const splitBar = _.split('||')
+  const splitSlash = _.split('//')
   //객실설정
   const putRoomsEffect = (defaultValues) => {
-    const roomNames = split(defaultValues.roomNames).filter((_, index) => index > 2)
-    const roomSettings = split(defaultValues.roomNames).filter((_, index) => index < 3)
+    const roomNames = splitBar(defaultValues.roomNames).filter((_, index) => index > 2)
+    const roomSettings = splitBar(defaultValues.roomNames).filter((_, index) => index < 3)
     defaultValues = {
       ...defaultValues,
       prefix: roomSettings[0],
@@ -50,28 +56,42 @@ export default function UpdateRoomType() {
   }
 
   //조식추가, 기타사항
-  const makeBreakFastPriceInput = (defaultValues) => {
-    const [addBreakfastConfigName, addBreakfastConfigPrice] = split(
-      defaultValues.addBreakfastConfig
-    )
-    return {
-      ...defaultValues,
-      addBreakfastConfigName,
-      addBreakfastConfigPrice,
-    }
+  const makeBreakFastConfigInput = (defaultValues) => {
+    const addBreakfastConfigArray = splitSlash(defaultValues.addBreakfastConfig)
+    const getOptionCount = (addBreakfastConfigArray) => addBreakfastConfigArray.length
+
+    const eachOption = _.each((number) => {
+      const [addBreakfastConfigName, addBreakfastConfigPrice] = splitBar(
+        addBreakfastConfigArray[number - 1]
+      )
+      defaultValues = {
+        ...defaultValues,
+        [`addBreakfastConfigName${number}`]: addBreakfastConfigName,
+        [`addBreakfastConfigPrice${number}`]: addBreakfastConfigPrice,
+      }
+    })
+    _.flow(getOptionCount, numberToArray, eachOption)(addBreakfastConfigArray)
+    return defaultValues
   }
-  const makeEtcPriceInput = (defaultValues) => {
-    const [addEtcConfigName, addEtcConfigPrice] = split(defaultValues.addEtcConfig)
-    return {
-      ...defaultValues,
-      addEtcConfigName,
-      addEtcConfigPrice,
-    }
+  const makeEtcConfigInput = (defaultValues) => {
+    const addEtcConfigArray = splitSlash(defaultValues.addEtcConfig)
+    const getOptionCount = (addEtcConfigArray) => addEtcConfigArray.length
+
+    const eachOption = _.each((number) => {
+      const [addEtcConfigName, addEtcConfigPrice] = splitBar(addEtcConfigArray[number - 1])
+      defaultValues = {
+        ...defaultValues,
+        [`addEtcConfigName${number}`]: addEtcConfigName,
+        [`addEtcConfigPrice${number}`]: addEtcConfigPrice,
+      }
+    })
+    _.flow(getOptionCount, numberToArray, eachOption)(addEtcConfigArray)
+    return defaultValues
   }
 
   //기타옵션
   const makeRoomOptionInputs = (defaultValues) => {
-    const roomOptionArray = split(defaultValues.roomOptions)
+    const roomOptionArray = splitBar(defaultValues.roomOptions)
     const checkBoxMap = {
       [`조식`]: 'check1',
       [`취사기능`]: 'check2',
@@ -96,9 +116,9 @@ export default function UpdateRoomType() {
     //방번호 나눠 넣기
     defaultValues = putRoomsEffect(defaultValues)
     //조식추가 나누기
-    defaultValues = makeBreakFastPriceInput(defaultValues)
+    defaultValues = makeBreakFastConfigInput(defaultValues)
     //기타사항 나누기
-    defaultValues = makeEtcPriceInput(defaultValues)
+    defaultValues = makeEtcConfigInput(defaultValues)
     //기타옵션 나누기
     defaultValues = makeRoomOptionInputs(defaultValues)
     // ...
@@ -110,17 +130,17 @@ export default function UpdateRoomType() {
 
   useEffect(() => {
     reset({ ...defaultValues })
+    setBreakfastConfigOptionCount(splitSlash(roomTypeData.addBreakfastConfig).length)
+    setEtcConfigOptionCount(splitSlash(roomTypeData.addEtcConfig).length)
     return () => resetReadRoomTypeSelector()
   }, [])
 
   const onSubmit = _.flow(
     addRtNo,
-    preprocessData,
+    preprocessRoomTypeFormData(breakfastConfigOptionCount, etcConfigOptionCount),
     getFormDataFromJson,
     updateRoomType(updateRoomTypeCallback, navigate)
   )
-  // const consol = (submitData) => console.log(submitData)
-  // const onSubmit = consol
 
   return (
     <RoomTypeForm

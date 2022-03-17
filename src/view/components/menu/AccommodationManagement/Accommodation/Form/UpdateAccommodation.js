@@ -2,15 +2,18 @@ import _ from 'lodash/fp'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useRecoilRefresher_UNSTABLE, useRecoilValue } from 'recoil'
+import { useRecoilRefresher_UNSTABLE, useRecoilState, useRecoilValue } from 'recoil'
 import { getFormDataFromJson } from '@util/common/axiosUtil'
 import useUpdateAccommodationCallback from '@hook/apiHook/useUpdateAccommodationCallback'
 import {
+  breakfastOptionCountAtom,
+  extOptionCountAtom,
   readAccommodationSelector,
   updateAccommodationSelector,
 } from '@state/accommodation/accommodation'
 import AccommodationForm from './Form'
 import { preprocessAccommodationFormdata } from './CreateAccommodation'
+import { numberToArray } from '@util/common/lodash'
 
 export default function UpdateAccommodation() {
   //path variable받아오기
@@ -28,28 +31,46 @@ export default function UpdateAccommodation() {
     readAccommodationSelector({ acNo })
   )
 
-  const split = _.split('|')
+  const [breakfastOptionCount, setBreakfastOptionCount] = useRecoilState(breakfastOptionCountAtom)
+  const [extOptionCount, setExtOptionCount] = useRecoilState(extOptionCountAtom)
+
+  const splitBar = _.split('||')
+  const splitSlash = _.split('//')
 
   //조식추가, 기타사항
   const makeBreakFastFeeInput = (defaultValues) => {
-    const [addBreakfastName, addBreakfastPrice] = split(defaultValues.addBreakfastFee)
-    return {
-      ...defaultValues,
-      addBreakfastName,
-      addBreakfastPrice,
-    }
+    const addBreakfastFeeArray = splitSlash(defaultValues.addBreakfastFee)
+    const getOptionCount = (addBreakfastArray) => addBreakfastArray.length
+
+    const eachOption = _.each((number) => {
+      const [addBreakfastName, addBreakfastPrice] = splitBar(addBreakfastFeeArray[number - 1])
+      defaultValues = {
+        ...defaultValues,
+        [`addBreakfastName${number}`]: addBreakfastName,
+        [`addBreakfastPrice${number}`]: addBreakfastPrice,
+      }
+    })
+    _.flow(getOptionCount, numberToArray, eachOption)(addBreakfastFeeArray)
+    return defaultValues
   }
   const makeExtFeeInput = (defaultValues) => {
-    const [addExtName, addExtPrice] = split(defaultValues.addExtFee)
-    return {
-      ...defaultValues,
-      addExtName,
-      addExtPrice,
-    }
+    const addExtFeeArray = splitSlash(defaultValues.addExtFee)
+    const getOptionCount = (addExtArray) => addExtArray.length
+
+    const eachOption = _.each((number) => {
+      const [addExtName, addExtPrice] = splitBar(addExtFeeArray[number - 1])
+      defaultValues = {
+        ...defaultValues,
+        [`addExtName${number}`]: addExtName,
+        [`addExtPrice${number}`]: addExtPrice,
+      }
+    })
+    _.flow(getOptionCount, numberToArray, eachOption)(addExtFeeArray)
+    return defaultValues
   }
 
   const makeAccommodationOptionInputs = (defaultValues) => {
-    const roomOptionArray = split(defaultValues?.options)
+    const roomOptionArray = splitBar(defaultValues?.options)
     const checkBoxMap = {
       [`조식`]: 'check1',
       [`취사기능`]: 'check2',
@@ -99,11 +120,13 @@ export default function UpdateAccommodation() {
 
   useEffect(() => {
     reset({ ...defaultValues })
+    setBreakfastOptionCount(splitSlash(accommodationData.addBreakfastFee).length)
+    setExtOptionCount(splitSlash(accommodationData.addExtFee).length)
     return () => resetReadAccommodationSelector()
   }, [])
 
   const onSubmit = _.flow(
-    preprocessAccommodationFormdata,
+    preprocessAccommodationFormdata(breakfastOptionCount, extOptionCount),
     addAcNo,
     getFormDataFromJson,
     updateAccommodationSelector,

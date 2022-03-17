@@ -1,9 +1,11 @@
-import { selectorFamily } from 'recoil'
+import { atom, selectorFamily } from 'recoil'
 import {
   CREATE_ROOMTYPE_SELECTOR_KEY,
   READ_ROOMTYPE_SELECTOR_KEY,
   READ_ROOMTYPE_LIST_SELECTOR_KEY,
   UPDATE_ROOMTYPE_SELECTOR_KEY,
+  ETC_CONFIG_OPTION_COUNT_ATOM_KEY,
+  BREAKFAST_CONFIG_OPTION_COUNT_ATOM_KEY,
 } from '@constant/atomKeys'
 import {
   createRoomType,
@@ -11,6 +13,16 @@ import {
   readRoomTypeList,
   updateRoomType,
 } from '@api/accommodation/roomType'
+
+//atom
+export const breakfastConfigOptionCountAtom = atom({
+  key: BREAKFAST_CONFIG_OPTION_COUNT_ATOM_KEY,
+  default: 1,
+})
+export const etcConfigOptionCountAtom = atom({
+  key: ETC_CONFIG_OPTION_COUNT_ATOM_KEY,
+  default: 1,
+})
 
 //selector
 export const createRoomTypeSelector = selectorFamily({

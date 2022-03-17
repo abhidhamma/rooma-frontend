@@ -62,9 +62,6 @@ export default function ReadRoomList() {
     resetReadRoomListSelector()
   }, [currentIndex, totalCount])
 
-  console.log('selector called!')
-  console.log(list, totalCount)
-
   return (
     <>
       {list

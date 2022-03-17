@@ -30,8 +30,6 @@ export default function ReadAccommodationList() {
   const resetReadAccommodationListSelector = useRecoilRefresher_UNSTABLE(
     readAccommodationListSelector(getFormDataFromJson(data))
   )
-  console.log('selector called!')
-  console.log(list, totalCount)
   useEffect(() => {
     setTotalCount(totalCount)
     resetReadAccommodationListSelector()

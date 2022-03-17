@@ -12,11 +12,7 @@ export default function UpdateRoom() {
   //path variable받아오기
   let { roomId } = useParams()
   const rmNo = roomId
-  const addRmNo = (data) => {
-    console.log('addRtNo')
-    console.log(data)
-    return { ...data, rmNo }
-  }
+  const addRmNo = (data) => ({ ...data, rmNo })
 
   const updateRoomCallback = useUpdateAccommodationCallback('update Room')
   let navigate = useNavigate()
@@ -45,7 +41,6 @@ export default function UpdateRoom() {
 const updateRoom = (updateRoomCallback, navigate) => (formData) => {
   updateRoomCallback(updateRoomSelector(formData)).then((data) => {
     const { message } = data
-    console.log(data)
     if (message === '성공') {
       alert('수정되었습니다.')
       navigate('/accommodationManagement/room')

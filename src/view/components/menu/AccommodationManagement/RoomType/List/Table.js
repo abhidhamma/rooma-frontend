@@ -5,7 +5,6 @@ import ButtonGroup from '../../common/ButtonGroup'
 import ReadRoomTypeList from './ReadRoomTypeList'
 
 export default function RoomTypeTable() {
-  console.log('RoomTypeTable called...')
   const totalCount = useRecoilValue(totalCountAtom)
   return (
     <>

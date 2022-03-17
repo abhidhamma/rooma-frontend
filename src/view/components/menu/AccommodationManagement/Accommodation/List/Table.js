@@ -6,7 +6,6 @@ import { useRecoilValue } from 'recoil'
 import { CREATE_ACCOMMODATION_URL } from '@constant/locationURLs'
 
 export default function AccommodationTable() {
-  console.log('AccommodationTable called...')
   const totalCount = useRecoilValue(totalCountAtom)
   return (
     <>
