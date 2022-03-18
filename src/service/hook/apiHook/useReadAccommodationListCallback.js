@@ -1,5 +1,5 @@
 import { useRecoilCallback } from 'recoil'
-import { accommodationListAtom } from '@state/accommodation/accommodation'
+import { accommodationListAtom } from '@state/accommodationManagement/accommodation'
 import { totalCountAtom } from '@state/common/paging'
 
 const useReadAccommodationListCallback = (apiType) =>

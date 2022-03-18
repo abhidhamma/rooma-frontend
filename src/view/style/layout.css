@@ -176,9 +176,13 @@ header .top-menu > div.top-menu2 a.setting {
 }
 #container .full-content {
   min-height: 700px;
-  min-width: 1200px;
-  margin-top: 56px;
+  width: 1200px;
   padding: 0 20px 50px;
+  margin: 56px auto 0;
+}
+#container .full-content.reserv-state {
+  width: 100%;
+  padding: 0;
 }
 #container .content {
   min-height: 700px;
@@ -285,7 +289,8 @@ body.close_sidebar #lnb {
 }
 #lnb > ul > li > ul > li.on a {
   color: #d91c1b;
-  background: #f5f2ec url('http://cfile9.uf.tistory.com/image/257B794F570C5C0D1A05E1') no-repeat 95% 3px;
+  background: #f5f2ec url('http://cfile9.uf.tistory.com/image/257B794F570C5C0D1A05E1') no-repeat 95%
+    3px;
 }
 #lnb > ul li.noDepth a {
   background-image: none !important;

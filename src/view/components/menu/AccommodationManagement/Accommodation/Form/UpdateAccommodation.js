@@ -10,7 +10,7 @@ import {
   extOptionCountAtom,
   readAccommodationSelector,
   updateAccommodationSelector,
-} from '@state/accommodation/accommodation'
+} from '@state/accommodationManagement/accommodation'
 import AccommodationForm from './Form'
 import { preprocessAccommodationFormdata } from './CreateAccommodation'
 import { numberToArray } from '@util/common/lodash'

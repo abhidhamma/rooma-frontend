@@ -1,5 +1,5 @@
 import useCreateAccommodationCallback from '@hook/apiHook/useCreateAccommodationCallback'
-import { createRoomSelector } from '@state/accommodation/room'
+import { createRoomSelector } from '@state/accommodationManagement/room'
 import { getFormDataFromJson } from '@util/common/axiosUtil'
 import { validateRoomForm } from '@util/validation/validateRoomForm'
 import _ from 'lodash'

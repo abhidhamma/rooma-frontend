@@ -8,7 +8,7 @@ import AddOptionForm from '../../common/AddOptionForm'
 import {
   breakfastConfigOptionCountAtom,
   etcConfigOptionCountAtom,
-} from '@state/accommodation/roomType'
+} from '@state/accommodationManagement/roomType'
 
 export default function RoomTypeForm({
   register,

@@ -708,7 +708,9 @@ a {
 .ex-txt strong {
   color: #5b73e8;
 }
-
+.ex-txt.v1 {
+  padding: 0 15px;
+}
 .imgList {
   display: flex;
 }
@@ -817,7 +819,7 @@ a {
 /* 레이어 */
 .quick-layer {
   position: absolute;
-  top: 57px;
+  top: 102px;
   background: #fff;
   box-shadow: 0 10px 15px 0px rgba(82, 88, 95, 0.15);
   border-radius: 5px 5px;

@@ -12,7 +12,7 @@ import {
   readRoomType,
   readRoomTypeList,
   updateRoomType,
-} from '@api/accommodation/roomType'
+} from '@api/accommodationManagement/roomType'
 
 //atom
 export const breakfastConfigOptionCountAtom = atom({

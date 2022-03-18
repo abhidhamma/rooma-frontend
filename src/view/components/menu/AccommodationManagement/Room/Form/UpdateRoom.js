@@ -1,5 +1,5 @@
 import useUpdateAccommodationCallback from '@hook/apiHook/useUpdateAccommodationCallback'
-import { readRoomSelector, updateRoomSelector } from '@state/accommodation/room'
+import { readRoomSelector, updateRoomSelector } from '@state/accommodationManagement/room'
 import { getFormDataFromJson } from '@util/common/axiosUtil'
 import _ from 'lodash/fp'
 import { useEffect } from 'react'

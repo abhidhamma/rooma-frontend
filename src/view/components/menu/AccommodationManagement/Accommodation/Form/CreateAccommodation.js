@@ -7,7 +7,7 @@ import {
   breakfastOptionCountAtom,
   createAccommodationSelector,
   extOptionCountAtom,
-} from '@state/accommodation/accommodation'
+} from '@state/accommodationManagement/accommodation'
 import AccommodationForm from './Form'
 import { validateAccommodationInput } from '@util/validation/validateAccommodationInput'
 import { useRecoilValue } from 'recoil'

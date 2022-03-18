@@ -1,6 +1,6 @@
 import { makeUpdateRoomTypeUrl } from '@constant/locationURLs'
-import { readAccommodationListSelector } from '@state/accommodation/accommodation'
-import { readRoomTypeListSelector } from '@state/accommodation/roomType'
+import { readAccommodationListSelector } from '@state/accommodationManagement/accommodation'
+import { readRoomTypeListSelector } from '@state/accommodationManagement/roomType'
 import { currentPageAtom, totalCountAtom } from '@state/common/paging'
 import { searchKeywordAtom } from '@state/common/search'
 import { getFormDataFromJson } from '@util/common/axiosUtil'

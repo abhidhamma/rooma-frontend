@@ -1,3 +1,5 @@
+import Calendar from '@components/common/Calendar/Calendar'
+
 export default function ReservationManagementList() {
   return (
     // <!-- S:Container -->
@@ -24,159 +26,7 @@ export default function ReservationManagementList() {
             검색
           </button>
           {/* <!-- 날짜선택 --> */}
-          <div className='quick-layer sel-date' style={{ width: '240px', left: '405px' }}>
-            <div className='tit'>
-              <a href='#' className='month-prev'>
-                <span className='hdn'>이전달</span>
-              </a>
-              <div className='month'>2021년3월</div>
-              <a href='#' className='month-next'>
-                <span className='hdn'>다음달</span>
-              </a>
-            </div>
-            <div className='dateArea'>
-              <table>
-                <caption>datepicker</caption>
-                <colgroup>
-                  <col width='14.2%' />
-                  <col width='14.2%' />
-                  <col width='14.2%' />
-                  <col width='14.2%' />
-                  <col width='14.2%' />
-                  <col width='14.2%' />
-                  <col width='*' />
-                </colgroup>
-                <thead>
-                  <tr>
-                    <th className='sun'>일</th>
-                    <th>월</th>
-                    <th>화</th>
-                    <th>수</th>
-                    <th>목</th>
-                    <th>금</th>
-                    <th className='sat'>토</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <div className='day sun'>1</div>
-                    </td>
-                    <td>
-                      <div className='day'>2</div>
-                    </td>
-                    <td>
-                      <div className='day'>3</div>
-                    </td>
-                    <td>
-                      <div className='day'>4</div>
-                    </td>
-                    <td>
-                      <div className='day'>5</div>
-                    </td>
-                    <td>
-                      <div className='day'>6</div>
-                    </td>
-                    <td>
-                      <div className='day sat'>7</div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div className='day sun'>8</div>
-                    </td>
-                    <td>
-                      <div className='day'>9</div>
-                    </td>
-                    <td>
-                      <div className='day'>10</div>
-                    </td>
-                    <td>
-                      <div className='day today'>11</div>
-                    </td>
-                    <td>
-                      <div className='day'>12</div>
-                    </td>
-                    <td>
-                      <div className='day'>13</div>
-                    </td>
-                    <td>
-                      <div className='day sat'>14</div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div className='day sun'>15</div>
-                    </td>
-                    <td>
-                      <div className='day'>16</div>
-                    </td>
-                    <td>
-                      <div className='day'>17</div>
-                    </td>
-                    <td>
-                      <div className='day'>18</div>
-                    </td>
-                    <td>
-                      <div className='day'>19</div>
-                    </td>
-                    <td>
-                      <div className='day'>20</div>
-                    </td>
-                    <td>
-                      <div className='day sat'>21</div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div className='day sun'>22</div>
-                    </td>
-                    <td>
-                      <div className='day'>23</div>
-                    </td>
-                    <td>
-                      <div className='day'>24</div>
-                    </td>
-                    <td>
-                      <div className='day'>25</div>
-                    </td>
-                    <td>
-                      <div className='day'>26</div>
-                    </td>
-                    <td>
-                      <div className='day'>27</div>
-                    </td>
-                    <td>
-                      <div className='day sat'>28</div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div className='day sun'>29</div>
-                    </td>
-                    <td>
-                      <div className='day next'>30</div>
-                    </td>
-                    <td>
-                      <div className='day next'>31</div>
-                    </td>
-                    <td>
-                      <div className='day next'>1</div>
-                    </td>
-                    <td>
-                      <div className='day next'>2</div>
-                    </td>
-                    <td>
-                      <div className='day next'>3</div>
-                    </td>
-                    <td>
-                      <div className='day next'>4</div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+          <Calendar />
         </div>
 
         <div className='searchWrap'>
@@ -329,6 +179,6 @@ export default function ReservationManagementList() {
       </div>
       {/* <!-- E:content --> */}
     </div>
-    // <!-- E:Container -->
+    //<!-- E:Container -->
   )
 }

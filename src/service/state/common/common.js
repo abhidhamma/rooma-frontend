@@ -1,5 +1,6 @@
 import { atom } from 'recoil'
 import {
+  CURRENT_ACCOMMODATION_ATOM_KEY,
   CURRENT_COMPANY_ATOM_KEY,
   IS_LOGGED_IN_ATOM_KEY,
   RENDER_COUNT_ATOM_KEY,
@@ -19,4 +20,8 @@ export const isLoggedInAtom = atom({
 export const currentCompanyAtom = atom({
   key: CURRENT_COMPANY_ATOM_KEY,
   default: '1',
+})
+export const currentAccommodationAtom = atom({
+  key: CURRENT_ACCOMMODATION_ATOM_KEY,
+  default: {},
 })

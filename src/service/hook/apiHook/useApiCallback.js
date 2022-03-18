@@ -12,6 +12,7 @@ const useApiCallback = (apiType) =>
     } catch (error) {
       throw error
     } finally {
+      refresh(api)
       release()
     }
   })

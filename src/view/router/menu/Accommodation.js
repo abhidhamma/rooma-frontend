@@ -8,7 +8,7 @@ import CreateRoomType from '@components/menu/AccommodationManagement/RoomType/Fo
 import UpdateRoomType from '@components/menu/AccommodationManagement/RoomType/Form/UpdateRoomType'
 import RoomTypeList from '@components/menu/AccommodationManagement/RoomType/List/List'
 import AccommodationManagement from '@pages/AccommodationManagement'
-import { accommodationListAtom } from '@state/accommodation/accommodation'
+import { accommodationListAtom } from '@state/accommodationManagement/accommodation'
 import { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { useResetRecoilState } from 'recoil'

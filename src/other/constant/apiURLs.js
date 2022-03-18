@@ -32,7 +32,7 @@ export const READ_COMPANY_BY_NO_API_URL = v1Url(READ_COMPANY_BY_NO_API_SLUG)
 const UPDATE_COMPANY_API_SLUG = 'company/update'
 export const UPDATE_COMPANY_API_URL = v1Url(UPDATE_COMPANY_API_SLUG)
 
-//숙소관리 - 숙소등록관리
+//숙소관리메뉴 - 숙소등록관리
 const CREATE_ACCOMMODATION_API_SLUG = 'accmd/add'
 export const CREATE_ACCOMMODATION_API_URL = v1Url(CREATE_ACCOMMODATION_API_SLUG)
 
@@ -45,7 +45,7 @@ export const READ_ACCOMMODATION_API_URL = v1Url(READ_ACCOMMODATION_API_SLUG)
 const UPDATE_ACCOMMODATION_API_SLUG = 'accmd/update'
 export const UPDATE_ACCOMMODATION_API_URL = v1Url(UPDATE_ACCOMMODATION_API_SLUG)
 
-//숙소관리 - 객실타입등록관리
+//숙소관리메뉴 - 객실타입등록관리
 const CREATE_ROOMTYPE_API_SLUG = 'roomtype/add'
 export const CREATE_ROOMTYPE_API_URL = v1Url(CREATE_ROOMTYPE_API_SLUG)
 
@@ -58,7 +58,7 @@ export const READ_ROOMTYPE_LIST_API_URL = v1Url(READ_ROOMTYPE_LIST_API_SLUG)
 const UPDATE_ROOMTYPE_API_SLUG = 'roomtype/update'
 export const UPDATE_ROOMTYPE_API_URL = v1Url(UPDATE_ROOMTYPE_API_SLUG)
 
-//숙소관리 - 객실관리
+//숙소관리메뉴 - 객실관리
 const CREATE_ROOM_SLUG = 'room/add'
 export const CREATE_ROOM_URL = v1Url(CREATE_ROOM_SLUG)
 
@@ -70,3 +70,7 @@ export const READ_ROOM_LIST_URL = v1Url(READ_ROOM_LIST_SLUG)
 
 const UPDATE_ROOM_SLUG = 'room/update'
 export const UPDATE_ROOM_URL = v1Url(UPDATE_ROOM_SLUG)
+
+//요금관리 - 객실타입별요금관리
+const UPDATE_ROOMTYPE_PRICES_SLUG = 'roomtype/prices/save'
+export const UPDATE_ROOMTYPE_PRICES_URL = v1Url(UPDATE_ROOMTYPE_PRICES_SLUG)

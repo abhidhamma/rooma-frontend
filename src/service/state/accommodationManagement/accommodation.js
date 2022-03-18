@@ -13,7 +13,7 @@ import {
   readAccommodation,
   readAccommodationList,
   updateAccommodation,
-} from '@api/accommodation/accommodation'
+} from '@api/accommodationManagement/accommodation'
 
 //atom
 export const accommodationListAtom = atom({

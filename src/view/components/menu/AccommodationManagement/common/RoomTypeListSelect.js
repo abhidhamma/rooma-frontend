@@ -1,4 +1,4 @@
-import { readRoomTypeListSelector } from '@state/accommodation/roomType'
+import { readRoomTypeListSelector } from '@state/accommodationManagement/roomType'
 import { getFormDataFromJson } from '@util/common/axiosUtil'
 import { useRecoilValue } from 'recoil'
 

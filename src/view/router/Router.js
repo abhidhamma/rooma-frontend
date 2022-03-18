@@ -7,7 +7,7 @@ import SignUp from '@pages/SignUp'
 import AccommodationRoute from './menu/Accommodation'
 import ReservationManagement from '@pages/ReservationManagement'
 import ReservationManagementList from '@components/menu/ReservationManagement/List/List'
-import PriceManagementList from '@components/menu/PriceManagement/List/List'
+import PriceManagementContainer from '@components/menu/PriceManagement/Container/Container'
 import PriceManagement from '@pages/PriceManagement'
 
 export default function Router() {
@@ -43,7 +43,7 @@ export default function Router() {
             <Route path='accommodationManagement/*' element={<AccommodationRoute />} />
             {/* 5.요금관리 메뉴*/}
             <Route path='priceManagement' element={<PriceManagement />}>
-              <Route index element={<PriceManagementList />} />
+              <Route index element={<PriceManagementContainer />} />
               {/* 추후 route추가 */}
             </Route>
 

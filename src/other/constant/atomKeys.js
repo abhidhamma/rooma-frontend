@@ -3,6 +3,7 @@ export const IS_LOGGED_IN_ATOM_KEY = 'isLoggedInAtom'
 
 //common-header
 export const CURRENT_COMPANY_ATOM_KEY = 'currentCompanyAtom'
+export const CURRENT_ACCOMMODATION_ATOM_KEY = 'currentAccommodationAtom'
 
 //common-paging
 export const TOTAL_COUNT_ATOM_KEY = 'totalCountAtom'
@@ -14,6 +15,10 @@ export const SEARCH_KEYWORD_ATOM_KEY = 'searchKeywordAtom'
 
 //common-form
 export const DEFAULT_VALUES_ATOM_KEY = 'defaultValuesAtom'
+
+//common-calendar
+export const SELECTED_DATE_ATOM_KEY = 'selectedDateAtom'
+export const SELECTED_MONTH_ATOM_KEY = 'selectedMonthAtom'
 
 //reservation
 export const RENDER_COUNT_ATOM_KEY = 'renderCountAtom'
@@ -31,7 +36,7 @@ export const OVERLAY_ATOM_KEY = 'overlayAtom'
 export const AUTH_RESULT_ATOM_KEY = 'authResultAtom'
 export const USER_ATOM_KEY = 'userAtom'
 
-//accommodation - 숙소등록관리(Accommodation)
+//숙소관리 - 숙소등록관리(Accommodation)
 export const ACCOMODATION_LIST_ATOM_KEY = 'accommodationListAtomKey'
 export const CREATE_ACCOMMODATION_SELECTOR_KEY = 'createAccommodationKey'
 export const READ_ACCOMMODATION_LIST_SELECTOR_KEY = 'readAccommodationListKey'
@@ -41,7 +46,7 @@ export const UPDATE_ACCOMMODATION_SELECTOR_KEY = 'updateAccommodationKey'
 export const BREAKFAST_OPTION_COUNT_ATOM_KEY = 'breakfastOptionCountAtomKey'
 export const EXT_OPTION_COUNT_ATOM_KEY = 'extOptionCountAtomKey'
 
-//accommodation - 객실타입등록관리(RoomType)
+//숙소관리 - 객실타입등록관리(RoomType)
 export const CREATE_ROOMTYPE_SELECTOR_KEY = 'createRoomTypeKey'
 export const READ_ROOMTYPE_LIST_SELECTOR_KEY = 'readRoomTypeListKey'
 export const READ_ROOMTYPE_SELECTOR_KEY = 'readRoomTypeKey'
@@ -50,7 +55,7 @@ export const UPDATE_ROOMTYPE_SELECTOR_KEY = 'updateRoomTypeKey'
 export const BREAKFAST_CONFIG_OPTION_COUNT_ATOM_KEY = 'breakfastConfigOptionCountAtomKey'
 export const ETC_CONFIG_OPTION_COUNT_ATOM_KEY = 'etcConfigOptionCountAtomKey'
 
-//accommodation - 객실관리(Room)
+//숙소관리 - 객실관리(Room)
 export const CREATE_ROOM_SELECTOR_KEY = 'createRoomSelectorKey'
 export const READ_ROOM_SELECTOR_KEY = 'readRoomSelectorKey'
 export const READ_ROOM_LIST_SELECTOR_KEY = 'readRoomListSelectorKey'
@@ -62,3 +67,6 @@ export const SIGNUP_SELECTOR_KEY = 'signUpSelector'
 
 //company
 export const READ_COMPANY_SELECTOR_KEY = 'readCompanySelectorKey'
+
+//요금관리 - 객실타입별요금관리
+export const UPDATE_ROOMTYPE_PRICES_SELECTOR_KEY = 'updateRoomTypePricesSelectorKey'

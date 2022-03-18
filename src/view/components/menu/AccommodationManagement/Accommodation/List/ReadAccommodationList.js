@@ -1,5 +1,5 @@
 import { makeUpdateAccommodationUrl } from '@constant/locationURLs'
-import { readAccommodationListSelector } from '@state/accommodation/accommodation'
+import { readAccommodationListSelector } from '@state/accommodationManagement/accommodation'
 import { currentPageAtom, totalCountAtom } from '@state/common/paging'
 import { searchKeywordAtom } from '@state/common/search'
 import { getFormDataFromJson } from '@util/common/axiosUtil'

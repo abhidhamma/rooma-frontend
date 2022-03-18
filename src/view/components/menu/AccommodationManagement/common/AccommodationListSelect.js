@@ -1,4 +1,4 @@
-import { readAccommodationListSelector } from '@state/accommodation/accommodation'
+import { readAccommodationListSelector } from '@state/accommodationManagement/accommodation'
 import { getFormDataFromJson } from '@util/common/axiosUtil'
 import { useRecoilValue } from 'recoil'
 

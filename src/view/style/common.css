@@ -1676,10 +1676,7 @@ input[type='radio']:checked + label {
   background: #eaecf8;
   border-radius: 3px;
   border: 1px solid #c3cbe9;
-  padding: 20px 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding: 20px 40px;
   position: relative;
 }
 .calendarWrap select {
@@ -1710,7 +1707,26 @@ input[type='radio']:checked + label {
 .calendarWrap .date span {
   padding: 0 0 0 15px;
   word-break: keep-all;
+  font-weight: normal;
 }
 .calendarWrap button {
   border-radius: 5px;
+}
+.calendarWrap dl.period dd {
+  display: flex;
+}
+.calendarWrap dl {
+  display: flex;
+  align-items: center;
+  margin: 0 15px;
+}
+.calendarWrap dt {
+  margin-right: 10px;
+}
+.calendarWrap dd {
+  font-weight: bold;
+}
+.calendarWrap > div.info {
+  display: flex;
+  align-items: center;
 }

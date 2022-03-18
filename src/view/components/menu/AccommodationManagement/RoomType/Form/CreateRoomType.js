@@ -3,7 +3,7 @@ import {
   breakfastConfigOptionCountAtom,
   createRoomTypeSelector,
   etcConfigOptionCountAtom,
-} from '@state/accommodation/roomType'
+} from '@state/accommodationManagement/roomType'
 import { getFormDataFromJson } from '@util/common/axiosUtil'
 import { numberToArray } from '@util/common/lodash'
 import _ from 'lodash/fp'

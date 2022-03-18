@@ -2,7 +2,10 @@ import { useNavigate } from 'react-router-dom'
 import SideBar from '@components/menu/AccommodationManagement/SideBar'
 import image from '@asset/images/@sample.png'
 import AddOptionForm from '../../common/AddOptionForm'
-import { breakfastOptionCountAtom, extOptionCountAtom } from '@state/accommodation/accommodation'
+import {
+  breakfastOptionCountAtom,
+  extOptionCountAtom,
+} from '@state/accommodationManagement/accommodation'
 
 export default function AccommodationForm({ register, handleSubmit, onSubmit, submitText }) {
   let navigate = useNavigate()

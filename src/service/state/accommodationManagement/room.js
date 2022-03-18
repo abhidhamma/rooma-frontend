@@ -5,7 +5,7 @@ import {
   READ_ROOM_LIST_SELECTOR_KEY,
   UPDATE_ROOM_SELECTOR_KEY,
 } from '@constant/atomKeys'
-import { createRoom, readRoom, readRoomList, updateRoom } from '@api/accommodation/room'
+import { createRoom, readRoom, readRoomList, updateRoom } from '@api/accommodationManagement/room'
 
 //selector
 export const createRoomSelector = selectorFamily({
