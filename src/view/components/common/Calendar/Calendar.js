@@ -1,14 +1,12 @@
-import { selectedDateAtom, selectedMonthAtom } from '@state/common/calendar'
-import { formatyyyyMM } from '@util/common/dateUtil'
+import { formatyyyyMM, WithoutTime } from '@util/common/dateUtil'
 import { getDay, startOfMonth } from 'date-fns'
 import { addMonths, addDays } from 'date-fns/fp'
-import { useRecoilState } from 'recoil'
+import { useState } from 'react'
 import Week from './Week'
 
-export default function Calendar() {
+export default function Calendar({ show, left, dateName, startMonth }) {
   console.log('Calendar called...')
-  const [selectedDate, setSelectedDate] = useRecoilState(selectedDateAtom)
-  const [selectedMonth, setSelectedMonth] = useRecoilState(selectedMonthAtom)
+  const [selectedMonth, setSelectedMonth] = useState(WithoutTime(new Date()))
 
   const currentMonthDateArray = makeCurrentMonthDateArray(selectedMonth)
 
@@ -20,8 +18,12 @@ export default function Calendar() {
     const addOneMonths = addMonths(1)
     return setSelectedMonth((prev) => addOneMonths(prev))
   }
+
   return (
-    <div className='quick-layer sel-date' style={{ width: '240px', left: '137px' }}>
+    <div
+      className='quick-layer sel-date'
+      style={{ width: '240px', left, display: show ? 'block' : 'none' }}
+    >
       <div className='tit'>
         <a href='#' className='month-prev' onClick={subtractMonth}>
           <span className='hdn'>이전달</span>
@@ -56,7 +58,7 @@ export default function Calendar() {
           </thead>
           <tbody>
             {currentMonthDateArray.map((currentWeek, index) => (
-              <Week week={currentWeek} key={index} />
+              <Week week={currentWeek} dateName={dateName} key={index} />
             ))}
           </tbody>
         </table>

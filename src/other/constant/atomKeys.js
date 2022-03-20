@@ -70,3 +70,12 @@ export const READ_COMPANY_SELECTOR_KEY = 'readCompanySelectorKey'
 
 //요금관리 - 객실타입별요금관리
 export const UPDATE_ROOMTYPE_PRICES_SELECTOR_KEY = 'updateRoomTypePricesSelectorKey'
+export const CURRENT_PERIOD_PRICE_MANAGEMENT_ROOM_TYPE = 'currentPeriodPriceManagementRoomType'
+export const CURRENT_PERIOD_PRICE_MANAGEMENT_WEEK_PRICES = 'currentPeriodPriceManagementWeekPrices'
+export const UPDATE_ROOM_PRICE_PERIOD_SELECTOR_KEY = 'updateRoomPricePeriodSelectorKey'
+export const READ_ROOM_PRICE_SELECTOR_KEY = 'readRoomPriceSelectorKey'
+
+//요금관리 - 날짜별요금관리
+export const CALENDAR_PRICE_MANAGEMENT_CURRENT_MONTH = 'calendarPricemanagementCurrentMonth'
+export const READ_ROOM_PRICE_CALENDAR_SELECTOR_KEY = 'readRoomPriceCalendarSelectorKey'
+export const UPDATE_ROOM_PRICE_CALENDAR_SELECTOR_KEY = 'updateRoomPriceCAlendarSelectorKey'

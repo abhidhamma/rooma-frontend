@@ -11,8 +11,8 @@ import RoomTypePriceManagementRow from './Row'
 export default function RoomTypePriceManagement({ isRoomTypePriceManagementTab }) {
   console.log('RoomTypePriceManagement')
   const updateRoomTypePricesCallback = useApiCallback('updateRoomTypePrices')
-  const currentAccommodation = useRecoilValue(currentAccommodationAtom)
-  console.log(currentAccommodation)
+  const { acNo } = useRecoilValue(currentAccommodationAtom)
+  const addAcNo = (data) => (acNo !== undefined ? { ...data, acNo } : data)
 
   const data = {
     cpNo: '1',
@@ -20,12 +20,14 @@ export default function RoomTypePriceManagement({ isRoomTypePriceManagementTab }
     startRow: '0',
     rowCount: '999',
   }
+
+  const readRoomTypeList = _.flow(addAcNo, getFormDataFromJson, readRoomTypeListSelector)
+
   const {
     data: {
       data: { list },
     },
-  } = useRecoilValue(readRoomTypeListSelector(getFormDataFromJson(data)))
-  console.log(list)
+  } = useRecoilValue(readRoomTypeList(data))
 
   const { register, handleSubmit } = useForm()
 

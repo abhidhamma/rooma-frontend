@@ -1,21 +1,19 @@
-import { currentAccommodationAtom } from '@state/common/common'
 import { Suspense, useState } from 'react'
-import { useRecoilValue } from 'recoil'
-import DayPriceManagement from '../Tab/DayPriceManagement/DayPriceManagement'
+import CalendarPriceManagement from '../Tab/CalendarPriceManagement/CalendarPriceManagement'
 import RoomTypePriceManagement from '../Tab/RoomTypePriceManagement/RoomTypePriceManagement'
-import TermPriceManagement from '../Tab/TermPriceManagement/TermPriceManagement'
+import PeriodPriceManagement from '../Tab/PeriodPriceManagement/PeriodPriceManagement'
 
 export default function PriceManagementContainer() {
   console.log('PriceManagementList called...')
-  const [currentTabFlag, setCurrentTabFlag] = useState('roomTypePriceManagement')
+  const [currentTabFlag, setCurrentTabFlag] = useState('calendarPriceManagement')
 
   const changeTab = (tabData) => {
     setCurrentTabFlag(tabData)
   }
 
   const isRoomTypePriceManagementTab = currentTabFlag === 'roomTypePriceManagement'
-  const isTermPriceManagementTab = currentTabFlag === 'termPriceManagement'
-  const isDayPriceManagementTab = currentTabFlag === 'dayPriceManagement'
+  const isPeriodPriceManagementTab = currentTabFlag === 'periodPriceManagement'
+  const isCalendarPriceManagementTab = currentTabFlag === 'calendarPriceManagement'
 
   return (
     // <!-- S:Container -->
@@ -32,13 +30,13 @@ export default function PriceManagementContainer() {
                 객실타입별요금관리
               </a>
             </li>
-            <li className={isTermPriceManagementTab ? 'current' : ''} data-tab='priceTab2'>
-              <a href='#' onClick={() => changeTab('termPriceManagement')}>
+            <li className={isPeriodPriceManagementTab ? 'current' : ''} data-tab='priceTab2'>
+              <a href='#' onClick={() => changeTab('periodPriceManagement')}>
                 기간별요금관리
               </a>
             </li>
-            <li className={isDayPriceManagementTab ? 'current' : ''} data-tab='priceTab3'>
-              <a href='#' onClick={() => changeTab('dayPriceManagement')}>
+            <li className={isCalendarPriceManagementTab ? 'current' : ''} data-tab='priceTab3'>
+              <a href='#' onClick={() => changeTab('calendarPriceManagement')}>
                 날짜별요금관리
               </a>
             </li>
@@ -47,8 +45,11 @@ export default function PriceManagementContainer() {
           <Suspense fallback={<div></div>}>
             <RoomTypePriceManagement isRoomTypePriceManagementTab={isRoomTypePriceManagementTab} />
           </Suspense>
-          <TermPriceManagement isTermPriceManagementTab={isTermPriceManagementTab} />
-          <DayPriceManagement isDayPriceManagementTab={isDayPriceManagementTab} />
+          <Suspense fallback={<div></div>}>
+            <PeriodPriceManagement isPeriodPriceManagementTab={isPeriodPriceManagementTab} />
+          </Suspense>
+
+          <CalendarPriceManagement isCalendarPriceManagementTab={isCalendarPriceManagementTab} />
         </div>
       </div>
       {/* <!-- E:content --> */}

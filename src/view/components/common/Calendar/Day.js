@@ -3,12 +3,12 @@ import { formatdd } from '@util/common/dateUtil'
 import { isSameDay, isSaturday, isSunday } from 'date-fns'
 import { useRecoilState } from 'recoil'
 
-export default function Day({ date }) {
+export default function Day({ date, dateName }) {
   const [selectedDate, setSelectedDate] = useRecoilState(selectedDateAtom)
 
-  const className = makeClassName(date, selectedDate)
+  const className = makeClassName(date, selectedDate[dateName])
   const dd = formatdd(date)
-  const selectDate = () => setSelectedDate(date)
+  const selectDate = () => setSelectedDate((prev) => ({ ...prev, [dateName]: date }))
 
   return (
     <td>
