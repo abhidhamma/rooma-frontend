@@ -5,7 +5,7 @@ import { updateRoomTypePricesSelector } from '@state/priceManagement/roomTypePri
 import { getFormDataFromJson } from '@util/common/axiosUtil'
 import _ from 'lodash/fp'
 import { useForm } from 'react-hook-form'
-import { useRecoilValue } from 'recoil'
+import { useRecoilRefresher_UNSTABLE, useRecoilValue } from 'recoil'
 import RoomTypePriceManagementRow from './Row'
 
 export default function RoomTypePriceManagement({ isRoomTypePriceManagementTab }) {
@@ -28,13 +28,14 @@ export default function RoomTypePriceManagement({ isRoomTypePriceManagementTab }
       data: { list },
     },
   } = useRecoilValue(readRoomTypeList(data))
+  const resetReadRoomTypeList = useRecoilRefresher_UNSTABLE(readRoomTypeList(data))
 
   const { register, handleSubmit } = useForm()
 
   const rtNoArray = list.map((roomType) => roomType.rtNo)
   const onSubmit = _.flow(
     makeSubmitData(rtNoArray),
-    updateRoomTypePrices(updateRoomTypePricesCallback)
+    updateRoomTypePrices(updateRoomTypePricesCallback, resetReadRoomTypeList)
   )
 
   return (
@@ -120,13 +121,15 @@ const makeSubmitData = (rtNoArray) => (submitData) => {
   return tempSubmitData
 }
 
-const updateRoomTypePrices = (updateRoomTypePricesCallback) => (submitData) => {
-  updateRoomTypePricesCallback(updateRoomTypePricesSelector(submitData)).then((data) => {
-    const { message } = data
-    if (message === '업데이트 성공') {
-      alert('저장되었습니다.')
-    } else {
-      alert('오류가 발생했습니다. 잠시후에 다시 시도해주세요.')
-    }
-  })
-}
+const updateRoomTypePrices =
+  (updateRoomTypePricesCallback, resetReadRoomTypeList) => (submitData) => {
+    updateRoomTypePricesCallback(updateRoomTypePricesSelector(submitData)).then((data) => {
+      const { message } = data
+      if (message === '업데이트 성공') {
+        alert('저장되었습니다.')
+        resetReadRoomTypeList()
+      } else {
+        alert('오류가 발생했습니다. 잠시후에 다시 시도해주세요.')
+      }
+    })
+  }

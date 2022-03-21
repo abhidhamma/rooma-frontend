@@ -9,7 +9,7 @@ import { atom, selectorFamily } from 'recoil'
 //atom
 export const currentPeriodPriceManagementRoomTypeAtom = atom({
   key: CURRENT_PERIOD_PRICE_MANAGEMENT_ROOM_TYPE,
-  default: {},
+  default: { originPrice: '', salePrice: '', providePrice: '' },
 })
 export const currentPeriodPriceManagementWeekPricesAtom = atom({
   key: CURRENT_PERIOD_PRICE_MANAGEMENT_WEEK_PRICES,

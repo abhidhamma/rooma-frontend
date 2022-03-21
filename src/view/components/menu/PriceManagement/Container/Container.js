@@ -1,19 +1,21 @@
-import { Suspense, useState } from 'react'
+import { Suspense } from 'react'
 import CalendarPriceManagement from '../Tab/CalendarPriceManagement/CalendarPriceManagement'
 import RoomTypePriceManagement from '../Tab/RoomTypePriceManagement/RoomTypePriceManagement'
 import PeriodPriceManagement from '../Tab/PeriodPriceManagement/PeriodPriceManagement'
+import { useRecoilState } from 'recoil'
+import { priceManagementTabAtom } from '@state/priceManagement/common'
 
 export default function PriceManagementContainer() {
   console.log('PriceManagementList called...')
-  const [currentTabFlag, setCurrentTabFlag] = useState('calendarPriceManagement')
+  const [currentTab, setCurrentTab] = useRecoilState(priceManagementTabAtom)
 
   const changeTab = (tabData) => {
-    setCurrentTabFlag(tabData)
+    setCurrentTab(tabData)
   }
 
-  const isRoomTypePriceManagementTab = currentTabFlag === 'roomTypePriceManagement'
-  const isPeriodPriceManagementTab = currentTabFlag === 'periodPriceManagement'
-  const isCalendarPriceManagementTab = currentTabFlag === 'calendarPriceManagement'
+  const isRoomTypePriceManagementTab = currentTab === 'roomTypePriceManagement'
+  const isPeriodPriceManagementTab = currentTab === 'periodPriceManagement'
+  const isCalendarPriceManagementTab = currentTab === 'calendarPriceManagement'
 
   return (
     // <!-- S:Container -->
@@ -48,8 +50,9 @@ export default function PriceManagementContainer() {
           <Suspense fallback={<div></div>}>
             <PeriodPriceManagement isPeriodPriceManagementTab={isPeriodPriceManagementTab} />
           </Suspense>
-
-          <CalendarPriceManagement isCalendarPriceManagementTab={isCalendarPriceManagementTab} />
+          <Suspense fallback={<div></div>}>
+            <CalendarPriceManagement isCalendarPriceManagementTab={isCalendarPriceManagementTab} />
+          </Suspense>
         </div>
       </div>
       {/* <!-- E:content --> */}

@@ -51,6 +51,7 @@ export const addyyyyMMdd = (yyyyMMdd, days) => formatyyyyMMdd(addDays(days)(stri
 
 //calendar
 export const formatdd = formatWithOptions(locale, 'dd')
+export const formatMMdd = formatWithOptions(locale, 'MMdd')
 export const formatyyyyMM = formatWithOptions(locale, 'yyyy년 M월')
 
 //요금관리-기간별요금관리

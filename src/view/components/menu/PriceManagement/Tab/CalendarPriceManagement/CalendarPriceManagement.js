@@ -1,27 +1,78 @@
+import useApiCallback from '@hook/apiHook/useApiCallback'
 import { currentAccommodationAtom } from '@state/common/common'
-import { calendarPriceManagementCurrentMonthAtom } from '@state/priceManagement/calendarPriceManagement'
-import { formatMW } from '@util/common/dateUtil'
+import {
+  calendarPriceManagementCurrentMonthAtom,
+  readCalendarRoomPriceListSelector,
+  updateCalendarRoomPriceListSelector,
+} from '@state/priceManagement/calendarPriceManagement'
+import { currentPeriodPriceManagementRoomTypeAtom } from '@state/priceManagement/periodPriceManagement'
+import { formatMMdd, formatMW, formatyyyyMMddWithHyphen, stringToDate } from '@util/common/dateUtil'
 import { getDay, getYear, setMonth, setYear, startOfMonth } from 'date-fns'
 import { addYears, addDays } from 'date-fns/fp'
 import _ from 'lodash/fp'
-import { Suspense } from 'react'
+import { Suspense, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useRecoilState, useRecoilValue } from 'recoil'
-import AccommodationSelect from '../../common/AccommodationSelect'
+import RoomTypeSelect from '../../common/RoomTypeSelect'
 import Week from './Week'
 
 export default function CalendarPriceManagement({ isCalendarPriceManagementTab }) {
-  const { name: accommodationName } = useRecoilValue(currentAccommodationAtom)
+  console.log('CalendarPriceManagement')
+  const updateCalendarRoomPriceListCallback = useApiCallback('updateCalendarRoomPriceListCallback')
+  const { name: accommodationName, acNo } = useRecoilValue(currentAccommodationAtom)
+  const { rtNo } = useRecoilValue(currentPeriodPriceManagementRoomTypeAtom)
   const [selectedMonth, setSelectedMonth] = useRecoilState(calendarPriceManagementCurrentMonthAtom)
   const today = new Date()
 
-  const currentMonthDateArray = makeCurrentMonthDateArray(selectedMonth)
+  const { currentMonthDateArray, calendarStartDate, calendarEndDate } =
+    makeCurrentMonthDateArray(selectedMonth)
 
-  const { register, handleSubmit } = useForm()
+  const {
+    data: {
+      data: { list: currentMonthPriceList },
+    },
+  } = useRecoilValue(
+    readCalendarRoomPriceListSelector({
+      rtNo,
+      startDate: formatyyyyMMddWithHyphen(calendarStartDate),
+      endDate: formatyyyyMMddWithHyphen(calendarEndDate),
+    })
+  )
 
-  const onSubmit = (submitData) => {
-    console.log(submitData)
+  const makeDefaultValues = () => {
+    let tempDefaultValues = {}
+    const eachMonthPriceList = _.each((roomPrice) => {
+      const { targetDate, originPrice, salePrice, providePrice } = roomPrice
+      const MMdd = formatMMdd(stringToDate(targetDate))
+      tempDefaultValues = {
+        ...tempDefaultValues,
+        [`originPrice${MMdd}`]: originPrice,
+        [`salePrice${MMdd}`]: salePrice,
+        [`providePrice${MMdd}`]: providePrice,
+      }
+    })
+    eachMonthPriceList(currentMonthPriceList)
+    return tempDefaultValues
   }
+  const defaultValues = makeDefaultValues()
+  console.log(defaultValues)
+
+  console.log(currentMonthPriceList)
+
+  const { register, reset, handleSubmit } = useForm()
+
+  useEffect(() => {
+    reset({ ...defaultValues })
+    return () => {
+      reset()
+    }
+  }, [selectedMonth, rtNo, currentMonthPriceList])
+
+  const onSubmit = _.flow(
+    preprocessSubmitData(calendarStartDate, acNo, rtNo),
+    updateCalendarRoomPriceList(updateCalendarRoomPriceListCallback)
+  )
+
   return (
     <div id='priceTab3' className={`tabcontent ${isCalendarPriceManagementTab ? 'current' : ''}`}>
       <div className='calendarWrap mgb_40 mgt_30'>
@@ -34,7 +85,7 @@ export default function CalendarPriceManagement({ isCalendarPriceManagementTab }
             <dt>객실타입 : </dt>
             <dd>
               <Suspense fallback={<div></div>}>
-                <AccommodationSelect />
+                <RoomTypeSelect />
               </Suspense>
             </dd>
           </dl>
@@ -149,7 +200,8 @@ const makeCurrentMonthDateArray = (selectedMonth) => {
     }
     currentMonthDateArray.push(week)
   }
-  return currentMonthDateArray
+  const calendarEndDate = addDays(34)(calendarStartDate)
+  return { currentMonthDateArray, calendarStartDate, calendarEndDate }
 }
 const subtractYear = (today, selectedMonth, setSelectedMonth) => {
   const subtractOneYears = addYears(-1)
@@ -199,4 +251,37 @@ const makeMonths = (selectedMonth) => {
 
 const changeMonth = (month, setSelectedMonth) => {
   setSelectedMonth((prev) => setMonth(prev, month - 1))
+}
+const preprocessSubmitData = (calendarStartDate, acNo, rtNo) => (submitData) => {
+  let jsonData = {}
+
+  const roomPrices = []
+
+  let dayCount = 0
+  for (let i = 0; i < 35; i++) {
+    const addIDays = addDays(dayCount)
+    const currentDate = addIDays(calendarStartDate)
+    const targetDate = formatyyyyMMddWithHyphen(currentDate)
+    const suffix = formatMMdd(currentDate)
+    const originPrice = submitData[`originPrice${suffix}`]
+    const salePrice = submitData[`salePrice${suffix}`]
+    const providePrice = submitData[`providePrice${suffix}`]
+
+    dayCount += 1
+    roomPrices.push({ targetDate, originPrice, salePrice, providePrice })
+  }
+  jsonData = { acNo, rtNo, roomPrices }
+  return jsonData
+}
+const updateCalendarRoomPriceList = (updateCalendarRoomPriceListCallback) => (jsonData) => {
+  updateCalendarRoomPriceListCallback(updateCalendarRoomPriceListSelector(jsonData)).then(
+    (result) => {
+      const { message } = result
+      if (message === '업데이트 성공') {
+        alert('객실요금이 변경되었습니다.')
+      } else {
+        alert('오류가 발생했습니다. 잠시후에 다시 시도해주세요.')
+      }
+    }
+  )
 }

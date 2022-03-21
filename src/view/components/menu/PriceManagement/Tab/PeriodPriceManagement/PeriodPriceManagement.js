@@ -5,7 +5,7 @@ import { formatLong } from '@util/common/dateUtil'
 import { useState } from 'react'
 import { useRecoilValue } from 'recoil'
 import RoomBasicPrice from './RoomBasicPrice'
-import AccommodationSelect from '../../common/AccommodationSelect'
+import RoomTypeSelect from '../../common/RoomTypeSelect'
 import PeriodPriceManagementWeekPrices from './PeriodPriceManagementWeekPrices'
 
 export default function PeriodPriceManagement({ isPeriodPriceManagementTab }) {
@@ -29,7 +29,7 @@ export default function PeriodPriceManagement({ isPeriodPriceManagementTab }) {
           <dl>
             <dt>객실타입 : </dt>
             <dd>
-              <AccommodationSelect />
+              <RoomTypeSelect />
             </dd>
           </dl>
         </div>

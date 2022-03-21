@@ -1,4 +1,12 @@
+import { priceManagementTabAtom } from '@state/priceManagement/common'
+import { currentPeriodPriceManagementRoomTypeAtom } from '@state/priceManagement/periodPriceManagement'
+import { useSetRecoilState } from 'recoil'
+
 export default function RoomTypePriceManagementRow({ roomType, register }) {
+  //두개를 바꾸면된다 roomTypeSelect의 상태를 지금 받은걸로 바꾸고
+  const setRoomType = useSetRecoilState(currentPeriodPriceManagementRoomTypeAtom)
+  const setCurrentTab = useSetRecoilState(priceManagementTabAtom)
+  //tab상태를 바꾸면된다
   const {
     rtNo,
     roomTypeName,
@@ -9,6 +17,11 @@ export default function RoomTypePriceManagementRow({ roomType, register }) {
     addChildPrice,
     addInfantPrice,
   } = roomType
+
+  const goPeriodPrice = () => {
+    setRoomType(roomType)
+    setCurrentTab('periodPriceManagement')
+  }
   return (
     <tr>
       <td className='bg'>{roomTypeName}</td>
@@ -69,7 +82,7 @@ export default function RoomTypePriceManagementRow({ roomType, register }) {
         </div>
       </td>
       <td className='center'>
-        <a href='#' className='make'>
+        <a href='#' className='make' onClick={goPeriodPrice}>
           객실요금설정
         </a>
       </td>

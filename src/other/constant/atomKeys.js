@@ -68,6 +68,9 @@ export const SIGNUP_SELECTOR_KEY = 'signUpSelector'
 //company
 export const READ_COMPANY_SELECTOR_KEY = 'readCompanySelectorKey'
 
+//요금관리 - 탭
+export const PRICE_MANAGEMENT_TAB = 'priceManagementTab'
+
 //요금관리 - 객실타입별요금관리
 export const UPDATE_ROOMTYPE_PRICES_SELECTOR_KEY = 'updateRoomTypePricesSelectorKey'
 export const CURRENT_PERIOD_PRICE_MANAGEMENT_ROOM_TYPE = 'currentPeriodPriceManagementRoomType'

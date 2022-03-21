@@ -50,7 +50,7 @@ export default function PeriodPriceManagementWeekPrices() {
       providePrice6: '',
       providePrice7: '',
     })
-  }, [roomType.rtNo])
+  }, [roomType])
 
   const onSubmit = _.flow(
     preprocessSubmitData(roomType, selectedDate),

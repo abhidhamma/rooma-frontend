@@ -1,4 +1,4 @@
-import { formatdd } from '@util/common/dateUtil'
+import { formatdd, formatMMdd } from '@util/common/dateUtil'
 import { isSaturday, isSunday } from 'date-fns'
 
 export default function Week({ register, week }) {
@@ -17,7 +17,7 @@ export default function Week({ register, week }) {
         {week.map((date, index) => (
           <td key={index}>
             <div className='n-input'>
-              <input type='text' {...register(`originPrice${formatdd(date)}`)} />
+              <input type='text' {...register(`originPrice${formatMMdd(date)}`)} />
               <span>원</span>
             </div>
           </td>
@@ -28,7 +28,7 @@ export default function Week({ register, week }) {
         {week.map((date, index) => (
           <td key={index}>
             <div className='n-input'>
-              <input type='text' {...register(`salePrice${formatdd(date)}`)} />
+              <input type='text' {...register(`salePrice${formatMMdd(date)}`)} />
               <span>원</span>
             </div>
           </td>
@@ -39,7 +39,7 @@ export default function Week({ register, week }) {
         {week.map((date, index) => (
           <td key={index}>
             <div className='n-input'>
-              <input type='text' {...register(`providePrice${formatdd(date)}`)} />
+              <input type='text' {...register(`providePrice${formatMMdd(date)}`)} />
               <span>원</span>
             </div>
           </td>
