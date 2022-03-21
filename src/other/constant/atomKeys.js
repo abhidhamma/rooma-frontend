@@ -15,12 +15,13 @@ export const SEARCH_KEYWORD_ATOM_KEY = 'searchKeywordAtom'
 
 //common-form
 export const DEFAULT_VALUES_ATOM_KEY = 'defaultValuesAtom'
+export const ROOM_SELECT_ATOM = 'roomSelectAtom'
 
 //common-calendar
 export const SELECTED_DATE_ATOM_KEY = 'selectedDateAtom'
 export const SELECTED_MONTH_ATOM_KEY = 'selectedMonthAtom'
 
-//reservation
+//예약현황
 export const RENDER_COUNT_ATOM_KEY = 'renderCountAtom'
 export const ROOMTYPE_LIST_ATOM_KEY = 'roomTypeListAtom'
 export const RESERVATION_LIST_ATOM_KEY = 'reservationListAtom'
@@ -31,6 +32,12 @@ export const IS_DISPLAY_CREATE_RESERVATION_ATOM_KEY = 'isDisplayCreateReservatio
 export const DISPLAY_ATOM_KEY = 'displayAtom'
 export const LOCKED_ROOM_LIST_ATOM_KEY = 'lockedRoomListAtom'
 export const OVERLAY_ATOM_KEY = 'overlayAtom'
+
+export const READ_RESERVATION_PRICE_SELECTOR_KEY = 'readReservationPriceSelectorKey'
+
+//예약현황 - 예약팝업
+export const ADD_RESERVATION_ROOM_COUNT_ATOM_KEY = 'addReservationRoomCountAtomKey'
+export const CREATE_RESERVATION_ATOM_KEY = 'createReservationAtomKey'
 
 //auth
 export const AUTH_RESULT_ATOM_KEY = 'authResultAtom'

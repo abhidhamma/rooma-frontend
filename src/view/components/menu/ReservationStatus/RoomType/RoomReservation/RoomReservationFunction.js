@@ -1,9 +1,11 @@
-import { addyyyyMMdd, formatyyyyMMdd, betweenyyyyMMdd } from '@util/common/dateUtil'
+import { addyyyyMMdd, formatyyyyMMdd, betweenyyyyMMdd, stringToDate } from '@util/common/dateUtil'
 import { getDateArray } from '@util/reservation/reservation'
 
 //현재 보일 캘린더의 날짜별 가격 목록
 export const getCurrentMonthPrice = (monthPriceList, standardDate, dayCount) => {
-  const firstIndex = monthPriceList.findIndex((day) => formatyyyyMMdd(day.date) === formatyyyyMMdd(standardDate))
+  const firstIndex = monthPriceList.findIndex(
+    (day) => formatyyyyMMdd(stringToDate(day.targetDate)) === formatyyyyMMdd(standardDate)
+  )
   const lastIndex = firstIndex + (dayCount - 1)
   return monthPriceList.slice(firstIndex, lastIndex + 1)
 }
@@ -12,8 +14,13 @@ export const getCurrentMonthPrice = (monthPriceList, standardDate, dayCount) => 
 export const getCurrentReservationList = (reservationList, standardDate, dayCount, roomNumber) => {
   //이 달력뒤에 예약이 있을 수 있으므로 겹치지 않도록
   //reservation을 찾는 범위를 현재달력의 가장 긴 예약만큼 더 준다
-  const filteredReservationList = reservationList.filter((reservation) => reservation.location === roomNumber).map((reservation) => betweenyyyyMMdd(reservation.checkIn, reservation.checkOut))
-  const longestLength = filteredReservationList.length === 0 ? 0 : filteredReservationList.reduce((prev, current) => Math.max(prev, current))
+  const filteredReservationList = reservationList
+    .filter((reservation) => reservation.location === roomNumber)
+    .map((reservation) => betweenyyyyMMdd(reservation.checkIn, reservation.checkOut))
+  const longestLength =
+    filteredReservationList.length === 0
+      ? 0
+      : filteredReservationList.reduce((prev, current) => Math.max(prev, current))
   const currentyyyyMMdd = formatyyyyMMdd(standardDate)
   const endyyyyMMdd = addyyyyMMdd(currentyyyyMMdd, dayCount + longestLength)
   const currentCalendarDateArray = getDateArray(currentyyyyMMdd, endyyyyMMdd)
@@ -49,10 +56,15 @@ export const getCurrentLockedRoomList = (lockedRoomList, standardDate, dayCount,
 }
 
 //표시될 예약이 있는경우 가격 리스트에 포함시키기
-export const getCurrentCalendar = (currentMonthPriceList, currentReservationList, currentLockedRoomList, standardDate) => {
+export const getCurrentCalendar = (
+  currentMonthPriceList,
+  currentReservationList,
+  currentLockedRoomList,
+  standardDate
+) => {
   let priceList = currentMonthPriceList
   for (let i = 0; i < priceList.length; i++) {
-    const priceDate = formatyyyyMMdd(priceList[i].date)
+    const priceDate = formatyyyyMMdd(stringToDate(priceList[i].targetDate))
     for (let j = 0; j < currentReservationList.length; j++) {
       const reservation = currentReservationList[j]
       const checkIn = reservation.checkIn
@@ -89,5 +101,9 @@ const getIsHangOnTwoCalendar = (reservation, standardDate, currentDate) => {
   const prevEndDate = addyyyyMMdd(startDate, -1)
 
   //걸쳐있는 예약인지 확인하려면 지금달력의 시작날짜, 이전달력의 끝날짜 모두에 포함되어있는지 확인하면 된다
-  return reservationDateArray.indexOf(startDate) > -1 && reservationDateArray.indexOf(prevEndDate) > -1 && currentDate === formatyyyyMMdd(standardDate)
+  return (
+    reservationDateArray.indexOf(startDate) > -1 &&
+    reservationDateArray.indexOf(prevEndDate) > -1 &&
+    currentDate === formatyyyyMMdd(standardDate)
+  )
 }

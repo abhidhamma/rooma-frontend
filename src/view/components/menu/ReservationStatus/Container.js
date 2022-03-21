@@ -1,6 +1,6 @@
 import { useRecoilValue } from 'recoil'
-import { isDisplayCreateReservationAtom, roomTypeListAtom } from '@state/reservation'
-import CreateReservation from '@components/menu/ReservationStatus/Popup/CreateReservation'
+import { isDisplayCreateReservationAtom, standardDateAtom } from '@state/reservation'
+import CreateReservation from '@components/menu/ReservationStatus/Popup/CreateReservation/CreateReservation'
 import ReservationInfo from '@components/menu/ReservationStatus/Overlay/ReservationInfo'
 import RoomType from '@components/menu/ReservationStatus/RoomType/RoomType'
 import ReservationStatusHeader from '@components/menu/ReservationStatus/ReservationStatusHeader'
@@ -8,16 +8,38 @@ import ReservationSchedulerHeader from '@components/menu/ReservationStatus/Table
 import { useScroll } from '@hook/uiHook/useScroll'
 import { useEffect, useState } from 'react'
 import Loading from './Loading'
+import { readReservationPriceSelector } from '@state/reservationStatus/reservationStatus'
+import { currentAccommodationAtom } from '@state/common/common'
+import { formatyyyyMMddWithHyphen } from '@util/common/dateUtil'
+import { addDays } from 'date-fns'
 
 export default function Container() {
   //전역상태
-  const roomTypeList = useRecoilValue(roomTypeListAtom)
+  // const roomTypeList = useRecoilValue(roomTypeListAtom)
   const isDisplayCreateReservation = useRecoilValue(isDisplayCreateReservationAtom)
+
+  const accommodation = useRecoilValue(currentAccommodationAtom)
+  const standardDate = useRecoilValue(standardDateAtom)
+
+  const makeParamater = () => {
+    const startDate = formatyyyyMMddWithHyphen(standardDate)
+    const endDate = formatyyyyMMddWithHyphen(addDays(standardDate, 29))
+    return { acNo: accommodation.acNo, startDate, endDate }
+  }
+  console.log(makeParamater())
+
+  const {
+    data: {
+      data: { roomTypes },
+    },
+  } = useRecoilValue(readReservationPriceSelector(makeParamater()))
 
   //지역상태
   const [renderRestRoomType, setRenderRestRoomType] = useState(15)
 
   //지역변수
+  console.log('지역변수')
+  const roomTypeList = roomTypes
   const roomTypeListLength = roomTypeList.length
 
   //hook

@@ -13,6 +13,8 @@ import {
 } from '@state/reservation'
 import { canDropEffect, dropEffect, itemEffect, throttleHoverEffect } from './PriceFunction'
 import PricePresenter from './PricePresenter'
+import { createReservationAtom } from '@state/reservationStatus/createReservation'
+import { stringToDate } from '@util/common/dateUtil'
 
 function PriceContainer({
   price,
@@ -29,6 +31,7 @@ function PriceContainer({
   const setOverlay = useSetRecoilState(overlayAtom)
   const setReservationList = useSetRecoilState(reservationListAtom)
   const setIsDisplayCreateReservation = useSetRecoilState(isDisplayCreateReservationAtom)
+  const setCreateReservation = useSetRecoilState(createReservationAtom)
 
   //useDrag, useDrop
   const [{ isDragging }, drag] = useDrag(
@@ -74,6 +77,7 @@ function PriceContainer({
 
   const handleCreateReservation = useCallback(() => {
     setIsDisplayCreateReservation((prev) => !prev)
+    setCreateReservation((prev) => ({ ...prev, currentDate: stringToDate(currentDate) }))
   }, [])
 
   return (

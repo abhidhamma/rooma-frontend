@@ -21,12 +21,6 @@ export default function makeDummyData(roomTypeCount) {
     return priceData
   }
 
-  // const roomType = {
-  //   roomTypeName: '디럭스더블',
-  //   roomNumbers: ['101호', '102호'],
-  //   monthPriceList: [makePriceData(), makePriceData()],
-  // }
-
   const dummyData = []
   let roomTypeNumberCount = 1
   let roomNumberCount = 1

@@ -26,7 +26,7 @@ export default function Header() {
         <nav>
           <div id='gnb'>
             <a href='#'>대시보드</a>
-            <a href='#'>예약현황</a>
+            <a href={'/reservationStatus'}>예약현황</a>
             <Link to={'/reservationManagement'}>예약관리</Link>
             <Link to={'/accommodationManagement/accommodation'}>숙소관리</Link>
             <Link to={'/priceManagement'}>요금관리</Link>

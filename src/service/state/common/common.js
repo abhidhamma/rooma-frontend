@@ -23,5 +23,5 @@ export const currentCompanyAtom = atom({
 })
 export const currentAccommodationAtom = atom({
   key: CURRENT_ACCOMMODATION_ATOM_KEY,
-  default: {},
+  default: { acNo: '1' },
 })

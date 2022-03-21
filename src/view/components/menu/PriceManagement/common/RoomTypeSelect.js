@@ -1,11 +1,10 @@
 import { readRoomTypeListSelector } from '@state/accommodationManagement/roomType'
 import { currentAccommodationAtom } from '@state/common/common'
-import { priceManagementTabAtom } from '@state/priceManagement/common'
 import { currentPeriodPriceManagementRoomTypeAtom } from '@state/priceManagement/periodPriceManagement'
 import { getFormDataFromJson } from '@util/common/axiosUtil'
 import _ from 'lodash/fp'
 import { useEffect } from 'react'
-import { useRecoilRefresher_UNSTABLE, useRecoilState, useRecoilValue } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 
 export default function RoomTypeSelect() {
   const [roomType, setRoomType] = useRecoilState(currentPeriodPriceManagementRoomTypeAtom)
@@ -26,6 +25,10 @@ export default function RoomTypeSelect() {
     },
   } = useRecoilValue(readRoomTypeList(data))
 
+  useEffect(() => {
+    setRoomType(list[0])
+  }, [])
+
   const handleCurrentRoomType = (event) => {
     const rtNo = event.target.value
     if (rtNo === '0') {
@@ -39,8 +42,7 @@ export default function RoomTypeSelect() {
   }
 
   return (
-    <select onChange={handleCurrentRoomType} value={roomType.rtNo}>
-      <option value={'0'}>객실타입선택</option>
+    <select onChange={handleCurrentRoomType} defaultValue={roomType.rtNo}>
       {list.map(({ rtNo, roomTypeName }) => (
         <option key={rtNo} value={rtNo}>
           {roomTypeName}
