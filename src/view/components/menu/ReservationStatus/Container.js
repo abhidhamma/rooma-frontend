@@ -1,4 +1,4 @@
-import { useRecoilValue } from 'recoil'
+import { useRecoilRefresher_UNSTABLE, useRecoilValue } from 'recoil'
 import { isDisplayCreateReservationAtom, standardDateAtom } from '@state/reservation'
 import CreateReservation from '@components/menu/ReservationStatus/Popup/CreateReservation/CreateReservation'
 import ReservationInfo from '@components/menu/ReservationStatus/Overlay/ReservationInfo'
@@ -21,18 +21,18 @@ export default function Container() {
   const accommodation = useRecoilValue(currentAccommodationAtom)
   const standardDate = useRecoilValue(standardDateAtom)
 
-  const makeParamater = () => {
-    const startDate = formatyyyyMMddWithHyphen(standardDate)
-    const endDate = formatyyyyMMddWithHyphen(addDays(standardDate, 29))
-    return { acNo: accommodation.acNo, startDate, endDate }
+  const parameter = {
+    acNo: accommodation.acNo,
+    startDate: formatyyyyMMddWithHyphen(standardDate),
+    endDate: formatyyyyMMddWithHyphen(addDays(standardDate, 29)),
   }
-  console.log(makeParamater())
 
   const {
     data: {
       data: { roomTypes },
     },
-  } = useRecoilValue(readReservationPriceSelector(makeParamater()))
+  } = useRecoilValue(readReservationPriceSelector(parameter))
+  console.log(roomTypes)
 
   //지역상태
   const [renderRestRoomType, setRenderRestRoomType] = useState(15)

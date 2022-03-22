@@ -1,12 +1,16 @@
 import { addyyyyMMdd, formatyyyyMMdd, betweenyyyyMMdd, stringToDate } from '@util/common/dateUtil'
 import { getDateArray } from '@util/reservation/reservation'
+import { last } from 'lodash'
 
 //현재 보일 캘린더의 날짜별 가격 목록
 export const getCurrentMonthPrice = (monthPriceList, standardDate, dayCount) => {
   const firstIndex = monthPriceList.findIndex(
     (day) => formatyyyyMMdd(stringToDate(day.targetDate)) === formatyyyyMMdd(standardDate)
   )
+
   const lastIndex = firstIndex + (dayCount - 1)
+  console.log('index')
+  console.log(firstIndex, lastIndex)
   return monthPriceList.slice(firstIndex, lastIndex + 1)
 }
 
