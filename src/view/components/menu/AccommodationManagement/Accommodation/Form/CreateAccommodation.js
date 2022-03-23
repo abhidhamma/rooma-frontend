@@ -54,6 +54,7 @@ export default function CreateAccommodation() {
     area2: '2',
     checkinTime: '15:00',
     checkoutTime: '11:00',
+    shortDesc: '범섬이 한눈에 보이는 최고의 뷰! 편안한 객실!',
     description: '안내',
     notice: '유의사항',
   }

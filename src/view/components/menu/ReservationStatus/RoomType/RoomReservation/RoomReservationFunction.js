@@ -1,9 +1,33 @@
-import { addyyyyMMdd, formatyyyyMMdd, betweenyyyyMMdd, stringToDate } from '@util/common/dateUtil'
+import {
+  addyyyyMMdd,
+  formatyyyyMMdd,
+  betweenyyyyMMdd,
+  stringToDate,
+  formatyyyyMMddWithHyphen,
+} from '@util/common/dateUtil'
+import { numberToArray } from '@util/common/lodash'
 import { getDateArray } from '@util/reservation/reservation'
-import { last } from 'lodash'
+import { addDays } from 'date-fns'
+import _ from 'lodash/fp'
 
 //현재 보일 캘린더의 날짜별 가격 목록
 export const getCurrentMonthPrice = (monthPriceList, standardDate, dayCount) => {
+  console.log('getCurrentMonthPrice')
+
+  // //보여질 30일치 날짜 만들기
+  // const displayDays = 30
+  // const mapDate = _.map((number) => ({ targetDate: addDays(standardDate, number - 1) }))
+  // const dummyMonthData = _.flow(numberToArray, mapDate)(displayDays)
+
+  // const addMonthPriceList = _.map((targetDate) => {
+  //   const findCurrentDateData = _.find(
+  //     (monthPrice) => monthPrice.targetDate === formatyyyyMMddWithHyphen(targetDate)
+  //   )
+  //   const currentDateData = findCurrentDateData(monthPriceList)
+  //   return {}
+  // })
+
+  // console.log(monthPriceList)
   const firstIndex = monthPriceList.findIndex(
     (day) => formatyyyyMMdd(stringToDate(day.targetDate)) === formatyyyyMMdd(standardDate)
   )

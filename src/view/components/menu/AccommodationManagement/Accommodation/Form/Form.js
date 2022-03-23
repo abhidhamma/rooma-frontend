@@ -62,6 +62,7 @@ export default function AccommodationForm({ register, handleSubmit, onSubmit, su
                       placeholder='숙소명을 입력해주세요'
                       className='w70'
                       {...register('name')}
+                      style={{ minWidth: '350px', width: '30%' }}
                     />
                   </dd>
                 </dl>
@@ -356,8 +357,18 @@ export default function AccommodationForm({ register, handleSubmit, onSubmit, su
                       <div>
                         <input type='text' {...register('checkinTime')} />
                       </div>
-                      <div>
+                      <div style={{ marginRight: '0' }}>
                         <input type='text' {...register('checkoutTime')} />
+                      </div>
+                    </div>
+                  </dd>
+                </dl>
+                <dl className='rowAdd v1'>
+                  <dt>숙소 한줄설명</dt>
+                  <dd>
+                    <div className='row'>
+                      <div style={{ maxWidth: 'initial', marginRight: '0' }}>
+                        <input type='text' style={{ width: '63%' }} {...register('shortDesc')} />
                       </div>
                     </div>
                   </dd>
@@ -365,17 +376,17 @@ export default function AccommodationForm({ register, handleSubmit, onSubmit, su
                 <dl>
                   <dt>숙소안내</dt>
                   <dd>
-                    <textarea {...register('description')} defaultValue={''}></textarea>
+                    <textarea {...register('description')} style={{ width: '63%' }}></textarea>
                   </dd>
                 </dl>
                 <dl>
                   <dt>안내/유의사항</dt>
                   <dd>
-                    <textarea {...register('notice')} defaultValue={''}></textarea>
+                    <textarea {...register('notice')} style={{ width: '63%' }}></textarea>
                   </dd>
                 </dl>
               </section>
-              <section>
+              {/* <section>
                 <dl className='rowAdd'>
                   <dt>기본 취소수수료</dt>
                   <dd>
@@ -442,12 +453,16 @@ export default function AccommodationForm({ register, handleSubmit, onSubmit, su
                     </span>
                   </dd>
                 </dl>
-              </section>
+              </section> */}
               <section>
                 <dl>
                   <dt>태그</dt>
                   <dd>
-                    <input type='text' className='w70' />
+                    <input
+                      type='text'
+                      className='w70'
+                      style={{ minWidth: 'initial', width: '63%' }}
+                    />
                     <p className='ex mgt_5'>
                       ","로 분리하세요. (예 : 커플형펜션,가족형펜션,서귀포,바닷가전망,수영장 등)
                     </p>

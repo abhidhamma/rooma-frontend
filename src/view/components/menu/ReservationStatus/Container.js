@@ -32,6 +32,15 @@ export default function Container() {
       data: { roomTypes },
     },
   } = useRecoilValue(readReservationPriceSelector(parameter))
+  const resetReadReservationPrice = useRecoilRefresher_UNSTABLE(
+    readReservationPriceSelector(parameter)
+  )
+  useEffect(() => {
+    resetReadReservationPrice()
+    return () => {
+      resetReadReservationPrice()
+    }
+  }, [])
   console.log(roomTypes)
 
   //지역상태
@@ -50,6 +59,7 @@ export default function Container() {
   const makeRoomTypes = (length) => {
     const roomTypes = roomTypeList
       .slice(0, length)
+      .filter((roomType) => roomType.roomPrices.length !== 0)
       .map((roomType, index) => <RoomType key={index} roomType={roomType} />)
 
     if (length === 15 && roomTypeListLength > 15) {

@@ -55,7 +55,6 @@ export default function CreateRoomType() {
   }
   const { register, handleSubmit, watch, reset, getValues } = useForm({ defaultValues })
 
-  // const onSubmit = _.flow(preprocessData)
   const onSubmit = _.flow(
     preprocessRoomTypeFormData(breakfastConfigOptionCount, etcConfigOptionCount),
     getFormDataFromJson,
@@ -129,14 +128,15 @@ export const preprocessRoomTypeFormData =
 
     //조식추가 합치기
     submitData.addBreakfastConfig = makeBreakfaseConfig(submitData, breakfastConfigOptionCount)
-    //addBreakfastConfigName + '|' + addBreakfastConfigPrice
 
     //기타사항 합치기
     submitData.addEtcConfig = makeEtcConfig(submitData, etcConfigOptionCount)
-    //addEtcConfigName + '|' + addEtcConfigPrice
 
     //기타옵션 만들기
     submitData.roomOptions = makeRoomOptions(submitData)
+
+    console.log('preprocessRoomTypeFormData')
+    console.log(submitData)
 
     return submitData
   }

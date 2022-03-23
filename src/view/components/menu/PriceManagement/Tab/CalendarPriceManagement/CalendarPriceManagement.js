@@ -5,6 +5,7 @@ import {
   readCalendarRoomPriceListSelector,
   updateCalendarRoomPriceListSelector,
 } from '@state/priceManagement/calendarPriceManagement'
+import { priceManagementTabAtom } from '@state/priceManagement/common'
 import { currentPeriodPriceManagementRoomTypeAtom } from '@state/priceManagement/periodPriceManagement'
 import { formatMMdd, formatMW, formatyyyyMMddWithHyphen, stringToDate } from '@util/common/dateUtil'
 import { getDay, getYear, setMonth, setYear, startOfMonth } from 'date-fns'
@@ -12,7 +13,7 @@ import { addYears, addDays } from 'date-fns/fp'
 import _ from 'lodash/fp'
 import { Suspense, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { useRecoilState, useRecoilValue } from 'recoil'
+import { useRecoilRefresher_UNSTABLE, useRecoilState, useRecoilValue } from 'recoil'
 import RoomTypeSelect from '../../common/RoomTypeSelect'
 import Week from './Week'
 
@@ -22,21 +23,24 @@ export default function CalendarPriceManagement({ isCalendarPriceManagementTab }
   const { name: accommodationName, acNo } = useRecoilValue(currentAccommodationAtom)
   const { rtNo } = useRecoilValue(currentPeriodPriceManagementRoomTypeAtom)
   const [selectedMonth, setSelectedMonth] = useRecoilState(calendarPriceManagementCurrentMonthAtom)
+  const currentTab = useRecoilValue(priceManagementTabAtom)
   const today = new Date()
 
   const { currentMonthDateArray, calendarStartDate, calendarEndDate } =
     makeCurrentMonthDateArray(selectedMonth)
+  const parameter = {
+    rtNo,
+    startDate: formatyyyyMMddWithHyphen(calendarStartDate),
+    endDate: formatyyyyMMddWithHyphen(calendarEndDate),
+  }
 
   const {
     data: {
       data: { list: currentMonthPriceList },
     },
-  } = useRecoilValue(
-    readCalendarRoomPriceListSelector({
-      rtNo,
-      startDate: formatyyyyMMddWithHyphen(calendarStartDate),
-      endDate: formatyyyyMMddWithHyphen(calendarEndDate),
-    })
+  } = useRecoilValue(readCalendarRoomPriceListSelector(parameter))
+  const resetReadcalendarRoomPriceList = useRecoilRefresher_UNSTABLE(
+    readCalendarRoomPriceListSelector(parameter)
   )
 
   const makeDefaultValues = () => {
@@ -61,6 +65,12 @@ export default function CalendarPriceManagement({ isCalendarPriceManagementTab }
 
   const { register, reset, handleSubmit } = useForm()
 
+  useEffect(() => {
+    resetReadcalendarRoomPriceList()
+    return () => {
+      resetReadcalendarRoomPriceList()
+    }
+  }, [selectedMonth, rtNo, currentTab])
   useEffect(() => {
     reset({ ...defaultValues })
     return () => {

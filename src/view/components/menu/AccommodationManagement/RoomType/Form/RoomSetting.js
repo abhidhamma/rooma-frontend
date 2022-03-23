@@ -92,17 +92,28 @@ export default function RoomSetting({
               </div>
               <div className='row'>
                 <div>
-                  <input type='text' {...register('prefix')} onChange={setValue('prefix')} />
+                  <input
+                    type='text'
+                    {...register('prefix')}
+                    onChange={setValue('prefix')}
+                    placeholder={'디럭스'}
+                  />
                 </div>
                 <div>
                   <input
                     type='text'
                     {...register('roomNumber')}
                     onChange={setValue('roomNumber')}
+                    placeholder={'101'}
                   />
                 </div>
                 <div>
-                  <input type='text' {...register('suffix')} onChange={setValue('suffix')} />
+                  <input
+                    type='text'
+                    {...register('suffix')}
+                    onChange={setValue('suffix')}
+                    placeholder={'호'}
+                  />
                 </div>
               </div>
             </div>
@@ -182,7 +193,7 @@ const handleRoomNameArray = (roomTotalNum, prefix, roomNumber, suffix, type, res
   for (let i = 1; i <= roomTotalNum; i++) {
     const roomName = `room${i}`
     const value = getValues()[roomName]
-    const defaultValue = `${prefix} ${
+    const defaultValue = `${prefix}${
       roomNumber === '' ? roomNumber : Number(roomNumber) + Number(i - 1)
     }${suffix}`
 

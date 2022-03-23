@@ -58,6 +58,7 @@ export const formatyyyyMM = formatWithOptions(locale, 'yyyy년 M월')
 export const formatLong = formatWithOptions(locale, 'y년 M월 d일')
 export const formatyyyyMMddWithHyphen = formatWithOptions(locale, 'yyyy-MM-dd')
 export const formatMW = formatWithOptions(locale, 'MM월')
+export const formatMdWithDot = formatWithOptions(locale, 'M.d')
 //etc
 export const WithoutTime = (dateTime) => {
   var date = new Date(dateTime.getTime())
