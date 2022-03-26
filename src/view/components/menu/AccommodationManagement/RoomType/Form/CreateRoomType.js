@@ -76,12 +76,9 @@ export default function CreateRoomType() {
 const joinBar = _.join('||')
 const joinSlash = _.join('//')
 const makeRoomNames = (submitData) => {
-  const { prefix, roomNumber, suffix } = submitData
-  const RoomSetting = prefix + '||' + roomNumber + '||' + suffix + '||'
   const getRoomTotalNum = (submitData) => Number(submitData.roomTotalNum)
   const mapRoomName = _.map((number) => submitData[`room${number}`])
-  const addRoomSetting = (string) => RoomSetting + string
-  return _.flow(getRoomTotalNum, numberToArray, mapRoomName, joinBar, addRoomSetting)(submitData)
+  return _.flow(getRoomTotalNum, numberToArray, mapRoomName, joinBar)(submitData)
 }
 
 const makeBreakfaseConfig = (submitData, breakfastConfigOptionCount) => {
@@ -122,9 +119,10 @@ const makeRoomOptions = (submitData) => {
 
 export const preprocessRoomTypeFormData =
   (breakfastConfigOptionCount, etcConfigOptionCount) => (submitData) => {
+    const { prefix, roomNumber, suffix } = submitData
     //객실설정 방번호 합치기
-    const roomNames = makeRoomNames(submitData)
-    submitData.roomNames = roomNames
+    submitData.roomMakeConfig = prefix + '||' + roomNumber + '||' + suffix
+    submitData.roomNames = makeRoomNames(submitData)
 
     //조식추가 합치기
     submitData.addBreakfastConfig = makeBreakfaseConfig(submitData, breakfastConfigOptionCount)
@@ -134,9 +132,6 @@ export const preprocessRoomTypeFormData =
 
     //기타옵션 만들기
     submitData.roomOptions = makeRoomOptions(submitData)
-
-    console.log('preprocessRoomTypeFormData')
-    console.log(submitData)
 
     return submitData
   }

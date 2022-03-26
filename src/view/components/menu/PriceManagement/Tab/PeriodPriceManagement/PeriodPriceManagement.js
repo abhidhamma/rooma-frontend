@@ -2,15 +2,19 @@ import Calendar from '@components/common/Calendar'
 import { selectedDateAtom } from '@state/common/calendar'
 import { currentAccommodationAtom } from '@state/common/common'
 import { formatLong } from '@util/common/dateUtil'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRecoilValue } from 'recoil'
 import RoomBasicPrice from './RoomBasicPrice'
 import RoomTypeSelect from '../../common/RoomTypeSelect'
 import PeriodPriceManagementWeekPrices from './PeriodPriceManagementWeekPrices'
+import { useForm } from 'react-hook-form'
+import { isDate } from 'date-fns'
 
 export default function PeriodPriceManagement({ isPeriodPriceManagementTab }) {
   const { name: accommodationName } = useRecoilValue(currentAccommodationAtom)
   const selectedDate = useRecoilValue(selectedDateAtom)
+
+  const { register, reset } = useForm()
 
   const [showStartDateCalendar, setShowStartDateCalendar] = useState(false)
   const [showEndDateCalendar, setShowEndDateCalendar] = useState(false)
@@ -18,6 +22,16 @@ export default function PeriodPriceManagement({ isPeriodPriceManagementTab }) {
   const handleStartDateCalendar = () => setShowStartDateCalendar((prev) => !prev)
   const handleEndDateCalendar = () => setShowEndDateCalendar((prev) => !prev)
 
+  useEffect(() => {
+    reset({
+      startDate: isDate(selectedDate?.startDate)
+        ? formatLong(selectedDate.startDate)
+        : selectedDate.startDate,
+      endDate: isDate(selectedDate?.startDate)
+        ? formatLong(selectedDate.endDate)
+        : selectedDate.endDate,
+    })
+  }, [selectedDate])
   return (
     <div id='priceTab2' className={`tabcontent ${isPeriodPriceManagementTab ? 'current' : ''}`}>
       <div className='calendarWrap mgb_40 mgt_30'>
@@ -41,7 +55,9 @@ export default function PeriodPriceManagement({ isPeriodPriceManagementTab }) {
               <input
                 type='text'
                 style={{ background: 'white' }}
-                value={formatLong(selectedDate.startDate)}
+                defaultValue={'입력해주세요'}
+                {...register('startDate')}
+                // value={formatLong(selectedDate.startDate)}
                 disabled
               />
             </div>
@@ -50,7 +66,9 @@ export default function PeriodPriceManagement({ isPeriodPriceManagementTab }) {
               <input
                 type='text'
                 style={{ background: 'white' }}
-                value={formatLong(selectedDate.endDate)}
+                defaultValue={'입력해주세요'}
+                {...register('endDate')}
+                // value={formatLong(selectedDate.endDate)}
                 disabled
               />
             </div>

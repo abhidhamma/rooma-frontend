@@ -5,7 +5,14 @@ import AccommodationListSelect from '../../common/AccommodationListSelect'
 import RoomTypeListSelect from '../../common/RoomTypeListSelect'
 import image from '@asset/images/@sample.png'
 
-export default function RoomForm({ submitText, titleText, register, handleSubmit, onSubmit }) {
+export default function RoomForm({
+  submitText,
+  titleText,
+  register,
+  handleSubmit,
+  onSubmit,
+  watch,
+}) {
   let navigate = useNavigate()
   return (
     // <!-- S:Container -->
@@ -55,7 +62,7 @@ export default function RoomForm({ submitText, titleText, register, handleSubmit
                       </select>
                     }
                   >
-                    <RoomTypeListSelect register={register} />
+                    <RoomTypeListSelect register={register} watch={watch} />
                   </Suspense>
                 </dd>
               </dl>

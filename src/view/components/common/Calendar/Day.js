@@ -1,6 +1,6 @@
 import { selectedDateAtom } from '@state/common/calendar'
 import { formatdd } from '@util/common/dateUtil'
-import { isSameDay, isSaturday, isSunday } from 'date-fns'
+import { isDate, isSameDay, isSaturday, isSunday } from 'date-fns'
 import { useRecoilState } from 'recoil'
 
 export default function Day({ date, dateName }) {
@@ -24,6 +24,10 @@ const makeClassName = (date, selectedDate) => {
     classNameString += ' sun'
   } else if (isSaturday(date)) {
     classNameString += ' sat'
+  }
+
+  if (!isDate(selectedDate)) {
+    return classNameString
   }
 
   if (isSameDay(date, selectedDate)) {

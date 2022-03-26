@@ -38,8 +38,8 @@ export default function UpdateRoomType() {
   const splitSlash = _.split('//')
   //객실설정
   const putRoomsEffect = (defaultValues) => {
-    const roomNames = splitBar(defaultValues.roomNames).filter((_, index) => index > 2)
-    const roomSettings = splitBar(defaultValues.roomNames).filter((_, index) => index < 3)
+    const roomNames = splitBar(defaultValues.roomNames)
+    const roomSettings = splitBar(defaultValues.roomMakeConfig)
     defaultValues = {
       ...defaultValues,
       prefix: roomSettings[0],

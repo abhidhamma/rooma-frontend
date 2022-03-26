@@ -12,7 +12,7 @@ export default function CreateRoom() {
   let navigate = useNavigate()
   const defaultValues = {
     cpNo: '1',
-    acNo: '1',
+    acNo: 'unSelected',
     rtNo: '1',
     saleStartdate: '2022-03-01',
     saleEnddate: '2022-03-02',
@@ -20,7 +20,7 @@ export default function CreateRoom() {
     useYn: 'Y',
     description: '',
   }
-  const { register, handleSubmit } = useForm({ defaultValues })
+  const { register, handleSubmit, watch } = useForm({ defaultValues })
   const onSubmit = _.flow(
     validateRoomForm,
     getFormDataFromJson,
@@ -33,6 +33,7 @@ export default function CreateRoom() {
       register={register}
       handleSubmit={handleSubmit}
       onSubmit={onSubmit}
+      watch={watch}
     />
   )
 }
