@@ -58,7 +58,7 @@ export default function UpdateRoomType() {
   //조식추가, 기타사항
   const makeBreakFastConfigInput = (defaultValues) => {
     const addBreakfastConfigArray = splitSlash(defaultValues.addBreakfastConfig)
-    const getOptionCount = (addBreakfastConfigArray) => addBreakfastConfigArray.length
+    const getOptionCount = (addBreakfastConfigArray) => addBreakfastConfigArray.length - 3
 
     const eachOption = _.each((number) => {
       const [addBreakfastConfigName, addBreakfastConfigPrice] = splitBar(
@@ -70,7 +70,29 @@ export default function UpdateRoomType() {
         [`addBreakfastConfigPrice${number}`]: addBreakfastConfigPrice,
       }
     })
+    const addDefaultBreakfastPrice = () => {
+      const length = addBreakfastConfigArray.length
+      const [adultBreakfastName, adultBreakfastPrice] = splitBar(
+        addBreakfastConfigArray[length - 1]
+      )
+      const [childBreakfastName, childBreakfastPrice] = splitBar(
+        addBreakfastConfigArray[length - 2]
+      )
+      const [infantBreakfastName, infantBreakfastPrice] = splitBar(
+        addBreakfastConfigArray[length - 3]
+      )
+      defaultValues = {
+        ...defaultValues,
+        adultBreakfastName,
+        adultBreakfastPrice,
+        childBreakfastName,
+        childBreakfastPrice,
+        infantBreakfastName,
+        infantBreakfastPrice,
+      }
+    }
     _.flow(getOptionCount, numberToArray, eachOption)(addBreakfastConfigArray)
+    addDefaultBreakfastPrice()
     return defaultValues
   }
   const makeEtcConfigInput = (defaultValues) => {
@@ -130,7 +152,7 @@ export default function UpdateRoomType() {
 
   useEffect(() => {
     reset({ ...defaultValues })
-    setBreakfastConfigOptionCount(splitSlash(roomTypeData.addBreakfastConfig).length)
+    setBreakfastConfigOptionCount(splitSlash(roomTypeData.addBreakfastConfig).length - 3)
     setEtcConfigOptionCount(splitSlash(roomTypeData.addEtcConfig).length)
     return () => resetReadRoomTypeSelector()
   }, [])

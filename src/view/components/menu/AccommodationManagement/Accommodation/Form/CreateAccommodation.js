@@ -57,6 +57,9 @@ export default function CreateAccommodation() {
     shortDesc: '범섬이 한눈에 보이는 최고의 뷰! 편안한 객실!',
     description: '안내',
     notice: '유의사항',
+    adultBreakfastName: '성인',
+    childBreakfastName: '소아',
+    infantBreakfastName: '유아',
   }
   const { register, handleSubmit, reset } = useForm({ defaultValues })
 
@@ -133,7 +136,29 @@ const makeBreakfastFee = (submitData, breakfastOptionCount) => {
     const addBreakfastPrice = submitData[`addBreakfastPrice${number}`]
     return `${addBreakfastName}||${addBreakfastPrice}`
   })
-  return _.flow(getOptionCount, numberToArray, mapPair, joinSlash)(submitData)
+  const addDefaultBreakfastPrice = (optionBreakfastString) => {
+    const adultBreakfastName = submitData['adultBreakfastName']
+    const adultBreakfastPrice = submitData['adultBreakfastPrice']
+    const childBreakfastName = submitData['childBreakfastName']
+    const childBreakfastPrice = submitData['childBreakfastPrice']
+    const infantBreakfastName = submitData['infantBreakfastName']
+    const infantBreakfastPrice = submitData['infantBreakfastPrice']
+    const defaultBreakfastString = joinSlash([
+      adultBreakfastName + '||' + adultBreakfastPrice,
+
+      childBreakfastName + '||' + childBreakfastPrice,
+
+      infantBreakfastName + '||' + infantBreakfastPrice,
+    ])
+    return joinSlash([optionBreakfastString, defaultBreakfastString])
+  }
+  return _.flow(
+    getOptionCount,
+    numberToArray,
+    mapPair,
+    joinSlash,
+    addDefaultBreakfastPrice
+  )(submitData)
 }
 const makeExtFee = (submitData, extOptionCount) => {
   const getOptionCount = () => Number(extOptionCount)
@@ -146,6 +171,7 @@ const makeExtFee = (submitData, extOptionCount) => {
 }
 export const preprocessAccommodationFormData =
   (breakfastOptionCount, extOptionCount) => (submitData) => {
+    console.log(submitData)
     if (submitData === false) {
       return false
     }
@@ -157,6 +183,8 @@ export const preprocessAccommodationFormData =
 
     //기타사항 합치기
     submitData.addExtFee = makeExtFee(submitData, extOptionCount)
+
+    console.log(submitData)
 
     return submitData
   }

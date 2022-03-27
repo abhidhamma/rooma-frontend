@@ -40,7 +40,7 @@ export default function SaleDateForm({ register, reset, top }) {
           <input
             type='text'
             {...register('saleStartdate')}
-            disabled
+            readOnly
             style={{ background: 'white', border: '1px solid #c0c6cf', color: 'black' }}
           />
 
@@ -53,7 +53,7 @@ export default function SaleDateForm({ register, reset, top }) {
           <input
             type='text'
             {...register('saleEnddate')}
-            disabled
+            readOnly
             style={{ background: 'white', border: '1px solid #c0c6cf', color: 'black' }}
           />
           <span className='ex'>

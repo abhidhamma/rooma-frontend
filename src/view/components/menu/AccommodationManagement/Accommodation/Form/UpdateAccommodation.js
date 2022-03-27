@@ -40,7 +40,7 @@ export default function UpdateAccommodation() {
   //조식추가, 기타사항
   const makeBreakFastFeeInput = (defaultValues) => {
     const addBreakfastFeeArray = splitSlash(defaultValues.addBreakfastFee)
-    const getOptionCount = (addBreakfastArray) => addBreakfastArray.length
+    const getOptionCount = (addBreakfastArray) => addBreakfastArray.length - 3
 
     const eachOption = _.each((number) => {
       const [addBreakfastName, addBreakfastPrice] = splitBar(addBreakfastFeeArray[number - 1])
@@ -50,7 +50,24 @@ export default function UpdateAccommodation() {
         [`addBreakfastPrice${number}`]: addBreakfastPrice,
       }
     })
+
+    const addDefaultBreakfastPrice = () => {
+      const length = addBreakfastFeeArray.length
+      const [adultBreakfastName, adultBreakfastPrice] = splitBar(addBreakfastFeeArray[length - 1])
+      const [childBreakfastName, childBreakfastPrice] = splitBar(addBreakfastFeeArray[length - 2])
+      const [infantBreakfastName, infantBreakfastPrice] = splitBar(addBreakfastFeeArray[length - 3])
+      defaultValues = {
+        ...defaultValues,
+        adultBreakfastName,
+        adultBreakfastPrice,
+        childBreakfastName,
+        childBreakfastPrice,
+        infantBreakfastName,
+        infantBreakfastPrice,
+      }
+    }
     _.flow(getOptionCount, numberToArray, eachOption)(addBreakfastFeeArray)
+    addDefaultBreakfastPrice()
     return defaultValues
   }
   const makeExtFeeInput = (defaultValues) => {
@@ -120,7 +137,7 @@ export default function UpdateAccommodation() {
 
   useEffect(() => {
     reset({ ...defaultValues })
-    setBreakfastOptionCount(splitSlash(accommodationData.addBreakfastFee).length)
+    setBreakfastOptionCount(splitSlash(accommodationData.addBreakfastFee).length - 3)
     setExtOptionCount(splitSlash(accommodationData.addExtFee).length)
     return () => resetReadAccommodationSelector()
   }, [])

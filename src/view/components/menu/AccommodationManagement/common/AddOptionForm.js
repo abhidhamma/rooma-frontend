@@ -1,5 +1,6 @@
 import { numberToArray } from '@util/common/lodash'
-import { useRecoilState } from 'recoil'
+import { useEffect } from 'react'
+import { useRecoilState, useResetRecoilState } from 'recoil'
 
 export default function AddOptionForm({
   register,
@@ -8,6 +9,13 @@ export default function AddOptionForm({
   optionCountAtom,
 }) {
   const [optionCount, setOptionCount] = useRecoilState(optionCountAtom)
+  const resetOptionCount = useResetRecoilState(optionCountAtom)
+
+  useEffect(() => {
+    return () => {
+      resetOptionCount()
+    }
+  }, [])
 
   const increase = () =>
     setOptionCount((prevOptionCount) =>

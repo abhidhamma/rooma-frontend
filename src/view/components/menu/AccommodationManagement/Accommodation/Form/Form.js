@@ -305,6 +305,36 @@ export default function AccommodationForm({ register, handleSubmit, onSubmit, re
                         <span className='hdn'>추가/삭제</span>
                       </div>
                     </div>
+                    <div className='row'>
+                      <div>
+                        <input type='text' {...register('adultBreakfastName')} readOnly />
+                      </div>
+                      <div>
+                        <input type='text' {...register('adultBreakfastPrice')} />
+                        <span className='won'>원</span>
+                      </div>
+                      <div></div>
+                    </div>
+                    <div className='row'>
+                      <div>
+                        <input type='text' {...register('childBreakfastName')} readOnly />
+                      </div>
+                      <div>
+                        <input type='text' {...register('childBreakfastPrice')} />
+                        <span className='won'>원</span>
+                      </div>
+                      <div></div>
+                    </div>
+                    <div className='row'>
+                      <div>
+                        <input type='text' {...register('infantBreakfastName')} readOnly />
+                      </div>
+                      <div>
+                        <input type='text' {...register('infantBreakfastPrice')} />
+                        <span className='won'>원</span>
+                      </div>
+                      <div></div>
+                    </div>
                     <AddOptionForm
                       register={register}
                       firstInputName={'addBreakfastName'}

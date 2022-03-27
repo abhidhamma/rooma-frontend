@@ -43,6 +43,9 @@ export default function CreateRoomType() {
     roomOptions: 'TV|WIFI',
     convInfo: '객실편의시설',
     etcInfo: '특이사항',
+    adultBreakfastName: '성인',
+    childBreakfastName: '소아',
+    infantBreakfastName: '유아',
     //히든값
     cpNo: '1',
     originPrice: '50000',
@@ -80,14 +83,36 @@ const makeRoomNames = (submitData) => {
   return _.flow(getRoomTotalNum, numberToArray, mapRoomName, joinBar)(submitData)
 }
 
-const makeBreakfaseConfig = (submitData, breakfastConfigOptionCount) => {
+const makeBreakfastConfig = (submitData, breakfastConfigOptionCount) => {
   const getOptionCount = () => Number(breakfastConfigOptionCount)
   const mapPair = _.map((number) => {
     const addBreakfastConfigName = submitData[`addBreakfastConfigName${number}`]
     const addBreakfastConfigPrice = submitData[`addBreakfastConfigPrice${number}`]
     return `${addBreakfastConfigName}||${addBreakfastConfigPrice}`
   })
-  return _.flow(getOptionCount, numberToArray, mapPair, joinSlash)(submitData)
+  const addDefaultBreakfastPrice = (optionBreakfastString) => {
+    const adultBreakfastName = submitData['adultBreakfastName']
+    const adultBreakfastPrice = submitData['adultBreakfastPrice']
+    const childBreakfastName = submitData['childBreakfastName']
+    const childBreakfastPrice = submitData['childBreakfastPrice']
+    const infantBreakfastName = submitData['infantBreakfastName']
+    const infantBreakfastPrice = submitData['infantBreakfastPrice']
+    const defaultBreakfastString = joinSlash([
+      adultBreakfastName + '||' + adultBreakfastPrice,
+
+      childBreakfastName + '||' + childBreakfastPrice,
+
+      infantBreakfastName + '||' + infantBreakfastPrice,
+    ])
+    return joinSlash([optionBreakfastString, defaultBreakfastString])
+  }
+  return _.flow(
+    getOptionCount,
+    numberToArray,
+    mapPair,
+    joinSlash,
+    addDefaultBreakfastPrice
+  )(submitData)
 }
 const makeEtcConfig = (submitData, etcConfigOptionCount) => {
   const getOptionCount = () => Number(etcConfigOptionCount)
@@ -124,7 +149,7 @@ export const preprocessRoomTypeFormData =
     submitData.roomNames = makeRoomNames(submitData)
 
     //조식추가 합치기
-    submitData.addBreakfastConfig = makeBreakfaseConfig(submitData, breakfastConfigOptionCount)
+    submitData.addBreakfastConfig = makeBreakfastConfig(submitData, breakfastConfigOptionCount)
 
     //기타사항 합치기
     submitData.addEtcConfig = makeEtcConfig(submitData, etcConfigOptionCount)
@@ -132,6 +157,7 @@ export const preprocessRoomTypeFormData =
     //기타옵션 만들기
     submitData.roomOptions = makeRoomOptions(submitData)
 
+    console.log(submitData)
     return submitData
   }
 
