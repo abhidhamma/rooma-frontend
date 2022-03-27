@@ -27,7 +27,6 @@ export default function CreateRoomType() {
 
     //인풋이 있는값
     useYn: 'Y',
-    acNo: '1',
     roomTypeName: '디럭스룸',
     roomNames: '',
     saleStartdate: '2022-03-02',
@@ -65,7 +64,7 @@ export default function CreateRoomType() {
       register={register}
       handleSubmit={handleSubmit}
       onSubmit={onSubmit}
-      submitText={'등록'}
+      formType={'등록'}
       titleText={'객실타입등록'}
       watch={watch}
       reset={reset}

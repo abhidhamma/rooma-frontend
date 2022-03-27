@@ -147,7 +147,7 @@ export default function UpdateRoomType() {
       register={register}
       handleSubmit={handleSubmit}
       onSubmit={onSubmit}
-      submitText={'수정'}
+      formType={'수정'}
       titleText={'객실타입수정'}
       watch={watch}
       reset={reset}

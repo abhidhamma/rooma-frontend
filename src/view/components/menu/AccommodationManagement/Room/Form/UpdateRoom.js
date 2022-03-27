@@ -24,17 +24,20 @@ export default function UpdateRoom() {
 
   useEffect(() => {
     return () => resetReadRoomTypeSelector()
-  })
+  }, [])
   const defaultValues = roomData
-  const { register, handleSubmit } = useForm({ defaultValues })
+  console.log(defaultValues)
+  const { register, handleSubmit, watch, reset } = useForm({ defaultValues })
   const onSubmit = _.flow(addRmNo, getFormDataFromJson, updateRoom(updateRoomCallback, navigate))
   return (
     <RoomForm
-      submitText={'수정'}
+      formType={'수정'}
       titleText={'객실수정'}
       register={register}
       handleSubmit={handleSubmit}
       onSubmit={onSubmit}
+      watch={watch}
+      reset={reset}
     />
   )
 }

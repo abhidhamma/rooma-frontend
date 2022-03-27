@@ -20,7 +20,7 @@ export default function CreateRoom() {
     useYn: 'Y',
     description: '',
   }
-  const { register, handleSubmit, watch } = useForm({ defaultValues })
+  const { register, handleSubmit, watch, reset } = useForm({ defaultValues })
   const onSubmit = _.flow(
     validateRoomForm,
     getFormDataFromJson,
@@ -28,12 +28,13 @@ export default function CreateRoom() {
   )
   return (
     <RoomForm
-      submitText={'등록'}
+      formType={'등록'}
       titleText={'객실등록'}
       register={register}
       handleSubmit={handleSubmit}
       onSubmit={onSubmit}
       watch={watch}
+      reset={reset}
     />
   )
 }

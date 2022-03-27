@@ -58,11 +58,11 @@ export default function CreateAccommodation() {
     description: '안내',
     notice: '유의사항',
   }
-  const { register, handleSubmit } = useForm({ defaultValues })
+  const { register, handleSubmit, reset } = useForm({ defaultValues })
 
   const onSubmit = _.flow(
-    preprocessAccommodationFormdata(breakfastOptionCount, extOptionCount),
     validateAccommodationInput,
+    preprocessAccommodationFormData(breakfastOptionCount, extOptionCount),
     getFormDataFromJson,
     createAccommodation(createAccommodationCallback, navigate)
   )
@@ -72,7 +72,8 @@ export default function CreateAccommodation() {
       register={register}
       handleSubmit={handleSubmit}
       onSubmit={onSubmit}
-      submitText={'등록'}
+      reset={reset}
+      formType={'등록'}
     />
   )
 }
@@ -143,8 +144,11 @@ const makeExtFee = (submitData, extOptionCount) => {
   })
   return _.flow(getOptionCount, numberToArray, mapPair, joinSlash)(submitData)
 }
-export const preprocessAccommodationFormdata =
+export const preprocessAccommodationFormData =
   (breakfastOptionCount, extOptionCount) => (submitData) => {
+    if (submitData === false) {
+      return false
+    }
     //기타옵션 합치기
     submitData.options = makeAccommodationFormOptions(submitData)
 

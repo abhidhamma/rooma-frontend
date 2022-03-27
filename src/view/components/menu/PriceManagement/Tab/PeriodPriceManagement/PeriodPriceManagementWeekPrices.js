@@ -7,6 +7,7 @@ import {
   updatePeriodRoomPriceSelector,
 } from '@state/priceManagement/periodPriceManagement'
 import { formatyyyyMMddWithHyphen } from '@util/common/dateUtil'
+import { validateSavePeriodRoomPrice } from '@util/validation/validateSavePeriodRoomPrice'
 import _ from 'lodash/fp'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
@@ -53,6 +54,7 @@ export default function PeriodPriceManagementWeekPrices() {
   }, [roomType])
 
   const onSubmit = _.flow(
+    validateSavePeriodRoomPrice(roomType, selectedDate),
     preprocessSubmitData(roomType, selectedDate),
     savePeriodRoomPrice(savePeriodRoomPriceCallback)
   )
@@ -231,6 +233,9 @@ export default function PeriodPriceManagementWeekPrices() {
   )
 }
 const preprocessSubmitData = (roomType, selectedDate) => (submitDate) => {
+  if (submitDate === false) {
+    return false
+  }
   const acNo = '1'
   const rtNo = roomType.rtNo
   const startDate = formatyyyyMMddWithHyphen(selectedDate.startDate)
@@ -250,6 +255,9 @@ const makePrice = (name, submitData) => {
   return tempArray
 }
 const savePeriodRoomPrice = (savePeriodRoomPriceCallback) => (jsonData) => {
+  if (jsonData === false) {
+    return
+  }
   savePeriodRoomPriceCallback(updatePeriodRoomPriceSelector(jsonData)).then((result) => {
     const { message } = result
     if (message === '업데이트 성공') {

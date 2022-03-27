@@ -25,13 +25,13 @@ export default function RoomTypeSelect() {
     },
   } = useRecoilValue(readRoomTypeList(data))
 
-  useEffect(() => {
-    setRoomType(list[0])
-  }, [])
+  // useEffect(() => {
+  //   setRoomType(list[0])
+  // }, [])
 
   const handleCurrentRoomType = (event) => {
     const rtNo = event.target.value
-    if (rtNo === '0') {
+    if (rtNo === 'unSelected') {
       console.log(rtNo, 'rtNo0 reset')
       setRoomType({ originPrice: '', salePrice: '', providePrice: '' })
     } else {
@@ -42,7 +42,8 @@ export default function RoomTypeSelect() {
   }
 
   return (
-    <select onChange={handleCurrentRoomType} defaultValue={roomType.rtNo}>
+    <select onChange={handleCurrentRoomType} value={roomType.rtNo}>
+      <option value={'unSelected'}>객실타입선택</option>
       {list.map(({ rtNo, roomTypeName }) => (
         <option key={rtNo} value={rtNo}>
           {roomTypeName}

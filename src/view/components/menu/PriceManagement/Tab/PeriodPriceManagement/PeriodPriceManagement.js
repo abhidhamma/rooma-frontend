@@ -1,9 +1,9 @@
 import Calendar from '@components/common/Calendar'
-import { selectedDateAtom } from '@state/common/calendar'
+import { selectedDateAtom, showCalendarAtom } from '@state/common/calendar'
 import { currentAccommodationAtom } from '@state/common/common'
 import { formatLong } from '@util/common/dateUtil'
-import { useEffect, useState } from 'react'
-import { useRecoilValue } from 'recoil'
+import { useEffect } from 'react'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
 import RoomBasicPrice from './RoomBasicPrice'
 import RoomTypeSelect from '../../common/RoomTypeSelect'
 import PeriodPriceManagementWeekPrices from './PeriodPriceManagementWeekPrices'
@@ -16,18 +16,21 @@ export default function PeriodPriceManagement({ isPeriodPriceManagementTab }) {
 
   const { register, reset } = useForm()
 
-  const [showStartDateCalendar, setShowStartDateCalendar] = useState(false)
-  const [showEndDateCalendar, setShowEndDateCalendar] = useState(false)
+  const setShowCalendar = useSetRecoilState(showCalendarAtom)
+  const startDateCalendarName = 'startDate'
+  const endDateCalendarName = 'endDate'
 
-  const handleStartDateCalendar = () => setShowStartDateCalendar((prev) => !prev)
-  const handleEndDateCalendar = () => setShowEndDateCalendar((prev) => !prev)
+  const handleStartDateCalendar = () =>
+    setShowCalendar((prev) => ({ ...prev, [startDateCalendarName]: !prev[startDateCalendarName] }))
+  const handleEndDateCalendar = () =>
+    setShowCalendar((prev) => ({ ...prev, [endDateCalendarName]: !prev[endDateCalendarName] }))
 
   useEffect(() => {
     reset({
       startDate: isDate(selectedDate?.startDate)
         ? formatLong(selectedDate.startDate)
         : selectedDate.startDate,
-      endDate: isDate(selectedDate?.startDate)
+      endDate: isDate(selectedDate?.endDate)
         ? formatLong(selectedDate.endDate)
         : selectedDate.endDate,
     })
@@ -55,9 +58,8 @@ export default function PeriodPriceManagement({ isPeriodPriceManagementTab }) {
               <input
                 type='text'
                 style={{ background: 'white' }}
-                defaultValue={'입력해주세요'}
+                defaultValue={'선택해주세요'}
                 {...register('startDate')}
-                // value={formatLong(selectedDate.startDate)}
                 disabled
               />
             </div>
@@ -66,16 +68,15 @@ export default function PeriodPriceManagement({ isPeriodPriceManagementTab }) {
               <input
                 type='text'
                 style={{ background: 'white' }}
-                defaultValue={'입력해주세요'}
+                defaultValue={'선택해주세요'}
                 {...register('endDate')}
-                // value={formatLong(selectedDate.endDate)}
                 disabled
               />
             </div>
           </dd>
         </dl>
-        <Calendar show={showStartDateCalendar} left={'137px'} dateName={'startDate'} />
-        <Calendar show={showEndDateCalendar} left={'382px'} dateName={'endDate'} />
+        <Calendar left={'137px'} calendarName={startDateCalendarName} />
+        <Calendar left={'382px'} calendarName={endDateCalendarName} />
       </div>
       <RoomBasicPrice />
       <PeriodPriceManagementWeekPrices />

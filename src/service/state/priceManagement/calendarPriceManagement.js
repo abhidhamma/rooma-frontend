@@ -27,7 +27,7 @@ export const readCalendarRoomPriceListSelector = selectorFamily({
   get:
     ({ rtNo, startDate, endDate }) =>
     async () => {
-      if (rtNo === undefined || rtNo === '') {
+      if (rtNo === undefined || rtNo === '' || rtNo === 'unSelected') {
         return { data: { data: { list: {} } } }
       } else {
         return await readCalendarRoomPriceList(getFormDataFromJson({ rtNo, startDate, endDate }))

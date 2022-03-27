@@ -12,7 +12,7 @@ import {
   updateAccommodationSelector,
 } from '@state/accommodationManagement/accommodation'
 import AccommodationForm from './Form'
-import { preprocessAccommodationFormdata } from './CreateAccommodation'
+import { preprocessAccommodationFormData } from './CreateAccommodation'
 import { numberToArray } from '@util/common/lodash'
 
 export default function UpdateAccommodation() {
@@ -126,7 +126,7 @@ export default function UpdateAccommodation() {
   }, [])
 
   const onSubmit = _.flow(
-    preprocessAccommodationFormdata(breakfastOptionCount, extOptionCount),
+    preprocessAccommodationFormData(breakfastOptionCount, extOptionCount),
     addAcNo,
     getFormDataFromJson,
     updateAccommodationSelector,
@@ -139,7 +139,8 @@ export default function UpdateAccommodation() {
       register={register}
       handleSubmit={handleSubmit}
       onSubmit={onSubmit}
-      submitText={'수정'}
+      reset={reset}
+      formType={'수정'}
     />
   )
 }

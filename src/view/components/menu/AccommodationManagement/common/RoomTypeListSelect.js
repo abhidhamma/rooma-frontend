@@ -5,8 +5,8 @@ import { useRecoilValue } from 'recoil'
 
 export default function RoomTypeListSelect({ register, watch }) {
   let initialParameter = { cpNo: '1', roomTypeName: '', startRow: 0, rowCount: 999 }
-  const addAcNo = (acNo) =>
-    acNo === 'unSelected' ? { ...initialParameter } : { ...initialParameter, acNo }
+  const addAcNo = (acNo) => (typeof acNo === 'number' ? { ...initialParameter, acNo } : false)
+
   const readRoomTypeList = _.flow(watch, addAcNo, getFormDataFromJson, readRoomTypeListSelector)
   const {
     data: {

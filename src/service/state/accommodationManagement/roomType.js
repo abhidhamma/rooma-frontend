@@ -40,7 +40,17 @@ export const readRoomTypeSelector = selectorFamily({
 
 export const readRoomTypeListSelector = selectorFamily({
   key: READ_ROOMTYPE_LIST_SELECTOR_KEY,
-  get: (formData) => async () => await readRoomTypeList(formData),
+  get: (formData) => async () => {
+    if (formData === false) {
+      return {
+        data: {
+          data: { list: [] },
+        },
+      }
+    } else {
+      return await readRoomTypeList(formData)
+    }
+  },
 })
 
 export const updateRoomTypeSelector = selectorFamily({
