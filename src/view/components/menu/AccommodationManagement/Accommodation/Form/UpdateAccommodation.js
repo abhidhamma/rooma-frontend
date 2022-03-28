@@ -30,6 +30,7 @@ export default function UpdateAccommodation() {
   const resetReadAccommodationSelector = useRecoilRefresher_UNSTABLE(
     readAccommodationSelector({ acNo })
   )
+  console.log(accommodationData)
 
   const [breakfastOptionCount, setBreakfastOptionCount] = useRecoilState(breakfastOptionCountAtom)
   const [extOptionCount, setExtOptionCount] = useRecoilState(extOptionCountAtom)
@@ -131,7 +132,7 @@ export default function UpdateAccommodation() {
   }
 
   const defaultValues = preprocessDefaultValues(accommodationData)
-  const { register, handleSubmit, reset } = useForm({
+  const { register, handleSubmit, reset, getValues } = useForm({
     defaultValues: defaultValues,
   })
 
@@ -157,6 +158,7 @@ export default function UpdateAccommodation() {
       handleSubmit={handleSubmit}
       onSubmit={onSubmit}
       reset={reset}
+      getValues={getValues}
       formType={'수정'}
     />
   )

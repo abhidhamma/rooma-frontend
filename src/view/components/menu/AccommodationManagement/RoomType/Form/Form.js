@@ -114,7 +114,7 @@ export default function RoomTypeForm({
                 <dl>
                   <dt>기준인원</dt>
                   <dd>
-                    <select className='auto' {...register('basicPersionNum')}>
+                    <select className='auto' {...register('basicPersonNum')}>
                       <option value={'1'}>1명</option>
                       <option value={'2'}>2명</option>
                       <option value={'3'}>3명</option>

@@ -24,11 +24,12 @@ export default function CompanySelect() {
       data: { list },
     },
   } = useRecoilValue(readAccommodationListSelector(getFormDataFromJson(data)))
+  console.log(list)
 
   useEffect(() => {
     setCurrentCompany(company)
-    setCurrentAccommodation(list[0])
-  })
+    setCurrentAccommodation(list.find((accommodation) => accommodation.acNo === 1))
+  }, [])
 
   const changeCurrentAccommodation = (event) => {
     const acNo = event.target.value

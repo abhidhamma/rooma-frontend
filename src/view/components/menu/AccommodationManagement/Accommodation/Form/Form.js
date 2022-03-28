@@ -9,7 +9,14 @@ import {
 import PictureForm from '../../common/PictureForm'
 import SaleDateForm from '../../common/SaleDateForm'
 
-export default function AccommodationForm({ register, handleSubmit, onSubmit, reset, formType }) {
+export default function AccommodationForm({
+  register,
+  handleSubmit,
+  onSubmit,
+  reset,
+  formType,
+  getValues,
+}) {
   let navigate = useNavigate()
 
   return (
@@ -131,7 +138,7 @@ export default function AccommodationForm({ register, handleSubmit, onSubmit, re
                   </dd>
                 </dl>
               </section>
-              <SaleDateForm register={register} reset={reset} top={'698'} />
+              <SaleDateForm register={register} reset={reset} getValues={getValues} top={'698'} />
 
               <section>
                 <dl>

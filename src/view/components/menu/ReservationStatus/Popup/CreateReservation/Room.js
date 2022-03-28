@@ -35,7 +35,7 @@ export default function CreateReservationAddRoom({
   const [open, setOpen] = useState(false)
   const [room, setRoom] = useState({})
   const [roomType, setRoomType] = useState({
-    basicPersionNum: 0,
+    basicPersonNum: 0,
     maxPersionNum: 0,
     originPrice: 0,
     addAdultPrice: 0,
@@ -51,7 +51,7 @@ export default function CreateReservationAddRoom({
 
   const { addBreakfastFee, addExtFee } = accommodation
   const {
-    basicPersionNum,
+    basicPersonNum,
     maxPersionNum,
     originPrice,
     addAdultPrice,
@@ -97,7 +97,7 @@ export default function CreateReservationAddRoom({
   const roomTotalFee = Number(originPrice) + Number(optionFee)
 
   //추가인원으로 등록가능한 총 숫자
-  const addPersonLimit = maxPersionNum - basicPersionNum
+  const addPersonLimit = maxPersionNum - basicPersonNum
 
   //요금 계산용 필드
   const roomFee = Number(originPrice)
@@ -125,8 +125,8 @@ export default function CreateReservationAddRoom({
     }
   }, [rmNo])
   useEffect(() => {
-    reset({ [`stayNum${count}`]: basicPersionNum })
-  }, [basicPersionNum])
+    reset({ [`stayNum${count}`]: basicPersonNum })
+  }, [basicPersonNum])
   return (
     <section className='add-group'>
       <input type={'hidden'} {...register(`roomFee${count}`)} value={Number(roomFee)} />
@@ -200,12 +200,12 @@ export default function CreateReservationAddRoom({
             </td>
             <td>
               <div className='dF-s'>
-                <select {...register(`stayNum${count}`)} defaultValue={String(basicPersionNum)}>
+                <select {...register(`stayNum${count}`)} defaultValue={String(basicPersonNum)}>
                   {numberToArray(maxPersionNum).map((number) => (
                     <option key={number} value={number}>{`${number}명`}</option>
                   ))}
                 </select>
-                <span className='num'>{`(${basicPersionNum}/${maxPersionNum})`}</span>
+                <span className='num'>{`(${basicPersonNum}/${maxPersionNum})`}</span>
               </div>
             </td>
             <td>{`${formatMoney(originPrice)}원`}</td>
