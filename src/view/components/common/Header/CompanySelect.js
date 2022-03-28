@@ -11,10 +11,10 @@ export default function CompanySelect() {
   const setCurrentAccommodation = useSetRecoilState(currentAccommodationAtom)
   const {
     data: { data: company },
-  } = useRecoilValue(readCompanyByNoSelector({ cpNo: '1' }))
+  } = useRecoilValue(readCompanyByNoSelector({ cpNo: '6' }))
 
   const data = {
-    cpNo: '1',
+    cpNo: '6',
     name: '',
     startRow: 0,
     rowCount: 999,
@@ -27,7 +27,8 @@ export default function CompanySelect() {
 
   useEffect(() => {
     setCurrentCompany(company)
-    setCurrentAccommodation(list.find((accommodation) => accommodation.acNo === 1))
+    // setCurrentAccommodation(list.find((accommodation) => accommodation.acNo === 1))
+    setCurrentAccommodation(list[0])
   }, [])
 
   const changeCurrentAccommodation = (event) => {

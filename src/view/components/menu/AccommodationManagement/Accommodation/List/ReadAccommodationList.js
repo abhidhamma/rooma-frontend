@@ -3,6 +3,7 @@ import { readAccommodationListSelector } from '@state/accommodationManagement/ac
 import { currentPageAtom, totalCountAtom } from '@state/common/paging'
 import { searchKeywordAtom } from '@state/common/search'
 import { getFormDataFromJson } from '@util/common/axiosUtil'
+import { loadItem } from '@util/common/localStorage'
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useRecoilRefresher_UNSTABLE, useRecoilValue, useSetRecoilState } from 'recoil'
@@ -12,12 +13,13 @@ export default function ReadAccommodationList() {
   const searchKeyword = useRecoilValue(searchKeywordAtom)
   const setTotalCount = useSetRecoilState(totalCountAtom)
   const currentPage = useRecoilValue(currentPageAtom)
+  const user = loadItem('user')
 
   const rowCount = 7
   const currentIndex = (currentPage - 1) * rowCount
 
   const data = {
-    cpNo: '1',
+    cpNo: user.cpNo,
     name: searchKeyword,
     startRow: `${currentIndex}`,
     rowCount: `${rowCount}`,

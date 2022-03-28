@@ -4,7 +4,7 @@ import { useRecoilValue } from 'recoil'
 export default function RightClickPopUp() {
   const css = useRecoilValue(rightClickPopupAtom)
   return (
-    <div class='state-select' style={{ ...css }}>
+    <div className='state-select' style={{ ...css }}>
       <ul>
         <li>
           <a href='#'>예약등록/변경</a>
