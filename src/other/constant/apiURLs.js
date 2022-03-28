@@ -24,13 +24,15 @@ export const AUTHENTICATE_URL = jwtUrl(AUTHENTICATE_SLUG)
 const V1_SLUG = 'v1'
 const v1Url = (rest) => `${SERVER_URL}/${API_SLUG}/${V1_SLUG}/${rest}`
 
-//업체관리
+//업체(회사)관리
 const CREATE_COMPANY_API_SLUG = 'company/add'
 export const CREATE_COMPANY_API_URL = v1Url(CREATE_COMPANY_API_SLUG)
 const READ_COMPANY_BY_NO_API_SLUG = 'company/byNo'
 export const READ_COMPANY_BY_NO_API_URL = v1Url(READ_COMPANY_BY_NO_API_SLUG)
 const UPDATE_COMPANY_API_SLUG = 'company/update'
 export const UPDATE_COMPANY_API_URL = v1Url(UPDATE_COMPANY_API_SLUG)
+const READ_COMPANY_LIST_API_SLUG = 'company/list'
+export const READ_COMPANY_LIST_API_URL = v1Url(READ_COMPANY_LIST_API_SLUG)
 
 //숙소관리메뉴 - 숙소등록관리
 const CREATE_ACCOMMODATION_API_SLUG = 'accmd/add'

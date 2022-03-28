@@ -59,4 +59,5 @@ function PricePresenter({
     </>
   )
 }
-export default React.memo(PricePresenter)
+// export default React.memo(PricePresenter)
+export default PricePresenter

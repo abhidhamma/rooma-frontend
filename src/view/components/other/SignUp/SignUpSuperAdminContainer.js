@@ -17,7 +17,14 @@ export default function SignUpSuperAdminContainer() {
     getFormDataFromJson,
     signUp(signUpCallback, navigate)
   )
-  return <SignUpForm register={register} handleSubmit={handleSubmit} onSubmit={onSubmit} />
+  return (
+    <SignUpForm
+      register={register}
+      handleSubmit={handleSubmit}
+      onSubmit={onSubmit}
+      isSuperAdmin={true}
+    />
+  )
 }
 const signUp = (signUpCallback, navigate) => (formData) => {
   if (formData === false) {

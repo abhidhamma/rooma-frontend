@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
+import CompanySelect from './CompanySelect'
 
-export default function SignUpForm({ onSubmit, handleSubmit, register }) {
+export default function SignUpForm({ onSubmit, handleSubmit, register, isSuperAdmin }) {
   let navigate = useNavigate()
 
   const cancelSignUp = () => navigate('/')
@@ -8,7 +9,7 @@ export default function SignUpForm({ onSubmit, handleSubmit, register }) {
     <div className='content'>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className='titWrap'>
-          <h3>회원가입</h3>
+          <h3>{isSuperAdmin ? '회원가입' : '정보수정'}</h3>
         </div>
         <div className='writeArea'>
           <section>
@@ -19,7 +20,6 @@ export default function SignUpForm({ onSubmit, handleSubmit, register }) {
                   <input
                     type='text'
                     placeholder={'업체아이디를 입력해주세요'}
-                    defaultValue={'test'}
                     {...register('cpId')}
                   />
                 </dd>
@@ -27,12 +27,15 @@ export default function SignUpForm({ onSubmit, handleSubmit, register }) {
               <dl>
                 <dt>업체명</dt>
                 <dd>
-                  <input
-                    type='text'
-                    placeholder={'업체명을 입력해주세요'}
-                    defaultValue={'제주도펜션'}
-                    {...register('name')}
-                  />
+                  {isSuperAdmin ? (
+                    <CompanySelect register={register} />
+                  ) : (
+                    <input
+                      type='text'
+                      placeholder={'업체명을 입력해주세요'}
+                      {...register('name')}
+                    />
+                  )}
                 </dd>
               </dl>
             </div>
@@ -43,7 +46,6 @@ export default function SignUpForm({ onSubmit, handleSubmit, register }) {
                   <input
                     type='text'
                     placeholder={'대표명을 입력해주세요'}
-                    defaultValue={'변경익'}
                     {...register('ownerName')}
                   />
                 </dd>
@@ -54,7 +56,6 @@ export default function SignUpForm({ onSubmit, handleSubmit, register }) {
                   <input
                     type='text'
                     placeholder={'사업자등록번호를 입력해주세요'}
-                    defaultValue={'123456778'}
                     {...register('bizNum')}
                   />
                 </dd>
@@ -67,7 +68,6 @@ export default function SignUpForm({ onSubmit, handleSubmit, register }) {
                   <input
                     type='text'
                     placeholder={'계좌번호를 입력해주세요'}
-                    defaultValue={'하나은행 111-222-3333'}
                     {...register('bankAccount')}
                   />
                 </dd>
@@ -78,7 +78,6 @@ export default function SignUpForm({ onSubmit, handleSubmit, register }) {
                   <input
                     type='text'
                     placeholder={'홈페이지를 입력해주세요'}
-                    defaultValue={'test.com'}
                     {...register('homepage')}
                   />
                 </dd>
@@ -88,23 +87,13 @@ export default function SignUpForm({ onSubmit, handleSubmit, register }) {
               <dl>
                 <dt>E-mail</dt>
                 <dd>
-                  <input
-                    type='text'
-                    placeholder={'E-mail을 입력해주세요'}
-                    defaultValue={'test@test.com'}
-                    {...register('email')}
-                  />
+                  <input type='text' placeholder={'E-mail을 입력해주세요'} {...register('email')} />
                 </dd>
               </dl>
               <dl>
                 <dt>전화번호</dt>
                 <dd>
-                  <input
-                    type='text'
-                    placeholder={'전화번호를 입력해주세요'}
-                    defaultValue={'064-1111-2222'}
-                    {...register('tel')}
-                  />
+                  <input type='text' placeholder={'전화번호를 입력해주세요'} {...register('tel')} />
                 </dd>
               </dl>
             </div>
@@ -112,12 +101,7 @@ export default function SignUpForm({ onSubmit, handleSubmit, register }) {
               <dl>
                 <dt>팩스</dt>
                 <dd>
-                  <input
-                    type='text'
-                    placeholder={'팩스를 입력해주세요'}
-                    defaultValue={'1111-2222'}
-                    {...register('fax')}
-                  />
+                  <input type='text' placeholder={'팩스를 입력해주세요'} {...register('fax')} />
                 </dd>
               </dl>
               <dl>
@@ -126,7 +110,6 @@ export default function SignUpForm({ onSubmit, handleSubmit, register }) {
                   <input
                     type='text'
                     placeholder={'휴대폰번호를 입력해주세요'}
-                    defaultValue={'010-0000-2222'}
                     {...register('hp')}
                   />
                 </dd>
@@ -136,20 +119,15 @@ export default function SignUpForm({ onSubmit, handleSubmit, register }) {
               <dt>사업자주소</dt>
               <dd>
                 <p>
-                  <input type='text' defaultValue={'11122'} {...register('zipcode')} />
+                  <input type='text' {...register('zipcode')} />
                   <button type='button'>우편번호검색</button>
                 </p>
                 <p>
-                  <input
-                    type='text'
-                    defaultValue={'제주도 서귀포시 서호동'}
-                    {...register('address1')}
-                  />
+                  <input type='text' {...register('address1')} />
                 </p>
                 <p>
                   <input
                     type='text'
-                    defaultValue={'유포리아산업단지 B동 000호'}
                     placeholder={'상세주소를 입력해주세요'}
                     {...register('address2')}
                   />
@@ -171,7 +149,6 @@ export default function SignUpForm({ onSubmit, handleSubmit, register }) {
                 <dd>
                   <input
                     type='password'
-                    defaultValue={'1234'}
                     placeholder={'비밀번호를 입력해주세요'}
                     {...register('cpPw')}
                   />
@@ -182,7 +159,6 @@ export default function SignUpForm({ onSubmit, handleSubmit, register }) {
                 <dd>
                   <input
                     type='password'
-                    defaultValue={'1234'}
                     placeholder={'비밀번호확인을 입력해주세요'}
                     {...register('confirmCpPw')}
                   />
@@ -194,7 +170,7 @@ export default function SignUpForm({ onSubmit, handleSubmit, register }) {
         </div>
         <div className='center mgt_30'>
           <button type='submit' className='btn btn-large purple'>
-            등록
+            {isSuperAdmin ? '등록' : '수정'}
           </button>
           <button type='button' className='btn btn-large line1' onClick={cancelSignUp}>
             취소

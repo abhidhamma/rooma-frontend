@@ -1,4 +1,8 @@
-import { CREATE_COMPANY_API_URL, READ_COMPANY_BY_NO_API_URL } from '@constant/apiURLs'
+import {
+  CREATE_COMPANY_API_URL,
+  READ_COMPANY_BY_NO_API_URL,
+  READ_COMPANY_LIST_API_URL,
+} from '@constant/apiURLs'
 import client from '@config/axiosClient'
 import { formDataHeaderConfig } from '@util/common/axiosUtil'
 
@@ -8,3 +12,5 @@ export const readCompanyByNo = ({ cpNo }) =>
   client.get(READ_COMPANY_BY_NO_API_URL, {
     params: { cpNo },
   })
+export const readCompanyList = (formData) =>
+  client.post(READ_COMPANY_LIST_API_URL, formData, formDataHeaderConfig)

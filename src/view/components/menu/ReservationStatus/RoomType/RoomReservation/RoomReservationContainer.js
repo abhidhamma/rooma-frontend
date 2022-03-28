@@ -9,19 +9,23 @@ import {
   getCurrentReservationList,
 } from './RoomReservationFunction'
 import RoomReservationPresenter from './RoomReservationPresenter'
-import { formatyyyyMMdd } from '@util/common/dateUtil'
 
-function RoomReservationContainer({ monthPriceList, roomNumber, filteredReservationList }) {
+function RoomReservationContainer({
+  monthPriceList,
+  roomNumber,
+  filteredReservationList,
+  currentReservationList,
+}) {
   console.log('RoomReservationContainer render : ', roomNumber)
   const lockedRoomList = useRecoilValue(lockedRoomListAtom)
   const standardDate = useRecoilValue(standardDateAtom)
   const dayCount = useRecoilValue(dayCountAtom)
 
   const currentMonthPriceList = getCurrentMonthPrice(monthPriceList, standardDate, dayCount)
-  const currentReservationList = useMemo(
-    () => getCurrentReservationList(filteredReservationList, standardDate, dayCount, roomNumber),
-    [filteredReservationList, standardDate, dayCount, roomNumber]
-  )
+  // const currentReservationList = useMemo(
+  //   () => getCurrentReservationList(filteredReservationList, standardDate, dayCount, roomNumber),
+  //   [filteredReservationList, standardDate, dayCount, roomNumber]
+  // )
   const currentLockedRoomList = useMemo(
     () => getCurrentLockedRoomList(lockedRoomList, standardDate, dayCount, roomNumber),
     [lockedRoomList, standardDate, dayCount, roomNumber]

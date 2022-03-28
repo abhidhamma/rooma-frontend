@@ -91,7 +91,7 @@ export const getCurrentCalendar = (
     const priceDate = formatyyyyMMdd(stringToDate(priceList[i].targetDate))
     for (let j = 0; j < currentReservationList.length; j++) {
       const reservation = currentReservationList[j]
-      const checkIn = reservation.checkIn
+      const checkIn = formatyyyyMMdd(stringToDate(reservation.checkinDate))
 
       //reservation 포함시키기
       if (priceDate === checkIn) {

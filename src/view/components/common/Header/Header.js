@@ -21,12 +21,12 @@ export default function Header() {
     <header>
       <div id='header'>
         <h1>
-          <Link to={'/reservationStatus'}>ROOMA</Link>
+          <Link to={'/schedule'}>ROOMA</Link>
         </h1>
         <nav>
           <div id='gnb'>
             <a href='#'>대시보드</a>
-            <Link to={'/reservationStatus'}>예약현황</Link>
+            <Link to={'/schedule'}>예약현황</Link>
             <Link to={'/reservationManagement'}>예약관리</Link>
             <Link to={'/accommodationManagement/accommodation'}>숙소관리</Link>
             <Link to={'/priceManagement'}>요금관리</Link>

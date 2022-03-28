@@ -20,6 +20,8 @@ export default function Container() {
 
   const accommodation = useRecoilValue(currentAccommodationAtom)
   const standardDate = useRecoilValue(standardDateAtom)
+  console.log('standardDate')
+  console.log(formatyyyyMMddWithHyphen(standardDate))
 
   const parameter = {
     acNo: accommodation.acNo,
@@ -35,6 +37,7 @@ export default function Container() {
   const resetReadReservationPrice = useRecoilRefresher_UNSTABLE(
     readReservationPriceSelector(parameter)
   )
+
   useEffect(() => {
     resetReadReservationPrice()
     return () => {

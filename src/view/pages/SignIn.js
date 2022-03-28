@@ -8,5 +8,5 @@ export default function SignIn() {
   const isLoggedIn = useRecoilValue(isLoggedInAtom)
   console.log(isLoggedIn)
 
-  return <>{isLoggedIn ? <Navigate replace to='/reservationStatus' /> : <SignInContainer />}</>
+  return <>{isLoggedIn ? <Navigate replace to='/schedule' /> : <SignInContainer />}</>
 }

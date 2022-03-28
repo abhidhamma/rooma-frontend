@@ -21,7 +21,7 @@ export default function Router() {
         {isLoggedIn && (
           <>
             {/* 로그인 메인(임시로 예약현황 사용) */}
-            <Route path='reservationStatus' element={<ReservationStatus />} />
+            <Route path='schedule' element={<ReservationStatus />} />
             {/* 회원가입 */}
             <Route path='signUp' element={<SignUp />} />
 

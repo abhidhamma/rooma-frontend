@@ -1,20 +1,39 @@
 import { addDays } from 'date-fns/fp'
-import { useRecoilState } from 'recoil'
-import { formatyyyyMMddE } from '@util/common/dateUtil'
+import { useRecoilRefresher_UNSTABLE, useRecoilState, useRecoilValue } from 'recoil'
+import { formatyyyyMMddE, formatyyyyMMddWithHyphen } from '@util/common/dateUtil'
 import { dayCountAtom, standardDateAtom } from '@state/reservation'
+import { currentAccommodationAtom } from '@state/common/common'
+import { readReservationPriceSelector } from '@state/reservationStatus/reservationStatus'
 
 export default function ReservationStatusHeader() {
   const [dayCount, setDayCount] = useRecoilState(dayCountAtom)
   const [standardDate, setStandardDate] = useRecoilState(standardDateAtom)
   const today = formatyyyyMMddE(standardDate)
 
+  const accommodation = useRecoilValue(currentAccommodationAtom)
+
+  console.log('standardDate')
+  console.log(formatyyyyMMddWithHyphen(standardDate))
+
+  const parameter = {
+    acNo: accommodation.acNo,
+    startDate: formatyyyyMMddWithHyphen(standardDate),
+    endDate: formatyyyyMMddWithHyphen(addDays(29)(standardDate)),
+  }
+
+  const resetReadReservationPrice = useRecoilRefresher_UNSTABLE(
+    readReservationPriceSelector(parameter)
+  )
+
   const goNext = () => {
     const addDayCount = addDays(dayCount)
     setStandardDate(addDayCount(standardDate))
+    resetReadReservationPrice()
   }
   const goPrev = () => {
     const addDayCount = addDays(-dayCount)
     setStandardDate(addDayCount(standardDate))
+    resetReadReservationPrice()
   }
 
   const handleDayCount = (count) => {
@@ -31,16 +50,32 @@ export default function ReservationStatusHeader() {
       </div>
       <div className='date-selectWrap dF-s'>
         <div className='date-view'>
-          <button type='button' className={dayCount === 7 ? 'btn btn-middle gray active' : 'btn btn-middle gray'} onClick={() => handleDayCount(7)}>
+          <button
+            type='button'
+            className={dayCount === 7 ? 'btn btn-middle gray active' : 'btn btn-middle gray'}
+            onClick={() => handleDayCount(7)}
+          >
             7일보기
           </button>
-          <button type='button' className={dayCount === 15 ? 'btn btn-middle gray active' : 'btn btn-middle gray'} onClick={() => handleDayCount(15)}>
+          <button
+            type='button'
+            className={dayCount === 15 ? 'btn btn-middle gray active' : 'btn btn-middle gray'}
+            onClick={() => handleDayCount(15)}
+          >
             15일보기
           </button>
-          <button type='button' className={dayCount === 30 ? 'btn btn-middle gray active' : 'btn btn-middle gray'} onClick={() => handleDayCount(30)}>
+          <button
+            type='button'
+            className={dayCount === 30 ? 'btn btn-middle gray active' : 'btn btn-middle gray'}
+            onClick={() => handleDayCount(30)}
+          >
             30일보기
           </button>
-          <button type='button' className={dayCount === 1 ? 'btn btn-middle gray active' : 'btn btn-middle gray'} onClick={() => handleDayCount(1)}>
+          <button
+            type='button'
+            className={dayCount === 1 ? 'btn btn-middle gray active' : 'btn btn-middle gray'}
+            onClick={() => handleDayCount(1)}
+          >
             오늘
           </button>
         </div>

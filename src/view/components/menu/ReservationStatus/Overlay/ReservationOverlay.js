@@ -1,9 +1,16 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil'
-import { addyyyyMMdd, betweenyyyyMMdd, formatMMddE, formatyyyyMMdd, stringToDate } from '@util/common/dateUtil'
+import {
+  addyyyyMMdd,
+  betweenyyyyMMdd,
+  formatMMddE,
+  formatyyyyMMdd,
+  stringToDate,
+} from '@util/common/dateUtil'
 import { getDateArray } from '@util/reservation/reservation'
 import { displayAtom, standardDateAtom } from '@state/reservation'
 
 function ReservationOverlay({ data, drag, dayCount, currentDate }) {
+  console.log(data)
   const setDisplay = useSetRecoilState(displayAtom)
   const standardDate = useRecoilValue(standardDateAtom)
 
@@ -31,7 +38,11 @@ function ReservationOverlay({ data, drag, dayCount, currentDate }) {
   const startDate = formatyyyyMMdd(standardDate)
   const prevEndDate = addyyyyMMdd(startDate, -1)
 
-  if (reservationDateArray.indexOf(startDate) > -1 && reservationDateArray.indexOf(prevEndDate) > -1 && currentDate === startDate) {
+  if (
+    reservationDateArray.indexOf(startDate) > -1 &&
+    reservationDateArray.indexOf(prevEndDate) > -1 &&
+    currentDate === startDate
+  ) {
     //여기서 length를 바꾸면 된다
     let originLength = betweenyyyyMMdd(data.checkIn, data.checkOut) // 4 // 2
     let prevLength = betweenyyyyMMdd(data.checkIn, startDate) // 3 // 1
@@ -73,10 +84,11 @@ function ReservationOverlay({ data, drag, dayCount, currentDate }) {
         height: '100%',
         width: `calc(${length}00% + ${length}px)`,
         zIndex: 1,
-        backgroundColor: data.color,
+        backgroundColor: '#34C38F',
         color: 'white',
-      }}>
-      <div style={{ placeSelf: 'center' }}>{data.data}</div>
+      }}
+    >
+      <div style={{ placeSelf: 'center' }}>{data.userName}</div>
     </div>
   )
 }

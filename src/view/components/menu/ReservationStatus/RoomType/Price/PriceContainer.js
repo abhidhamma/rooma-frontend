@@ -14,7 +14,7 @@ import {
 import { canDropEffect, dropEffect, itemEffect, throttleHoverEffect } from './PriceFunction'
 import PricePresenter from './PricePresenter'
 import { createReservationAtom } from '@state/reservationStatus/createReservation'
-import { stringToDate } from '@util/common/dateUtil'
+import { formatyyyyMMdd, stringToDate } from '@util/common/dateUtil'
 
 function PriceContainer({
   price,
@@ -78,7 +78,15 @@ function PriceContainer({
   const handleCreateReservation = useCallback(() => {
     setIsDisplayCreateReservation((prev) => !prev)
     setCreateReservation((prev) => ({ ...prev, currentDate: stringToDate(currentDate) }))
-  }, [])
+  }, [standardDate])
+
+  if (reservation !== undefined) {
+    reservation = {
+      ...reservation,
+      checkIn: formatyyyyMMdd(stringToDate(reservation.checkinDate)),
+      checkOut: formatyyyyMMdd(stringToDate(reservation.checkoutDate)),
+    }
+  }
 
   return (
     <PricePresenter
@@ -95,7 +103,8 @@ function PriceContainer({
     />
   )
 }
-const filteredReservationListPropsEqual = (prev, next) =>
-  _.isEqual(prev.currentReservationList, next.currentReservationList) &&
-  _.isEqual(prev.reservation, next.reservation)
-export default React.memo(PriceContainer, filteredReservationListPropsEqual)
+// const filteredReservationListPropsEqual = (prev, next) =>
+//   _.isEqual(prev.currentReservationList, next.currentReservationList) &&
+//   _.isEqual(prev.reservation, next.reservation)
+// export default React.memo(PriceContainer, filteredReservationListPropsEqual)
+export default PriceContainer

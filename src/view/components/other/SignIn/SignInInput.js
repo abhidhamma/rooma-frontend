@@ -53,7 +53,7 @@ const signIn = (signInCallback, navigate) => (signInData) => {
   signInCallback(signInSelector(signInData)).then((isSuccess) => {
     if (isSuccess) {
       saveItem('PAPAGO_LANG_DETECT', encode(signInData.password))
-      navigate('/reservationStatus')
+      navigate('/schedule')
     } else {
       alert('아이디와 비밀번호가 일치하지 않습니다.')
     }

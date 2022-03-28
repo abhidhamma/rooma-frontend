@@ -1,14 +1,22 @@
 import { loadItem } from '@util/common/localStorage'
-import SignUpForm from './SignUpForm'
+import { Suspense } from 'react'
+import SignUpSuperAdminContainer from './SignUpSuperAdminContainer'
 
 export default function SignUpContainer() {
-  const user = loadItem('user')
+  console.log('SignUpContainer called...')
+  const {
+    authorities: [{ authority }],
+  } = loadItem('user')
+  const isSuperAdmin = authority === 'ROLE_SUPERMASTER'
+  console.log(isSuperAdmin)
   return (
     <>
       {/* <!-- S:Container --> */}
       <div id='container'>
         {/* <!-- S:content --> */}
-        <SignUpForm />
+        <Suspense fallback={<div></div>}>
+          <SignUpSuperAdminContainer />
+        </Suspense>
         {/* <!-- E:content --> */}
       </div>
       {/* <!-- E:Container --> */}

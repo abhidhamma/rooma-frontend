@@ -13,11 +13,15 @@ export default function RoomType({ roomType, style }) {
         ))}
       </div>
       <div className='room-state'>
-        <RoomReservation
-          monthPriceList={roomType.roomPrices}
-          roomNumber={1}
-          filteredReservationList={reservationList}
-        />
+        {roomType.rooms.map((room, index) => (
+          <RoomReservation
+            key={index}
+            monthPriceList={roomType.roomPrices}
+            roomNumber={room.rmName}
+            filteredReservationList={reservationList}
+            currentReservationList={room.reserves}
+          />
+        ))}
       </div>
     </div>
   )
