@@ -12,6 +12,7 @@ import { readReservationPriceSelector } from '@state/reservationStatus/reservati
 import { currentAccommodationAtom } from '@state/common/common'
 import { formatyyyyMMddWithHyphen } from '@util/common/dateUtil'
 import { addDays } from 'date-fns'
+import RightClickPopUp from './Popup/RightClickPopup/RightClickPopup'
 
 export default function Container() {
   //전역상태
@@ -20,8 +21,6 @@ export default function Container() {
 
   const accommodation = useRecoilValue(currentAccommodationAtom)
   const standardDate = useRecoilValue(standardDateAtom)
-  console.log('standardDate')
-  console.log(formatyyyyMMddWithHyphen(standardDate))
 
   const parameter = {
     acNo: accommodation.acNo,
@@ -44,13 +43,11 @@ export default function Container() {
       resetReadReservationPrice()
     }
   }, [])
-  console.log(roomTypes)
 
   //지역상태
   const [renderRestRoomType, setRenderRestRoomType] = useState(15)
 
   //지역변수
-  console.log('지역변수')
   const roomTypeList = roomTypes
   const roomTypeListLength = roomTypeList.length
 
@@ -95,6 +92,7 @@ export default function Container() {
               ))} */}
               {/* <!-- S:layer --> */}
               <ReservationInfo />
+              <RightClickPopUp />
               {/* <!-- E:layer --> */}
             </div>
           </div>

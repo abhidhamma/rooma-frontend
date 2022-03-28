@@ -12,6 +12,7 @@ function PricePresenter({
   isDragging,
   isOver,
   handleCreateReservation,
+  handleRightClickPopup,
   dayCount,
   drag,
   lockedRoom,
@@ -22,9 +23,10 @@ function PricePresenter({
   if (reservation !== undefined) {
     reservationDateArray = getDateArray(reservation?.checkIn, reservation?.checkOut)
   }
+
   return (
     <>
-      <div ref={drop}>
+      <div ref={drop} onContextMenu={handleRightClickPopup}>
         {lockedRoom?.targetDate === currentDate ? (
           <div className='lock'>
             <span className='hdn'>잠김</span>

@@ -12,20 +12,6 @@ import _ from 'lodash/fp'
 
 //현재 보일 캘린더의 날짜별 가격 목록
 export const getCurrentMonthPrice = (monthPriceList, standardDate, dayCount) => {
-  // //보여질 30일치 날짜 만들기
-  // const displayDays = 30
-  // const mapDate = _.map((number) => ({ targetDate: addDays(standardDate, number - 1) }))
-  // const dummyMonthData = _.flow(numberToArray, mapDate)(displayDays)
-
-  // const addMonthPriceList = _.map((targetDate) => {
-  //   const findCurrentDateData = _.find(
-  //     (monthPrice) => monthPrice.targetDate === formatyyyyMMddWithHyphen(targetDate)
-  //   )
-  //   const currentDateData = findCurrentDateData(monthPriceList)
-  //   return {}
-  // })
-
-  // console.log(monthPriceList)
   const firstIndex = monthPriceList.findIndex(
     (day) => formatyyyyMMdd(stringToDate(day.targetDate)) === formatyyyyMMdd(standardDate)
   )
@@ -86,6 +72,23 @@ export const getCurrentCalendar = (
   currentLockedRoomList,
   standardDate
 ) => {
+  // 변경하자 30일 날짜가 있고 거기에 price, reservation, lock을 차례대로 담는식으로 하자
+  // 보여질 30일치 날짜 만들기
+  // const displayDays = 30
+  // const mapDate = _.map((number) => ({
+  //   targetDate: formatyyyyMMddWithHyphen(addDays(standardDate, number - 1)),
+  // }))
+  // const dummyMonthData = _.flow(numberToArray, mapDate)(displayDays)
+
+  // const addMonthPriceList = _.map((targetDate) => {
+  //   const findCurrentDateData = _.find(
+  //     (monthPrice) => monthPrice.targetDate === formatyyyyMMddWithHyphen(targetDate)
+  //   )
+  //   const currentDateData = findCurrentDateData(monthPriceList)
+  //   return {}
+  // })
+  // console.log(dummyMonthData)
+
   let priceList = currentMonthPriceList
   for (let i = 0; i < priceList.length; i++) {
     const priceDate = formatyyyyMMdd(stringToDate(priceList[i].targetDate))

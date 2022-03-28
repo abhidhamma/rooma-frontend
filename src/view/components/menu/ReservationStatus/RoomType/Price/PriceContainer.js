@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import React, { useCallback } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
@@ -15,6 +14,7 @@ import { canDropEffect, dropEffect, itemEffect, throttleHoverEffect } from './Pr
 import PricePresenter from './PricePresenter'
 import { createReservationAtom } from '@state/reservationStatus/createReservation'
 import { formatyyyyMMdd, stringToDate } from '@util/common/dateUtil'
+import { rightClickPopupAtom } from '@state/reservationStatus/reservationStatus'
 
 function PriceContainer({
   price,
@@ -32,6 +32,7 @@ function PriceContainer({
   const setReservationList = useSetRecoilState(reservationListAtom)
   const setIsDisplayCreateReservation = useSetRecoilState(isDisplayCreateReservationAtom)
   const setCreateReservation = useSetRecoilState(createReservationAtom)
+  const setCss = useSetRecoilState(rightClickPopupAtom)
 
   //useDrag, useDrop
   const [{ isDragging }, drag] = useDrag(
@@ -80,6 +81,18 @@ function PriceContainer({
     setCreateReservation((prev) => ({ ...prev, currentDate: stringToDate(currentDate) }))
   }, [standardDate])
 
+  const handleRightClickPopup = (event) => {
+    const { clientX, clientY } = event
+    event.preventDefault()
+    console.log(clientX, clientY)
+    setCss((prev) => ({
+      ...prev,
+      display: 'block',
+      top: clientY - 230,
+      left: Math.min(clientX, window.innerWidth - 180),
+    }))
+  }
+
   if (reservation !== undefined) {
     reservation = {
       ...reservation,
@@ -100,6 +113,7 @@ function PriceContainer({
       currentDate={currentDate}
       dayCount={dayCount}
       handleCreateReservation={handleCreateReservation}
+      handleRightClickPopup={handleRightClickPopup}
     />
   )
 }
