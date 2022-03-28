@@ -33,7 +33,7 @@ export default function CreateRoomType() {
     saleEnddate: '2022-03-03',
     roomComposition: '방2개,화장실1개',
     viewType: '바다전망',
-    basicPersonNum: '2',
+    basicPersionNum: '2',
     addPersionConfig: '조식포함',
     maxPersionNum: '4',
     addBreakfastConfigName: '조식',

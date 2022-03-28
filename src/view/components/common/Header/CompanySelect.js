@@ -24,7 +24,6 @@ export default function CompanySelect() {
       data: { list },
     },
   } = useRecoilValue(readAccommodationListSelector(getFormDataFromJson(data)))
-  console.log(list)
 
   useEffect(() => {
     setCurrentCompany(company)

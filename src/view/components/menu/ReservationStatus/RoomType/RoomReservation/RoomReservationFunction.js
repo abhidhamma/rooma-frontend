@@ -12,8 +12,6 @@ import _ from 'lodash/fp'
 
 //현재 보일 캘린더의 날짜별 가격 목록
 export const getCurrentMonthPrice = (monthPriceList, standardDate, dayCount) => {
-  console.log('getCurrentMonthPrice')
-
   // //보여질 30일치 날짜 만들기
   // const displayDays = 30
   // const mapDate = _.map((number) => ({ targetDate: addDays(standardDate, number - 1) }))
@@ -33,8 +31,6 @@ export const getCurrentMonthPrice = (monthPriceList, standardDate, dayCount) => 
   )
 
   const lastIndex = firstIndex + (dayCount - 1)
-  console.log('index')
-  console.log(firstIndex, lastIndex)
   return monthPriceList.slice(firstIndex, lastIndex + 1)
 }
 

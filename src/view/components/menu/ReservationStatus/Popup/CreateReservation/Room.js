@@ -33,9 +33,9 @@ export default function CreateReservationAddRoom({
 
   //지역상태
   const [open, setOpen] = useState(false)
-  const [room, setRoom] = useState({})
+  const [room, setRoom] = useState({ rmNo: 0 })
   const [roomType, setRoomType] = useState({
-    basicPersonNum: 0,
+    basicPersionNum: 0,
     maxPersionNum: 0,
     originPrice: 0,
     addAdultPrice: 0,
@@ -51,14 +51,14 @@ export default function CreateReservationAddRoom({
 
   const { addBreakfastFee, addExtFee } = accommodation
   const {
-    basicPersonNum,
+    basicPersionNum,
     maxPersionNum,
     originPrice,
     addAdultPrice,
     addChildPrice,
     addInfantPrice,
   } = roomType
-  const { rmNo } = room
+  const rmNo = room?.rmNo
 
   const breakfastFeeObject = Object.entries(parseCustomData(addBreakfastFee))
   const breakfastFeeObjectLength = breakfastFeeObject.length
@@ -97,7 +97,7 @@ export default function CreateReservationAddRoom({
   const roomTotalFee = Number(originPrice) + Number(optionFee)
 
   //추가인원으로 등록가능한 총 숫자
-  const addPersonLimit = maxPersionNum - basicPersonNum
+  const addPersonLimit = maxPersionNum - basicPersionNum
 
   //요금 계산용 필드
   const roomFee = Number(originPrice)
@@ -125,8 +125,8 @@ export default function CreateReservationAddRoom({
     }
   }, [rmNo])
   useEffect(() => {
-    reset({ [`stayNum${count}`]: basicPersonNum })
-  }, [basicPersonNum])
+    reset({ [`stayNum${count}`]: basicPersionNum })
+  }, [basicPersionNum])
   return (
     <section className='add-group'>
       <input type={'hidden'} {...register(`roomFee${count}`)} value={Number(roomFee)} />
@@ -200,12 +200,12 @@ export default function CreateReservationAddRoom({
             </td>
             <td>
               <div className='dF-s'>
-                <select {...register(`stayNum${count}`)} defaultValue={String(basicPersonNum)}>
+                <select {...register(`stayNum${count}`)} defaultValue={String(basicPersionNum)}>
                   {numberToArray(maxPersionNum).map((number) => (
                     <option key={number} value={number}>{`${number}명`}</option>
                   ))}
                 </select>
-                <span className='num'>{`(${basicPersonNum}/${maxPersionNum})`}</span>
+                <span className='num'>{`(${basicPersionNum}/${maxPersionNum})`}</span>
               </div>
             </td>
             <td>{`${formatMoney(originPrice)}원`}</td>

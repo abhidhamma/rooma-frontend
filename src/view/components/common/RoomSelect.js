@@ -6,6 +6,7 @@ import { useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
 
 export default function RoomSelect({ roomType, room, setRoom }) {
+  console.log('roomSelectCalled...')
   const { acNo } = useRecoilValue(currentAccommodationAtom)
   const { rtNo } = roomType
   const addParameter = (data) => {
@@ -31,6 +32,7 @@ export default function RoomSelect({ roomType, room, setRoom }) {
       data: { list },
     },
   } = useRecoilValue(readRoomList(data))
+  console.log(acNo, rtNo, list)
 
   useEffect(() => {
     setRoom(list[0])
@@ -49,7 +51,7 @@ export default function RoomSelect({ roomType, room, setRoom }) {
   }
 
   return (
-    <select onChange={handleCurrentRoom} defaultValue={room.rmNo}>
+    <select onChange={handleCurrentRoom} defaultValue={room?.rmNo}>
       {list.map(({ rmNo, name }) => (
         <option key={rmNo} value={rmNo}>
           {name}
