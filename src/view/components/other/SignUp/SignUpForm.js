@@ -1,21 +1,8 @@
-import _ from 'lodash'
-import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { getFormDataFromJson } from '@util/common/axiosUtil'
-import useApiCallback from '@hook/apiHook/useApiCallback'
-import { signUpSelector } from '@state/auth'
-import { validateSignUpInput } from '@util/validation/validateSignUpInput'
 
-export default function SignUpInput() {
-  const { register, handleSubmit } = useForm()
+export default function SignUpForm({ onSubmit, handleSubmit, register }) {
   let navigate = useNavigate()
-  const signUpCallback = useApiCallback('Sign Up')
 
-  const onSubmit = _.flow(
-    validateSignUpInput,
-    getFormDataFromJson,
-    signUp(signUpCallback, navigate)
-  )
   const cancelSignUp = () => navigate('/')
   return (
     <div className='content'>
@@ -217,19 +204,4 @@ export default function SignUpInput() {
       </form>
     </div>
   )
-}
-
-const signUp = (signUpCallback, navigate) => (formData) => {
-  if (formData === false) {
-    return
-  }
-
-  signUpCallback(signUpSelector(formData)).then((data) => {
-    if (data.status === 'OK') {
-      alert('등록되었습니다.')
-      navigate('/')
-    } else {
-      alert(data.message)
-    }
-  })
 }

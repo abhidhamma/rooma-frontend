@@ -477,7 +477,7 @@ const makeRoomReserves = (
   const mapRoomReservation = _.map((number) => {
     const stayNum = submitData[`stayNum${number}`]
     const salePrice = totalPrices[`roomTotalFee${number}`]
-    const addPerionCon = `성인:${submitData[`adultCount${number}`]},소아:${
+    const addPersionCon = `성인:${submitData[`adultCount${number}`]},소아:${
       submitData[`childCount${number}`]
     },유아:${submitData[`childCount${number}`]}`
     const addBreakfastCon = `성인:${submitData[`adultBreakfastCount${number}`]},소아:${
@@ -490,7 +490,7 @@ const makeRoomReserves = (
       checkoutDate,
       stayNum,
       salePrice,
-      addPerionCon,
+      addPersionCon,
       addBreakfastCon,
       addOptionCon: '바베큐',
     }
