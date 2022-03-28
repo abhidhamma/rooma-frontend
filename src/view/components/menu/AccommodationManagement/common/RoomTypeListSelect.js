@@ -4,8 +4,14 @@ import _ from 'lodash/fp'
 import { useRecoilValue } from 'recoil'
 
 export default function RoomTypeListSelect({ register, watch }) {
+  console.log('RoomTypeListSelect called...')
+  console.log(watch('acNo'))
   let initialParameter = { cpNo: '1', roomTypeName: '', startRow: 0, rowCount: 999 }
-  const addAcNo = (acNo) => (typeof acNo === 'number' ? { ...initialParameter, acNo } : false)
+  const addAcNo = (acNo) =>
+    typeof Number(acNo) === 'number' && typeof acNo !== 'undefined' && acNo !== 'unSelected'
+      ? { ...initialParameter, acNo }
+      : false
+  console.log(typeof acNo)
 
   const readRoomTypeList = _.flow(watch, addAcNo, getFormDataFromJson, readRoomTypeListSelector)
   const {
@@ -13,6 +19,7 @@ export default function RoomTypeListSelect({ register, watch }) {
       data: { list },
     },
   } = useRecoilValue(readRoomTypeList('acNo'))
+  console.log(list)
   return (
     <select {...register('rtNo')}>
       <option value={'unSelected'}>
