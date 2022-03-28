@@ -71,6 +71,9 @@ export const READ_ROOM_LIST_URL = v1Url(READ_ROOM_LIST_SLUG)
 const UPDATE_ROOM_SLUG = 'room/update'
 export const UPDATE_ROOM_URL = v1Url(UPDATE_ROOM_SLUG)
 
+const DELETE_ROOM_SLUG = 'room/delete'
+export const DELETE_ROOM_URL = v1Url(DELETE_ROOM_SLUG)
+
 //요금관리 - 객실타입별요금관리
 const UPDATE_ROOMTYPE_PRICES_SLUG = 'roomtype/prices/save'
 export const UPDATE_ROOMTYPE_PRICES_URL = v1Url(UPDATE_ROOMTYPE_PRICES_SLUG)

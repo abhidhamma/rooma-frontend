@@ -6,6 +6,8 @@ import {
   UPDATE_ROOMTYPE_SELECTOR_KEY,
   ETC_CONFIG_OPTION_COUNT_ATOM_KEY,
   BREAKFAST_CONFIG_OPTION_COUNT_ATOM_KEY,
+  ROOM_LIST_ATOM_KEY,
+  RTNO_ATOM_KEY,
 } from '@constant/atomKeys'
 import {
   createRoomType,
@@ -22,6 +24,10 @@ export const breakfastConfigOptionCountAtom = atom({
 export const etcConfigOptionCountAtom = atom({
   key: ETC_CONFIG_OPTION_COUNT_ATOM_KEY,
   default: 1,
+})
+export const rtNoAtom = atom({
+  key: RTNO_ATOM_KEY,
+  default: '0',
 })
 
 //selector

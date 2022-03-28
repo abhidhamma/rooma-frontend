@@ -5,7 +5,7 @@ import { isDate } from 'date-fns'
 import { useEffect } from 'react'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 
-export default function SaleDateForm({ register, reset, top }) {
+export default function SaleDateForm({ register, reset, getValues, top }) {
   const selectedDate = useRecoilValue(selectedDateAtom)
   const setShowCalendar = useSetRecoilState(showCalendarAtom)
   const saleStartdateCalendarName = 'saleStartdate'
@@ -24,6 +24,7 @@ export default function SaleDateForm({ register, reset, top }) {
 
   useEffect(() => {
     reset({
+      ...getValues(),
       [saleStartdateCalendarName]: isDate(selectedDate[saleStartdateCalendarName])
         ? formatyyyyMMddWithHyphen(selectedDate[saleStartdateCalendarName])
         : selectedDate[saleStartdateCalendarName],

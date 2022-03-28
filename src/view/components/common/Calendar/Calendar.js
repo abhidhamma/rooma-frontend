@@ -7,7 +7,6 @@ import { useRecoilValue } from 'recoil'
 import Week from './Week'
 
 export default function Calendar({ top, left, calendarName }) {
-  console.log('Calendar called...')
   const [selectedMonth, setSelectedMonth] = useState(WithoutTime(new Date()))
   const showCalendar = useRecoilValue(showCalendarAtom)
 

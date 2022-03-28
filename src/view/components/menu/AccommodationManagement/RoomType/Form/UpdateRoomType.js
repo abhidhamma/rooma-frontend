@@ -1,4 +1,5 @@
 import useUpdateAccommodationCallback from '@hook/apiHook/useUpdateAccommodationCallback'
+import { readRoomListSelector } from '@state/accommodationManagement/room'
 import {
   breakfastConfigOptionCountAtom,
   etcConfigOptionCountAtom,
@@ -24,6 +25,24 @@ export default function UpdateRoomType() {
   const updateRoomTypeCallback = useUpdateAccommodationCallback('update roomType')
   let navigate = useNavigate()
 
+  // const { roomList}
+  const data = {
+    cpNo: '1',
+    name: '',
+    startRow: '0',
+    rowCount: '999',
+  }
+  const {
+    data: {
+      data: { list: roomList, totalCount: roomTotalNum },
+    },
+  } = useRecoilValue(readRoomListSelector(getFormDataFromJson(addRtNo(data))))
+  // const resetReadRoomListSelector = useRecoilRefresher_UNSTABLE(
+  //   readRoomListSelector(getFormDataFromJson(data))
+  // )
+  console.log('roomList')
+  console.log(roomList, roomTotalNum)
+
   const {
     data: { data: roomTypeData },
   } = useRecoilValue(readRoomTypeSelector({ rtNo }))
@@ -34,11 +53,13 @@ export default function UpdateRoomType() {
   )
   const [etcConfigOptionCount, setEtcConfigOptionCount] = useRecoilState(etcConfigOptionCountAtom)
 
+  const splitComma = _.split(',')
   const splitBar = _.split('||')
   const splitSlash = _.split('//')
   //객실설정
   const putRoomsEffect = (defaultValues) => {
-    const roomNames = splitBar(defaultValues.roomNames)
+    const roomListArray = roomList.map(({ rmNo, name }) => ({ rmNo, name }))
+    // const roomNames = splitComma(defaultValues.roomNames)
     const roomSettings = splitBar(defaultValues.roomMakeConfig)
     defaultValues = {
       ...defaultValues,
@@ -47,9 +68,13 @@ export default function UpdateRoomType() {
       suffix: roomSettings[2],
     }
 
-    const length = () => roomNames.length
+    const length = () => roomListArray.length
     const eachRoom = _.each(
-      (number) => (defaultValues = { ...defaultValues, [`room${number}`]: roomNames[number - 1] })
+      (number) =>
+        (defaultValues = {
+          ...defaultValues,
+          [`room${number}`]: roomListArray[number - 1].name,
+        })
     )
     _.flow(length, numberToArray, eachRoom)(defaultValues)
     return defaultValues
@@ -133,6 +158,8 @@ export default function UpdateRoomType() {
   }
 
   const preprocessDefaultValues = (defaultValues) => {
+    //roomTotalNum추가
+    defaultValues = { ...defaultValues, roomTotalNum: roomTotalNum }
     //prefix, roomNumber, suffix 추가
     defaultValues = { ...defaultValues, prefix: '', roomNumber: '', suffix: '' }
     //방번호 나눠 넣기

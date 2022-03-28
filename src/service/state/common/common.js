@@ -13,8 +13,8 @@ export const renderCountAtom = atom({
 })
 export const isLoggedInAtom = atom({
   key: IS_LOGGED_IN_ATOM_KEY,
-  //default: loadItem('user') !== null, //이렇게 하면 자동로그인
-  default: false,
+  default: loadItem('user') !== null, //이렇게 하면 자동로그인
+  // default: false,
 })
 //Header - CompanySelect
 export const currentCompanyAtom = atom({

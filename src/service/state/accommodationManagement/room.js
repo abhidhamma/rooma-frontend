@@ -4,8 +4,15 @@ import {
   READ_ROOM_SELECTOR_KEY,
   READ_ROOM_LIST_SELECTOR_KEY,
   UPDATE_ROOM_SELECTOR_KEY,
+  DELETE_ROOM_SELECTOR_KEY,
 } from '@constant/atomKeys'
-import { createRoom, readRoom, readRoomList, updateRoom } from '@api/accommodationManagement/room'
+import {
+  createRoom,
+  deleteRoom,
+  readRoom,
+  readRoomList,
+  updateRoom,
+} from '@api/accommodationManagement/room'
 
 //selector
 export const createRoomSelector = selectorFamily({
@@ -23,10 +30,24 @@ export const readRoomSelector = selectorFamily({
 
 export const readRoomListSelector = selectorFamily({
   key: READ_ROOM_LIST_SELECTOR_KEY,
-  get: (formData) => async () => await readRoomList(formData),
+  get: (formData) => async () => {
+    if (formData === false) {
+      return {
+        data: {
+          data: { list: [] },
+        },
+      }
+    } else {
+      return await readRoomList(formData)
+    }
+  },
 })
 
 export const updateRoomSelector = selectorFamily({
   key: UPDATE_ROOM_SELECTOR_KEY,
   get: (formData) => async () => await updateRoom(formData),
+})
+export const deleteRoomSelector = selectorFamily({
+  key: DELETE_ROOM_SELECTOR_KEY,
+  get: (formData) => async () => await deleteRoom(formData),
 })

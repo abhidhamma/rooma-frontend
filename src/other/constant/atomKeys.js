@@ -63,12 +63,14 @@ export const UPDATE_ROOMTYPE_SELECTOR_KEY = 'updateRoomTypeKey'
 
 export const BREAKFAST_CONFIG_OPTION_COUNT_ATOM_KEY = 'breakfastConfigOptionCountAtomKey'
 export const ETC_CONFIG_OPTION_COUNT_ATOM_KEY = 'etcConfigOptionCountAtomKey'
+export const RTNO_ATOM_KEY = 'rtNoAtomKey'
 
 //숙소관리 - 객실관리(Room)
 export const CREATE_ROOM_SELECTOR_KEY = 'createRoomSelectorKey'
 export const READ_ROOM_SELECTOR_KEY = 'readRoomSelectorKey'
 export const READ_ROOM_LIST_SELECTOR_KEY = 'readRoomListSelectorKey'
 export const UPDATE_ROOM_SELECTOR_KEY = 'updateRoomSelectorKey'
+export const DELETE_ROOM_SELECTOR_KEY = 'deleteRoomSelectorKey'
 
 //user
 export const SIGNIN_SELECTOR_KEY = 'signInSelector'

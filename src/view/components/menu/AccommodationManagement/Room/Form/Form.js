@@ -14,6 +14,7 @@ export default function RoomForm({
   onSubmit,
   watch,
   reset,
+  getValues,
 }) {
   let navigate = useNavigate()
   return (
@@ -75,7 +76,13 @@ export default function RoomForm({
                 </dd>
               </dl>
             </section>
-            <SaleDateForm register={register} reset={reset} top={'470'} left={'490'} />
+            <SaleDateForm
+              register={register}
+              reset={reset}
+              getValues={getValues}
+              top={'470'}
+              left={'490'}
+            />
             <PictureForm formType={formType} />
           </div>
           <div className='center mgt_30'>

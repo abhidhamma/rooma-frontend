@@ -6,8 +6,8 @@ import { Suspense } from 'react'
 
 export default function ReservationStatus() {
   console.log('ReservationStatus called...')
-  const isLoggedIn = useRecoilValue(isLoggedInAtom)
-  console.log(isLoggedIn)
+  // const isLoggedIn = useRecoilValue(isLoggedInAtom)
+  // console.log(isLoggedIn)
   return (
     <>
       <Header />

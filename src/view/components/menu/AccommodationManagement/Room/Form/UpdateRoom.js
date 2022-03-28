@@ -27,7 +27,7 @@ export default function UpdateRoom() {
   }, [])
   const defaultValues = roomData
   console.log(defaultValues)
-  const { register, handleSubmit, watch, reset } = useForm({ defaultValues })
+  const { register, handleSubmit, watch, reset, getValues } = useForm({ defaultValues })
   const onSubmit = _.flow(addRmNo, getFormDataFromJson, updateRoom(updateRoomCallback, navigate))
   return (
     <RoomForm
@@ -38,6 +38,7 @@ export default function UpdateRoom() {
       onSubmit={onSubmit}
       watch={watch}
       reset={reset}
+      getValues={getValues}
     />
   )
 }

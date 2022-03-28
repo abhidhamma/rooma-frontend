@@ -1,6 +1,5 @@
 import SideBar from '@components/menu/AccommodationManagement/SideBar'
 import { currentPageAtom, totalCountAtom } from '@state/common/paging'
-import { Link } from 'react-router-dom'
 import { useRecoilValue } from 'recoil'
 import SearchBox from '../../common/SearchBox'
 import RoomTable from './Table'

@@ -75,12 +75,13 @@ export default function CreateRoomType() {
     />
   )
 }
+const joinComma = _.join(',')
 const joinBar = _.join('||')
 const joinSlash = _.join('//')
 const makeRoomNames = (submitData) => {
   const getRoomTotalNum = (submitData) => Number(submitData.roomTotalNum)
   const mapRoomName = _.map((number) => submitData[`room${number}`])
-  return _.flow(getRoomTotalNum, numberToArray, mapRoomName, joinBar)(submitData)
+  return _.flow(getRoomTotalNum, numberToArray, mapRoomName, joinComma)(submitData)
 }
 
 const makeBreakfastConfig = (submitData, breakfastConfigOptionCount) => {

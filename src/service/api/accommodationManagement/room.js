@@ -1,6 +1,7 @@
 import client from '@config/axiosClient'
 import {
   CREATE_ROOM_URL,
+  DELETE_ROOM_URL,
   READ_ROOM_LIST_URL,
   READ_ROOM_URL,
   UPDATE_ROOM_URL,
@@ -20,3 +21,4 @@ export const readRoomList = (formData) =>
   client.post(READ_ROOM_LIST_URL, formData, formDataHeaderConfig)
 
 export const updateRoom = (formData) => client.post(UPDATE_ROOM_URL, formData, formDataHeaderConfig)
+export const deleteRoom = (formData) => client.post(DELETE_ROOM_URL, formData, formDataHeaderConfig)

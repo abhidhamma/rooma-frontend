@@ -21,6 +21,8 @@ export default function RoomTypeForm({
   reset,
   getValues,
 }) {
+  console.log('RoomTypeForm called...')
+  console.log(watch('roomTotalNum'))
   let navigate = useNavigate()
 
   return (
@@ -79,7 +81,7 @@ export default function RoomTypeForm({
                   </dd>
                 </dl>
               </section>
-              <SaleDateForm register={register} reset={reset} top={'413'} />
+              <SaleDateForm register={register} reset={reset} getValues={getValues} top={'413'} />
               <RoomSetting
                 register={register}
                 roomTotalNum={Number(watch('roomTotalNum'))}
@@ -88,6 +90,8 @@ export default function RoomTypeForm({
                 suffix={watch('suffix')}
                 reset={reset}
                 getValues={getValues}
+                formType={formType}
+                watch={watch}
               />
 
               <section>
