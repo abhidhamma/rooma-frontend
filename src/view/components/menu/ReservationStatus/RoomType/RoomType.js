@@ -10,7 +10,14 @@ export default function RoomType({ roomType, style }) {
       <div className='room-type'>{roomType.rtName}</div>
       <div className='room-number'>
         {roomType.rooms.map((room, index) => (
-          <RoomName room={room} key={index} rmNo={room.rmNo} />
+          <RoomName
+            rtName={roomType.rtName}
+            room={room}
+            key={index}
+            rmNo={room.rmNo}
+            reservationList={room.reserves}
+            lockedRoomList={room.locks}
+          />
         ))}
       </div>
       <div className='room-state'>
