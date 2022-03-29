@@ -36,7 +36,7 @@ export default function RoomSelect({ roomType, room, setRoom }) {
 
   useEffect(() => {
     setRoom(list[0])
-  })
+  }, [])
 
   const handleCurrentRoom = (event) => {
     const rmNo = event.target.value

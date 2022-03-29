@@ -3,6 +3,7 @@ import {
   ADD_RESERVATION_ROOM_COUNT_ATOM_KEY,
   READ_RESERVATION_PRICE_SELECTOR_KEY,
   RIGHT_CLICK_POPUP_ATOM_KEY,
+  RRNO_ATOM_KEY,
 } from '@constant/atomKeys'
 import { removeCookie } from '@util/common/cookie'
 import { removeItem } from '@util/common/localStorage'
@@ -16,6 +17,10 @@ export const addReserverationRoomCountAtom = atom({
 export const rightClickPopupAtom = atom({
   key: RIGHT_CLICK_POPUP_ATOM_KEY,
   default: { display: 'none', screenX: '0', screenY: '0', position: 'absolute' },
+})
+export const rrNoAtom = atom({
+  key: RRNO_ATOM_KEY,
+  default: 0,
 })
 
 //selector

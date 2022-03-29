@@ -46,6 +46,8 @@ export default function CreateReservationAddRoom({
   console.log(room)
 
   //변수
+  console.log('currentDate')
+  console.log(createReservation)
   const startDate = formatyyyyMMddWithHyphen(createReservation.currentDate)
   const endDate = formatyyyyMMddWithHyphen(addDays(createReservation.currentDate, 1))
 

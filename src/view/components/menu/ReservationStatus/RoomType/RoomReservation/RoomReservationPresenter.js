@@ -3,7 +3,6 @@ import { formatyyyyMMdd, stringToDate } from '@util/common/dateUtil'
 import Price from '@components/menu/ReservationStatus/RoomType/Price'
 
 function RoomReservationPresenter({ currentCalendarList, currentReservationList, roomNumber }) {
-  console.log(currentCalendarList)
   return (
     <>
       {currentCalendarList.length === 0 ? (

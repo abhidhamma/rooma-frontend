@@ -1,5 +1,9 @@
 import { useRecoilRefresher_UNSTABLE, useRecoilValue } from 'recoil'
-import { isDisplayCreateReservationAtom, standardDateAtom } from '@state/reservation'
+import {
+  isDisplayCreateReservationAtom,
+  isDisplayReadReservationAtom,
+  standardDateAtom,
+} from '@state/reservation'
 import CreateReservation from '@components/menu/ReservationStatus/Popup/CreateReservation/CreateReservation'
 import ReservationInfo from '@components/menu/ReservationStatus/Overlay/ReservationInfo'
 import RoomType from '@components/menu/ReservationStatus/RoomType/RoomType'
@@ -13,12 +17,16 @@ import { currentAccommodationAtom } from '@state/common/common'
 import { formatyyyyMMddWithHyphen } from '@util/common/dateUtil'
 import { addDays } from 'date-fns'
 import RightClickPopUp from './Popup/RightClickPopup/RightClickPopup'
+import ReadReservation from './Popup/CreateReservation/ReadReservation'
 
 export default function Container() {
   //전역상태
   // const roomTypeList = useRecoilValue(roomTypeListAtom)
   const isDisplayCreateReservation = useRecoilValue(isDisplayCreateReservationAtom)
+  const isDisplayReadReservation = useRecoilValue(isDisplayReadReservationAtom)
 
+  console.log('isDisplayCreateReservation : ', isDisplayCreateReservation)
+  console.log('isDisplayReadReservation : ', isDisplayReadReservation)
   const accommodation = useRecoilValue(currentAccommodationAtom)
   const standardDate = useRecoilValue(standardDateAtom)
 
@@ -27,7 +35,6 @@ export default function Container() {
     startDate: formatyyyyMMddWithHyphen(standardDate),
     endDate: formatyyyyMMddWithHyphen(addDays(standardDate, 29)),
   }
-  console.log(parameter)
 
   const data = useRecoilValue(readReservationPriceSelector(parameter))
   const resetReadReservationPrice = useRecoilRefresher_UNSTABLE(
@@ -45,8 +52,6 @@ export default function Container() {
   const [renderRestRoomType, setRenderRestRoomType] = useState(15)
 
   //지역변수
-  console.log('룸타입')
-  console.log(data)
   const roomTypeList = data?.data?.data === null ? [] : data.data.data.roomTypes
   const roomTypeListLength = data?.data?.data === null ? 0 : data.data.data.roomTypes.length
 
@@ -58,7 +63,6 @@ export default function Container() {
   const makeRoomTypes = (length) => {
     console.log(roomTypeList)
     if (roomTypeListLength === 0 || typeof roomTypeList === 'undefined') {
-      console.log('리턴')
       return
     }
 
@@ -83,6 +87,7 @@ export default function Container() {
   return (
     <>
       <section>{isDisplayCreateReservation && <CreateReservation />}</section>
+      <section>{isDisplayReadReservation && <ReadReservation />}</section>
       {/* <!-- S:Container --> */}
       <div id='container'>
         {/* <!-- S:content --> */}

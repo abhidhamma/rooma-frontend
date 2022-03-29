@@ -24,7 +24,9 @@ export default function AddRoomTypeSelect({ roomType, setRoomType }) {
   } = useRecoilValue(readRoomTypeList(data))
 
   useEffect(() => {
-    setRoomType(list[0])
+    if (roomType?.rtNo === undefined) {
+      setRoomType(list[0])
+    }
   }, [])
 
   const handleCurrentRoomType = (event) => {

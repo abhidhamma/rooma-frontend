@@ -30,10 +30,12 @@ export const CURRENT_RESERVATION_ATOM_KEY = 'currentReservationAtom'
 export const DAY_COUNT_ATOM_KEY = 'dayCountAtom'
 export const STANDARD_DATE_ATOM_KEY = 'standardDateAtom'
 export const IS_DISPLAY_CREATE_RESERVATION_ATOM_KEY = 'isDisplayCreateReservationAtom'
+export const IS_DISPLAY_READ_RESERVATION_ATOM_KEY = 'isDisplayReadReservationAtom'
 export const DISPLAY_ATOM_KEY = 'displayAtom'
 export const LOCKED_ROOM_LIST_ATOM_KEY = 'lockedRoomListAtom'
 export const OVERLAY_ATOM_KEY = 'overlayAtom'
 export const RIGHT_CLICK_POPUP_ATOM_KEY = 'rightClickPopupAtomKey'
+export const RRNO_ATOM_KEY = 'rrNoAtomKey'
 
 export const READ_RESERVATION_PRICE_SELECTOR_KEY = 'readReservationPriceSelectorKey'
 
@@ -41,6 +43,7 @@ export const READ_RESERVATION_PRICE_SELECTOR_KEY = 'readReservationPriceSelector
 export const ADD_RESERVATION_ROOM_COUNT_ATOM_KEY = 'addReservationRoomCountAtomKey'
 export const CREATE_RESERVATION_ATOM_KEY = 'createReservationAtomKey'
 export const CREATE_RESERVATION_SELECTOR_KEY = 'createReservationSelectorKey'
+export const READ_RESERVATION_SELECTOR_KEY = 'readReservationSelectorKey'
 
 //auth
 export const AUTH_RESULT_ATOM_KEY = 'authResultAtom'

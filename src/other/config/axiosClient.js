@@ -65,7 +65,6 @@ const clientConfig = () => {
 
   client.interceptors.response.use(
     async (response) => {
-      console.log(response)
       if (response.status === 403) {
         removeItem('user')
         removeCookie('jwttoken')

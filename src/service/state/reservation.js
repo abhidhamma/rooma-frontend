@@ -7,6 +7,7 @@ import {
   DAY_COUNT_ATOM_KEY,
   DISPLAY_ATOM_KEY,
   IS_DISPLAY_CREATE_RESERVATION_ATOM_KEY,
+  IS_DISPLAY_READ_RESERVATION_ATOM_KEY,
   LOCKED_ROOM_LIST_ATOM_KEY,
   OVERLAY_ATOM_KEY,
   RESERVATION_LIST_ATOM_KEY,
@@ -25,11 +26,41 @@ const fromToday = (i) => formatyyyyMMdd(addDays(i)(new Date()))
 export const reservationListAtom = atom({
   key: RESERVATION_LIST_ATOM_KEY,
   default: [
-    { checkIn: fromToday(6), checkOut: fromToday(7), color: '#34C38F', data: '김길동', location: '2호' },
-    { checkIn: fromToday(1), checkOut: fromToday(3), color: '#5B73E8', data: '한길동', location: '2호' },
-    { checkIn: fromToday(8), checkOut: fromToday(9), color: '#F46A6A', data: '박길동', location: '1호' },
-    { checkIn: fromToday(41), checkOut: fromToday(42), color: '#F1B44C', data: '송길동', location: '2호' },
-    { checkIn: fromToday(51), checkOut: fromToday(55), color: '#50A5F1', data: '하길동', location: '1호' },
+    {
+      checkIn: fromToday(6),
+      checkOut: fromToday(7),
+      color: '#34C38F',
+      data: '김길동',
+      location: '2호',
+    },
+    {
+      checkIn: fromToday(1),
+      checkOut: fromToday(3),
+      color: '#5B73E8',
+      data: '한길동',
+      location: '2호',
+    },
+    {
+      checkIn: fromToday(8),
+      checkOut: fromToday(9),
+      color: '#F46A6A',
+      data: '박길동',
+      location: '1호',
+    },
+    {
+      checkIn: fromToday(41),
+      checkOut: fromToday(42),
+      color: '#F1B44C',
+      data: '송길동',
+      location: '2호',
+    },
+    {
+      checkIn: fromToday(51),
+      checkOut: fromToday(55),
+      color: '#50A5F1',
+      data: '하길동',
+      location: '1호',
+    },
   ],
 })
 
@@ -66,6 +97,12 @@ export const standardDateAtom = atom({
 //createReservation의 표시유무를 저장하는 atom
 export const isDisplayCreateReservationAtom = atom({
   key: IS_DISPLAY_CREATE_RESERVATION_ATOM_KEY,
+  default: false,
+})
+
+//readReservation의 표시유무를 저장하는 atom
+export const isDisplayReadReservationAtom = atom({
+  key: IS_DISPLAY_READ_RESERVATION_ATOM_KEY,
   default: false,
 })
 

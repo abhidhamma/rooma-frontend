@@ -25,7 +25,10 @@ export default function AccommodationSelect() {
   } = useRecoilValue(readAccommodationListSelector(getFormDataFromJson(data)))
 
   useEffect(() => {
-    setCurrentAccommodation(list[0])
+    if (currentAccommodation?.name === undefined) {
+      console.log('accommodation 초기화')
+      setCurrentAccommodation(list[0])
+    }
   }, [])
   console.log(currentAccommodation.acNo)
 

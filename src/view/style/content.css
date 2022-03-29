@@ -238,6 +238,22 @@ a {
 }
 .scheduler-view .room-number > div {
   padding: 0 10px;
+  display: flex;
+  align-items: center;
+}
+.scheduler-view .room-number > div a.key {
+  display: inline-block;
+  width: 15px;
+  height: 18px;
+  padding: 3px;
+  vertical-align: middle;
+  margin-right: 3px;
+}
+.scheduler-view .room-number > div a.key.lock {
+  background: url('../asset/images/bx-lock.png') no-repeat center center;
+}
+.scheduler-view .room-number > div a.key.unlock {
+  background: url('../asset/images/bx-lock-open.png') no-repeat center center;
 }
 .scheduler-view .room-state {
   width: calc(100% - 270px);
