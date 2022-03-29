@@ -26,6 +26,25 @@ export default function ReadReservationAddRoom({
   roomReservation,
 }) {
   console.log('CreateReservationAddRoom')
+  const parseRoomReservation = () => {
+    console.log(roomReservation)
+    const { addPersionCon, addBreakfastCon } = roomReservation
+    const addPersonArray = addPersionCon.split(',')
+    const addBreakfastArray = addBreakfastCon.split(',')
+    const getPersonCount = (data) => data.split(':')[1]
+    const adult = getPersonCount(addPersonArray[0])
+    const child = getPersonCount(addPersonArray[1])
+    const infant = getPersonCount(addPersonArray[2])
+    const adultBreakfast = getPersonCount(addBreakfastArray[0])
+    const childBreakfast = getPersonCount(addBreakfastArray[1])
+    const infantBreakfast = getPersonCount(addBreakfastArray[2])
+    return { adult, child, infant, adultBreakfast, childBreakfast, infantBreakfast }
+  }
+  const { adult, child, infant, adultBreakfast, childBreakfast, infantBreakfast } =
+    parseRoomReservation()
+  console.log('adult, child, infant')
+  console.log(adult, child, infant, adultBreakfast, childBreakfast, infantBreakfast)
+
   //전역상태
   const setRoomCount = useSetRecoilState(addReserverationRoomCountAtom)
   const [createReservation, setCreateReservation] = useRecoilState(createReservationAtom)
@@ -244,7 +263,7 @@ export default function ReadReservationAddRoom({
               <td>
                 <div className='dF-s'>
                   <span className='num'>성인</span>
-                  <select {...register(`adultCount${count}`)} defaultValue={0}>
+                  <select {...register(`adultCount${count}`)} defaultValue={adult}>
                     <option value={0}>0명</option>
                     {numberToArray(maxPersionNum).map((number) => (
                       <option key={number} value={number}>{`${number}명`}</option>
@@ -257,7 +276,10 @@ export default function ReadReservationAddRoom({
                   {breakfastFeeObjectLength > 0 ? (
                     <>
                       <span className='num'>성인</span>
-                      <select {...register(`adultBreakfastCount${count}`)} defaultValue={0}>
+                      <select
+                        {...register(`adultBreakfastCount${count}`)}
+                        defaultValue={adultBreakfast}
+                      >
                         <option value={0}>0명</option>
                         {numberToArray(maxPersionNum).map((number) => (
                           <option key={number} value={number}>{`${number}명`}</option>
@@ -293,7 +315,7 @@ export default function ReadReservationAddRoom({
               <td>
                 <div className='dF-s'>
                   <span className='num'>소아</span>
-                  <select {...register(`childCount${count}`)} defaultValue={0}>
+                  <select {...register(`childCount${count}`)} defaultValue={child}>
                     <option value={0}>0명</option>
                     {numberToArray(maxPersionNum).map((number) => (
                       <option key={number} value={number}>{`${number}명`}</option>
@@ -306,7 +328,10 @@ export default function ReadReservationAddRoom({
                   {breakfastFeeObjectLength > 1 && (
                     <>
                       <span className='num'>소아</span>
-                      <select {...register(`childBreakfastCount${count}`)} defaultValue={0}>
+                      <select
+                        {...register(`childBreakfastCount${count}`)}
+                        defaultValue={childBreakfast}
+                      >
                         <option value={0}>0명</option>
                         {numberToArray(maxPersionNum).map((number) => (
                           <option key={number} value={number}>{`${number}명`}</option>
@@ -336,7 +361,7 @@ export default function ReadReservationAddRoom({
               <td>
                 <div className='dF-s'>
                   <span className='num'>유아</span>
-                  <select {...register(`infantCount${count}`)} defaultValue={0}>
+                  <select {...register(`infantCount${count}`)} defaultValue={infant}>
                     <option value={0}>0명</option>
                     {numberToArray(maxPersionNum).map((number) => (
                       <option key={number} value={number}>{`${number}명`}</option>
@@ -349,7 +374,10 @@ export default function ReadReservationAddRoom({
                   {breakfastFeeObjectLength > 2 && (
                     <>
                       <span className='num'>유아</span>
-                      <select {...register(`infantBreakfastCount${count}`)} defaultValue={0}>
+                      <select
+                        {...register(`infantBreakfastCount${count}`)}
+                        defaultValue={infantBreakfast}
+                      >
                         <option value={0}>0명</option>
                         {numberToArray(maxPersionNum).map((number) => (
                           <option key={number} value={number}>{`${number}명`}</option>
