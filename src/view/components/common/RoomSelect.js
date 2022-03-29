@@ -3,7 +3,7 @@ import { currentAccommodationAtom } from '@state/common/common'
 import { getFormDataFromJson } from '@util/common/axiosUtil'
 import _ from 'lodash/fp'
 import { useEffect } from 'react'
-import { useRecoilValue } from 'recoil'
+import { useRecoilRefresher_UNSTABLE, useRecoilValue } from 'recoil'
 
 export default function RoomSelect({ roomType, room, setRoom }) {
   console.log('roomSelectCalled...')
@@ -32,11 +32,16 @@ export default function RoomSelect({ roomType, room, setRoom }) {
       data: { list },
     },
   } = useRecoilValue(readRoomList(data))
+  const reset = useRecoilRefresher_UNSTABLE(readRoomList(data))
   console.log(acNo, rtNo, list)
 
   useEffect(() => {
     setRoom(list[0])
   }, [])
+
+  useEffect(() => {
+    reset()
+  }, [rtNo])
 
   const handleCurrentRoom = (event) => {
     const rmNo = event.target.value

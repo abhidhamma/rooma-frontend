@@ -26,6 +26,10 @@ export default function AddRoomTypeSelect({ roomType, setRoomType }) {
   useEffect(() => {
     if (roomType?.rtNo === undefined) {
       setRoomType(list[0])
+    } else {
+      const findFromRtNo = _.find((roomType) => roomType.rtNo === Number(roomType.rtNo))
+      const currentRoomType = findFromRtNo(list)
+      setRoomType(currentRoomType)
     }
   }, [])
 

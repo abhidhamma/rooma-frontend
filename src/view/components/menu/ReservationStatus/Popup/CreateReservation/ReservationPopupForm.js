@@ -369,7 +369,11 @@ export default function ReservationPopupForm({
                           <span className='num'>원</span>
                         </div>
                       </td>
-                      <td className='total'>{`${formatMoney(totalPrice)}원`}</td>
+                      <td className='total'>{`${
+                        totalPrice === 0
+                          ? formatMoney(reservation.payAmount)
+                          : formatMoney(totalPrice)
+                      }원`}</td>
                     </tr>
                   </tbody>
                 </table>
