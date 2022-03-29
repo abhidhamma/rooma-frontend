@@ -8,3 +8,4 @@ export const setCookie = (name, value, option) =>
   })
 
 export const getCookie = (name) => cookies.get(name)
+export const removeCookie = (name) => cookies.remove(name)

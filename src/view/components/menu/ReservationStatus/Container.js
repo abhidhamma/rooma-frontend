@@ -27,12 +27,9 @@ export default function Container() {
     startDate: formatyyyyMMddWithHyphen(standardDate),
     endDate: formatyyyyMMddWithHyphen(addDays(standardDate, 29)),
   }
+  console.log(parameter)
 
-  const {
-    data: {
-      data: { roomTypes },
-    },
-  } = useRecoilValue(readReservationPriceSelector(parameter))
+  const data = useRecoilValue(readReservationPriceSelector(parameter))
   const resetReadReservationPrice = useRecoilRefresher_UNSTABLE(
     readReservationPriceSelector(parameter)
   )
@@ -48,8 +45,9 @@ export default function Container() {
   const [renderRestRoomType, setRenderRestRoomType] = useState(15)
 
   //지역변수
-  const roomTypeList = roomTypes
-  const roomTypeListLength = roomTypeList.length
+  console.log('지역변수')
+  const roomTypeList = data?.data?.data === null ? [] : data.data.roomTypes
+  const roomTypeListLength = data?.data?.data === null ? 0 : data.data.data.roomTypes.length
 
   //hook
   const { scrollY, canScrollCheck } = useScroll()
@@ -57,6 +55,9 @@ export default function Container() {
   //함수
   //10개를 먼저 렌더링하고 스크롤 하면 나머지를 모두 렌더링 하기
   const makeRoomTypes = (length) => {
+    if (roomTypeListLength === 0) {
+      return
+    }
     const roomTypes = roomTypeList
       .slice(0, length)
       .filter((roomType) => roomType.roomPrices.length !== 0)

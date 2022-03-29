@@ -1,9 +1,9 @@
 import axios from 'axios'
 import { signIn } from '@api/auth'
 import { SERVER_URL } from '@constant/apiURLs'
-import { getCookie, setCookie } from '@util/common/cookie'
+import { getCookie, removeCookie, setCookie } from '@util/common/cookie'
 import { decode } from '@util/common/hash'
-import { loadItem } from '@util/common/localStorage'
+import { loadItem, removeItem } from '@util/common/localStorage'
 
 // axios 설정
 const clientConfig = () => {
@@ -27,50 +27,83 @@ const clientConfig = () => {
 
   //응답이 권한없음(200)인 경우
   //localStorage에서 새로운 jwttoken을 받아와서 다시 요청
-  client.interceptors.response.use(async (response) => {
-    const config = response.config
-    const {
-      data: { status },
-      config: { url },
-    } = response
+  // client.interceptors.response.use(async (response) => {
+  //   const config = response.config
+  //   const {
+  //     data: { status },
+  //     config: { url },
+  //   } = response
 
-    if (status === 'UNAUTHORIZED' && url.indexOf('signin') === -1) {
-      console.log('UNAUTHORIZED jwttoken변경시도')
+  //   if (status === 'UNAUTHORIZED' && url.indexOf('signin') === -1) {
+  //     console.log('UNAUTHORIZED jwttoken변경시도')
 
-      const { userId } = loadItem('user')
-      const password = decode(loadItem('PAPAGO_LANG_DETECT'))
+  //     const { userId } = loadItem('user')
+  //     const password = decode(loadItem('PAPAGO_LANG_DETECT'))
 
-      console.log(userId)
-      console.log(password)
+  //     console.log(userId)
+  //     console.log(password)
 
-      try {
-        const {
-          data: { jwttoken },
-        } = await signIn({
-          username: userId,
-          password,
-        })
-        console.log(jwttoken)
+  //     try {
+  //       const {
+  //         data: { jwttoken },
+  //       } = await signIn({
+  //         username: userId,
+  //         password,
+  //       })
+  //       console.log(jwttoken)
 
-        setCookie('jwttoken', jwttoken)
-        config.headers.Authorization = jwttoken ? 'Bearer ' + jwttoken : ''
+  //       setCookie('jwttoken', jwttoken)
+  //       config.headers.Authorization = jwttoken ? 'Bearer ' + jwttoken : ''
 
-        return client(config)
-      } catch (error) {
-        console.log(error)
+  //       return client(config)
+  //     } catch (error) {
+  //       console.log(error)
+  //     }
+  //   }
+  //   return response
+  // })
+
+  client.interceptors.response.use(
+    async (response) => {
+      console.log(response)
+      if (response.status === 403) {
+        removeItem('user')
+        removeCookie('jwttoken')
+        window.location = '/'
       }
+
+      if (response.status === 500) {
+        removeItem('user')
+        removeCookie('jwttoken')
+        window.location = '/'
+      }
+
+      return response
+    },
+    function (error) {
+      removeItem('user')
+      removeCookie('jwttoken')
+      window.location = '/'
+
+      return Promise.reject(error)
     }
-    return response
-  })
+  )
 
   //요청할때마다 토큰과 함께 보내는 설정
-  client.interceptors.request.use((config) => {
-    const token = getCookie('jwttoken')
+  client.interceptors.request.use(
+    (config) => {
+      const token = getCookie('jwttoken')
 
-    config.headers.Authorization = token ? 'Bearer ' + token : ''
+      config.headers.Authorization = token ? 'Bearer ' + token : ''
 
-    return config
-  })
+      return config
+    },
+    function (error) {
+      console.log('에러')
+      console.log(error)
+      return Promise.reject(error)
+    }
+  )
 
   return client
 }
