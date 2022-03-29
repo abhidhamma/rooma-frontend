@@ -81,9 +81,11 @@ const clientConfig = () => {
       return response
     },
     function (error) {
-      removeItem('user')
-      removeCookie('jwttoken')
-      window.location = '/'
+      if (error.indexOf('403')) {
+        removeItem('user')
+        removeCookie('jwttoken')
+        window.location = '/'
+      }
 
       return Promise.reject(error)
     }
