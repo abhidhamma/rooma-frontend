@@ -10,6 +10,7 @@ export default function ReservationPopupForm({
   onSubmit,
   watch,
   reset,
+  getValues,
   increaseRoom,
   roomCount,
   setRoomPrices,
@@ -202,6 +203,7 @@ export default function ReservationPopupForm({
                         register={register}
                         watch={watch}
                         reset={reset}
+                        getValues={getValues}
                         count={number}
                         setRoomPrices={setRoomPrices}
                         setAddPersonPrices={setAddPersonPrices}
@@ -217,6 +219,7 @@ export default function ReservationPopupForm({
                         register={register}
                         watch={watch}
                         reset={reset}
+                        getValues={getValues}
                         count={number}
                         setRoomPrices={setRoomPrices}
                         setAddPersonPrices={setAddPersonPrices}
@@ -235,6 +238,7 @@ export default function ReservationPopupForm({
                         register={register}
                         watch={watch}
                         reset={reset}
+                        getValues={getValues}
                         count={number}
                         setRoomPrices={setRoomPrices}
                         setAddPersonPrices={setAddPersonPrices}
@@ -249,6 +253,7 @@ export default function ReservationPopupForm({
                         register={register}
                         watch={watch}
                         reset={reset}
+                        getValues={getValues}
                         count={number}
                         setRoomPrices={setRoomPrices}
                         setAddPersonPrices={setAddPersonPrices}

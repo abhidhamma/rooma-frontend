@@ -24,7 +24,7 @@ export default function ReadReservation() {
   const setIsDisplayReadReservation = useSetRecoilState(isDisplayReadReservationAtom)
 
   const defaultValues = { ...reservation }
-  const { register, handleSubmit, watch, reset } = useForm({ defaultValues })
+  const { register, handleSubmit, watch, reset, getValues } = useForm({ defaultValues })
 
   const [roomPrices, setRoomPrices] = useState({})
   const [addPersonPrices, setAddPersonPrices] = useState(0)
@@ -54,6 +54,7 @@ export default function ReadReservation() {
       onSubmit={onSubmit}
       watch={watch}
       reset={reset}
+      getValues={getValues}
       increaseRoom={increaseRoom}
       roomCount={roomCount}
       setRoomPrices={setRoomPrices}

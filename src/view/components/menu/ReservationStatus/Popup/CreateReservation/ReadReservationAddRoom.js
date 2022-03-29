@@ -17,6 +17,7 @@ export default function ReadReservationAddRoom({
   register,
   watch,
   count,
+  getValues,
   setRoomPrices,
   setAddPersonPrices,
   setOptionPrices,
@@ -42,6 +43,9 @@ export default function ReadReservationAddRoom({
   const { adult, child, infant, adultBreakfast, childBreakfast, infantBreakfast } =
     parseRoomReservation()
 
+  console.log('추가요금들')
+  console.log(adult, child, infant, adultBreakfast, childBreakfast, infantBreakfast)
+
   //전역상태
   const setRoomCount = useSetRecoilState(addReserverationRoomCountAtom)
   const [createReservation, setCreateReservation] = useRecoilState(createReservationAtom)
@@ -52,8 +56,8 @@ export default function ReadReservationAddRoom({
   const [open, setOpen] = useState(false)
   const [room, setRoom] = useState({ rmNo: roomReservation.rmNo })
   const [roomType, setRoomType] = useState({
-    basicPersionNum: 0,
-    maxPersionNum: 0,
+    basicPersionNum: 2,
+    maxPersionNum: 4,
     originPrice: 0,
     addAdultPrice: 0,
     addChildPrice: 0,
@@ -127,9 +131,9 @@ export default function ReadReservationAddRoom({
   const handleToggle = () => setOpen((prev) => !prev)
   const decreaseRoomCount = () => setRoomCount((prev) => prev - 1)
 
-  // useEffect(() => {
-  //   setRoomType((prev) => ({ ...prev, rtNo: roomReservation.rtNo }))
-  // }, [])
+  useEffect(() => {
+    setRoomType((prev) => ({ ...prev, rtNo: roomReservation.rtNo }))
+  }, [])
   useEffect(() => {
     setRoomPrices((prev) => ({ ...prev, [`roomFee${count}`]: roomFee }))
   }, [roomType])
@@ -149,7 +153,7 @@ export default function ReadReservationAddRoom({
     }
   }, [rmNo])
   useEffect(() => {
-    reset({ [`stayNum${count}`]: basicPersionNum })
+    reset({ ...getValues(), [`stayNum${count}`]: basicPersionNum })
   }, [basicPersionNum])
   return (
     <section className='add-group'>

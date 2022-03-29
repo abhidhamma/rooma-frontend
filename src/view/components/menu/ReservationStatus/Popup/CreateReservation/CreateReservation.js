@@ -49,7 +49,7 @@ export default function CreateReservation() {
 
   const increaseRoom = () => setRoomCount((prev) => prev + 1)
 
-  const { register, handleSubmit, watch, reset } = useForm({ defaultValues })
+  const { register, handleSubmit, watch, reset, getValues } = useForm({ defaultValues })
 
   const { totalRoomPrice, totalAddPersonPrice, totalOptionPrice, totalPrice } = calculatePrices(
     roomCount,
@@ -85,6 +85,7 @@ export default function CreateReservation() {
       onSubmit={onSubmit}
       watch={watch}
       reset={reset}
+      getValues={getValues}
       increaseRoom={increaseRoom}
       roomCount={roomCount}
       setRoomPrices={setRoomPrices}
