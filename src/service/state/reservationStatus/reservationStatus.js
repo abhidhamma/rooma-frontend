@@ -1,9 +1,15 @@
-import { readReservationPrice } from '@api/reservationStatus/reservationStatus'
+import {
+  lockRoom,
+  readReservationPrice,
+  unlockRoom,
+} from '@api/reservationStatus/reservationStatus'
 import {
   ADD_RESERVATION_ROOM_COUNT_ATOM_KEY,
+  LOCK_ROOM_SELECTOR_KEY,
   READ_RESERVATION_PRICE_SELECTOR_KEY,
   RIGHT_CLICK_POPUP_ATOM_KEY,
   RRNO_ATOM_KEY,
+  UNLOCK_ROOM_SELECTOR_KEY,
 } from '@constant/atomKeys'
 import { removeCookie } from '@util/common/cookie'
 import { removeItem } from '@util/common/localStorage'
@@ -39,4 +45,12 @@ export const readReservationPriceSelector = selectorFamily({
         console.log(error)
       }
     },
+})
+export const lockRoomSelector = selectorFamily({
+  key: LOCK_ROOM_SELECTOR_KEY,
+  get: (formData) => async () => await lockRoom(formData),
+})
+export const unlockRoomSelector = selectorFamily({
+  key: UNLOCK_ROOM_SELECTOR_KEY,
+  get: (formData) => async () => await unlockRoom(formData),
 })

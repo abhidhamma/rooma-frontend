@@ -3,6 +3,7 @@ import { getDateArray } from '@util/reservation/reservation'
 import ReservationOverlay from '@components/menu/ReservationStatus/Overlay/ReservationOverlay'
 import SourceOverlay from '@components/menu/ReservationStatus/Overlay/SourceOverlay'
 import TargetOverlay from '@components/menu/ReservationStatus/Overlay/TargetOverlay'
+import { formatyyyyMMdd, formatyyyyMMddWithHyphen, stringToDate } from '@util/common/dateUtil'
 
 function PricePresenter({
   drop,
@@ -26,8 +27,8 @@ function PricePresenter({
 
   return (
     <>
-      <div ref={drop} onContextMenu={handleRightClickPopup}>
-        {lockedRoom?.targetDate === currentDate ? (
+      <div ref={drop} onContextMenu={handleRightClickPopup(reservation)}>
+        {lockedRoom?.lockDate === formatyyyyMMddWithHyphen(stringToDate(currentDate)) ? (
           <div className='lock'>
             <span className='hdn'>잠김</span>
           </div>

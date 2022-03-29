@@ -13,7 +13,7 @@ import {
 import { canDropEffect, dropEffect, itemEffect, throttleHoverEffect } from './PriceFunction'
 import PricePresenter from './PricePresenter'
 import { createReservationAtom } from '@state/reservationStatus/createReservation'
-import { formatyyyyMMdd, stringToDate } from '@util/common/dateUtil'
+import { formatyyyyMMdd, formatyyyyMMddWithHyphen, stringToDate } from '@util/common/dateUtil'
 import { rightClickPopupAtom } from '@state/reservationStatus/reservationStatus'
 
 function PriceContainer({
@@ -23,6 +23,7 @@ function PriceContainer({
   reservation,
   lockedRoom,
   currentReservationList,
+  rmNo,
 }) {
   const dayCount = useRecoilValue(dayCountAtom)
   const standardDate = useRecoilValue(standardDateAtom)
@@ -32,7 +33,7 @@ function PriceContainer({
   const setReservationList = useSetRecoilState(reservationListAtom)
   const setIsDisplayCreateReservation = useSetRecoilState(isDisplayCreateReservationAtom)
   const setCreateReservation = useSetRecoilState(createReservationAtom)
-  const setCss = useSetRecoilState(rightClickPopupAtom)
+  const setRightClickPopupProperty = useSetRecoilState(rightClickPopupAtom)
 
   //useDrag, useDrop
   const [{ isDragging }, drag] = useDrag(
@@ -81,15 +82,18 @@ function PriceContainer({
     setCreateReservation((prev) => ({ ...prev, currentDate: stringToDate(currentDate) }))
   }, [standardDate])
 
-  const handleRightClickPopup = (event) => {
+  const handleRightClickPopup = (reservation) => (event) => {
     const { clientX, clientY } = event
     event.preventDefault()
     console.log(clientX, clientY)
-    setCss((prev) => ({
+    setRightClickPopupProperty((prev) => ({
       ...prev,
       display: 'block',
       top: clientY - 230,
       left: Math.min(clientX, window.innerWidth - 180),
+      hideLock: reservation === undefined,
+      rmNo,
+      lockDate: formatyyyyMMddWithHyphen(stringToDate(currentDate)),
     }))
   }
 

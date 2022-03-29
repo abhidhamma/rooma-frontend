@@ -94,6 +94,10 @@ export const UPDATE_ROOM_PRICE_LIST_CALENDAR_URL = v1Url(UPDATE_ROOM_PRICE_LIST_
 //예약현황
 const READ_RESERVATION_PRICE_SLUG = 'reserve/schedule'
 export const READ_RESERVATION_PRICE_URL = v1Url(READ_RESERVATION_PRICE_SLUG)
+const LOCK_ROOM_SLUG = 'room/lock'
+export const LOCK_ROOM_URL = v1Url(LOCK_ROOM_SLUG)
+const UNLOCK_ROOM_SLUG = 'room/unlock'
+export const UNLOCK_ROOM_URL = v1Url(UNLOCK_ROOM_SLUG)
 
 //예약현황 - 예약팝업
 const CREATE_RESERVATION_SLUG = 'reserve/save'

@@ -1,13 +1,8 @@
 import _ from 'lodash'
 import React, { useMemo } from 'react'
 import { useRecoilValue } from 'recoil'
-import { dayCountAtom, lockedRoomListAtom, standardDateAtom } from '@state/reservation'
-import {
-  getCurrentCalendar,
-  getCurrentLockedRoomList,
-  getCurrentMonthPrice,
-  getCurrentReservationList,
-} from './RoomReservationFunction'
+import { dayCountAtom, standardDateAtom } from '@state/reservation'
+import { getCurrentCalendar, getCurrentMonthPrice } from './RoomReservationFunction'
 import RoomReservationPresenter from './RoomReservationPresenter'
 
 function RoomReservationContainer({
@@ -15,9 +10,11 @@ function RoomReservationContainer({
   roomNumber,
   filteredReservationList,
   currentReservationList,
+  lockedRoomList,
+  rmNo,
 }) {
   console.log('RoomReservationContainer render : ', roomNumber)
-  const lockedRoomList = useRecoilValue(lockedRoomListAtom)
+  // const lockedRoomList = useRecoilValue(lockedRoomListAtom)
   const standardDate = useRecoilValue(standardDateAtom)
   const dayCount = useRecoilValue(dayCountAtom)
 
@@ -26,10 +23,11 @@ function RoomReservationContainer({
   //   () => getCurrentReservationList(filteredReservationList, standardDate, dayCount, roomNumber),
   //   [filteredReservationList, standardDate, dayCount, roomNumber]
   // )
-  const currentLockedRoomList = useMemo(
-    () => getCurrentLockedRoomList(lockedRoomList, standardDate, dayCount, roomNumber),
-    [lockedRoomList, standardDate, dayCount, roomNumber]
-  )
+  // const currentLockedRoomList = useMemo(
+  //   () => getCurrentLockedRoomList(lockedRoomList, standardDate, dayCount, roomNumber),
+  //   [lockedRoomList, standardDate, dayCount, roomNumber]
+  // )
+  const currentLockedRoomList = lockedRoomList
 
   const currentCalendarList = useMemo(
     () =>
@@ -47,6 +45,7 @@ function RoomReservationContainer({
       currentCalendarList={currentCalendarList}
       currentReservationList={currentReservationList}
       roomNumber={roomNumber}
+      rmNo={rmNo}
     />
   )
 }

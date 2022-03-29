@@ -25,8 +25,6 @@ export default function Container() {
   const isDisplayCreateReservation = useRecoilValue(isDisplayCreateReservationAtom)
   const isDisplayReadReservation = useRecoilValue(isDisplayReadReservationAtom)
 
-  console.log('isDisplayCreateReservation : ', isDisplayCreateReservation)
-  console.log('isDisplayReadReservation : ', isDisplayReadReservation)
   const accommodation = useRecoilValue(currentAccommodationAtom)
   const standardDate = useRecoilValue(standardDateAtom)
 
@@ -61,7 +59,6 @@ export default function Container() {
   //함수
   //10개를 먼저 렌더링하고 스크롤 하면 나머지를 모두 렌더링 하기
   const makeRoomTypes = (length) => {
-    console.log(roomTypeList)
     if (roomTypeListLength === 0 || typeof roomTypeList === 'undefined') {
       return
     }

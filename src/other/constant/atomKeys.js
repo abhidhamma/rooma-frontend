@@ -38,6 +38,8 @@ export const RIGHT_CLICK_POPUP_ATOM_KEY = 'rightClickPopupAtomKey'
 export const RRNO_ATOM_KEY = 'rrNoAtomKey'
 
 export const READ_RESERVATION_PRICE_SELECTOR_KEY = 'readReservationPriceSelectorKey'
+export const LOCK_ROOM_SELECTOR_KEY = 'lockRoomSelectorKey'
+export const UNLOCK_ROOM_SELECTOR_KEY = 'unlockRommSelectorKey'
 
 //예약현황 - 예약팝업
 export const ADD_RESERVATION_ROOM_COUNT_ATOM_KEY = 'addReservationRoomCountAtomKey'

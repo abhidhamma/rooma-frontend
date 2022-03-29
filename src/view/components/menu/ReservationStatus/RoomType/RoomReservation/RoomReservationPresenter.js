@@ -2,7 +2,12 @@ import React from 'react'
 import { formatyyyyMMdd, stringToDate } from '@util/common/dateUtil'
 import Price from '@components/menu/ReservationStatus/RoomType/Price'
 
-function RoomReservationPresenter({ currentCalendarList, currentReservationList, roomNumber }) {
+function RoomReservationPresenter({
+  currentCalendarList,
+  currentReservationList,
+  roomNumber,
+  rmNo,
+}) {
   return (
     <>
       {currentCalendarList.length === 0 ? (
@@ -25,6 +30,7 @@ function RoomReservationPresenter({ currentCalendarList, currentReservationList,
                 roomNumber={roomNumber}
                 lockedRoom={currentLockedRoom}
                 currentReservationList={currentReservationList}
+                rmNo={rmNo}
               />
             ) : (
               <Price
@@ -34,6 +40,7 @@ function RoomReservationPresenter({ currentCalendarList, currentReservationList,
                 roomNumber={roomNumber}
                 reservation={currentReservation}
                 currentReservationList={currentReservationList}
+                rmNo={rmNo}
               />
             )
           })}

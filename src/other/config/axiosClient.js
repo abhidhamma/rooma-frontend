@@ -78,16 +78,16 @@ const clientConfig = () => {
       }
 
       return response
-    },
-    function (error) {
-      // if (error.toString().indexOf('403') > -1) {
-      removeItem('user')
-      removeCookie('jwttoken')
-      window.location = '/'
-      // }
-      console.log(error)
-      return Promise.reject(error)
     }
+    // function (error) {
+    //   // if (error.toString().indexOf('403') > -1) {
+    //   removeItem('user')
+    //   removeCookie('jwttoken')
+    //   window.location = '/'
+    //   // }
+    //   console.log(error)
+    //   return Promise.reject(error)
+    // }
   )
 
   //요청할때마다 토큰과 함께 보내는 설정

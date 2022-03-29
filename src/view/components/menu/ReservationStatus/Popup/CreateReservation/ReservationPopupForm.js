@@ -189,11 +189,11 @@ export default function ReservationPopupForm({
                   </tbody>
                 </table>
               </section>
-              <div className='right mgb_10'>
+              {/* <div className='right mgb_10'>
                 <a href='#' className='add-gr' onClick={increaseRoom}>
                   + 객실추가
                 </a>
-              </div>
+              </div> */}
               {type === 'read'
                 ? numberToArray(roomCount).map((number) =>
                     number === 1 ? (

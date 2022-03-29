@@ -7,7 +7,6 @@ import { useEffect } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil'
 
 export default function AccommodationSelect() {
-  console.log('AccommodationSelect called')
   const [currentAccommodation, setCurrentAccommodation] = useRecoilState(currentAccommodationAtom)
 
   const user = loadItem('user')
@@ -26,11 +25,9 @@ export default function AccommodationSelect() {
 
   useEffect(() => {
     if (currentAccommodation?.name === undefined) {
-      console.log('accommodation 초기화')
       setCurrentAccommodation(list[0])
     }
   }, [])
-  console.log(currentAccommodation.acNo)
 
   const changeCurrentAccommodation = (event) => {
     const acNo = event.target.value

@@ -109,9 +109,9 @@ export const getCurrentCalendar = (
 
     for (let k = 0; k < currentLockedRoomList.length; k++) {
       const lockedRoom = currentLockedRoomList[k]
-      const targetDate = lockedRoom.targetDate
+      const targetDate = lockedRoom.lockDate
 
-      if (priceDate === targetDate) {
+      if (priceDate === formatyyyyMMdd(stringToDate(targetDate))) {
         priceList[i] = { ...priceList[i], lockedRoom }
       }
     }
