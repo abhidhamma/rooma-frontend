@@ -81,12 +81,12 @@ const clientConfig = () => {
       return response
     },
     function (error) {
-      if (error.indexOf('403')) {
-        removeItem('user')
-        removeCookie('jwttoken')
-        window.location = '/'
-      }
-
+      // if (error.toString().indexOf('403') > -1) {
+      removeItem('user')
+      removeCookie('jwttoken')
+      window.location = '/'
+      // }
+      console.log(error)
       return Promise.reject(error)
     }
   )

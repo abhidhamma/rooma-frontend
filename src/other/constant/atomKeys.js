@@ -80,6 +80,7 @@ export const SIGNUP_SELECTOR_KEY = 'signUpSelector'
 //company
 export const READ_COMPANY_SELECTOR_KEY = 'readCompanySelectorKey'
 export const READ_COMPANY_LIST_SELECTOR_KEY = 'readCompanyListSelectorKey'
+export const UPDATE_COMPANY_SELECTOR_KEY = 'updateCompanySelectorKey'
 
 //요금관리 - 탭
 export const PRICE_MANAGEMENT_TAB = 'priceManagementTab'

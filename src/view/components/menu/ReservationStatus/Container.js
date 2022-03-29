@@ -45,8 +45,9 @@ export default function Container() {
   const [renderRestRoomType, setRenderRestRoomType] = useState(15)
 
   //지역변수
-  console.log('지역변수')
-  const roomTypeList = data?.data?.data === null ? [] : data.data.roomTypes
+  console.log('룸타입')
+  console.log(data)
+  const roomTypeList = data?.data?.data === null ? [] : data.data.data.roomTypes
   const roomTypeListLength = data?.data?.data === null ? 0 : data.data.data.roomTypes.length
 
   //hook
@@ -55,11 +56,14 @@ export default function Container() {
   //함수
   //10개를 먼저 렌더링하고 스크롤 하면 나머지를 모두 렌더링 하기
   const makeRoomTypes = (length) => {
-    if (roomTypeListLength === 0) {
+    console.log(roomTypeList)
+    if (roomTypeListLength === 0 || typeof roomTypeList === 'undefined') {
+      console.log('리턴')
       return
     }
+
     const roomTypes = roomTypeList
-      .slice(0, length)
+      // .slice(0, length)
       .filter((roomType) => roomType.roomPrices.length !== 0)
       .map((roomType, index) => <RoomType key={index} roomType={roomType} />)
 

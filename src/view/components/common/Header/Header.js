@@ -3,7 +3,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { removeItem } from '@util/common/localStorage'
 import { isLoggedInAtom } from '@state/common/common'
 import { userAtom } from '@state/common/user'
-import CompanySelect from './CompanySelect'
+import AccommodationSelect from './AccommodationSelect'
 import { Suspense } from 'react'
 
 export default function Header() {
@@ -40,7 +40,7 @@ export default function Header() {
                 </select>
               }
             >
-              <CompanySelect />
+              <AccommodationSelect />
             </Suspense>
             <div className='profile'>
               <a href='#'>{user?.name ? user.name : 'admin'}</a>

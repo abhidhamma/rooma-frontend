@@ -7,13 +7,13 @@ import _ from 'lodash/fp'
 import { useEffect } from 'react'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 
-export default function CompanySelect() {
+export default function AccommodationSelect() {
   console.log('CompanySelect called')
-  const setCurrentCompany = useSetRecoilState(currentCompanyAtom)
+  // const setCurrentCompany = useSetRecoilState(currentCompanyAtom)
   const [currentAccommodation, setCurrentAccommodation] = useRecoilState(currentAccommodationAtom)
-  const {
-    data: { data: company },
-  } = useRecoilValue(readCompanyByNoSelector({ cpNo: '1' }))
+  // const {
+  //   data: { data: company },
+  // } = useRecoilValue(readCompanyByNoSelector({ cpNo: '1' }))
   const user = loadItem('user')
 
   const data = {
@@ -29,7 +29,7 @@ export default function CompanySelect() {
   } = useRecoilValue(readAccommodationListSelector(getFormDataFromJson(data)))
 
   useEffect(() => {
-    setCurrentCompany(company)
+    // setCurrentCompany(company)
     // setCurrentAccommodation(list.find((accommodation) => accommodation.acNo === 65))
     setCurrentAccommodation(list[0])
   }, [])

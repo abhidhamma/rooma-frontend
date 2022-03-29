@@ -1,10 +1,12 @@
 import { readCompanyListSelector } from '@state/company/company'
 import { getFormDataFromJson } from '@util/common/axiosUtil'
+import { loadItem } from '@util/common/localStorage'
 import { useRecoilValue } from 'recoil'
 
 export default function CompanySelect({ register }) {
+  const user = loadItem('user')
   const readCompanyListParameter = {
-    cpNo: '1',
+    cpNo: user?.cpNo,
     name: '',
     startRow: '0',
     rowCount: '999',

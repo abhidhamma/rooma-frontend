@@ -16,3 +16,5 @@ export const readCompanyListSelector = selectorFamily({
   key: READ_COMPANY_LIST_SELECTOR_KEY,
   get: (formData) => async () => await readCompanyList(formData),
 })
+
+// export const updateCompanySelector =

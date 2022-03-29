@@ -1,6 +1,7 @@
 import { loadItem } from '@util/common/localStorage'
 import { Suspense } from 'react'
 import SignUpSuperAdminContainer from './SignUpSuperAdminContainer'
+import UpdateUserInfoContainer from './UpdateUserInfoContainer'
 
 export default function SignUpContainer() {
   console.log('SignUpContainer called...')
@@ -14,9 +15,16 @@ export default function SignUpContainer() {
       {/* <!-- S:Container --> */}
       <div id='container'>
         {/* <!-- S:content --> */}
-        <Suspense fallback={<div></div>}>
-          <SignUpSuperAdminContainer />
-        </Suspense>
+        {isSuperAdmin ? (
+          <Suspense fallback={<div></div>}>
+            <SignUpSuperAdminContainer />
+          </Suspense>
+        ) : (
+          <Suspense fallback={<div></div>}>
+            <UpdateUserInfoContainer />
+          </Suspense>
+        )}
+
         {/* <!-- E:content --> */}
       </div>
       {/* <!-- E:Container --> */}
