@@ -27,7 +27,6 @@ export default function ReadReservationAddRoom({
 }) {
   console.log('CreateReservationAddRoom')
   const parseRoomReservation = () => {
-    console.log(roomReservation)
     const { addPersionCon, addBreakfastCon } = roomReservation
     const addPersonArray = addPersionCon.split(',')
     const addBreakfastArray = addBreakfastCon.split(',')
@@ -42,8 +41,6 @@ export default function ReadReservationAddRoom({
   }
   const { adult, child, infant, adultBreakfast, childBreakfast, infantBreakfast } =
     parseRoomReservation()
-  console.log('adult, child, infant')
-  console.log(adult, child, infant, adultBreakfast, childBreakfast, infantBreakfast)
 
   //전역상태
   const setRoomCount = useSetRecoilState(addReserverationRoomCountAtom)
@@ -55,14 +52,15 @@ export default function ReadReservationAddRoom({
   const [open, setOpen] = useState(false)
   const [room, setRoom] = useState({ rmNo: roomReservation.rmNo })
   const [roomType, setRoomType] = useState({
-    basicPersionNum: 2,
-    maxPersionNum: 4,
+    basicPersionNum: 0,
+    maxPersionNum: 0,
     originPrice: 0,
     addAdultPrice: 0,
     addChildPrice: 0,
     addInfantPrice: 0,
     rtNo: roomReservation.rtNo,
   })
+  console.log('firstRoomType')
   console.log(roomType)
   console.log(room)
 
@@ -129,9 +127,9 @@ export default function ReadReservationAddRoom({
   const handleToggle = () => setOpen((prev) => !prev)
   const decreaseRoomCount = () => setRoomCount((prev) => prev - 1)
 
-  useEffect(() => {
-    setRoomType((prev) => ({ ...prev, rtNo: roomReservation.rtNo }))
-  }, [])
+  // useEffect(() => {
+  //   setRoomType((prev) => ({ ...prev, rtNo: roomReservation.rtNo }))
+  // }, [])
   useEffect(() => {
     setRoomPrices((prev) => ({ ...prev, [`roomFee${count}`]: roomFee }))
   }, [roomType])
@@ -214,7 +212,12 @@ export default function ReadReservationAddRoom({
                   </select>
                 }
               >
-                <RoomSelect roomType={roomType} room={room} setRoom={setRoom} />
+                <RoomSelect
+                  roomType={roomType}
+                  room={room}
+                  setRoom={setRoom}
+                  defaultRtNo={roomReservation.rtNo}
+                />
               </Suspense>
             </td>
             <td colSpan='2'>

@@ -5,7 +5,7 @@ import _ from 'lodash/fp'
 import { useEffect } from 'react'
 import { useRecoilRefresher_UNSTABLE, useRecoilValue } from 'recoil'
 
-export default function RoomSelect({ roomType, room, setRoom }) {
+export default function RoomSelect({ roomType, room, setRoom, defaultRtNo }) {
   console.log('roomSelectCalled...')
   const { acNo } = useRecoilValue(currentAccommodationAtom)
   const { rtNo } = roomType
@@ -41,7 +41,7 @@ export default function RoomSelect({ roomType, room, setRoom }) {
 
   useEffect(() => {
     reset()
-  }, [rtNo])
+  }, [])
 
   const handleCurrentRoom = (event) => {
     const rmNo = event.target.value
