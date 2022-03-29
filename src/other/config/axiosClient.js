@@ -27,41 +27,41 @@ const clientConfig = () => {
 
   //응답이 권한없음(200)인 경우
   //localStorage에서 새로운 jwttoken을 받아와서 다시 요청
-  // client.interceptors.response.use(async (response) => {
-  //   const config = response.config
-  //   const {
-  //     data: { status },
-  //     config: { url },
-  //   } = response
+  client.interceptors.response.use(async (response) => {
+    const config = response.config
+    const {
+      data: { status },
+      config: { url },
+    } = response
 
-  //   if (status === 'UNAUTHORIZED' && url.indexOf('signin') === -1) {
-  //     console.log('UNAUTHORIZED jwttoken변경시도')
+    if (status === 'UNAUTHORIZED' && url.indexOf('signin') === -1) {
+      console.log('UNAUTHORIZED jwttoken변경시도')
 
-  //     const { userId } = loadItem('user')
-  //     const password = decode(loadItem('PAPAGO_LANG_DETECT'))
+      const { userId } = loadItem('user')
+      const password = decode(loadItem('PAPAGO_LANG_DETECT'))
 
-  //     console.log(userId)
-  //     console.log(password)
+      console.log(userId)
+      console.log(password)
 
-  //     try {
-  //       const {
-  //         data: { jwttoken },
-  //       } = await signIn({
-  //         username: userId,
-  //         password,
-  //       })
-  //       console.log(jwttoken)
+      try {
+        const {
+          data: { jwttoken },
+        } = await signIn({
+          username: userId,
+          password,
+        })
+        console.log(jwttoken)
 
-  //       setCookie('jwttoken', jwttoken)
-  //       config.headers.Authorization = jwttoken ? 'Bearer ' + jwttoken : ''
+        setCookie('jwttoken', jwttoken)
+        config.headers.Authorization = jwttoken ? 'Bearer ' + jwttoken : ''
 
-  //       return client(config)
-  //     } catch (error) {
-  //       console.log(error)
-  //     }
-  //   }
-  //   return response
-  // })
+        return client(config)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    return response
+  })
 
   client.interceptors.response.use(
     async (response) => {

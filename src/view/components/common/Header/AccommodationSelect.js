@@ -1,19 +1,15 @@
 import { readAccommodationListSelector } from '@state/accommodationManagement/accommodation'
-import { currentAccommodationAtom, currentCompanyAtom } from '@state/common/common'
-import { readCompanyByNoSelector } from '@state/company/company'
+import { currentAccommodationAtom } from '@state/common/common'
 import { getFormDataFromJson } from '@util/common/axiosUtil'
 import { loadItem } from '@util/common/localStorage'
 import _ from 'lodash/fp'
 import { useEffect } from 'react'
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 
 export default function AccommodationSelect() {
-  console.log('CompanySelect called')
-  // const setCurrentCompany = useSetRecoilState(currentCompanyAtom)
+  console.log('AccommodationSelect called')
   const [currentAccommodation, setCurrentAccommodation] = useRecoilState(currentAccommodationAtom)
-  // const {
-  //   data: { data: company },
-  // } = useRecoilValue(readCompanyByNoSelector({ cpNo: '1' }))
+
   const user = loadItem('user')
 
   const data = {
@@ -29,11 +25,9 @@ export default function AccommodationSelect() {
   } = useRecoilValue(readAccommodationListSelector(getFormDataFromJson(data)))
 
   useEffect(() => {
-    // setCurrentCompany(company)
-    // setCurrentAccommodation(list.find((accommodation) => accommodation.acNo === 65))
     setCurrentAccommodation(list[0])
   }, [])
-  console.log(currentAccommodation)
+  console.log(currentAccommodation.acNo)
 
   const changeCurrentAccommodation = (event) => {
     const acNo = event.target.value
@@ -42,7 +36,7 @@ export default function AccommodationSelect() {
   }
 
   return (
-    <select onChange={changeCurrentAccommodation}>
+    <select onChange={changeCurrentAccommodation} value={currentAccommodation.acNo}>
       {list.map((accommodation) => (
         <option value={accommodation.acNo} key={accommodation.acNo}>
           {accommodation.name}
