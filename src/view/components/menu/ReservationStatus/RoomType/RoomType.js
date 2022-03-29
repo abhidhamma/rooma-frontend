@@ -1,6 +1,7 @@
 import { useRecoilValue } from 'recoil'
 import { reservationListAtom } from '@state/reservation'
 import RoomReservation from './RoomReservation'
+import RoomName from './RoomName'
 
 export default function RoomType({ roomType, style }) {
   const reservationList = useRecoilValue(reservationListAtom)
@@ -9,12 +10,7 @@ export default function RoomType({ roomType, style }) {
       <div className='room-type'>{roomType.rtName}</div>
       <div className='room-number'>
         {roomType.rooms.map((room, index) => (
-          <div key={index}>
-            <a href='#' className='key unlock'>
-              <span className='hidden'>잠금/해제</span>
-            </a>
-            <span key={index}>{room.rmName}</span>
-          </div>
+          <RoomName room={room} key={index} rmNo={room.rmNo} />
         ))}
       </div>
       <div className='room-state'>
