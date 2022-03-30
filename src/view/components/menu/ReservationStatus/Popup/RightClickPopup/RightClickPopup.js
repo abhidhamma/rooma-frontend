@@ -1,3 +1,5 @@
+import { updateReservationStatus } from '@api/reservationStatus/reservationStatus'
+import { RESERVE_STATUS } from '@constant/constant'
 import useApiCallback from '@hook/apiHook/useApiCallback'
 import { currentAccommodationAtom } from '@state/common/common'
 import { standardDateAtom } from '@state/reservation'
@@ -6,6 +8,7 @@ import {
   readReservationPriceSelector,
   rightClickPopupAtom,
   unlockRoomSelector,
+  updateReservationStatusSelector,
 } from '@state/reservationStatus/reservationStatus'
 import { getFormDataFromJson } from '@util/common/axiosUtil'
 import { formatyyyyMMddWithHyphen } from '@util/common/dateUtil'
@@ -15,6 +18,7 @@ import { useRecoilRefresher_UNSTABLE, useRecoilValue } from 'recoil'
 export default function RightClickPopUp() {
   const lockRoomCallback = useApiCallback('lockRoom')
   const unlockRoomCallback = useApiCallback('unlockRoom')
+  const checkOutCallback = useApiCallback('checkOut')
 
   const accommodation = useRecoilValue(currentAccommodationAtom)
   const standardDate = useRecoilValue(standardDateAtom)
@@ -59,6 +63,33 @@ export default function RightClickPopUp() {
       )
     }
   }
+  const checkOut = () => {
+    const rrNo = rightClickPopupProperty?.rrNo
+    const reserveStatus = RESERVE_STATUS.CHECKOUT
+    checkOutCallback(
+      updateReservationStatusSelector(getFormDataFromJson({ rrNo, reserveStatus }))
+    ).then((result) => {
+      const { message } = result
+      if (message === '저장되었습니다.') {
+        resetReadReservationPrice()
+        alert('저장되었습니다.')
+      }
+    })
+  }
+
+  const checkIn = () => {
+    const rrNo = rightClickPopupProperty?.rrNo
+    const reserveStatus = RESERVE_STATUS.CHECKIN
+    checkOutCallback(
+      updateReservationStatusSelector(getFormDataFromJson({ rrNo, reserveStatus }))
+    ).then((result) => {
+      const { message } = result
+      if (message === '저장되었습니다.') {
+        resetReadReservationPrice()
+        alert('저장되었습니다.')
+      }
+    })
+  }
   return (
     <div className='state-select' style={{ ...rightClickPopupProperty }}>
       <ul>
@@ -66,10 +97,14 @@ export default function RightClickPopUp() {
           <a href='#'>예약등록/변경</a>
         </li>
         <li>
-          <a href='#'>입실</a>
+          <a href='#' onClick={checkIn}>
+            입실
+          </a>
         </li>
         <li>
-          <a href='#'>퇴실</a>
+          <a href='#' onClick={checkOut}>
+            퇴실
+          </a>
         </li>
         {rightClickPopupProperty.hideLock && (
           <>

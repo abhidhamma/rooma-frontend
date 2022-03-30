@@ -1,6 +1,4 @@
-import { Suspense } from 'react'
 import { useNavigate } from 'react-router-dom'
-import CompanySelect from '../../CompanySelect'
 
 export default function CompanyForm({ onSubmit, handleSubmit, register, isCreate }) {
   let navigate = useNavigate()

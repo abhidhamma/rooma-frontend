@@ -53,6 +53,20 @@ function ReservationOverlay({ data, drag, dayCount, currentDate }) {
     length = originLength - prevLength
   }
 
+  const reserveStatus = data?.reserveStatus
+  const makeColor = (reserveStatus) => {
+    let color = ''
+    if (reserveStatus === 'CHECKOUT') {
+      color = '#f46a6a'
+    } else if (reserveStatus === 'CHECKIN') {
+      color = '#50a5f1'
+    } else {
+      color = '#34C38F'
+    }
+    return color
+  }
+  const backgroundColor = makeColor(reserveStatus)
+
   const showInfo = () => {
     setDisplay({
       display: 'block',
@@ -95,7 +109,7 @@ function ReservationOverlay({ data, drag, dayCount, currentDate }) {
         height: '100%',
         width: `calc(${length}00% + ${length}px)`,
         zIndex: 1,
-        backgroundColor: '#34C38F',
+        backgroundColor: backgroundColor,
         color: 'white',
       }}
     >

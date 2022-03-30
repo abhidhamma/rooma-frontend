@@ -98,6 +98,8 @@ const LOCK_ROOM_SLUG = 'room/lock'
 export const LOCK_ROOM_URL = v1Url(LOCK_ROOM_SLUG)
 const UNLOCK_ROOM_SLUG = 'room/unlock'
 export const UNLOCK_ROOM_URL = v1Url(UNLOCK_ROOM_SLUG)
+const UPDATE_RESERVATION_STATUS_SLUG = 'reserve/status/update'
+export const UPDATE_RESERVATION_STATUS_URL = v1Url(UPDATE_RESERVATION_STATUS_SLUG)
 
 //예약현황 - 예약팝업
 const CREATE_RESERVATION_SLUG = 'reserve/save'

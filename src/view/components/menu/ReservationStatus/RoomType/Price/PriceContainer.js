@@ -93,6 +93,7 @@ function PriceContainer({
       left: Math.min(clientX, window.innerWidth - 180),
       hideLock: reservation === undefined,
       rmNo,
+      rrNo: reservation?.rrNo,
       lockDate: formatyyyyMMddWithHyphen(stringToDate(currentDate)),
     }))
   }

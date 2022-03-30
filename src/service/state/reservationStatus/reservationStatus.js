@@ -2,6 +2,7 @@ import {
   lockRoom,
   readReservationPrice,
   unlockRoom,
+  updateReservationStatus,
 } from '@api/reservationStatus/reservationStatus'
 import {
   ADD_RESERVATION_ROOM_COUNT_ATOM_KEY,
@@ -10,6 +11,7 @@ import {
   RIGHT_CLICK_POPUP_ATOM_KEY,
   RRNO_ATOM_KEY,
   UNLOCK_ROOM_SELECTOR_KEY,
+  UPDATE_RESERVATION_STATUS_SELECTOR_KEY,
 } from '@constant/atomKeys'
 import { removeCookie } from '@util/common/cookie'
 import { removeItem } from '@util/common/localStorage'
@@ -53,4 +55,8 @@ export const lockRoomSelector = selectorFamily({
 export const unlockRoomSelector = selectorFamily({
   key: UNLOCK_ROOM_SELECTOR_KEY,
   get: (formData) => async () => await unlockRoom(formData),
+})
+export const updateReservationStatusSelector = selectorFamily({
+  key: UPDATE_RESERVATION_STATUS_SELECTOR_KEY,
+  get: (formData) => async () => await updateReservationStatus(formData),
 })

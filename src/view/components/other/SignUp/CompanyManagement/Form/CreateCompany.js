@@ -1,7 +1,6 @@
 import useApiCallback from '@hook/apiHook/useApiCallback'
 import { signUpSelector } from '@state/auth'
 import { getFormDataFromJson } from '@util/common/axiosUtil'
-import { validateSignUpInput } from '@util/validation/validateSignUpInput'
 import _ from 'lodash/fp'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
