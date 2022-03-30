@@ -31,25 +31,33 @@ export default function RightClickPopUp() {
   const rightClickPopupProperty = useRecoilValue(rightClickPopupAtom)
   const lockRoom = () => {
     const { rmNo, lockDate } = rightClickPopupProperty
-    lockRoomCallback(lockRoomSelector(getFormDataFromJson({ rmNo, lockDate }))).then((result) => {
-      const { message } = result
-      if (message === '성공') {
-        resetReadReservationPrice()
-        alert('객실이 잠겼습니다.')
-      }
-    })
-  }
-  const unlockRoom = () => {
-    const { rmNo, lockDate } = rightClickPopupProperty
-    unlockRoomCallback(unlockRoomSelector(getFormDataFromJson({ rmNo, lockDate }))).then(
-      (result) => {
+    const isConfirm = window.confirm('객실을 잠그시겠습니까?')
+
+    if (isConfirm) {
+      lockRoomCallback(lockRoomSelector(getFormDataFromJson({ rmNo, lockDate }))).then((result) => {
         const { message } = result
         if (message === '성공') {
           resetReadReservationPrice()
-          alert('객실이 잠금해제되었습니다.')
+          // alert('객실이 잠겼습니다.')
         }
-      }
-    )
+      })
+    }
+  }
+  const unlockRoom = () => {
+    const { rmNo, lockDate } = rightClickPopupProperty
+    const isConfirm = window.confirm('객실 잠금을 해제하시겠습니까?')
+
+    if (isConfirm) {
+      unlockRoomCallback(unlockRoomSelector(getFormDataFromJson({ rmNo, lockDate }))).then(
+        (result) => {
+          const { message } = result
+          if (message === '성공') {
+            resetReadReservationPrice()
+            // alert('객실이 잠금해제되었습니다.')
+          }
+        }
+      )
+    }
   }
   return (
     <div className='state-select' style={{ ...rightClickPopupProperty }}>

@@ -9,6 +9,9 @@ import ReservationManagement from '@pages/ReservationManagement'
 import ReservationManagementList from '@components/menu/ReservationManagement/List/List'
 import PriceManagementContainer from '@components/menu/PriceManagement/Container/Container'
 import PriceManagement from '@pages/PriceManagement'
+import CompanyManagement from '@pages/CompanyManagement'
+import UpdateCompany from '@components/other/SignUp/CompanyManagement/Form/UpdateCompany'
+import CreateCompany from '@components/other/SignUp/CompanyManagement/Form/CreateCompany'
 
 export default function Router() {
   //유저라는 이름으로 localStorage에 넣기만 하면 접근할 수 있게된다 이거하고 바꾸자
@@ -24,6 +27,13 @@ export default function Router() {
             <Route path='schedule' element={<ReservationStatus />} />
             {/* 회원가입 */}
             <Route path='signUp' element={<SignUp />} />
+
+            {/* 슈퍼어드민일 경우 */}
+            <Route path='companyManagement' element={<CompanyManagement />}>
+              <Route path=':companyId' element={<UpdateCompany />} />
+              <Route path='new' element={<CreateCompany />} />
+              {/* 추후 route추가 */}
+            </Route>
 
             {/* 
             메뉴

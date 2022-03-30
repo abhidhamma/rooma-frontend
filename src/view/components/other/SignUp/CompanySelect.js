@@ -20,7 +20,9 @@ export default function CompanySelect({ register }) {
   return (
     <select {...register('name')}>
       {companyList.map((company) => (
-        <option value={company.name}>{company.name}</option>
+        <option key={company.cpNo} value={company.name}>
+          {company.name}
+        </option>
       ))}
     </select>
   )

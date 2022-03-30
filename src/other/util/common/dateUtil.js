@@ -59,6 +59,9 @@ export const formatLong = formatWithOptions(locale, 'y년 M월 d일')
 export const formatyyyyMMddWithHyphen = formatWithOptions(locale, 'yyyy-MM-dd')
 export const formatMW = formatWithOptions(locale, 'MM월')
 export const formatMdWithDot = formatWithOptions(locale, 'M.d')
+
+//업체관리 - 회원관리(슈퍼어드민)
+export const formatyyMMddWithDot = formatWithOptions(locale, 'yy.MM.dd')
 //etc
 export const WithoutTime = (dateTime) => {
   var date = new Date(dateTime.getTime())
