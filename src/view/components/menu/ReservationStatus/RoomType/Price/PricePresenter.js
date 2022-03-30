@@ -27,7 +27,7 @@ function PricePresenter({
 
   return (
     <>
-      <div ref={drop} onContextMenu={handleRightClickPopup(reservation)}>
+      <div ref={drop} onContextMenu={handleRightClickPopup(reservation, lockedRoom)}>
         {lockedRoom?.lockDate === formatyyyyMMddWithHyphen(stringToDate(currentDate)) ? (
           <div className='lock'>
             <span className='hdn'>잠김</span>

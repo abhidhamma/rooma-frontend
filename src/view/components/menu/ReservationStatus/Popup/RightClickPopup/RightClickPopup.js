@@ -13,7 +13,7 @@ import {
 import { getFormDataFromJson } from '@util/common/axiosUtil'
 import { formatyyyyMMddWithHyphen } from '@util/common/dateUtil'
 import { addDays } from 'date-fns'
-import { useRecoilRefresher_UNSTABLE, useRecoilValue } from 'recoil'
+import { useRecoilRefresher_UNSTABLE, useRecoilState, useRecoilValue } from 'recoil'
 
 export default function RightClickPopUp() {
   const lockRoomCallback = useApiCallback('lockRoom')
@@ -32,7 +32,7 @@ export default function RightClickPopUp() {
   const resetReadReservationPrice = useRecoilRefresher_UNSTABLE(
     readReservationPriceSelector(parameter)
   )
-  const rightClickPopupProperty = useRecoilValue(rightClickPopupAtom)
+  const [rightClickPopupProperty, setRightClickPopupProperty] = useRecoilState(rightClickPopupAtom)
   const lockRoom = () => {
     const { rmNo, lockDate } = rightClickPopupProperty
     const isConfirm = window.confirm('객실을 잠그시겠습니까?')
@@ -90,12 +90,16 @@ export default function RightClickPopUp() {
       }
     })
   }
+  const closeMenu = () => {
+    setRightClickPopupProperty((prev) => ({ ...prev, display: 'none' }))
+  }
   return (
     <div className='state-select' style={{ ...rightClickPopupProperty }}>
       <ul>
         <li>
           <a href='#'>예약등록/변경</a>
         </li>
+
         <li>
           <a href='#' onClick={checkIn}>
             입실
@@ -108,18 +112,26 @@ export default function RightClickPopUp() {
         </li>
         {rightClickPopupProperty.hideLock && (
           <>
-            <li>
-              <a href='#' onClick={lockRoom}>
-                객실잠금
-              </a>
-            </li>
-            <li>
-              <a href='#' onClick={unlockRoom}>
-                객실잠금해제
-              </a>
-            </li>
+            {rightClickPopupProperty.isLocked ? (
+              <li>
+                <a href='#' onClick={unlockRoom}>
+                  객실잠금해제
+                </a>
+              </li>
+            ) : (
+              <li>
+                <a href='#' onClick={lockRoom}>
+                  객실잠금
+                </a>
+              </li>
+            )}
           </>
         )}
+        <li>
+          <a href='#' onClick={closeMenu}>
+            메뉴닫기
+          </a>
+        </li>
       </ul>
     </div>
   )

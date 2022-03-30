@@ -82,10 +82,12 @@ function PriceContainer({
     setCreateReservation((prev) => ({ ...prev, currentDate: stringToDate(currentDate) }))
   }, [standardDate])
 
-  const handleRightClickPopup = (reservation) => (event) => {
+  const handleRightClickPopup = (reservation, lockedRoom) => (event) => {
     const { clientX, clientY } = event
     event.preventDefault()
     console.log(clientX, clientY)
+    const isLocked = lockedRoom !== undefined
+    const reservationStatus = reservation?.reserveStatus
     setRightClickPopupProperty((prev) => ({
       ...prev,
       display: 'block',
@@ -95,6 +97,8 @@ function PriceContainer({
       rmNo,
       rrNo: reservation?.rrNo,
       lockDate: formatyyyyMMddWithHyphen(stringToDate(currentDate)),
+      isLocked,
+      reservationStatus,
     }))
   }
 
