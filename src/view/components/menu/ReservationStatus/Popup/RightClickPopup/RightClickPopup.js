@@ -93,23 +93,32 @@ export default function RightClickPopUp() {
   const closeMenu = () => {
     setRightClickPopupProperty((prev) => ({ ...prev, display: 'none' }))
   }
+  console.log(rightClickPopupProperty)
   return (
     <div className='state-select' style={{ ...rightClickPopupProperty }}>
       <ul>
         <li>
           <a href='#'>예약등록/변경</a>
         </li>
-
-        <li>
-          <a href='#' onClick={checkIn}>
-            입실
-          </a>
-        </li>
-        <li>
-          <a href='#' onClick={checkOut}>
-            퇴실
-          </a>
-        </li>
+        {rightClickPopupProperty.reservationStatus === 'RESERVECOMPLETE' && (
+          <li>
+            <a href='#'>예약취소</a>
+          </li>
+        )}
+        {rightClickPopupProperty.reservationStatus === 'RESERVECOMPLETE' && (
+          <li>
+            <a href='#' onClick={checkIn}>
+              입실
+            </a>
+          </li>
+        )}
+        {rightClickPopupProperty.reservationStatus === 'CHECKIN' && (
+          <li>
+            <a href='#' onClick={checkOut}>
+              퇴실
+            </a>
+          </li>
+        )}
         {rightClickPopupProperty.hideLock && (
           <>
             {rightClickPopupProperty.isLocked ? (
