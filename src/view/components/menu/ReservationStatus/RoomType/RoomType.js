@@ -4,8 +4,6 @@ import RoomReservation from './RoomReservation'
 import RoomName from './RoomName'
 
 export default function RoomType({ roomType, style }) {
-  console.log('RoomType called...')
-  console.log(roomType)
   const reservationList = useRecoilValue(reservationListAtom)
   return (
     <div className='scheduler-rows dF-f' style={style}>

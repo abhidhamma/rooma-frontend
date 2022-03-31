@@ -70,53 +70,57 @@ export const getCurrentCalendar = (
   currentMonthPriceList,
   currentReservationList,
   currentLockedRoomList,
-  standardDate
+  standardDate,
+  dayCount
 ) => {
-  // 변경하자 30일 날짜가 있고 거기에 price, reservation, lock을 차례대로 담는식으로 하자
   // 보여질 30일치 날짜 만들기
-  // const displayDays = 30
-  // const mapDate = _.map((number) => ({
-  //   targetDate: formatyyyyMMddWithHyphen(addDays(standardDate, number - 1)),
-  // }))
-  // const dummyMonthData = _.flow(numberToArray, mapDate)(displayDays)
+  const displayDays = dayCount
+  const mapDate = _.map((number) => ({
+    targetDate: formatyyyyMMddWithHyphen(addDays(standardDate, number - 1)),
+  }))
+  const monthDateList = _.flow(numberToArray, mapDate)(displayDays)
 
-  // const addMonthPriceList = _.map((targetDate) => {
-  //   const findCurrentDateData = _.find(
-  //     (monthPrice) => monthPrice.targetDate === formatyyyyMMddWithHyphen(targetDate)
-  //   )
-  //   const currentDateData = findCurrentDateData(monthPriceList)
-  //   return {}
-  // })
-  // console.log(dummyMonthData)
+  const calendarList = monthDateList
+  for (let i = 0; i < calendarList.length; i++) {
+    const { targetDate } = calendarList[i]
 
-  let priceList = currentMonthPriceList
-  for (let i = 0; i < priceList.length; i++) {
-    const priceDate = formatyyyyMMdd(stringToDate(priceList[i].targetDate))
-    for (let j = 0; j < currentReservationList.length; j++) {
-      const reservation = currentReservationList[j]
-      const checkIn = formatyyyyMMdd(stringToDate(reservation.checkinDate))
+    //달력에 가격 포함시키기
+    for (let j = 0; j < currentMonthPriceList.length; j++) {
+      const priceData = currentMonthPriceList[j]
+      const priceDate = priceData.targetDate
 
-      //reservation 포함시키기
-      if (priceDate === checkIn) {
-        priceList[i] = { ...priceList[i], reservation, targetDate: priceDate }
-        continue
-      }
-      let isHangOnTwoCalendar = getIsHangOnTwoCalendar(reservation, standardDate, priceDate)
-      if (isHangOnTwoCalendar) {
-        priceList[i] = { ...priceList[i], reservation, targetDate: priceDate }
+      if (targetDate === priceDate) {
+        calendarList[i] = { ...calendarList[i], ...priceData }
       }
     }
 
-    for (let k = 0; k < currentLockedRoomList.length; k++) {
-      const lockedRoom = currentLockedRoomList[k]
-      const targetDate = lockedRoom.lockDate
+    //달력에 예약 포함시키기
+    for (let j = 0; j < currentReservationList.length; j++) {
+      const reservation = currentReservationList[j]
+      const checkIn = reservation.checkinDate
 
-      if (priceDate === formatyyyyMMdd(stringToDate(targetDate))) {
-        priceList[i] = { ...priceList[i], lockedRoom }
+      if (targetDate === checkIn) {
+        calendarList[i] = { ...calendarList[i], reservation }
+        continue
+      }
+      let isHangOnTwoCalendar = getIsHangOnTwoCalendar(reservation, standardDate, targetDate)
+      if (isHangOnTwoCalendar) {
+        calendarList[i] = { ...calendarList[i], reservation }
+      }
+    }
+
+    //달력에 잠긴방 포함시키기
+    for (let j = 0; j < currentLockedRoomList.length; j++) {
+      const lockedRoom = currentLockedRoomList[j]
+      const lockDate = lockedRoom.lockDate
+
+      if (targetDate === lockDate) {
+        calendarList[i] = { ...calendarList[i], lockedRoom }
       }
     }
   }
-  return priceList
+
+  return calendarList
 }
 
 //달력의 시작과 끝에 걸쳐있는 예약인지 체크

@@ -93,7 +93,6 @@ export default function RightClickPopUp() {
   const closeMenu = () => {
     setRightClickPopupProperty((prev) => ({ ...prev, display: 'none' }))
   }
-  console.log(rightClickPopupProperty)
   return (
     <div className='state-select' style={{ ...rightClickPopupProperty }}>
       <ul>

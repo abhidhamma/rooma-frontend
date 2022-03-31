@@ -13,7 +13,6 @@ function RoomReservationContainer({
   lockedRoomList,
   rmNo,
 }) {
-  console.log('RoomReservationContainer render : ', roomNumber)
   // const lockedRoomList = useRecoilValue(lockedRoomListAtom)
   const standardDate = useRecoilValue(standardDateAtom)
   const dayCount = useRecoilValue(dayCountAtom)
@@ -35,7 +34,8 @@ function RoomReservationContainer({
         currentMonthPriceList,
         currentReservationList,
         currentLockedRoomList,
-        standardDate
+        standardDate,
+        dayCount
       ),
     [currentMonthPriceList, currentReservationList, currentLockedRoomList, standardDate]
   )

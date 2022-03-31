@@ -11,7 +11,6 @@ import { displayAtom, isDisplayReadReservationAtom, standardDateAtom } from '@st
 import { rrNoAtom } from '@state/reservationStatus/reservationStatus'
 
 function ReservationOverlay({ data, drag, dayCount, currentDate }) {
-  console.log(data)
   const setDisplay = useSetRecoilState(displayAtom)
   const setIsDisplayReadReservation = useSetRecoilState(isDisplayReadReservationAtom)
   const setRrNo = useSetRecoilState(rrNoAtom)

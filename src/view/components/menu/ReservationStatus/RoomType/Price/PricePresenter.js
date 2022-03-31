@@ -40,7 +40,7 @@ function PricePresenter({
               style={{ display: 'block', placeSelf: 'center' }}
               onClick={handleCreateReservation}
             >
-              {`${price}만`}
+              {`${isNaN(price) ? 'X' : `${price}만`}`}
             </a>
           </div>
         )}
