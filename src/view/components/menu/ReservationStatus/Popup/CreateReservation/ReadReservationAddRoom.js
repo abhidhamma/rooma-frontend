@@ -8,6 +8,7 @@ import parseCustomData from '@util/parse/parse'
 import _ from 'lodash'
 import { Suspense, useEffect, useState } from 'react'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
+import ReservationDateForm from './common/ReservationDateForm'
 import AddRoomTypeSelect from './common/RoomTypeSelect'
 
 export default function ReadReservationAddRoom({
@@ -223,11 +224,20 @@ export default function ReadReservationAddRoom({
               </Suspense>
             </td>
             <td colSpan='2'>
-              <div className='term'>
+              {/* <div className='term'>
                 <span>{startDate}</span>
                 <span className='day'>1박</span>
                 <span>{endDate}</span>
-              </div>
+              </div> */}
+              <ReservationDateForm
+                register={register}
+                reset={reset}
+                getValues={getValues}
+                top={33}
+                count={count}
+                defaultCheckInDate={startDate}
+                defaultCheckOutDate={endDate}
+              />
             </td>
             <td>
               <div className='dF-s'>

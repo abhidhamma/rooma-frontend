@@ -1,6 +1,8 @@
 import { numberToArray } from '@util/common/lodash'
 import { formatMoney } from '@util/common/others'
 import { useState } from 'react'
+import PayStatusSelect from './common/PayStatusSelect'
+import ReservationStateSelect from './common/ReservationStatus'
 import CreateReservationAddRoom from './CreateReservationAddRoom'
 import ReadReservationAddRoom from './ReadReservationAddRoom'
 
@@ -26,9 +28,6 @@ export default function ReservationPopupForm({
   reservation,
   type,
 }) {
-  const [isReservationButtonOpen, setIsReservationButtonOpen] = useState(false)
-  const [isCheckInButtonOpen, setIsCheckInButtonOpen] = useState(false)
-
   return (
     // <!-- S:예약정보 layer -->
     <div
@@ -85,46 +84,16 @@ export default function ReservationPopupForm({
                   )}
                 </dl>
                 <div className='r-right'>
-                  <div className='reserv-state'>
-                    <a
-                      href='#'
-                      className={isReservationButtonOpen ? 'c1 drop down' : 'c1 drop'}
-                      onClick={() => setIsReservationButtonOpen(!isReservationButtonOpen)}
-                    >
-                      예약완료
-                    </a>
-                    <ul
-                      className='category-menu c1'
-                      style={{ display: isReservationButtonOpen ? 'block' : 'none' }}
-                    >
-                      <li>
-                        <a href='#'>입금완료</a>
-                      </li>
-                      <li>
-                        <a href='#'>입금완료</a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className='reserv-state'>
-                    <a
-                      href='#'
-                      className={isCheckInButtonOpen ? 'c2 drop down' : 'c2 drop'}
-                      onClick={() => setIsCheckInButtonOpen(!isCheckInButtonOpen)}
-                    >
-                      입실전
-                    </a>
-                    <ul
-                      className='category-menu c2'
-                      style={{ display: isCheckInButtonOpen ? 'block' : 'none' }}
-                    >
-                      <li>
-                        <a href='#'>입실전</a>
-                      </li>
-                      <li>
-                        <a href='#'>입실전</a>
-                      </li>
-                    </ul>
-                  </div>
+                  <ReservationStateSelect
+                    reservationStatus={watch('reserveStatus')}
+                    reset={reset}
+                    getValues={getValues}
+                  />
+                  <PayStatusSelect
+                    payStatus={watch('payStatus')}
+                    reset={reset}
+                    getValues={getValues}
+                  />
                 </div>
               </section>
               <section>
@@ -189,11 +158,13 @@ export default function ReservationPopupForm({
                   </tbody>
                 </table>
               </section>
-              {/* <div className='right mgb_10'>
-                <a href='#' className='add-gr' onClick={increaseRoom}>
-                  + 객실추가
-                </a>
-              </div> */}
+              {type !== 'read' && (
+                <div className='right mgb_10'>
+                  <a href='#' className='add-gr' onClick={increaseRoom}>
+                    + 객실추가
+                  </a>
+                </div>
+              )}
               {type === 'read'
                 ? numberToArray(roomCount).map((number) =>
                     number === 1 ? (

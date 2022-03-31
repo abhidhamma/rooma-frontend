@@ -66,6 +66,7 @@ export default function Container() {
     const roomTypes = roomTypeList
       // .slice(0, length)
       .filter((roomType) => roomType.roomPrices.length !== 0)
+      .filter((roomType) => roomType.rooms.length !== 0)
       .map((roomType, index) => <RoomType key={index} roomType={roomType} />)
 
     if (length === 15 && roomTypeListLength > 15) {

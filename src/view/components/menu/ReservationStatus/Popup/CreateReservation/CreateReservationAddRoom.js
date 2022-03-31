@@ -10,6 +10,7 @@ import { addDays } from 'date-fns'
 import _ from 'lodash'
 import { Suspense, useEffect, useState } from 'react'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
+import ReservationDateForm from './common/ReservationDateForm'
 import AddRoomTypeSelect from './common/RoomTypeSelect'
 
 export default function CreateReservationAddRoom({
@@ -23,6 +24,7 @@ export default function CreateReservationAddRoom({
   setTotalPrices,
   setRmNoObject,
   reset,
+  getValues,
 }) {
   console.log('CreateReservationAddRoom')
   //전역상태
@@ -35,8 +37,8 @@ export default function CreateReservationAddRoom({
   const [open, setOpen] = useState(false)
   const [room, setRoom] = useState({ rmNo: 0 })
   const [roomType, setRoomType] = useState({
-    basicPersionNum: 0,
-    maxPersionNum: 0,
+    basicPersionNum: 2,
+    maxPersionNum: 4,
     originPrice: 0,
     addAdultPrice: 0,
     addChildPrice: 0,
@@ -48,8 +50,8 @@ export default function CreateReservationAddRoom({
   //변수
   console.log('currentDate')
   console.log(createReservation)
-  const startDate = formatyyyyMMddWithHyphen(createReservation.currentDate)
-  const endDate = formatyyyyMMddWithHyphen(addDays(createReservation.currentDate, 1))
+  const defaultCheckInDate = formatyyyyMMddWithHyphen(createReservation.currentDate)
+  const defaultCheckOutDate = formatyyyyMMddWithHyphen(addDays(createReservation.currentDate, 1))
 
   const { addBreakfastFee, addExtFee } = accommodation
   const {
@@ -109,6 +111,9 @@ export default function CreateReservationAddRoom({
   const decreaseRoomCount = () => setRoomCount((prev) => prev - 1)
 
   useEffect(() => {
+    reset({ ...getValues(), checkinDate: defaultCheckInDate, checkoutDate: defaultCheckOutDate })
+  }, [])
+  useEffect(() => {
     setRoomPrices((prev) => ({ ...prev, [`roomFee${count}`]: roomFee }))
   }, [roomType])
   useEffect(() => {
@@ -127,7 +132,7 @@ export default function CreateReservationAddRoom({
     }
   }, [rmNo])
   useEffect(() => {
-    reset({ [`stayNum${count}`]: basicPersionNum })
+    reset({ ...getValues(), [`stayNum${count}`]: basicPersionNum })
   }, [basicPersionNum])
   return (
     <section className='add-group'>
@@ -194,11 +199,20 @@ export default function CreateReservationAddRoom({
               </Suspense>
             </td>
             <td colSpan='2'>
-              <div className='term'>
+              {/* <div className='term'>
                 <span>{startDate}</span>
                 <span className='day'>1박</span>
                 <span>{endDate}</span>
-              </div>
+              </div> */}
+              <ReservationDateForm
+                register={register}
+                reset={reset}
+                getValues={getValues}
+                top={33}
+                count={count}
+                defaultCheckInDate={defaultCheckInDate}
+                defaultCheckOutDate={defaultCheckOutDate}
+              />
             </td>
             <td>
               <div className='dF-s'>
