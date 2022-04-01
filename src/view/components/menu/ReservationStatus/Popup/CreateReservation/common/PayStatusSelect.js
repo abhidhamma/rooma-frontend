@@ -1,4 +1,4 @@
-import { PAY_STATUS } from '@constant/constant'
+import { PAY_STATUS } from '@constant/constantVariable'
 import { getKeyFromValue } from '@util/common/others'
 import { useEffect, useState } from 'react'
 

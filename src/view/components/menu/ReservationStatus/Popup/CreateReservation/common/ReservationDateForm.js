@@ -1,6 +1,6 @@
 import Calendar from '@components/common/Calendar'
 import { selectedDateAtom, showCalendarAtom } from '@state/common/calendar'
-import { formatyyyyMMddWithHyphen } from '@util/common/dateUtil'
+import { betweenyyyyMMdd, formatyyyyMMddWithHyphen } from '@util/common/dateUtil'
 import { isDate } from 'date-fns'
 import { useEffect } from 'react'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
@@ -9,13 +9,12 @@ export default function ReservationDateForm({
   register,
   reset,
   getValues,
+  watch,
   top,
   count,
   defaultCheckInDate,
   defaultCheckOutDate,
 }) {
-  console.log('ReservationDateForm called...')
-  console.log(defaultCheckInDate)
   const selectedDate = useRecoilValue(selectedDateAtom)
   const setShowCalendar = useSetRecoilState(showCalendarAtom)
   const checkinDateCalendarName = `checkinDate${count}`
@@ -43,6 +42,7 @@ export default function ReservationDateForm({
         : selectedDate[checkoutDateCalendarName],
     })
   }, [selectedDate])
+  const night = betweenyyyyMMdd(watch(`checkinDate${count}`), watch(`checkoutDate${count}`))
   return (
     <div className='term'>
       <span onClick={handleSaleStartdateCalendar} style={{ display: 'grid' }}>
@@ -54,7 +54,7 @@ export default function ReservationDateForm({
           style={{ width: '95px' }}
         />
       </span>
-      <span className='day'>1박</span>
+      <span className='day'>{`${night}박`}</span>
       <span onClick={handleSaleEnddateCalendar} style={{ display: 'grid' }}>
         <input
           type='text'

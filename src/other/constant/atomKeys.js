@@ -41,12 +41,14 @@ export const READ_RESERVATION_PRICE_SELECTOR_KEY = 'readReservationPriceSelector
 export const LOCK_ROOM_SELECTOR_KEY = 'lockRoomSelectorKey'
 export const UNLOCK_ROOM_SELECTOR_KEY = 'unlockRommSelectorKey'
 export const UPDATE_RESERVATION_STATUS_SELECTOR_KEY = 'updateReservationStatusSelectorKey'
+export const UPDATE_RESERVATION_DATE_SELECTOR_KEY = 'updateReservationDateSelectorKey'
 
 //예약현황 - 예약팝업
 export const ADD_RESERVATION_ROOM_COUNT_ATOM_KEY = 'addReservationRoomCountAtomKey'
 export const CREATE_RESERVATION_ATOM_KEY = 'createReservationAtomKey'
 export const CREATE_RESERVATION_SELECTOR_KEY = 'createReservationSelectorKey'
 export const READ_RESERVATION_SELECTOR_KEY = 'readReservationSelectorKey'
+export const READ_POSSIBLE_ROOM_LIST_SELECTOR_KEY = 'readPossibleRoomListSelectorKey'
 
 //auth
 export const AUTH_RESULT_ATOM_KEY = 'authResultAtom'

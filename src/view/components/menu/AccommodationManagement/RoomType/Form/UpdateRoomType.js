@@ -26,7 +26,7 @@ export default function UpdateRoomType() {
   let navigate = useNavigate()
 
   // const { roomList}
-  const data = {
+  const parameter = {
     cpNo: '1',
     name: '',
     startRow: '0',
@@ -36,7 +36,7 @@ export default function UpdateRoomType() {
     data: {
       data: { list: roomList, totalCount: roomTotalNum },
     },
-  } = useRecoilValue(readRoomListSelector(getFormDataFromJson(addRtNo(data))))
+  } = useRecoilValue(readRoomListSelector(getFormDataFromJson(addRtNo(parameter))))
   // const resetReadRoomListSelector = useRecoilRefresher_UNSTABLE(
   //   readRoomListSelector(getFormDataFromJson(data))
   // )

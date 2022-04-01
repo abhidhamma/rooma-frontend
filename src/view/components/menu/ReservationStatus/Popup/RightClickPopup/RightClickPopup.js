@@ -1,5 +1,5 @@
 import { updateReservationStatus } from '@api/reservationStatus/reservationStatus'
-import { RESERVE_STATUS } from '@constant/constant'
+import { RESERVE_STATUS } from '@constant/constantVariable'
 import useApiCallback from '@hook/apiHook/useApiCallback'
 import { currentAccommodationAtom } from '@state/common/common'
 import { standardDateAtom } from '@state/reservation'

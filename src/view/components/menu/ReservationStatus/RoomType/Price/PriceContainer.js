@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
-import { useRecoilValue, useSetRecoilState } from 'recoil'
+import { useRecoilRefresher_UNSTABLE, useRecoilValue, useSetRecoilState } from 'recoil'
 import {
   dayCountAtom,
   displayAtom,
@@ -14,7 +14,14 @@ import { canDropEffect, dropEffect, itemEffect, throttleHoverEffect } from './Pr
 import PricePresenter from './PricePresenter'
 import { createReservationAtom } from '@state/reservationStatus/createReservation'
 import { formatyyyyMMdd, formatyyyyMMddWithHyphen, stringToDate } from '@util/common/dateUtil'
-import { rightClickPopupAtom } from '@state/reservationStatus/reservationStatus'
+import {
+  readReservationPriceSelector,
+  rightClickPopupAtom,
+  updateReservationDateSelector,
+} from '@state/reservationStatus/reservationStatus'
+import useApiCallback from '@hook/apiHook/useApiCallback'
+import { currentAccommodationAtom } from '@state/common/common'
+import { addDays } from 'date-fns'
 
 function PriceContainer({
   price,
@@ -25,6 +32,7 @@ function PriceContainer({
   currentReservationList,
   rmNo,
 }) {
+  const updateReservationDateCallback = useApiCallback('updateReservationDate')
   const dayCount = useRecoilValue(dayCountAtom)
   const standardDate = useRecoilValue(standardDateAtom)
   const lockedRoomList = useRecoilValue(lockedRoomListAtom)
@@ -34,6 +42,25 @@ function PriceContainer({
   const setIsDisplayCreateReservation = useSetRecoilState(isDisplayCreateReservationAtom)
   const setCreateReservation = useSetRecoilState(createReservationAtom)
   const setRightClickPopupProperty = useSetRecoilState(rightClickPopupAtom)
+
+  const accommodation = useRecoilValue(currentAccommodationAtom)
+
+  const parameter = {
+    acNo: accommodation.acNo,
+    startDate: formatyyyyMMddWithHyphen(standardDate),
+    endDate: formatyyyyMMddWithHyphen(addDays(standardDate, 29)),
+  }
+
+  const resetReadReservationPrice = useRecoilRefresher_UNSTABLE(
+    readReservationPriceSelector(parameter)
+  )
+
+  const updateReservation = (updateReservationDateCallback) => (parameter) => {
+    updateReservationDateCallback(updateReservationDateSelector(parameter)).then((result) => {
+      console.log(result)
+      resetReadReservationPrice()
+    })
+  }
 
   //useDrag, useDrop
   const [{ isDragging }, drag] = useDrag(
@@ -64,10 +91,20 @@ function PriceContainer({
           lockedRoomList,
           lockedRoom,
           currentDate,
-          roomNumber
+          rmNo,
+          price
         ),
       drop: (item) =>
-        dropEffect(item, setDisplay, setOverlay, setReservationList, currentDate, roomNumber),
+        dropEffect(
+          item,
+          setDisplay,
+          setOverlay,
+          setReservationList,
+          currentDate,
+          roomNumber,
+          updateReservation(updateReservationDateCallback),
+          rmNo
+        ),
       // collect: (monitor) => ({
       //   isOver: !!monitor.isOver(),
       //   canDrop: !!monitor.canDrop(),

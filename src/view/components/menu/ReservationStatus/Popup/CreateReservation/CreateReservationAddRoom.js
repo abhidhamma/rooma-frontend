@@ -195,19 +195,21 @@ export default function CreateReservationAddRoom({
                   </select>
                 }
               >
-                <RoomSelect roomType={roomType} room={room} setRoom={setRoom} />
+                <RoomSelect
+                  roomType={roomType}
+                  room={room}
+                  setRoom={setRoom}
+                  count={count}
+                  watch={watch}
+                />
               </Suspense>
             </td>
             <td colSpan='2'>
-              {/* <div className='term'>
-                <span>{startDate}</span>
-                <span className='day'>1박</span>
-                <span>{endDate}</span>
-              </div> */}
               <ReservationDateForm
                 register={register}
                 reset={reset}
                 getValues={getValues}
+                watch={watch}
                 top={33}
                 count={count}
                 defaultCheckInDate={defaultCheckInDate}

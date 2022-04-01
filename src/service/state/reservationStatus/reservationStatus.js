@@ -2,6 +2,7 @@ import {
   lockRoom,
   readReservationPrice,
   unlockRoom,
+  updateReservationDate,
   updateReservationStatus,
 } from '@api/reservationStatus/reservationStatus'
 import {
@@ -11,6 +12,7 @@ import {
   RIGHT_CLICK_POPUP_ATOM_KEY,
   RRNO_ATOM_KEY,
   UNLOCK_ROOM_SELECTOR_KEY,
+  UPDATE_RESERVATION_DATE_SELECTOR_KEY,
   UPDATE_RESERVATION_STATUS_SELECTOR_KEY,
 } from '@constant/atomKeys'
 import { removeCookie } from '@util/common/cookie'
@@ -59,4 +61,8 @@ export const unlockRoomSelector = selectorFamily({
 export const updateReservationStatusSelector = selectorFamily({
   key: UPDATE_RESERVATION_STATUS_SELECTOR_KEY,
   get: (formData) => async () => await updateReservationStatus(formData),
+})
+export const updateReservationDateSelector = selectorFamily({
+  key: UPDATE_RESERVATION_DATE_SELECTOR_KEY,
+  get: (formData) => async () => await updateReservationDate(formData),
 })

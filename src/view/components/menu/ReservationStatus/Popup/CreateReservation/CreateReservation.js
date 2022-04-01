@@ -13,7 +13,7 @@ import { formatyyyyMMddWithHyphen } from '@util/common/dateUtil'
 import { numberToArray } from '@util/common/lodash'
 import { addDays } from 'date-fns'
 import _ from 'lodash/fp'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import {
   useRecoilRefresher_UNSTABLE,
