@@ -35,7 +35,7 @@ export const DISPLAY_ATOM_KEY = 'displayAtom'
 export const LOCKED_ROOM_LIST_ATOM_KEY = 'lockedRoomListAtom'
 export const OVERLAY_ATOM_KEY = 'overlayAtom'
 export const RIGHT_CLICK_POPUP_ATOM_KEY = 'rightClickPopupAtomKey'
-export const RRNO_ATOM_KEY = 'rrNoAtomKey'
+export const READ_RESERVATION_PARAMETER_ATOM_KEY = 'readReservationParameterAtomKey'
 
 export const READ_RESERVATION_PRICE_SELECTOR_KEY = 'readReservationPriceSelectorKey'
 export const LOCK_ROOM_SELECTOR_KEY = 'lockRoomSelectorKey'

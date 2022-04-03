@@ -16,8 +16,6 @@ export default function ReservationStateSelect({ reservationStatus, reset, getVa
     getKeyFromValue(reservationStatusMap, reservationStatus)
   )
 
-  console.log('ReservationStateSelect called...')
-  console.log(getKeyFromValue(reservationStatusMap, reservationStatus))
   const changeSelect = (text) => () => {
     setSelectedText(text)
     setIsReservationButtonOpen(false)

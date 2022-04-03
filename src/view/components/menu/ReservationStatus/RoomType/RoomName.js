@@ -82,11 +82,11 @@ export default function RoomName({ rtName, room, rmNo, reservationList, lockedRo
     }
   }
   return (
-    <div>
+    <div style={{ width: '150px' }}>
       <a href='#' className={isAllLocked ? 'key lock' : 'key unlock'} onClick={handleAllLock}>
         <span className='hidden'>잠금/해제</span>
       </a>
-      <span>{room.rmName}</span>
+      <span>{`${room.rmName} ${rmNo}`}</span>
     </div>
   )
 }

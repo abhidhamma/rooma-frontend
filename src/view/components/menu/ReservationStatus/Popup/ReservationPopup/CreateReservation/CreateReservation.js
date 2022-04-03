@@ -21,7 +21,7 @@ import {
   useRecoilValue,
   useSetRecoilState,
 } from 'recoil'
-import ReservationPopupForm from './ReservationPopupForm'
+import ReservationPopupForm from '../common/ReservationPopupForm'
 
 export default function CreateReservation() {
   const [roomPrices, setRoomPrices] = useState({})
@@ -138,6 +138,7 @@ export const calculatePrices = (
     totalRoomPrice += roomPrices[`roomFee${number}`]
     totalAddPersonPrice += addPersonPrices[`addPersonFee${number}`]
     totalOptionPrice += optionPrices[`optionFee${number}`]
+
     totalPrice += totalPrices[`roomTotalFee${number}`]
   })
   _.flow(numberToArray, eachTotalPrice)(roomCount)
@@ -165,7 +166,6 @@ const preprocessSubmitData = (roomCount, rmNoObject, totalPrices) => (submitData
     fieldMemo,
   } = submitData
   const roomReserves = makeRoomReserves(submitData, roomCount, rmNoObject, totalPrices)
-  console.log(roomReserves)
   return {
     rrNo,
     rmNo,
@@ -225,7 +225,6 @@ const createReservation =
   (createReservationCallback, resetReadReservationPrice) => async (jsonData) => {
     const isSuccess = await createReservationCallback(createReservationSelector(jsonData)).then(
       (result) => {
-        console.log(result)
         const { message } = result
         if (message === '업데이트 성공') {
           alert('예약이 완료되었습니다.')

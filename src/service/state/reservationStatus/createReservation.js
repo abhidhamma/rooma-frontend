@@ -28,10 +28,13 @@ export const readReservationSelector = selectorFamily({
     async () =>
       await readReservation({ rrNo }),
 })
-export const readPossibleReservationSelector = selectorFamily({
+export const readPossibleRoomListSelector = selectorFamily({
   key: READ_POSSIBLE_ROOM_LIST_SELECTOR_KEY,
-  get:
-    ({ rtNo, startDate, endDate }) =>
-    async () =>
-      await readPossibleRoomList({ rtNo, startDate, endDate }),
+  get: (jsonData) => async () => {
+    if (jsonData === false) {
+      return { data: { data: { list: [] } } }
+    }
+    const { rtNo, startDate, endDate } = jsonData
+    return await readPossibleRoomList({ rtNo, startDate, endDate })
+  },
 })

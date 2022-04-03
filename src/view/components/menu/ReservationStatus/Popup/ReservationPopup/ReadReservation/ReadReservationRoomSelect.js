@@ -1,13 +1,12 @@
 import { readRoomListSelector } from '@state/accommodationManagement/room'
 import { selectedDateAtom } from '@state/common/calendar'
-import { currentAccommodationAtom } from '@state/common/common'
+import { readPossibleRoomListSelector } from '@state/reservationStatus/createReservation'
 import { getFormDataFromJson } from '@util/common/axiosUtil'
 import _ from 'lodash/fp'
 import { useEffect } from 'react'
 import { useRecoilRefresher_UNSTABLE, useRecoilValue } from 'recoil'
 
-export default function RoomSelect({ roomType, room, setRoom, count, watch }) {
-  console.log('roomSelectCalled...')
+export default function ReadReservationRoomSelect({ roomType, room, setRoom, count, watch }) {
   // const { acNo } = useRecoilValue(currentAccommodationAtom)
   const selectedDate = useRecoilValue(selectedDateAtom)
   const { rtNo } = roomType
@@ -15,12 +14,12 @@ export default function RoomSelect({ roomType, room, setRoom, count, watch }) {
     if (rtNo !== undefined) {
       data = { ...data, rtNo }
     }
-    return data
+    return false
   }
   const checkinDate = watch(`checkinDate${count}`)
   const checkoutDate = watch(`checkoutDate${count}`)
 
-  let data = {
+  let parameter = {
     startDate: watch(`checkinDate${count}`),
     endDate: watch(`checkoutDate${count}`),
   }
@@ -29,14 +28,15 @@ export default function RoomSelect({ roomType, room, setRoom, count, watch }) {
     reset()
   }, [selectedDate])
 
-  const readRoomList = _.flow(addParameter, getFormDataFromJson, readRoomListSelector)
+  const readPossibleRoomList = _.flow(addParameter, readPossibleRoomListSelector)
   const {
     data: {
       data: { list },
     },
-  } = useRecoilValue(readRoomList(data))
-  const reset = useRecoilRefresher_UNSTABLE(readRoomList(data))
-  console.log(rtNo, list)
+  } = useRecoilValue(readPossibleRoomList(parameter))
+  const reset = useRecoilRefresher_UNSTABLE(readPossibleRoomList(parameter))
+  console.log('RoomSelect called...')
+  console.log(parameter, rtNo, list)
 
   useEffect(() => {
     setRoom(list[0])
@@ -49,7 +49,6 @@ export default function RoomSelect({ roomType, room, setRoom, count, watch }) {
   const handleCurrentRoom = (event) => {
     const rmNo = event.target.value
     if (rmNo === '0') {
-      console.log(rmNo, 'rmNo0 reset')
       setRoom({ originPrice: '', salePrice: '', providePrice: '' })
     } else {
       const findFromRmNo = _.find((roomType) => roomType.rmNo === Number(rmNo))

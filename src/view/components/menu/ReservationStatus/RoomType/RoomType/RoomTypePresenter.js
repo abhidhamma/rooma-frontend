@@ -4,7 +4,7 @@ import RoomName from '../RoomName'
 export default function RoomTypePresenter({ roomType, style }) {
   return (
     <div className='scheduler-rows dF-f' style={style}>
-      <div className='room-type'>{roomType.rtName}</div>
+      <div className='room-type'>{`${roomType.rtName} ${roomType.rtNo}`}</div>
       <div className='room-number'>
         {roomType.rooms.map((room, index) => (
           <RoomName

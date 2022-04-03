@@ -1,4 +1,3 @@
-import RoomSelect from '@components/common/RoomSelect'
 import { currentAccommodationAtom } from '@state/common/common'
 import { createReservationAtom } from '@state/reservationStatus/createReservation'
 import { addReserverationRoomCountAtom } from '@state/reservationStatus/reservationStatus'
@@ -8,8 +7,9 @@ import parseCustomData from '@util/parse/parse'
 import _ from 'lodash'
 import { Suspense, useEffect, useState } from 'react'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
-import ReservationDateForm from './common/ReservationDateForm'
-import AddRoomTypeSelect from './common/RoomTypeSelect'
+import ReservationDateForm from '../common/ReservationDateForm'
+import RoomSelect from '../common/RoomSelect'
+import AddRoomTypeSelect from '../common/RoomTypeSelect'
 
 export default function ReadReservationAddRoom({
   cancelButton,
@@ -25,7 +25,6 @@ export default function ReadReservationAddRoom({
   reset,
   roomReservation,
 }) {
-  console.log('CreateReservationAddRoom')
   const parseRoomReservation = () => {
     const { addPersionCon, addBreakfastCon } = roomReservation
     const addPersonArray = addPersionCon.split(',')
@@ -42,14 +41,10 @@ export default function ReadReservationAddRoom({
   const { adult, child, infant, adultBreakfast, childBreakfast, infantBreakfast } =
     parseRoomReservation()
 
-  console.log('추가요금들')
-  console.log(adult, child, infant, adultBreakfast, childBreakfast, infantBreakfast)
-
   //전역상태
   const setRoomCount = useSetRecoilState(addReserverationRoomCountAtom)
   const [createReservation, setCreateReservation] = useRecoilState(createReservationAtom)
   const accommodation = useRecoilValue(currentAccommodationAtom)
-  console.log(accommodation)
 
   //지역상태
   const [open, setOpen] = useState(false)
@@ -63,13 +58,8 @@ export default function ReadReservationAddRoom({
     addInfantPrice: 0,
     rtNo: roomReservation.rtNo,
   })
-  console.log('firstRoomType')
-  console.log(roomType)
-  console.log(room)
 
   //변수
-  console.log('ReadReservationAddRoom roomReservation')
-  console.log(roomReservation)
   const startDate = roomReservation.checkinDate
   const endDate = roomReservation.checkoutDate
 
@@ -84,7 +74,9 @@ export default function ReadReservationAddRoom({
   } = roomType
   const rmNo = room?.rmNo
 
-  const breakfastFeeObject = Object.entries(parseCustomData(addBreakfastFee))
+  const breakfastFeeObject = Object.entries(parseCustomData(addBreakfastFee)).filter(
+    (element) => typeof element[1] === 'number'
+  )
   const breakfastFeeObjectLength = breakfastFeeObject.length
 
   const extFeeObject = Object.entries(parseCustomData(addExtFee))

@@ -1,21 +1,25 @@
 import { isDisplayReadReservationAtom } from '@state/reservation'
 import { readReservationSelector } from '@state/reservationStatus/createReservation'
-import { addReserverationRoomCountAtom, rrNoAtom } from '@state/reservationStatus/reservationStatus'
+import {
+  addReserverationRoomCountAtom,
+  readReservationParameterAtom,
+} from '@state/reservationStatus/reservationStatus'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
-import { calculatePrices, initializeCreateReservationForm } from './CreateReservation'
-import ReservationPopupForm from './ReservationPopupForm'
+import {
+  calculatePrices,
+  initializeCreateReservationForm,
+} from '../CreateReservation/CreateReservation'
+import ReservationPopupForm from '../common/ReservationPopupForm'
 
 export default function ReadReservation() {
-  console.log('ReadReservation called...')
-  const rrNo = useRecoilValue(rrNoAtom)
+  const readReservationParameter = useRecoilValue(readReservationParameterAtom)
   const parameter = {
-    rrNo,
+    rrNo: readReservationParameter.rrNo,
   }
   const result = useRecoilValue(readReservationSelector(parameter))
   const reservation = result?.data?.data
-  console.log(reservation)
   const [roomCount, setRoomCount] = useRecoilState(addReserverationRoomCountAtom)
   const setIsDisplayReadReservation = useSetRecoilState(isDisplayReadReservationAtom)
 
@@ -36,13 +40,17 @@ export default function ReadReservation() {
     totalPrices
   )
 
-  const onSubmit = () => {}
+  const onSubmit = (submitData) => {
+    console.log(submitData)
+  }
   const increaseRoom = () => setRoomCount((prev) => prev + 1)
 
   const close = () => {
     setIsDisplayReadReservation(false)
     setRoomCount(1)
   }
+  console.log('ReadReservation called...')
+  console.log(reservation)
   return (
     <ReservationPopupForm
       register={register}

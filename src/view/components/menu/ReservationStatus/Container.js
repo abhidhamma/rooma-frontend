@@ -1,17 +1,16 @@
 import { useRecoilValue } from 'recoil'
 import { isDisplayCreateReservationAtom, isDisplayReadReservationAtom } from '@state/reservation'
-import CreateReservation from '@components/menu/ReservationStatus/Popup/CreateReservation/CreateReservation'
+import CreateReservation from '@components/menu/ReservationStatus/Popup/ReservationPopup/CreateReservation/CreateReservation'
 import ReservationInfo from '@components/menu/ReservationStatus/Overlay/ReservationInfo'
 
 import ReservationStatusHeader from '@components/menu/ReservationStatus/ReservationStatusHeader'
 import ReservationSchedulerHeader from '@components/menu/ReservationStatus/TableHeader/ReservationSchedulerHeader'
 import RightClickPopUp from './Popup/RightClickPopup/RightClickPopup'
-import ReadReservation from './Popup/CreateReservation/ReadReservation'
+import ReadReservation from './Popup/ReservationPopup/ReadReservation/ReadReservation'
 import RoomTypeContainer from './RoomType/RoomType/RoomTypeContainer'
 import React, { Suspense } from 'react'
 
 function Container() {
-  console.log('render container')
   //전역상태
   // const roomTypeList = useRecoilValue(roomTypeListAtom)
   const isDisplayCreateReservation = useRecoilValue(isDisplayCreateReservationAtom)

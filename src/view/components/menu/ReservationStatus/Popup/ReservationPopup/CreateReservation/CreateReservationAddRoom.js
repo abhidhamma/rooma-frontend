@@ -1,4 +1,3 @@
-import RoomSelect from '@components/common/RoomSelect'
 import { currentAccommodationAtom } from '@state/common/common'
 import { createReservationAtom } from '@state/reservationStatus/createReservation'
 import { addReserverationRoomCountAtom } from '@state/reservationStatus/reservationStatus'
@@ -10,8 +9,10 @@ import { addDays } from 'date-fns'
 import _ from 'lodash'
 import { Suspense, useEffect, useState } from 'react'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
-import ReservationDateForm from './common/ReservationDateForm'
-import AddRoomTypeSelect from './common/RoomTypeSelect'
+import ReservationDateForm from '../common/ReservationDateForm'
+import RoomSelect from '../common/RoomSelect'
+import AddRoomTypeSelect from '../common/RoomTypeSelect'
+import CreateReservationRoomSelect from './CreateReservationRoomSelect'
 
 export default function CreateReservationAddRoom({
   cancelButton,

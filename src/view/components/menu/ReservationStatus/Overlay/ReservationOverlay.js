@@ -8,18 +8,19 @@ import {
 } from '@util/common/dateUtil'
 import { getDateArray } from '@util/reservation/reservation'
 import { displayAtom, isDisplayReadReservationAtom, standardDateAtom } from '@state/reservation'
-import { rrNoAtom } from '@state/reservationStatus/reservationStatus'
+import { readReservationParameterAtom } from '@state/reservationStatus/reservationStatus'
 
 function ReservationOverlay({ data, drag, dayCount, currentDate }) {
   const setDisplay = useSetRecoilState(displayAtom)
   const setIsDisplayReadReservation = useSetRecoilState(isDisplayReadReservationAtom)
-  const setRrNo = useSetRecoilState(rrNoAtom)
+  const setReadReservationParameter = useSetRecoilState(readReservationParameterAtom)
   const standardDate = useRecoilValue(standardDateAtom)
 
   const checkIn = formatMMddE(stringToDate(data.checkIn))
   const checkOut = formatMMddE(stringToDate(data.checkOut))
   const night = betweenyyyyMMdd(data.checkIn, data.checkOut)
   const rrNo = data.rrNo
+  const rmNo = data.rmNo
   let length = betweenyyyyMMdd(data.checkIn, data.checkOut)
 
   //달력끝을 넘어가는 경우 길이를 줄인다
@@ -80,14 +81,13 @@ function ReservationOverlay({ data, drag, dayCount, currentDate }) {
   }
 
   const handleReadReservationPopup = () => {
-    console.log('double click')
-    setRrNo(rrNo)
+    setReadReservationParameter({ rrNo, rmNo })
     setIsDisplayReadReservation(true)
   }
   return (
     <div
-      onMouseEnter={showInfo}
-      onMouseLeave={hideInfo}
+      // onMouseEnter={showInfo}
+      // onMouseLeave={hideInfo}
       onDoubleClick={handleReadReservationPopup}
       ref={drag}
       style={{

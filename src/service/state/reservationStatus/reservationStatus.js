@@ -10,7 +10,7 @@ import {
   LOCK_ROOM_SELECTOR_KEY,
   READ_RESERVATION_PRICE_SELECTOR_KEY,
   RIGHT_CLICK_POPUP_ATOM_KEY,
-  RRNO_ATOM_KEY,
+  READ_RESERVATION_PARAMETER_ATOM_KEY,
   UNLOCK_ROOM_SELECTOR_KEY,
   UPDATE_RESERVATION_DATE_SELECTOR_KEY,
   UPDATE_RESERVATION_STATUS_SELECTOR_KEY,
@@ -28,9 +28,9 @@ export const rightClickPopupAtom = atom({
   key: RIGHT_CLICK_POPUP_ATOM_KEY,
   default: { display: 'none', screenX: '0', screenY: '0', position: 'absolute' },
 })
-export const rrNoAtom = atom({
-  key: RRNO_ATOM_KEY,
-  default: 0,
+export const readReservationParameterAtom = atom({
+  key: READ_RESERVATION_PARAMETER_ATOM_KEY,
+  default: { rrNo: 0, rmNo: 0 },
 })
 
 //selector

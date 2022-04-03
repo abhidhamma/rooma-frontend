@@ -1,10 +1,11 @@
+import { readReservationParameterAtom } from '@state/reservationStatus/reservationStatus'
 import { numberToArray } from '@util/common/lodash'
 import { formatMoney } from '@util/common/others'
-import { useState } from 'react'
-import PayStatusSelect from './common/PayStatusSelect'
-import ReservationStateSelect from './common/ReservationStatus'
-import CreateReservationAddRoom from './CreateReservationAddRoom'
-import ReadReservationAddRoom from './ReadReservationAddRoom'
+import { useRecoilValue } from 'recoil'
+import CreateReservationAddRoom from '../CreateReservation/CreateReservationAddRoom'
+import ReadReservationAddRoom from '../ReadReservation/ReadReservationAddRoom'
+import PayStatusSelect from './PayStatusSelect'
+import ReservationStateSelect from './ReservationStatus'
 
 export default function ReservationPopupForm({
   register,
@@ -28,6 +29,14 @@ export default function ReservationPopupForm({
   reservation,
   type,
 }) {
+  const readReservationParameter = useRecoilValue(readReservationParameterAtom)
+  const getCurrentRoomReservation = (reservation) => {
+    const reservationList = reservation.roomReserves
+    const currentReservation = reservationList.find(
+      (reservation) => reservation.rmNo === readReservationParameter.rmNo
+    )
+    return currentReservation
+  }
   return (
     // <!-- S:예약정보 layer -->
     <div
@@ -181,7 +190,8 @@ export default function ReservationPopupForm({
                         setOptionPrices={setOptionPrices}
                         setTotalPrices={setTotalPrices}
                         setRmNoObject={setRmNoObject}
-                        roomReservation={reservation.roomReserves[number - 1]}
+                        // roomReservation={reservation.roomReserves[number - 1]}
+                        roomReservation={getCurrentRoomReservation(reservation)}
                       />
                     ) : (
                       <ReadReservationAddRoom
@@ -197,7 +207,8 @@ export default function ReservationPopupForm({
                         setOptionPrices={setOptionPrices}
                         setTotalPrices={setTotalPrices}
                         setRmNoObject={setRmNoObject}
-                        roomReservation={reservation.roomReserves[number - 1]}
+                        // roomReservation={reservation.roomReserves[number - 1]}
+                        roomReservation={getCurrentRoomReservation(reservation)}
                       />
                     )
                   )

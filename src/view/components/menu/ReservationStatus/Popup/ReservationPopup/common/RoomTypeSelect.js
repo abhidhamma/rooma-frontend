@@ -6,8 +6,6 @@ import { useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
 
 export default function AddRoomTypeSelect({ roomType, setRoomType }) {
-  console.log('AddRoomTypeSelect')
-  console.log(roomType.rtNo)
   const { acNo } = useRecoilValue(currentAccommodationAtom)
   const addAcNo = (data) => (acNo !== undefined ? { ...data, acNo } : data)
 
@@ -34,15 +32,12 @@ export default function AddRoomTypeSelect({ roomType, setRoomType }) {
       )
       const currentRoomType = findFromRtNo(list)
       setRoomType(currentRoomType)
-      console.log('useEffect!!')
-      console.log(currentRoomType)
     }
   }, [])
 
   const handleCurrentRoomType = (event) => {
     const rtNo = event.target.value
     if (rtNo === '0') {
-      console.log(rtNo, 'rtNo0 reset')
       setRoomType({ originPrice: '', salePrice: '', providePrice: '' })
     } else {
       const findFromRtNo = _.find((iterRoomType) => Number(iterRoomType.rtNo) === Number(rtNo))
