@@ -1,10 +1,7 @@
-import { useRecoilValue } from 'recoil'
-import { reservationListAtom } from '@state/reservation'
-import RoomReservation from './RoomReservation'
-import RoomName from './RoomName'
+import RoomReservation from '../RoomReservation'
+import RoomName from '../RoomName'
 
-export default function RoomType({ roomType, style }) {
-  const reservationList = useRecoilValue(reservationListAtom)
+export default function RoomTypePresenter({ roomType, style }) {
   return (
     <div className='scheduler-rows dF-f' style={style}>
       <div className='room-type'>{roomType.rtName}</div>
@@ -26,7 +23,6 @@ export default function RoomType({ roomType, style }) {
             key={index}
             monthPriceList={roomType.roomPrices}
             roomNumber={room.rmName}
-            filteredReservationList={reservationList}
             currentReservationList={room.reserves}
             lockedRoomList={room.locks}
             rmNo={room.rmNo}

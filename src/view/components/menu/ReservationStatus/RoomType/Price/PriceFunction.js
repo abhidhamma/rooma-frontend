@@ -200,7 +200,6 @@ const getIsCanNotDrop = (
     sourceCheckOut,
     sourceLocation
   )
-  console.log('otherReservationIndexList : ', otherReservationIndexList)
   for (let i = 0; i < otherReservationIndexList.length; i++) {
     const otherReservation = otherReservationIndexList[i]
     //예약의 체크인 === 드래그중인 예약이 아니라(x) 드래그목적지의 날짜 currentDate
@@ -236,8 +235,6 @@ const getOtherReservationIndexList = (
   sourceCheckOut,
   sourceLocation
 ) => {
-  console.log('getOtherReservationIndexList')
-  console.log(reservationList)
   const otherReservationIndexList = []
   const sourceLength = betweenyyyyMMdd(sourceCheckIn, sourceCheckOut)
 
@@ -245,7 +242,6 @@ const getOtherReservationIndexList = (
     const checkIn = reservation.checkinDate
     const checkOut = reservation.checkoutDate
     const location = reservation.rmNo
-    console.log(checkIn, checkOut, location)
 
     //드래그중인 예약 자신이 존재하는칸은 드래그할 수 있다
     if (checkIn === sourceCheckIn && location === sourceLocation) {
@@ -261,7 +257,6 @@ const getOtherReservationIndexList = (
         i !== checkOut;
         i = formatyyyyMMddWithHyphen(stringToDate(addyyyyMMdd(i, 1)))
       ) {
-        console.log('i : ', i)
         // if (i === checkOut) {
         //   break
         // }

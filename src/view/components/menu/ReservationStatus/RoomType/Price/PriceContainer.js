@@ -57,10 +57,10 @@ function PriceContainer({
 
   const updateReservation = (updateReservationDateCallback) => (parameter) => {
     updateReservationDateCallback(updateReservationDateSelector(parameter)).then((result) => {
-      console.log(result)
+      // console.log(result)
       const { message } = result
       if (message === '저장되었습니다.') {
-        alert(message)
+        // alert(message)
         resetReadReservationPrice()
       }
     })
