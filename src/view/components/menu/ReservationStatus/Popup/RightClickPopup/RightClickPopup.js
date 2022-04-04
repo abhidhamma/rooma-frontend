@@ -90,6 +90,19 @@ export default function RightClickPopUp() {
       }
     })
   }
+  const cleaning = () => {
+    const rrNo = rightClickPopupProperty?.rrNo
+    const reserveStatus = RESERVE_STATUS.CLEANING
+    checkOutCallback(
+      updateReservationStatusSelector(getFormDataFromJson({ rrNo, reserveStatus }))
+    ).then((result) => {
+      const { message } = result
+      if (message === '저장되었습니다.') {
+        resetReadReservationPrice()
+        alert('저장되었습니다.')
+      }
+    })
+  }
   const closeMenu = () => {
     setRightClickPopupProperty((prev) => ({ ...prev, display: 'none' }))
   }
@@ -135,6 +148,11 @@ export default function RightClickPopUp() {
             )}
           </>
         )}
+        <li>
+          <a href='#' onClick={cleaning}>
+            청소중
+          </a>
+        </li>
         <li>
           <a href='#' onClick={closeMenu}>
             메뉴닫기

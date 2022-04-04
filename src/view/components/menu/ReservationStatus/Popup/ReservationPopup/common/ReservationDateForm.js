@@ -1,6 +1,6 @@
 import Calendar from '@components/common/Calendar'
 import { selectedDateAtom, showCalendarAtom } from '@state/common/calendar'
-import { betweenyyyyMMdd, formatyyyyMMddWithHyphen } from '@util/common/dateUtil'
+import { betweenyyyyMMdd, formatyyyyMMddWithHyphen, stringToDate } from '@util/common/dateUtil'
 import { isDate } from 'date-fns'
 import { useEffect } from 'react'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
@@ -64,8 +64,18 @@ export default function ReservationDateForm({
           style={{ justifySelf: 'end', width: '95px' }}
         />
       </span>
-      <Calendar top={`${top}px`} left={'-1px'} calendarName={checkinDateCalendarName} />
-      <Calendar top={`${top}px`} left={'144px'} calendarName={checkoutDateCalendarName} />
+      <Calendar
+        top={`${top}px`}
+        left={'-1px'}
+        calendarName={checkinDateCalendarName}
+        defaultDate={stringToDate(defaultCheckInDate)}
+      />
+      <Calendar
+        top={`${top}px`}
+        left={'144px'}
+        calendarName={checkoutDateCalendarName}
+        defaultDate={stringToDate(defaultCheckOutDate)}
+      />
     </div>
   )
 }

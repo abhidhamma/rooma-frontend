@@ -110,6 +110,8 @@ export const makeReservationColor = (reserveStatus) => {
     color = '#f46a6a'
   } else if (reserveStatus === 'CHECKIN') {
     color = '#50a5f1'
+  } else if (reserveStatus === 'CLEANING') {
+    color = '#ff6dd1'
   } else {
     color = '#34C38F'
   }

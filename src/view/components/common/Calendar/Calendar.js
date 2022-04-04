@@ -1,13 +1,14 @@
-import { showCalendarAtom } from '@state/common/calendar'
+import { selectedDateAtom, showCalendarAtom } from '@state/common/calendar'
 import { formatyyyyMM, WithoutTime } from '@util/common/dateUtil'
 import { getDay, startOfMonth } from 'date-fns'
 import { addMonths, addDays } from 'date-fns/fp'
-import { useState } from 'react'
-import { useRecoilValue } from 'recoil'
+import { useEffect, useState } from 'react'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
 import Week from './Week'
 
-export default function Calendar({ top, left, calendarName }) {
+export default function Calendar({ top, left, calendarName, defaultDate }) {
   const [selectedMonth, setSelectedMonth] = useState(WithoutTime(new Date()))
+  const setSelectedDate = useSetRecoilState(selectedDateAtom)
   const showCalendar = useRecoilValue(showCalendarAtom)
 
   const currentMonthDateArray = makeCurrentMonthDateArray(selectedMonth)
@@ -20,6 +21,10 @@ export default function Calendar({ top, left, calendarName }) {
     const addOneMonths = addMonths(1)
     return setSelectedMonth((prev) => addOneMonths(prev))
   }
+
+  useEffect(() => {
+    setSelectedDate((prev) => ({ ...prev, [calendarName]: defaultDate }))
+  }, [])
 
   return (
     <div

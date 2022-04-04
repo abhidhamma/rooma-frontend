@@ -106,7 +106,7 @@ export default function ReservationPopupForm({
                 </div>
               </section>
               <section>
-                <h3>예약상세정보</h3>
+                <h3 style={{ marginBottom: '10px' }}>예약상세정보</h3>
                 <table className='tbl-view-pop'>
                   <caption>예약상세정보</caption>
                   <colgroup>
@@ -247,7 +247,7 @@ export default function ReservationPopupForm({
                   )}
 
               <section>
-                <h3>예약메모정보</h3>
+                <h3 style={{ marginBottom: '10px' }}>예약메모정보</h3>
                 <table className='tbl-view-pop'>
                   <caption>예약메모정보</caption>
                   <colgroup>

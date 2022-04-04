@@ -157,7 +157,7 @@ export default function CreateReservationAddRoom({
           </a>
         )}
       </div>
-      <h3>예약객실정보</h3>
+      <h3 style={{ marginBottom: '10px' }}>예약객실정보</h3>
       <table className='tbl-pop'>
         <caption>예약객실정보</caption>
         <colgroup>
