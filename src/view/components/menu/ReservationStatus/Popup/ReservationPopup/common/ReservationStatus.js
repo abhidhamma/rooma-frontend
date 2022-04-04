@@ -1,14 +1,6 @@
-import { RESERVE_STATUS } from '@constant/constantVariable'
+import { reservationStatusMap } from '@constant/constantVariable'
 import { getKeyFromValue } from '@util/common/others'
 import { useEffect, useState } from 'react'
-
-const reservationStatusMap = {
-  예약완료: RESERVE_STATUS.RESERVECOMPLETE,
-  입실: RESERVE_STATUS.CHECKIN,
-  퇴실: RESERVE_STATUS.CHECKOUT,
-  청소중: RESERVE_STATUS.CLEANING,
-  예약취소: RESERVE_STATUS.CALCEL,
-}
 
 export default function ReservationStateSelect({ reservationStatus, reset, getValues }) {
   const [isReservationButtonOpen, setIsReservationButtonOpen] = useState(false)

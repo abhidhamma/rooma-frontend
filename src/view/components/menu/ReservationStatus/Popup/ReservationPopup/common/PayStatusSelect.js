@@ -1,15 +1,6 @@
-import { PAY_STATUS } from '@constant/constantVariable'
+import { payStatusMap } from '@constant/constantVariable'
 import { getKeyFromValue } from '@util/common/others'
 import { useEffect, useState } from 'react'
-
-const payStatusMap = {
-  미결제: PAY_STATUS.NOTPAY,
-  부분결제: PAY_STATUS.PARTIALPAY,
-  결제완료: PAY_STATUS.PAYCOMPLETE,
-  환불요청: PAY_STATUS.REFUNDREQUEST,
-  환불완료: PAY_STATUS.REFUNDCOMPLETE,
-  결제취소: PAY_STATUS.CANCEL,
-}
 
 export default function PayStatusSelect({ payStatus, reset, getValues }) {
   const [isCheckInButtonOpen, setIsCheckInButtonOpen] = useState(false)

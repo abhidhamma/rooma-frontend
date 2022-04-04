@@ -25,8 +25,13 @@ export const readReservationSelector = selectorFamily({
   key: READ_RESERVATION_SELECTOR_KEY,
   get:
     ({ rrNo }) =>
-    async () =>
-      await readReservation({ rrNo }),
+    async () => {
+      if (rrNo === undefined) {
+        return undefined
+      } else {
+        return await readReservation({ rrNo })
+      }
+    },
 })
 export const readPossibleRoomListSelector = selectorFamily({
   key: READ_POSSIBLE_ROOM_LIST_SELECTOR_KEY,

@@ -164,6 +164,7 @@ function PriceContainer({
       dayCount={dayCount}
       handleCreateReservation={handleCreateReservation}
       handleRightClickPopup={handleRightClickPopup}
+      roomNumber={roomNumber}
     />
   )
 }

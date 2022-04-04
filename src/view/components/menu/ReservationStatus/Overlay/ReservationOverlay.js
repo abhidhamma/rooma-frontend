@@ -10,7 +10,7 @@ import { getDateArray } from '@util/reservation/reservation'
 import { displayAtom, isDisplayReadReservationAtom, standardDateAtom } from '@state/reservation'
 import { readReservationParameterAtom } from '@state/reservationStatus/reservationStatus'
 
-function ReservationOverlay({ data, drag, dayCount, currentDate }) {
+function ReservationOverlay({ data, drag, dayCount, currentDate, roomNumber }) {
   const setDisplay = useSetRecoilState(displayAtom)
   const setIsDisplayReadReservation = useSetRecoilState(isDisplayReadReservationAtom)
   const setReadReservationParameter = useSetRecoilState(readReservationParameterAtom)
@@ -58,36 +58,34 @@ function ReservationOverlay({ data, drag, dayCount, currentDate }) {
   const backgroundColor = makeReservationColor(reserveStatus)
 
   const showInfo = () => {
-    setDisplay({
-      display: 'block',
-      name: data.data,
-      dateInfo: {
-        checkIn,
-        checkOut,
-        night,
-      },
-    })
+    setTimeout(function () {
+      setDisplay({
+        display: 'block',
+        data,
+        roomNumber,
+      })
+    }, 200)
   }
   const hideInfo = () => {
     setDisplay({
       display: 'none',
-      name: data.data,
-      dateInfo: {
-        checkIn,
-        checkOut,
-        night,
-      },
     })
   }
 
   const handleReadReservationPopup = () => {
     setReadReservationParameter({ rrNo, rmNo })
     setIsDisplayReadReservation(true)
+
+    setTimeout(function () {
+      setDisplay({
+        display: 'none',
+      })
+    }, 250)
   }
   return (
     <div
-      // onMouseEnter={showInfo}
-      // onMouseLeave={hideInfo}
+      onClick={showInfo}
+      onMouseLeave={hideInfo}
       onDoubleClick={handleReadReservationPopup}
       ref={drag}
       style={{
@@ -102,7 +100,7 @@ function ReservationOverlay({ data, drag, dayCount, currentDate }) {
         color: 'white',
       }}
     >
-      <div style={{ placeSelf: 'center' }}>{data.userName}</div>
+      <div style={{ placeSelf: 'center' }}>{`${data.userName} ${rrNo}`}</div>
     </div>
   )
 }

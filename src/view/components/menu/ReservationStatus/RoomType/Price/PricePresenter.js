@@ -17,6 +17,7 @@ function PricePresenter({
   dayCount,
   drag,
   lockedRoom,
+  roomNumber,
 }) {
   //달력이 걸치는 경우? checkIn부터 checkOut까지의 값을 모두 넣고 indexOf로 currentDate와 동일한게 있는지 찾는다
   let reservationDateArray = []
@@ -52,6 +53,7 @@ function PricePresenter({
             drag={drag}
             dayCount={dayCount}
             currentDate={currentDate}
+            roomNumber={roomNumber}
           />
         )}
         {/* hover overlay */}
