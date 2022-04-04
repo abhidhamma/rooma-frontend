@@ -74,12 +74,12 @@ export default function ReadReservationAddRoom({
   } = roomType
   const rmNo = room?.rmNo
 
-  const breakfastFeeObject = Object.entries(parseCustomData1(addBreakfastFee)).filter(
-    (element) => typeof element[1] === 'number'
+  const breakfastFeeObject = Object.entries(parseCustomData2(addBreakfastFee)).filter(
+    (element) => !isNaN(Number(element[1]))
   )
   const breakfastFeeObjectLength = breakfastFeeObject.length
 
-  const extFeeObject = Object.entries(parseCustomData1(addExtFee))
+  const extFeeObject = Object.entries(parseCustomData2(addExtFee))
   const extFeeObjectLength = extFeeObject.length
 
   const adultCount = zeroOrNumber(watch(`adultCount${count}`))
