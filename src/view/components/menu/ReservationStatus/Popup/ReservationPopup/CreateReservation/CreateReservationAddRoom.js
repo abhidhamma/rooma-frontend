@@ -4,7 +4,7 @@ import { addReserverationRoomCountAtom } from '@state/reservationStatus/reservat
 import { formatyyyyMMddWithHyphen } from '@util/common/dateUtil'
 import { numberToArray } from '@util/common/lodash'
 import { formatMoney, zeroOrNumber } from '@util/common/others'
-import parseCustomData from '@util/parse/parse'
+import { parseCustomData1, parseCustomData2 } from '@util/parse/parse'
 import { addDays } from 'date-fns'
 import _ from 'lodash'
 import { Suspense, useEffect, useState } from 'react'
@@ -65,10 +65,12 @@ export default function CreateReservationAddRoom({
   } = roomType
   const rmNo = room?.rmNo
 
-  const breakfastFeeObject = Object.entries(parseCustomData(addBreakfastFee))
+  const breakfastFeeObject = Object.entries(parseCustomData2(addBreakfastFee)).filter(
+    (element) => !isNaN(Number(element[1]))
+  )
   const breakfastFeeObjectLength = breakfastFeeObject.length
 
-  const extFeeObject = Object.entries(parseCustomData(addExtFee))
+  const extFeeObject = Object.entries(parseCustomData2(addExtFee))
   const extFeeObjectLength = extFeeObject.length
 
   const adultCount = zeroOrNumber(watch(`adultCount${count}`))
