@@ -71,6 +71,9 @@ export const dropEffect = (
   const checkinDate = formatyyyyMMddWithHyphen(stringToDate(currentDate))
   const checkoutDate = formatyyyyMMddWithHyphen(stringToDate(addyyyyMMdd(currentDate, night)))
 
+  if (sourcecheckIn === checkinDate) {
+    return
+  }
   const parameter = {
     rrNo,
     rmNo,

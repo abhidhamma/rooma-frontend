@@ -1,3 +1,4 @@
+import { COMPANY_LIST_URL } from '@constant/locationURLs'
 import useApiCallback from '@hook/apiHook/useApiCallback'
 import { readCompanyByNoSelector, updateCompanySelector } from '@state/company/company'
 import { getFormDataFromJson } from '@util/common/axiosUtil'
@@ -63,7 +64,7 @@ const updateCompany = (updateCompanyCallback, navigate) => (formData) => {
     const { message } = result
     if (message === '성공') {
       alert('수정되었습니다')
-      navigate('/signUp')
+      navigate(COMPANY_LIST_URL)
     }
   })
 }

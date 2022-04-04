@@ -56,14 +56,18 @@ function PriceContainer({
   )
 
   const updateReservation = (updateReservationDateCallback) => (parameter) => {
-    updateReservationDateCallback(updateReservationDateSelector(parameter)).then((result) => {
-      // console.log(result)
-      const { message } = result
-      if (message === '저장되었습니다.') {
-        // alert(message)
-        resetReadReservationPrice()
-      }
-    })
+    const isConfirm = window.confirm('예약정보를 변경하시겠습니까?')
+
+    if (isConfirm) {
+      updateReservationDateCallback(updateReservationDateSelector(parameter)).then((result) => {
+        // console.log(result)
+        const { message } = result
+        if (message === '저장되었습니다.') {
+          // alert(message)
+          resetReadReservationPrice()
+        }
+      })
+    }
   }
 
   //useDrag, useDrop

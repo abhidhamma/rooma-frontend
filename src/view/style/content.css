@@ -126,6 +126,9 @@ a {
 .date-selectWrap .item-state span.st5 {
   background: #f1b44c;
 }
+.date-selectWrap .item-state span.st6 {
+  background: #ff6dd1;
+}
 .date-selectWrap .today-date {
   display: flex;
   align-items: center;
@@ -263,7 +266,8 @@ a {
   position: relative;
 }
 .scheduler-view .room-state > div a,
-.scheduler-view .room-state > div .lock {
+.scheduler-view .room-state > div .lock,
+.scheduler-view .room-state > div .cleaning {
   width: 100%;
   height: 100%;
   display: block;
@@ -271,6 +275,10 @@ a {
 }
 .scheduler-view .room-state > div .lock {
   background: #f3f3f3 url('../asset/images/ico_lock.png') no-repeat center center;
+  height: 42px;
+}
+.scheduler-view .room-state > div .cleaning {
+  background: #f3f3f3 url('../asset/images/clean.png') no-repeat center center;
   height: 42px;
 }
 .scheduler-view .room-state > div a.none:hover {
@@ -304,6 +312,9 @@ a {
 .scheduler-view .room-state > div a.st5 {
   background: #f1b44c;
 }
+.scheduler-view .room-state > div a.st6 {
+  background: #ff6dd1;
+}
 .scheduler-view .room-state .dF-f > div {
   flex: 1 1;
   font-size: 11px;
@@ -329,20 +340,30 @@ a {
 
 /* 예약정보 */
 .reserv-input {
-  padding: 15px 20px;
+  padding: 20px;
   background: #f5f6f7;
+  width: 1000px;
 }
-.reserv-input section.add-group {
-  border: 1px solid #5b73e8;
+.reserv-input section {
+  position: relative;
 }
-
-.reserv-input section.add-group .top-btn {
+.reserv-input .add-group {
+  border: 2px solid #5b73e8;
+  padding: 20px;
+  border-radius: 5px;
+  background: #f9fbff;
+  margin-bottom: 10px;
+}
+.reserv-input .add-group:last-child {
+  margin-bottom: 0;
+}
+.reserv-input .add-group .top-btn {
   margin-bottom: -15px;
   text-align: center;
   display: flex;
   justify-content: flex-end;
 }
-.reserv-input section.add-group .top-btn a {
+.reserv-input .add-group .top-btn a {
   border-radius: 5px;
   display: inline-block;
   font-size: 12px;
@@ -350,26 +371,26 @@ a {
   line-height: 28px;
   padding: 0 10px;
 }
-.reserv-input section.add-group .top-btn a + a {
+.reserv-input .add-group .top-btn a + a {
   margin-left: 5px;
 }
-.reserv-input section.add-group .top-btn a.close {
+.reserv-input .add-group .top-btn a.close {
   border: 1px solid #5b73e8;
   color: #5b73e8;
   width: 94px;
 }
-.reserv-input section.add-group .top-btn a.close::after {
+.reserv-input .add-group .top-btn a.close::after {
   content: '옵션 정보 닫기';
 }
-.reserv-input section.add-group .top-btn a.open {
+.reserv-input .add-group .top-btn a.open {
   border: 1px solid #5b73e8;
   color: #fff;
   background: #5b73e8;
 }
-.reserv-input section.add-group .top-btn a.open::after {
+.reserv-input .add-group .top-btn a.open::after {
   content: '옵션 정보 열기';
 }
-.reserv-input section.add-group .top-btn a.cancle {
+.reserv-input .add-group .top-btn a.cancle {
   border: 1px solid #f46a6a;
   color: #fff;
   background: #f46a6a;
@@ -414,18 +435,21 @@ a {
 .reserv-input section {
   border-radius: 10px 10px;
   background: #fff;
-  padding: 15px;
+  padding: 20px 15px;
   margin-bottom: 10px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.02);
 }
 .reserv-input section h3 {
   color: #5b73e8;
+}
+.reserv-input section h4 {
+  color: #222;
   font-size: 14px;
   margin-bottom: 10px;
 }
-.reserv-input section:last-child {
-  padding: 0;
-  overflow: hidden;
+
+.reserv-input section .boxCont {
+  margin-top: 15px;
 }
 .reserv-input .term {
   display: flex;
@@ -684,15 +708,15 @@ a {
   position: relative;
 }
 .price-input table td .n-input input {
-  height: 40px;
-  line-height: 40px;
+  height: 32px;
+  line-height: 32px;
   border: 0;
   padding: 0 30px 0 10px;
 }
 .price-input table td .n-input span {
   position: absolute;
   right: 10px;
-  top: 12px;
+  top: 8px;
 }
 .price-input table td.bg {
   background: #f1f3fe;
@@ -953,4 +977,29 @@ a {
 .periodWrap .month .prev {
   background: url('../asset/images/btn_cal_prev.png') no-repeat center;
   margin-right: 15px;
+}
+
+.Enroll a.openCont {
+  background: url('../asset/images/ico-up2.png') no-repeat center center;
+  cursor: pointer;
+  width: 34px;
+  height: 34px;
+  display: inline-block;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+.Enroll a.openCont.on {
+  background: url('../asset/images/ico-down2.png') no-repeat center center;
+  cursor: pointer;
+}
+.add-del a {
+  margin: 0 5px;
+  background: #d8dbe8;
+  padding: 3px 15px;
+  border-radius: 3px;
+}
+.add-del a:hover {
+  background: #5b73e8;
+  color: #fff;
 }

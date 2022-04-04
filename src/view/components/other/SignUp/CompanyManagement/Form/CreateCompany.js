@@ -1,3 +1,4 @@
+import { COMPANY_LIST_URL, CREATE_COMPANY_URL } from '@constant/locationURLs'
 import useApiCallback from '@hook/apiHook/useApiCallback'
 import { signUpSelector } from '@state/auth'
 import { getFormDataFromJson } from '@util/common/axiosUtil'
@@ -48,7 +49,7 @@ const signUp = (signUpCallback, navigate) => (formData) => {
   signUpCallback(signUpSelector(formData)).then((data) => {
     if (data.status === 'OK') {
       alert('등록되었습니다.')
-      navigate('/signUp')
+      navigate(COMPANY_LIST_URL)
     } else {
       alert(data.message)
     }

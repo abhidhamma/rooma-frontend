@@ -1,4 +1,5 @@
 import SideBar from '@components/menu/AccommodationManagement/SideBar'
+import { CREATE_ROOMTYPE_URL } from '@constant/locationURLs'
 import { currentPageAtom, totalCountAtom } from '@state/common/paging'
 import { useRecoilValue } from 'recoil'
 import SearchBox from '../../common/SearchBox'
@@ -24,7 +25,7 @@ export default function RoomTypeList() {
               Total {totalCount}건 {currentPage}페이지
             </span>
             <SearchBox
-              linkTo={'/accommodationManagement/roomType/new'}
+              linkTo={CREATE_ROOMTYPE_URL}
               linkText={'객실타입추가'}
               optionName={'객실타입명'}
             />

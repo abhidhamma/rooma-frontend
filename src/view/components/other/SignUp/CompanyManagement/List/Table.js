@@ -1,5 +1,6 @@
 import Paging from '@components/common/Paging'
 import ButtonGroup from '@components/menu/AccommodationManagement/common/ButtonGroup'
+import { CREATE_COMPANY_URL } from '@constant/locationURLs'
 import ReadCompanyList from './ReadCompanyList'
 
 export default function CompanyTable() {
@@ -48,7 +49,7 @@ export default function CompanyTable() {
           <ReadCompanyList />
         </tbody>
       </table>
-      <ButtonGroup addText={'업체추가'} addHref={'/companyManagement/new'} />
+      <ButtonGroup addText={'업체추가'} addHref={CREATE_COMPANY_URL} />
       <Paging />
     </>
   )

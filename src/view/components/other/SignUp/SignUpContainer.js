@@ -1,5 +1,7 @@
+import { COMPANY_LIST_URL } from '@constant/locationURLs'
 import { loadItem } from '@util/common/localStorage'
 import { Suspense } from 'react'
+import { Navigate } from 'react-router-dom'
 import CompanyList from './CompanyManagement/List/List'
 import CompanySelect from './CompanySelect'
 import SignUpSuperAdminContainer from './SignUpSuperAdminContainer'
@@ -21,7 +23,8 @@ export default function SignUpContainer() {
           // <Suspense fallback={<div></div>}>
           //   <SignUpSuperAdminContainer />
           // </Suspense>
-          <CompanyList />
+
+          <Navigate replace to={COMPANY_LIST_URL} />
         ) : (
           <Suspense fallback={<div></div>}>
             <UpdateUserInfoContainer />

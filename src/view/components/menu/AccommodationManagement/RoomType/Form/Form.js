@@ -10,6 +10,7 @@ import {
 } from '@state/accommodationManagement/roomType'
 import PictureForm from '../../common/PictureForm'
 import SaleDateForm from '../../common/SaleDateForm'
+import { ROOMTYPE_LIST_URL } from '@constant/locationURLs'
 
 export default function RoomTypeForm({
   register,
@@ -299,5 +300,5 @@ export default function RoomTypeForm({
   )
 }
 const cancel = (navigate) => {
-  navigate('/accommodationManagement/roomType')
+  navigate(ROOMTYPE_LIST_URL)
 }

@@ -5,6 +5,7 @@ import AccommodationListSelect from '../../common/AccommodationListSelect'
 import RoomTypeListSelect from '../../common/RoomTypeListSelect'
 import PictureForm from '../../common/PictureForm'
 import SaleDateForm from '../../common/SaleDateForm'
+import { ROOM_LIST_URL } from '@constant/locationURLs'
 
 export default function RoomForm({
   formType,
@@ -101,5 +102,5 @@ export default function RoomForm({
   )
 }
 const cancel = (navigate) => {
-  navigate('/accommodationManagement/room')
+  navigate(ROOM_LIST_URL)
 }

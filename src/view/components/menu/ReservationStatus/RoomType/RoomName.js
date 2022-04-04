@@ -38,20 +38,21 @@ export default function RoomName({ rtName, room, rmNo, reservationList, lockedRo
   const makeLockDateString = _.flow(_.range(0), formatDate, filterReservationDate, joinComma)
   const lockDateString = makeLockDateString(dayCount)
 
-  const makeLockAbleDateArray = _.flow(_.range(0), formatDate, filterReservationDate)
-  const lockAbleDateArray = makeLockAbleDateArray(dayCount)
+  // const makeLockAbleDateArray = _.flow(_.range(0), formatDate, filterReservationDate)
+  // const lockAbleDateArray = makeLockAbleDateArray(dayCount)
   const formatLockedRoomList = _.map((lockedRoom) => lockedRoom.lockDate)
   const lockedRoomArray = formatLockedRoomList(lockedRoomList)
-  const minus = lockAbleDateArray.length - lockedRoomArray.length
+  // const minus = lockAbleDateArray.length - lockedRoomArray.length
 
-  let isAllLocked = false
-  if (minus === 0) {
-    isAllLocked = true
-  } else if (minus > 0) {
-    isAllLocked = false
-  } else {
-    isAllLocked = true
-  }
+  // let isAllLocked = false
+  // if (minus === 0) {
+  //   isAllLocked = true
+  // } else if (minus > 0) {
+  //   isAllLocked = false
+  // } else {
+  //   isAllLocked = true
+  // }
+  const isAllLocked = lockedRoomArray.length > 0
 
   const handleAllLock = () => {
     if (isAllLocked) {

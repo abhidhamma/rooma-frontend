@@ -12,6 +12,7 @@ import PriceManagement from '@pages/PriceManagement'
 import CompanyManagement from '@pages/CompanyManagement'
 import UpdateCompany from '@components/other/SignUp/CompanyManagement/Form/UpdateCompany'
 import CreateCompany from '@components/other/SignUp/CompanyManagement/Form/CreateCompany'
+import CompanyList from '@components/other/SignUp/CompanyManagement/List/List'
 
 export default function Router() {
   //유저라는 이름으로 localStorage에 넣기만 하면 접근할 수 있게된다 이거하고 바꾸자
@@ -29,10 +30,10 @@ export default function Router() {
             <Route path='signUp' element={<SignUp />} />
 
             {/* 슈퍼어드민일 경우 */}
-            <Route path='companyManagement' element={<CompanyManagement />}>
-              <Route path=':companyId' element={<UpdateCompany />} />
+            <Route path='company' element={<CompanyManagement />}>
+              <Route path='list' element={<CompanyList />} />
+              <Route path='form/:companyId' element={<UpdateCompany />} />
               <Route path='new' element={<CreateCompany />} />
-              {/* 추후 route추가 */}
             </Route>
 
             {/* 
@@ -50,7 +51,7 @@ export default function Router() {
             </Route>
 
             {/* 4.숙소관리 메뉴*/}
-            <Route path='accommodationManagement/*' element={<AccommodationRoute />} />
+            <Route path='accommodation/*' element={<AccommodationRoute />} />
             {/* 5.요금관리 메뉴*/}
             <Route path='priceManagement' element={<PriceManagement />}>
               <Route index element={<PriceManagementContainer />} />

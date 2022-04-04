@@ -1,3 +1,4 @@
+import { ROOMTYPE_LIST_URL } from '@constant/locationURLs'
 import useCreateAccommodationCallback from '@hook/apiHook/useCreateAccommodationCallback'
 import {
   breakfastConfigOptionCountAtom,
@@ -167,7 +168,7 @@ const createRoomType = (createRoomTypeCallback, navigate) => (formData) => {
     const { message } = data
     if (message === '성공') {
       alert('등록되었습니다.')
-      navigate('/accommodationManagement/roomType')
+      navigate(ROOMTYPE_LIST_URL)
     } else {
       alert('오류가 발생했습니다. 잠시후에 다시 시도해주세요.')
     }

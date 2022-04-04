@@ -1,5 +1,7 @@
+import { CREATE_COMPANY_URL } from '@constant/locationURLs'
 import { currentPageAtom, totalCountAtom } from '@state/common/paging'
 import { Suspense } from 'react'
+import { Link } from 'react-router-dom'
 import { useRecoilValue } from 'recoil'
 import CompanyTable from './Table'
 
@@ -27,9 +29,9 @@ export default function CompanyList() {
               <button className='btn-search mgr_5' type='button'>
                 <span className='hidden'>검색</span>
               </button>
-              <a href='#' className='btn btn-middle purple'>
+              <Link to={CREATE_COMPANY_URL} className='btn btn-middle purple'>
                 업체추가
-              </a>
+              </Link>
             </div>
           </div>
           <Suspense fallback={<div>loading...</div>}>

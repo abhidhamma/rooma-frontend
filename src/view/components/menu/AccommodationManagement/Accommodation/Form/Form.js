@@ -8,6 +8,7 @@ import {
 } from '@state/accommodationManagement/accommodation'
 import PictureForm from '../../common/PictureForm'
 import SaleDateForm from '../../common/SaleDateForm'
+import { ACCOMMODATION_LIST_URL } from '@constant/locationURLs'
 
 export default function AccommodationForm({
   register,
@@ -517,5 +518,5 @@ export default function AccommodationForm({
 }
 
 const cancel = (navigate) => {
-  navigate('/accommodationManagement/accommodation')
+  navigate(ACCOMMODATION_LIST_URL)
 }

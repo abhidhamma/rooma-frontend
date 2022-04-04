@@ -1,3 +1,4 @@
+import { ACCOMMODATION_LIST_URL, ROOMTYPE_LIST_URL, ROOM_LIST_URL } from '@constant/locationURLs'
 import { Link } from 'react-router-dom'
 
 export default function SideBar({ active }) {
@@ -9,17 +10,17 @@ export default function SideBar({ active }) {
       </a>
       <ul>
         <li>
-          <Link className={active === 0 ? 'on' : ''} to={'/accommodationManagement/accommodation'}>
+          <Link className={active === 0 ? 'on' : ''} to={ACCOMMODATION_LIST_URL}>
             숙소등록관리
           </Link>
         </li>
         <li>
-          <Link className={active === 1 ? 'on' : ''} to={'/accommodationManagement/roomType'}>
+          <Link className={active === 1 ? 'on' : ''} to={ROOMTYPE_LIST_URL}>
             객실타입등록관리
           </Link>
         </li>
         <li>
-          <Link className={active === 2 ? 'on' : ''} to={'/accommodationManagement/room'}>
+          <Link className={active === 2 ? 'on' : ''} to={ROOM_LIST_URL}>
             객실등록관리
           </Link>
         </li>

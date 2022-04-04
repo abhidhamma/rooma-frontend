@@ -1,3 +1,4 @@
+import { makeUpdateCompanyUrl } from '@constant/locationURLs'
 import { currentPageAtom, totalCountAtom } from '@state/common/paging'
 import { searchKeywordAtom } from '@state/common/search'
 import { readCompanyListSelector } from '@state/company/company'
@@ -39,7 +40,7 @@ export default function ReadCompanyList() {
   }, [currentIndex, searchKeyword])
 
   const goModify = (cpNo) => {
-    window.location = `companyManagement/${cpNo}`
+    window.location = makeUpdateCompanyUrl(cpNo)
   }
   console.log(list)
   return (
@@ -73,9 +74,6 @@ export default function ReadCompanyList() {
               <button type='button' className='modify' onClick={() => goModify(company.cpNo)}>
                 수정
               </button>
-              {/* <Link to={`companyManagement/${company.cpNo}`} className='modify'>
-                수정
-              </Link> */}
             </td>
           </tr>
         )

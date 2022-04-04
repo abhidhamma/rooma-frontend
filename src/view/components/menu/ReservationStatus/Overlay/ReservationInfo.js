@@ -7,7 +7,6 @@ import _ from 'lodash/fp'
 import { reservationStatusMap } from '@constant/constantVariable'
 
 export default function ReservationInfo() {
-  console.log('ReservationInfo called...')
   const display = useRecoilValue(displayAtom)
   const roomNumber = display?.roomNumber
   const rrNo = display?.data?.rrNo
@@ -33,10 +32,6 @@ export default function ReservationInfo() {
   const stayNum = Number(roomReserve?.stayNum)
   const payAmount = roomReserve?.payAmount
   const rtName = roomReserve?.rtName
-  console.log(display.data)
-  console.log(reservation)
-  console.log(checkIn, checkOut)
-  console.log(roomReserve)
 
   return (
     <>

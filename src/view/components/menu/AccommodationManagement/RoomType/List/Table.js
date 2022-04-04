@@ -1,4 +1,5 @@
 import Paging from '@components/common/Paging'
+import { CREATE_ROOMTYPE_URL } from '@constant/locationURLs'
 import { totalCountAtom } from '@state/common/paging'
 import { useRecoilValue } from 'recoil'
 import ButtonGroup from '../../common/ButtonGroup'
@@ -61,7 +62,7 @@ export default function RoomTypeTable() {
           결과가 없습니다. 객실타입명의 전체이름을 검색해주세요.
         </div>
       )}
-      <ButtonGroup addText={'객실타입추가'} addHref={'/accommodationManagement/roomType/new'} />
+      <ButtonGroup addText={'객실타입추가'} addHref={CREATE_ROOMTYPE_URL} />
       <Paging />
     </>
   )

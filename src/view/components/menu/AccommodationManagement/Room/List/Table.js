@@ -1,4 +1,5 @@
 import Paging from '@components/common/Paging'
+import { CREATE_ROOM_FORM_URL } from '@constant/locationURLs'
 import { totalCountAtom } from '@state/common/paging'
 import { useRecoilValue } from 'recoil'
 import ButtonGroup from '../../common/ButtonGroup'
@@ -58,7 +59,7 @@ export default function RoomTable() {
           결과가 없습니다. 객실명에 포함되는 문자열을 검색해주세요.
         </div>
       )}
-      <ButtonGroup addText={'객실추가'} addHref={'/accommodationManagement/room/new'} />
+      <ButtonGroup addText={'객실추가'} addHref={CREATE_ROOM_FORM_URL} />
       <Paging />
     </>
   )

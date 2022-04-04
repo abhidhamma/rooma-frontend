@@ -28,16 +28,16 @@ export default function AccommodationRoute() {
       <Routes>
         <Route element={<AccommodationManagement />}>
           {/* 숙소등록관리 */}
-          <Route index path='accommodation' element={<AccommodationList />} />
-          <Route path='accommodation/:accommodationId' element={<UpdateAccommodation />} />
-          <Route path='accommodation/new' element={<CreateAccommodation />} />
+          <Route index path='list' element={<AccommodationList />} />
+          <Route path='form/:accommodationId' element={<UpdateAccommodation />} />
+          <Route path='new' element={<CreateAccommodation />} />
           {/* 객실타입등록관리 */}
-          <Route path='roomType' element={<RoomTypeList />} />
-          <Route path='roomType/:roomTypeId' element={<UpdateRoomType />} />
+          <Route path='roomType/list' element={<RoomTypeList />} />
+          <Route path='roomType/form/:roomTypeId' element={<UpdateRoomType />} />
           <Route path='roomType/new' element={<CreateRoomType />} />
           {/* 객실등록관리 */}
-          <Route path='room' element={<RoomList />} />
-          <Route path='room/:roomId' element={<UpdateRoom />} />
+          <Route path='room/list' element={<RoomList />} />
+          <Route path='room/form/:roomId' element={<UpdateRoom />} />
           <Route path='room/new' element={<CreateRoom />} />
         </Route>
       </Routes>

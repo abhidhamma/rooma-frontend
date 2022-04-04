@@ -1,4 +1,6 @@
 import SideBar from '@components/menu/AccommodationManagement/SideBar'
+import { CREATE_ROOM_URL } from '@constant/apiURLs'
+import { CREATE_ROOM_FORM_URL } from '@constant/locationURLs'
 import { currentPageAtom, totalCountAtom } from '@state/common/paging'
 import { useRecoilValue } from 'recoil'
 import SearchBox from '../../common/SearchBox'
@@ -23,11 +25,7 @@ export default function RoomList() {
           <span className='num'>
             Total {totalCount}건 {currentPage}페이지
           </span>
-          <SearchBox
-            linkTo={'/accommodationManagement/room/new'}
-            linkText={'객실추가'}
-            optionName={'객실명'}
-          />
+          <SearchBox linkTo={CREATE_ROOM_FORM_URL} linkText={'객실추가'} optionName={'객실명'} />
         </div>
         <RoomTable />
       </div>

@@ -1,9 +1,10 @@
+import { COMPANY_LIST_URL } from '@constant/locationURLs'
 import { useNavigate } from 'react-router-dom'
 
 export default function CompanyForm({ onSubmit, handleSubmit, register, isCreate }) {
   let navigate = useNavigate()
 
-  const cancel = () => navigate('/signUp')
+  const cancel = () => navigate(COMPANY_LIST_URL)
   return (
     <div id='container'>
       <div className='content'>

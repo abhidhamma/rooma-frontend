@@ -13,6 +13,7 @@ import { validateAccommodationInput } from '@util/validation/validateAccommodati
 import { useRecoilValue } from 'recoil'
 import { currentCompanyAtom } from '@state/common/common'
 import { numberToArray } from '@util/common/lodash'
+import { ACCOMMODATION_LIST_URL } from '@constant/locationURLs'
 
 export default function CreateAccommodation() {
   const createAccommodationCallback = useCreateAccommodationCallback('create Accommodation')
@@ -91,7 +92,7 @@ const createAccommodation = (createAccommodationCallback, navigate) => (formData
     const { message } = data
     if (message === '성공') {
       alert('등록되었습니다.')
-      navigate('/accommodationManagement/accommodation')
+      navigate(ACCOMMODATION_LIST_URL)
     } else {
       alert('오류가 발생했습니다. 잠시후에 다시 시도해주세요.')
     }

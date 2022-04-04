@@ -39,7 +39,7 @@ function PricePresenter({
               href='#'
               className={reservation?.checkIn === currentDate ? '' : 'none'}
               style={{ display: 'block', placeSelf: 'center' }}
-              onClick={handleCreateReservation}
+              onDoubleClick={handleCreateReservation}
             >
               {`${isNaN(price) ? 'X' : `${price}만`}`}
             </a>

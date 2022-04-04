@@ -102,7 +102,7 @@ export default function CalendarPriceManagement({ isCalendarPriceManagementTab }
         </div>
       </div>
 
-      <div className='periodWrap mgt_30 mgb_40'>
+      <div className='periodWrap mgb_20'>
         <div className='year'>
           <select
             value={getYear(selectedMonth)}
