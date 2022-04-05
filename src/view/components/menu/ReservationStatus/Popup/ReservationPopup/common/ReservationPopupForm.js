@@ -111,7 +111,7 @@ export default function ReservationPopupForm({
                 </div>
               </section>
               <section className='Enroll cont1'>
-                <h3 style={{ marginBottom: '10px' }}>예약상세정보</h3>
+                <h3>예약상세정보</h3>
                 <a
                   href='#'
                   class={isShowCont1 ? 'openCont on' : 'openCont'}
@@ -182,7 +182,7 @@ export default function ReservationPopupForm({
                 </div>
               </section>
               <section className='Enroll cont2'>
-                <h3 style={{ marginBottom: '10px' }}>예약객실 상세정보</h3>
+                <h3>예약객실 상세정보</h3>
                 <a
                   href='#'
                   class={isShowCont2 ? 'openCont on' : 'openCont'}
@@ -273,7 +273,7 @@ export default function ReservationPopupForm({
               </section>
 
               <section className='Enroll cont3'>
-                <h3 style={{ marginBottom: '10px' }}>예약상세정보</h3>
+                <h3>예약메모정보</h3>
                 <a
                   href='#'
                   class={isShowCont3 ? 'openCont on' : 'openCont'}
@@ -324,7 +324,7 @@ export default function ReservationPopupForm({
                 </div>
               </section>
               <section className='Enroll cont4'>
-                <h3 style={{ marginBottom: '10px' }}>예약객실 상세정보</h3>
+                <h3>결제정보</h3>
                 <a
                   href='#'
                   class={isShowCont4 ? 'openCont on' : 'openCont'}
