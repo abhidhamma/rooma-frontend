@@ -22,6 +22,9 @@ export const SELECTED_DATE_ATOM_KEY = 'selectedDateAtom'
 export const SELECTED_MONTH_ATOM_KEY = 'selectedMonthAtom'
 export const SHOW_CALENDAR_ATOM = 'showCalendarAtom'
 
+//common-popup
+export const DIMMD_LEYER_ATOM_KEY = 'dimmdLayerAtom'
+
 //예약현황
 export const RENDER_COUNT_ATOM_KEY = 'renderCountAtom'
 export const ROOMTYPE_LIST_ATOM_KEY = 'roomTypeListAtom'

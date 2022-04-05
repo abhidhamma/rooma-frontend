@@ -20,7 +20,7 @@ import {
   updateReservationDateSelector,
 } from '@state/reservationStatus/reservationStatus'
 import useApiCallback from '@hook/apiHook/useApiCallback'
-import { currentAccommodationAtom } from '@state/common/common'
+import { currentAccommodationAtom, dimmdLayerAtom } from '@state/common/common'
 import { addDays } from 'date-fns'
 
 function PriceContainer({
@@ -42,6 +42,7 @@ function PriceContainer({
   const setIsDisplayCreateReservation = useSetRecoilState(isDisplayCreateReservationAtom)
   const setCreateReservation = useSetRecoilState(createReservationAtom)
   const setRightClickPopupProperty = useSetRecoilState(rightClickPopupAtom)
+  const setIsShowDimmdLayer = useSetRecoilState(dimmdLayerAtom)
 
   const accommodation = useRecoilValue(currentAccommodationAtom)
 
@@ -123,6 +124,7 @@ function PriceContainer({
   )
 
   const handleCreateReservation = useCallback(() => {
+    setIsShowDimmdLayer(true)
     setIsDisplayCreateReservation((prev) => !prev)
     setCreateReservation((prev) => ({ ...prev, currentDate: stringToDate(currentDate) }))
   }, [standardDate])

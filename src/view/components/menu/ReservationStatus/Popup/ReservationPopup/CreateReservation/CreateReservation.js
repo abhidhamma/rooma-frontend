@@ -1,5 +1,5 @@
 import useApiCallback from '@hook/apiHook/useApiCallback'
-import { currentAccommodationAtom } from '@state/common/common'
+import { currentAccommodationAtom, dimmdLayerAtom } from '@state/common/common'
 import { isDisplayCreateReservationAtom, standardDateAtom } from '@state/reservation'
 import {
   createReservationAtom,
@@ -34,6 +34,7 @@ export default function CreateReservation() {
 
   const [roomCount, setRoomCount] = useRecoilState(addReserverationRoomCountAtom)
   const setIsDisplayCreateReservation = useSetRecoilState(isDisplayCreateReservationAtom)
+  const setIsShowDimmdLayer = useSetRecoilState(dimmdLayerAtom)
   const popUpParameter = useRecoilValue(createReservationAtom)
   const createReservationCallback = useApiCallback('createReservation')
   const accommodation = useRecoilValue(currentAccommodationAtom)
@@ -72,6 +73,7 @@ export default function CreateReservation() {
     )
   )
   const close = () => {
+    setIsShowDimmdLayer(false)
     setIsDisplayCreateReservation(false)
     setRoomCount(1)
     setIsReservationButtonOpen(false)

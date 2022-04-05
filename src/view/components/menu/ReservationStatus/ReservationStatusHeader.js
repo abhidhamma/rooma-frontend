@@ -102,7 +102,7 @@ export default function ReservationStatusHeader() {
             <span className='st5'></span>미입금퇴실
           </div>
           <div>
-            <span class='st6'></span>청소중
+            <span className='st6'></span>청소중
           </div>
         </div>
       </div>

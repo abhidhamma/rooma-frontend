@@ -9,11 +9,13 @@ import {
 import { getDateArray } from '@util/reservation/reservation'
 import { displayAtom, isDisplayReadReservationAtom, standardDateAtom } from '@state/reservation'
 import { readReservationParameterAtom } from '@state/reservationStatus/reservationStatus'
+import { dimmdLayerAtom } from '@state/common/common'
 
 function ReservationOverlay({ data, drag, dayCount, currentDate, roomNumber }) {
   const setDisplay = useSetRecoilState(displayAtom)
   const setIsDisplayReadReservation = useSetRecoilState(isDisplayReadReservationAtom)
   const setReadReservationParameter = useSetRecoilState(readReservationParameterAtom)
+  const setIsShowDimmdLayer = useSetRecoilState(dimmdLayerAtom)
   const standardDate = useRecoilValue(standardDateAtom)
 
   const checkIn = formatMMddE(stringToDate(data.checkIn))
@@ -75,6 +77,7 @@ function ReservationOverlay({ data, drag, dayCount, currentDate, roomNumber }) {
   const handleReadReservationPopup = () => {
     setReadReservationParameter({ rrNo, rmNo })
     setIsDisplayReadReservation(true)
+    setIsShowDimmdLayer(true)
 
     setTimeout(function () {
       setDisplay({

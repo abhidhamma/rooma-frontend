@@ -12,6 +12,7 @@ import {
   initializeCreateReservationForm,
 } from '../CreateReservation/CreateReservation'
 import ReservationPopupForm from '../common/ReservationPopupForm'
+import { dimmdLayerAtom } from '@state/common/common'
 
 export default function ReadReservation() {
   const readReservationParameter = useRecoilValue(readReservationParameterAtom)
@@ -22,6 +23,7 @@ export default function ReadReservation() {
   const reservation = result?.data?.data
   const [roomCount, setRoomCount] = useRecoilState(addReserverationRoomCountAtom)
   const setIsDisplayReadReservation = useSetRecoilState(isDisplayReadReservationAtom)
+  const setIsShowDimmdLayer = useSetRecoilState(dimmdLayerAtom)
 
   const defaultValues = { ...reservation }
   const { register, handleSubmit, watch, reset, getValues } = useForm({ defaultValues })
@@ -46,6 +48,7 @@ export default function ReadReservation() {
   const increaseRoom = () => setRoomCount((prev) => prev + 1)
 
   const close = () => {
+    setIsShowDimmdLayer(false)
     setIsDisplayReadReservation(false)
     setRoomCount(1)
   }
