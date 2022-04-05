@@ -114,10 +114,10 @@ export default function ReservationPopupForm({
                 <h3>예약상세정보</h3>
                 <a
                   href='#'
-                  class={isShowCont1 ? 'openCont on' : 'openCont'}
+                  className={isShowCont1 ? 'openCont on' : 'openCont'}
                   onClick={() => setIsShowCont1((prev) => !prev)}
                 >
-                  <span class='hdn'>메뉴닫기/열기</span>
+                  <span className='hdn'>메뉴닫기/열기</span>
                 </a>
                 <div className='boxCont' style={{ display: isShowCont1 ? 'block' : 'none' }}>
                   <table className='tbl-view-pop'>
@@ -185,10 +185,10 @@ export default function ReservationPopupForm({
                 <h3>예약객실 상세정보</h3>
                 <a
                   href='#'
-                  class={isShowCont2 ? 'openCont on' : 'openCont'}
+                  className={isShowCont2 ? 'openCont on' : 'openCont'}
                   onClick={() => setIsShowCont2((prev) => !prev)}
                 >
-                  <span class='hdn'>메뉴닫기/열기</span>
+                  <span className='hdn'>메뉴닫기/열기</span>
                 </a>
                 <div className='boxCont' style={{ display: isShowCont2 ? 'block' : 'none' }}>
                   {type !== 'read' && (
@@ -276,10 +276,10 @@ export default function ReservationPopupForm({
                 <h3>예약메모정보</h3>
                 <a
                   href='#'
-                  class={isShowCont3 ? 'openCont on' : 'openCont'}
+                  className={isShowCont3 ? 'openCont on' : 'openCont'}
                   onClick={() => setIsShowCont3((prev) => !prev)}
                 >
-                  <span class='hdn'>메뉴닫기/열기</span>
+                  <span className='hdn'>메뉴닫기/열기</span>
                 </a>
                 <div className='boxCont' style={{ display: isShowCont3 ? 'block' : 'none' }}>
                   <table className='tbl-view-pop'>
@@ -327,10 +327,10 @@ export default function ReservationPopupForm({
                 <h3>결제정보</h3>
                 <a
                   href='#'
-                  class={isShowCont4 ? 'openCont on' : 'openCont'}
+                  className={isShowCont4 ? 'openCont on' : 'openCont'}
                   onClick={() => setIsShowCont4((prev) => !prev)}
                 >
-                  <span class='hdn'>메뉴닫기/열기</span>
+                  <span className='hdn'>메뉴닫기/열기</span>
                 </a>
                 <div className='boxCont' style={{ display: isShowCont4 ? 'block' : 'none' }}>
                   <table className='tbl-pop'>
@@ -406,7 +406,7 @@ export default function ReservationPopupForm({
                       </tr>
                     </tbody>
                   </table>
-                  <table class='tbl-pop mgt_20'>
+                  <table className='tbl-pop mgt_20'>
                     <caption>결제정보</caption>
                     <colgroup>
                       <col width='20%' />
@@ -432,20 +432,20 @@ export default function ReservationPopupForm({
                           </select>
                         </td>
                         <td>
-                          <div class='dF-s'>
+                          <div className='dF-s'>
                             <input type='text' placeholder='요금입력' />
-                            <span class='num'>원</span>
+                            <span className='num'>원</span>
                           </div>
                         </td>
                         <td>
-                          <input type='text' value='2022.03.28' class='center' />
+                          <input type='text' defaultValue='2022.03.28' className='center' />
                         </td>
                         <td>
                           <select>
                             <option>카드</option>
                           </select>
                         </td>
-                        <td class='add-del'>
+                        <td className='add-del'>
                           <a href='#'>추가</a>
                           <a href='#'>삭제</a>
                         </td>
