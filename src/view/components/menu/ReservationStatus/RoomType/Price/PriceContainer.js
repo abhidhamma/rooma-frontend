@@ -31,6 +31,7 @@ function PriceContainer({
   lockedRoom,
   currentReservationList,
   rmNo,
+  rtNo,
 }) {
   const updateReservationDateCallback = useApiCallback('updateReservationDate')
   const dayCount = useRecoilValue(dayCountAtom)
@@ -126,7 +127,12 @@ function PriceContainer({
   const handleCreateReservation = useCallback(() => {
     setIsShowDimmdLayer(true)
     setIsDisplayCreateReservation((prev) => !prev)
-    setCreateReservation((prev) => ({ ...prev, currentDate: stringToDate(currentDate) }))
+    setCreateReservation((prev) => ({
+      ...prev,
+      currentDate: stringToDate(currentDate),
+      rmNo,
+      rtNo,
+    }))
   }, [standardDate])
 
   const handleRightClickPopup = (reservation, lockedRoom) => (event) => {

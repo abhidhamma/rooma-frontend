@@ -13,6 +13,9 @@ export default function RoomSelect({ roomType, room, setRoom, count, watch }) {
 
   const { rtNo } = roomType
   const addParameter = (data) => {
+    if (rtNo === undefined) {
+      return false
+    }
     if (acNo !== undefined) {
       data = { ...data, acNo }
     }
@@ -43,9 +46,9 @@ export default function RoomSelect({ roomType, room, setRoom, count, watch }) {
   } = useRecoilValue(readRoomList(data))
   const reset = useRecoilRefresher_UNSTABLE(readRoomList(data))
 
-  useEffect(() => {
-    setRoom(list[0])
-  }, [])
+  // useEffect(() => {
+  //   setRoom(list[0])
+  // }, [])
 
   useEffect(() => {
     reset()
@@ -64,6 +67,7 @@ export default function RoomSelect({ roomType, room, setRoom, count, watch }) {
 
   return (
     <select onChange={handleCurrentRoom} defaultValue={room?.rmNo}>
+      <option value={0}>객실명선택</option>
       {list.map(({ rmNo, name }) => (
         <option key={rmNo} value={rmNo}>
           {name}

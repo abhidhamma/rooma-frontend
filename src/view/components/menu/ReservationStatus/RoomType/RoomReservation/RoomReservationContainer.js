@@ -12,6 +12,7 @@ function RoomReservationContainer({
   currentReservationList,
   lockedRoomList,
   rmNo,
+  rtNo,
 }) {
   // const lockedRoomList = useRecoilValue(lockedRoomListAtom)
   const standardDate = useRecoilValue(standardDateAtom)
@@ -46,6 +47,7 @@ function RoomReservationContainer({
       currentReservationList={currentReservationList}
       roomNumber={roomNumber}
       rmNo={rmNo}
+      rtNo={rtNo}
     />
   )
 }

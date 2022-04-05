@@ -196,7 +196,12 @@ export default function ReadReservationAddRoom({
                   </select>
                 }
               >
-                <AddRoomTypeSelect roomType={roomType} setRoomType={setRoomType} />
+                <AddRoomTypeSelect
+                  roomType={roomType}
+                  setRoomType={setRoomType}
+                  register={register}
+                  count={count}
+                />
               </Suspense>
             </td>
             <td>

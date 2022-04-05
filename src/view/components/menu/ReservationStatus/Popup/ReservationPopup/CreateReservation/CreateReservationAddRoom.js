@@ -4,7 +4,7 @@ import { addReserverationRoomCountAtom } from '@state/reservationStatus/reservat
 import { formatyyyyMMddWithHyphen } from '@util/common/dateUtil'
 import { numberToArray } from '@util/common/lodash'
 import { formatMoney, zeroOrNumber } from '@util/common/others'
-import { parseCustomData1, parseCustomData2 } from '@util/parse/parse'
+import { parseCustomData2 } from '@util/parse/parse'
 import { addDays } from 'date-fns'
 import _ from 'lodash'
 import { Suspense, useEffect, useState } from 'react'
@@ -12,7 +12,6 @@ import { useRecoilValue, useSetRecoilState } from 'recoil'
 import ReservationDateForm from '../common/ReservationDateForm'
 import RoomSelect from '../common/RoomSelect'
 import AddRoomTypeSelect from '../common/RoomTypeSelect'
-import CreateReservationRoomSelect from './CreateReservationRoomSelect'
 
 export default function CreateReservationAddRoom({
   cancelButton,
@@ -36,7 +35,7 @@ export default function CreateReservationAddRoom({
 
   //지역상태
   const [open, setOpen] = useState(false)
-  const [room, setRoom] = useState({ rmNo: 0 })
+  const [room, setRoom] = useState({ rmNo: createReservation.rmNo })
   const [roomType, setRoomType] = useState({
     basicPersionNum: 2,
     maxPersionNum: 4,
@@ -44,6 +43,7 @@ export default function CreateReservationAddRoom({
     addAdultPrice: 0,
     addChildPrice: 0,
     addInfantPrice: 0,
+    rtNo: createReservation.rtNo,
   })
   console.log(roomType)
   console.log(room)
@@ -157,7 +157,7 @@ export default function CreateReservationAddRoom({
           </a>
         )}
       </div>
-      <h3 style={{ marginBottom: '10px' }}>예약객실정보</h3>
+      <h4>예약객실정보</h4>
       <table className='tbl-pop'>
         <caption>예약객실정보</caption>
         <colgroup>
@@ -170,11 +170,13 @@ export default function CreateReservationAddRoom({
         </colgroup>
         <thead>
           <tr>
-            <th>객실타입</th>
-            <th>객실명</th>
-            <th colSpan='2'>입실일 ~ 퇴실일</th>
-            <th>인원(기본/최대)</th>
-            <th>객실요금</th>
+            <th style={{ background: '#F5F6F8' }}>객실타입</th>
+            <th style={{ background: '#F5F6F8' }}>객실명</th>
+            <th style={{ background: '#F5F6F8' }} colSpan='2'>
+              입실일 ~ 퇴실일
+            </th>
+            <th style={{ background: '#F5F6F8' }}>인원(기본/최대)</th>
+            <th style={{ background: '#F5F6F8' }}>객실요금</th>
           </tr>
         </thead>
         <tbody>
@@ -187,7 +189,12 @@ export default function CreateReservationAddRoom({
                   </select>
                 }
               >
-                <AddRoomTypeSelect roomType={roomType} setRoomType={setRoomType} />
+                <AddRoomTypeSelect
+                  roomType={roomType}
+                  setRoomType={setRoomType}
+                  register={register}
+                  count={count}
+                />
               </Suspense>
             </td>
             <td>
@@ -226,7 +233,9 @@ export default function CreateReservationAddRoom({
                     <option key={number} value={number}>{`${number}명`}</option>
                   ))}
                 </select>
-                <span className='num'>{`(${basicPersionNum}/${maxPersionNum})`}</span>
+                <span className='num'>{`(${basicPersionNum === undefined ? '0' : basicPersionNum}/${
+                  maxPersionNum === undefined ? '0' : maxPersionNum
+                })`}</span>
               </div>
             </td>
             <td>{`${formatMoney(originPrice)}원`}</td>
@@ -234,7 +243,7 @@ export default function CreateReservationAddRoom({
         </tbody>
       </table>
       <div className='hidden-area' style={{ display: open ? 'block' : 'none' }}>
-        <h3 className='mgt_30'>예약옵션정보</h3>
+        <h4 className='mgt_30'>예약옵션정보</h4>
         <table className='tbl-pop'>
           <caption>예약옵션정보</caption>
           <colgroup>
@@ -246,11 +255,11 @@ export default function CreateReservationAddRoom({
           </colgroup>
           <thead>
             <tr>
-              <th>인원추가</th>
-              <th>조식추가</th>
-              <th>옵션추가</th>
-              <th>옵션합계</th>
-              <th>요금합계</th>
+              <th style={{ background: '#F5F6F8' }}>인원추가</th>
+              <th style={{ background: '#F5F6F8' }}>조식추가</th>
+              <th style={{ background: '#F5F6F8' }}>옵션추가</th>
+              <th style={{ background: '#F5F6F8' }}>옵션합계</th>
+              <th style={{ background: '#F5F6F8' }}>요금합계</th>
             </tr>
           </thead>
           <tbody>

@@ -47,11 +47,11 @@ export default function ReservationStateSelect({ reservationStatus, reset, getVa
             퇴실
           </a>
         </li>
-        <li>
+        {/* <li>
           <a href='#' onClick={changeSelect('청소중')}>
             청소중
           </a>
-        </li>
+        </li> */}
         <li>
           <a href='#' onClick={changeSelect('예약취소')}>
             예약취소

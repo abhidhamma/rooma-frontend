@@ -26,6 +26,7 @@ export default function RoomTypePresenter({ roomType, style }) {
             currentReservationList={room.reserves}
             lockedRoomList={room.locks}
             rmNo={room.rmNo}
+            rtNo={roomType.rtNo}
           />
         ))}
       </div>

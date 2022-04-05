@@ -380,7 +380,11 @@ export default function ReservationPopupForm({
                             <span className='num'>원</span>
                           </div>
                         </td>
-                        <td>{`${formatMoney(totalAddPersonPrice)}원`}</td>
+                        <td>{`${
+                          isNaN(formatMoney(totalAddPersonPrice))
+                            ? '0'
+                            : formatMoney(totalAddPersonPrice)
+                        }원`}</td>
                         <td>
                           <div className='dF-s'>
                             <input
@@ -402,7 +406,9 @@ export default function ReservationPopupForm({
                             <span className='num'>원</span>
                           </div>
                         </td>
-                        <td className='total'>{`${formatMoney(totalPrice)}원`}</td>
+                        <td className='total'>{`${
+                          isNaN(totalPrice) ? '0' : formatMoney(totalPrice)
+                        }원`}</td>
                       </tr>
                     </tbody>
                   </table>

@@ -13,7 +13,7 @@ import { formatyyyyMMddWithHyphen } from '@util/common/dateUtil'
 import { numberToArray } from '@util/common/lodash'
 import { addDays } from 'date-fns'
 import _ from 'lodash/fp'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import {
   useRecoilRefresher_UNSTABLE,
@@ -21,6 +21,7 @@ import {
   useRecoilValue,
   useSetRecoilState,
 } from 'recoil'
+import { useRoomPrice } from '../common/reservationFunctions'
 import ReservationPopupForm from '../common/ReservationPopupForm'
 
 export default function CreateReservation() {
@@ -62,9 +63,45 @@ export default function CreateReservation() {
   const checkinDate = formatyyyyMMddWithHyphen(popUpParameter.currentDate)
   const checkoutDate = formatyyyyMMddWithHyphen(addDays(popUpParameter.currentDate, 1))
 
+  const validation = (rmNoObject, roomCount) => (submitData) => {
+    // const someRmNo = _.some((number) => Number(rmNoObject[`${number}`]) === 0)
+    // const isRmNoNotExist = false
+    // if (isRmNoNotExist) {
+    //   alert('객실명을 선택해주세요.')
+    //   return false
+    // }
+
+    for (let i = 1; i <= roomCount; i++) {
+      if (submitData[`roomType${i}`] === '0') {
+        alert('객실타입을 선택해주세요.')
+        return false
+      }
+    }
+
+    for (let i = 1; i <= roomCount; i++) {
+      if (rmNoObject[`${i}`] === 0) {
+        alert('객실명을 선택해주세요.')
+        return false
+      }
+    }
+
+    const isUserNameNotExist = submitData.userName === ''
+    if (isUserNameNotExist) {
+      alert('실사용자명을 입력해주세요.')
+      return false
+    }
+    const isUserPhoneNotExist = submitData.userPhone === ''
+    if (isUserPhoneNotExist) {
+      alert('연락번호를 입력해주세요.')
+      return false
+    }
+
+    return submitData
+  }
   const onSubmit = _.flow(
+    validation(rmNoObject, roomCount),
     preprocessSubmitData(roomCount, rmNoObject, totalPrices),
-    createReservation(createReservationCallback, resetReadReservationPrice),
+    createReservation(createReservationCallback, resetReadReservationPrice, setIsShowDimmdLayer),
     initializeCreateReservationForm(
       setIsDisplayCreateReservation,
       setRoomCount,
@@ -106,23 +143,24 @@ export default function CreateReservation() {
 
 const defaultValues = {
   // rrNo: 0,
-  rmNo: 5,
   reserveStatus: 'RESERVECOMPLETE',
   payStatus: 'NOTPAY',
-  payAmount: 50000,
-  reserveNum: '',
-  userName: '변경익',
-  userPhone: '010-1111-4444',
-  agentName: '회사',
-  agentPhone: '010-1111-2222',
-  agentCharger: '시스템담당자',
-  agentChargerPhone: '010-3333-4444',
-  adjSalePrice: 10000,
-  adjAddPersionPrice: 0,
-  adjOptionPrice: 0,
-  memo: '',
-  agentMemo: '',
-  fieldMemo: '',
+  // rmNo: 5,
+
+  // payAmount: 50000,
+  // reserveNum: '',
+  // userName: '변경익',
+  // userPhone: '010-1111-4444',
+  // agentName: '회사',
+  // agentPhone: '010-1111-2222',
+  // agentCharger: '시스템담당자',
+  // agentChargerPhone: '010-3333-4444',
+  // adjSalePrice: 10000,
+  // adjAddPersionPrice: 0,
+  // adjOptionPrice: 0,
+  // memo: '',
+  // agentMemo: '',
+  // fieldMemo: '',
 }
 export const calculatePrices = (
   roomCount,
@@ -147,6 +185,9 @@ export const calculatePrices = (
   return { totalRoomPrice, totalAddPersonPrice, totalOptionPrice, totalPrice }
 }
 const preprocessSubmitData = (roomCount, rmNoObject, totalPrices) => (submitData) => {
+  if (submitData === false) {
+    return false
+  }
   const rmNo = rmNoObject['1']
   const payAmount = totalPrices[`roomTotalFee1`]
   const {
@@ -190,13 +231,7 @@ const preprocessSubmitData = (roomCount, rmNoObject, totalPrices) => (submitData
     roomReserves,
   }
 }
-const makeRoomReserves = (
-  submitData,
-
-  roomCount,
-  rmNoObject,
-  totalPrices
-) => {
+const makeRoomReserves = (submitData, roomCount, rmNoObject, totalPrices) => {
   const mapRoomReservation = _.map((number) => {
     const checkinDate = submitData[`checkinDate${number}`]
     const checkoutDate = submitData[`checkoutDate${number}`]
@@ -224,13 +259,17 @@ const makeRoomReserves = (
   return _.flow(numberToArray, mapRoomReservation)(roomCount)
 }
 const createReservation =
-  (createReservationCallback, resetReadReservationPrice) => async (jsonData) => {
-    const isSuccess = await createReservationCallback(createReservationSelector(jsonData)).then(
+  (createReservationCallback, resetReadReservationPrice, setIsShowDimmdLayer) => (jsonData) => {
+    if (jsonData === false) {
+      return false
+    }
+    const isSuccess = createReservationCallback(createReservationSelector(jsonData)).then(
       (result) => {
         const { message } = result
         if (message === '업데이트 성공') {
           alert('예약이 완료되었습니다.')
           resetReadReservationPrice()
+          setIsShowDimmdLayer(false)
           return true
         } else {
           alert('오류가 발생했습니다. 잠시후에 다시 시도해주세요.')
@@ -247,13 +286,17 @@ export const initializeCreateReservationForm =
     setIsReservationButtonOpen,
     setIsCheckInButtonOpen
   ) =>
-  (promise) => {
-    promise.then((isSuccess) => {
-      if (isSuccess) {
-        setIsDisplayCreateReservation(false)
-        setRoomCount(1)
-        setIsReservationButtonOpen(false)
-        setIsCheckInButtonOpen(false)
-      }
-    })
+  (result) => {
+    if (result instanceof Promise) {
+      result.then((isSuccess) => {
+        if (isSuccess) {
+          setIsDisplayCreateReservation(false)
+          setRoomCount(1)
+          setIsReservationButtonOpen(false)
+          setIsCheckInButtonOpen(false)
+        }
+      })
+    } else {
+      return
+    }
   }

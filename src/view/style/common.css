@@ -1286,11 +1286,13 @@ input[type='radio']:checked + label {
   border: 0;
 }
 .reserv-input section:last-child .tbl-pop td {
-  border-right: 1px solid #e4e4e4;
+  border: 1px solid #e4e4e4;
+  border-top: 0;
 }
 .reserv-input section:last-child .tbl-pop th {
   background: #d5dcff;
   position: relative;
+  border: 1px solid #d5dcff;
 }
 .reserv-input section:last-child .tbl-pop th span {
   position: absolute;
@@ -1322,6 +1324,9 @@ input[type='radio']:checked + label {
   font-weight: normal;
   border: 1px solid #e4e4e4;
   text-align: center;
+}
+.tbl-pop td {
+  background: #fff;
 }
 .tbl-pop td span.num {
   padding: 0 10px;

@@ -7,6 +7,7 @@ function RoomReservationPresenter({
   currentReservationList,
   roomNumber,
   rmNo,
+  rtNo,
 }) {
   return (
     <>
@@ -31,6 +32,7 @@ function RoomReservationPresenter({
                 lockedRoom={currentLockedRoom}
                 currentReservationList={currentReservationList}
                 rmNo={rmNo}
+                rtNo={rtNo}
               />
             ) : (
               <Price
@@ -41,6 +43,7 @@ function RoomReservationPresenter({
                 reservation={currentReservation}
                 currentReservationList={currentReservationList}
                 rmNo={rmNo}
+                rtNo={rtNo}
               />
             )
           })}

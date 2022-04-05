@@ -5,7 +5,7 @@ import _ from 'lodash/fp'
 import { useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
 
-export default function AddRoomTypeSelect({ roomType, setRoomType }) {
+export default function AddRoomTypeSelect({ roomType, setRoomType, register, count }) {
   const { acNo } = useRecoilValue(currentAccommodationAtom)
   const addAcNo = (data) => (acNo !== undefined ? { ...data, acNo } : data)
 
@@ -47,7 +47,12 @@ export default function AddRoomTypeSelect({ roomType, setRoomType }) {
   }
 
   return (
-    <select onChange={handleCurrentRoomType} defaultValue={roomType.rtNo}>
+    <select
+      // {...register(`roomType${count}`)}
+      onChange={handleCurrentRoomType}
+      defaultValue={roomType.rtNo}
+    >
+      <option value={0}>객실타입선택</option>
       {list.map(({ rtNo, roomTypeName }) => (
         <option key={rtNo} value={rtNo}>
           {roomTypeName}
