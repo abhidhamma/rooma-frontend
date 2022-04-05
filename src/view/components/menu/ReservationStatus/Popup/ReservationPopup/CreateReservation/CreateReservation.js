@@ -71,14 +71,16 @@ export default function CreateReservation() {
     //   return false
     // }
 
-    for (let i = 1; i <= roomCount; i++) {
-      if (submitData[`roomType${i}`] === '0') {
-        alert('객실타입을 선택해주세요.')
-        return false
-      }
-    }
+    // for (let i = 1; i <= roomCount; i++) {
+    //   if (submitData[`roomType${i}`] === '0') {
+    //     alert('객실타입을 선택해주세요.')
+    //     return false
+    //   }
+    // }
 
     for (let i = 1; i <= roomCount; i++) {
+      console.log('rmNoObject')
+      console.log(rmNoObject[`${i}`])
       if (rmNoObject[`${i}`] === 0) {
         alert('객실명을 선택해주세요.')
         return false

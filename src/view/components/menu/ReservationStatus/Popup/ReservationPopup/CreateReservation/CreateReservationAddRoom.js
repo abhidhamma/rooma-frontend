@@ -118,6 +118,9 @@ export default function CreateReservationAddRoom({
   }, [])
   useEffect(() => {
     setRoomPrices((prev) => ({ ...prev, [`roomFee${count}`]: roomFee }))
+    if (roomType.originPrice === '') {
+      setRoom({ rmNo: 0 })
+    }
   }, [roomType])
   useEffect(() => {
     setAddPersonPrices((prev) => ({ ...prev, [`addPersonFee${count}`]: addPersonFee }))
