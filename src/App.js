@@ -20,7 +20,6 @@ function App() {
     if (isMouseDown) {
       setIsMouseDown(false)
       setSelectedCellArray({})
-      console.log('뗀상태')
     }
   }
   return (

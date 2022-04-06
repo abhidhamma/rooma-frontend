@@ -9,6 +9,7 @@ import { useRecoilState, useSetRecoilState } from 'recoil'
 import { createReservationAtom } from '@state/reservationStatus/createReservation'
 import { isDisplayCreateReservationAtom } from '@state/reservation'
 import { dimmdLayerAtom } from '@state/common/common'
+import { addDays } from 'date-fns'
 
 function PricePresenter({
   drop,
@@ -43,7 +44,10 @@ function PricePresenter({
     setIsMouseDown(true)
     setSelectedCellArray((prev) => ({
       ...prev,
+      // checkinDate: stringToDate(currentDate),
+      // checkoutDate: stringToDate(currentDate),
       [`${roomNumber}${currentDate}`]: true,
+      currentRoomNumber: roomNumber,
     }))
     setCreateReservation((prev) => ({
       ...prev,
@@ -54,7 +58,17 @@ function PricePresenter({
   }
   const handleMouseOver = () => {
     if (isMouseDown) {
-      setSelectedCellArray((prev) => ({ ...prev, [`${roomNumber}${currentDate}`]: true }))
+      if (selectedCellArray.currentRoomNumber !== roomNumber) {
+        alert('서로 다른 객실을 연속예약할 수 없습니다.')
+        setIsMouseDown(false)
+        setSelectedCellArray({})
+      } else {
+        setSelectedCellArray((prev) => ({
+          ...prev,
+          [`${roomNumber}${currentDate}`]: true,
+          // checkoutDate: stringToDate(currentDate),
+        }))
+      }
     }
   }
   const handleMouseUp = () => {
@@ -64,6 +78,21 @@ function PricePresenter({
       setCreateReservation((prev) => ({ ...prev, checkoutDate: stringToDate(currentDate) }))
     }
   }
+
+  // const getBackground = (selectedCellArray) => {
+  //   if (selectedCellArray === null) {
+  //     return 'none'
+  //   }
+  //   const { checkinDate, checkoutDate } = selectedCellArray
+
+  //   let tempArray = []
+  //   for (let i = checkinDate; i <= checkoutDate; i = addDays(checkinDate, 1)) {
+  //     tempArray = [...tempArray, i]
+  //   }
+  //   return tempArray
+  // }
+  // console.log('selecetedCellArray')
+  // console.log(getBackground(selectedCellArray))
   return (
     <>
       <div

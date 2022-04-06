@@ -1,4 +1,4 @@
-import { useRecoilValue, useSetRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import {
   addyyyyMMdd,
   betweenyyyyMMdd,
@@ -8,7 +8,11 @@ import {
 } from '@util/common/dateUtil'
 import { getDateArray } from '@util/reservation/reservation'
 import { displayAtom, isDisplayReadReservationAtom, standardDateAtom } from '@state/reservation'
-import { readReservationParameterAtom } from '@state/reservationStatus/reservationStatus'
+import {
+  isMouseDownAtom,
+  readReservationParameterAtom,
+  selectedCellArrayAtom,
+} from '@state/reservationStatus/reservationStatus'
 import { dimmdLayerAtom } from '@state/common/common'
 
 function ReservationOverlay({ data, drag, dayCount, currentDate, roomNumber }) {
@@ -17,6 +21,8 @@ function ReservationOverlay({ data, drag, dayCount, currentDate, roomNumber }) {
   const setReadReservationParameter = useSetRecoilState(readReservationParameterAtom)
   const setIsShowDimmdLayer = useSetRecoilState(dimmdLayerAtom)
   const standardDate = useRecoilValue(standardDateAtom)
+  const [isMouseDown, setIsMouseDown] = useRecoilState(isMouseDownAtom)
+  const setSelectedCellArray = useSetRecoilState(selectedCellArrayAtom)
 
   const checkIn = formatMMddE(stringToDate(data.checkIn))
   const checkOut = formatMMddE(stringToDate(data.checkOut))
@@ -85,6 +91,13 @@ function ReservationOverlay({ data, drag, dayCount, currentDate, roomNumber }) {
       })
     }, 250)
   }
+  const handleMouseOver = () => {
+    if (isMouseDown) {
+      alert('이미 예약이 있는곳은 예약할 수 없습니다.')
+      setIsMouseDown(false)
+      setSelectedCellArray({})
+    }
+  }
   return (
     <>
       {reserveStatus === 'CLEANING' ? (
@@ -96,6 +109,7 @@ function ReservationOverlay({ data, drag, dayCount, currentDate, roomNumber }) {
           onClick={showInfo}
           onMouseLeave={hideInfo}
           onDoubleClick={handleReadReservationPopup}
+          onMouseOver={handleMouseOver}
           ref={drag}
           style={{
             display: 'grid',

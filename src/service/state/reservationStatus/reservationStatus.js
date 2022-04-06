@@ -41,7 +41,7 @@ export const isMouseDownAtom = atom({
 })
 export const selectedCellArrayAtom = atom({
   key: SELECTED_CELL_ARRAY_ATOM_KEY,
-  default: {},
+  default: null,
 })
 
 //selector
