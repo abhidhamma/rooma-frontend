@@ -166,7 +166,7 @@ export default function ReadReservationAddRoom({
           </a>
         )}
       </div>
-      <h3 style={{ marginBottom: '10px' }}>예약객실정보</h3>
+      <h4>예약객실정보</h4>
       <table className='tbl-pop'>
         <caption>예약객실정보</caption>
         <colgroup>
@@ -179,11 +179,13 @@ export default function ReadReservationAddRoom({
         </colgroup>
         <thead>
           <tr>
-            <th>객실타입</th>
-            <th>객실명</th>
-            <th colSpan='2'>입실일 ~ 퇴실일</th>
-            <th>인원(기본/최대)</th>
-            <th>객실요금</th>
+            <th style={{ background: '#F5F6F8' }}>객실타입</th>
+            <th style={{ background: '#F5F6F8' }}>객실명</th>
+            <th style={{ background: '#F5F6F8' }} colSpan='2'>
+              입실일 ~ 퇴실일
+            </th>
+            <th style={{ background: '#F5F6F8' }}>인원(기본/최대)</th>
+            <th style={{ background: '#F5F6F8' }}>객실요금</th>
           </tr>
         </thead>
         <tbody>
@@ -248,7 +250,7 @@ export default function ReadReservationAddRoom({
         </tbody>
       </table>
       <div className='hidden-area' style={{ display: open ? 'block' : 'none' }}>
-        <h3 className='mgt_30'>예약옵션정보</h3>
+        <h4 className='mgt_30'>예약옵션정보</h4>
         <table className='tbl-pop'>
           <caption>예약옵션정보</caption>
           <colgroup>
@@ -260,11 +262,11 @@ export default function ReadReservationAddRoom({
           </colgroup>
           <thead>
             <tr>
-              <th>인원추가</th>
-              <th>조식추가</th>
-              <th>옵션추가</th>
-              <th>옵션합계</th>
-              <th>요금합계</th>
+              <th style={{ background: '#F5F6F8' }}>인원추가</th>
+              <th style={{ background: '#F5F6F8' }}>조식추가</th>
+              <th style={{ background: '#F5F6F8' }}>옵션추가</th>
+              <th style={{ background: '#F5F6F8' }}>옵션합계</th>
+              <th style={{ background: '#F5F6F8' }}>요금합계</th>
             </tr>
           </thead>
           <tbody>
