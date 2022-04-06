@@ -1299,8 +1299,23 @@ input[type='radio']:checked + label {
   right: 0;
 }
 .reserv-input section:last-child .tbl-pop td.total {
-  color: #e62222;
+  color: #5b73e8;
   font-weight: bold;
+  font-size: 14px;
+}
+.reserv-input .tbl-pop tr.total td.p-total {
+  color: #e62222;
+}
+.reserv-input .tbl-pop tr.total td {
+  font-size: 16px;
+  font-weight: bold;
+  padding: 14px 0;
+  background: #ededef;
+  color: #5b73e8;
+}
+.reserv-input .tbl-pop tr.total .th {
+  background: #5d6a8b;
+  color: #fff;
   font-size: 14px;
 }
 .tbl-view-pop th,

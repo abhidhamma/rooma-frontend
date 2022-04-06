@@ -1,5 +1,6 @@
 import { addDays, isSaturday, isSunday } from 'date-fns/fp'
-import { addyyyyMMdd, formatddE, formatyyyyMMdd } from '@util/common/dateUtil'
+import { addyyyyMMdd, formatddE, formatMdWithDot, formatyyyyMMdd } from '@util/common/dateUtil'
+import { getMonth } from 'date-fns'
 
 /*
 위치 : RoomReservation, Price, ReservationOverlay
@@ -33,10 +34,20 @@ export const getReservationSchedulerDateArray = (standardDate, dayCount, today) 
     const currentDateIsToday = formatyyyyMMdd(currentDate) === formatyyyyMMdd(today)
     const currentDateIsSaturday = isSaturday(currentDate)
     const currentDateIsSunday = isSunday(currentDate)
+    const currentDateIsSameMonth = getMonth(standardDate) === getMonth(currentDate)
+    const md = formatMdWithDot(currentDate)
     const ddE = formatddE(currentDate).split('.')
     const dd = ddE[0]
     const E = ddE[1]
-    reservationSchedulerDateArray.push({ day: dd, dayOfWeek: E, isToday: currentDateIsToday, isSaturday: currentDateIsSaturday, isSunday: currentDateIsSunday })
+    reservationSchedulerDateArray.push({
+      day: dd,
+      md,
+      dayOfWeek: E,
+      isToday: currentDateIsToday,
+      isSaturday: currentDateIsSaturday,
+      isSunday: currentDateIsSunday,
+      isSameMonth: currentDateIsSameMonth,
+    })
   }
   return reservationSchedulerDateArray
 }

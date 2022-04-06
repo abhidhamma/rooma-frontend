@@ -456,28 +456,41 @@ export default function ReservationPopupForm({
                           <a href='#'>삭제</a>
                         </td>
                       </tr>
+                      <tr class='total'>
+                        <td class='th'>결제합계</td>
+                        <td colspan='2' class='p-total'>
+                          100,000원
+                        </td>
+                        <td class='th'>잔액</td>
+                        <td>100,000원</td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
               </section>
             </div>
             {/* <!-- E:레이어 컨텐츠 --> */}
-            <div className='pop-footer'>
+            <div className='pop-footer2'>
               <button
                 type='submit'
                 style={{
-                  display: 'block',
+                  display: 'inline-block',
                   background: '#5b73e8',
                   textAlign: 'center',
                   height: '60px',
                   lineHeight: '60px',
                   color: '#fff',
                   fontSize: '20px',
-                  width: '100%',
+                  padding: '0 50px',
+                  borderRadius: '100px 100px',
+                  border: '1px solid #5b73e8',
                 }}
               >
-                예약하기
+                저장하기
               </button>
+              <a href='#' style={{ marginLeft: '10px' }}>
+                닫기
+              </a>
             </div>
           </div>
         </form>

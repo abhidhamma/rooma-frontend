@@ -1,7 +1,7 @@
-export default function Day({ day, dayOfWeek, isToday, isSaturday, isSunday }) {
+export default function Day({ day, md, dayOfWeek, isToday, isSaturday, isSunday, isSameMonth }) {
   return (
     <div className={isSaturday ? 'sat' : '' || isSunday ? 'sun' : ''}>
-      <p>{day}</p>
+      <p>{isSameMonth ? day : md}</p>
       <p>
         <span className='day'>{dayOfWeek}</span>
       </p>

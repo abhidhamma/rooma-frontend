@@ -484,6 +484,31 @@ a {
   color: #fff;
   font-size: 20px;
 }
+.pop-footer2 {
+  display: flex;
+  justify-content: center;
+  padding: 0 0 30px;
+  background: #f5f6f7;
+}
+.pop-footer2 a {
+  display: inline-block;
+  background: #5b73e8;
+  text-align: center;
+  height: 60px;
+  line-height: 60px;
+  color: #fff;
+  font-size: 20px;
+  padding: 0 50px;
+  border-radius: 100px 100px;
+  border: 1px solid #5b73e8;
+}
+.pop-footer2 a:last-child {
+  background: #fff;
+  color: #5b73e8;
+}
+.pop-footer2 a + a {
+  margin-left: 10px;
+}
 .r-right a {
   display: block;
   position: relative;
