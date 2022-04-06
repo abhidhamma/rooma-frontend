@@ -86,25 +86,33 @@ function ReservationOverlay({ data, drag, dayCount, currentDate, roomNumber }) {
     }, 250)
   }
   return (
-    <div
-      onClick={showInfo}
-      onMouseLeave={hideInfo}
-      onDoubleClick={handleReadReservationPopup}
-      ref={drag}
-      style={{
-        display: 'grid',
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        height: '100%',
-        width: `calc(${length}00% + ${length}px)`,
-        zIndex: 1,
-        backgroundColor: backgroundColor,
-        color: 'white',
-      }}
-    >
-      <div style={{ placeSelf: 'center' }}>{`${data.userName} ${rrNo}`}</div>
-    </div>
+    <>
+      {reserveStatus === 'CLEANING' ? (
+        <div>
+          <div class='cleaning' style={{ position: 'absolute', width: '100%', zIndex: '10' }}></div>
+        </div>
+      ) : (
+        <div
+          onClick={showInfo}
+          onMouseLeave={hideInfo}
+          onDoubleClick={handleReadReservationPopup}
+          ref={drag}
+          style={{
+            display: 'grid',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            height: '100%',
+            width: `calc(${length}00% + ${length}px)`,
+            zIndex: 1,
+            backgroundColor: backgroundColor,
+            color: 'white',
+          }}
+        >
+          <div style={{ placeSelf: 'center' }}>{`${data.userName} ${rrNo}`}</div>
+        </div>
+      )}
+    </>
   )
 }
 export const makeReservationColor = (reserveStatus) => {
