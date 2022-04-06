@@ -1,151 +1,45 @@
-import { currentAccommodationAtom } from '@state/common/common'
-import { createReservationAtom } from '@state/reservationStatus/createReservation'
-import { addReserverationRoomCountAtom } from '@state/reservationStatus/reservationStatus'
 import { numberToArray } from '@util/common/lodash'
-import { formatMoney, zeroOrNumber } from '@util/common/others'
-import { parseCustomData1, parseCustomData2 } from '@util/parse/parse'
-import _ from 'lodash'
-import { Suspense, useEffect, useState } from 'react'
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
-import ReservationDateForm from '../common/ReservationDateForm'
-import RoomSelect from '../common/RoomSelect'
-import AddRoomTypeSelect from '../common/RoomTypeSelect'
+import { formatMoney } from '@util/common/others'
+import { Suspense } from 'react'
+import ReservationDateForm from '../../common/ReservationDateForm'
+import RoomSelect from '../../common/RoomSelect'
+import AddRoomTypeSelect from '../../common/RoomTypeSelect'
 
-export default function ReadReservationAddRoom({
-  cancelButton,
+export default function ReadReservationAddRoomPresenter({
   register,
-  watch,
-  count,
-  getValues,
-  setRoomPrices,
-  setAddPersonPrices,
-  setOptionPrices,
-  setTotalPrices,
-  setRmNoObject,
   reset,
-  roomReservation,
+  watch,
+  getValues,
+  count,
+  roomFee,
+  addPersonFee,
+  optionWithoutAddPersonFee,
+  roomTotalFee,
+  handleToggle,
+  cancelButton,
+  decreaseRoomCount,
+  open,
+  roomType,
+  setRoomType,
+  room,
+  setRoom,
+  startDate,
+  endDate,
+  basicPersionNum,
+  maxPersionNum,
+  originPrice,
+  adult,
+  adultBreakfast,
+  child,
+  childBreakfast,
+  infant,
+  infantBreakfast,
+  breakfastFeeObjectLength,
+  breakfastFeeObject,
+  extFeeObject,
+  extFeeObjectLength,
+  optionFee,
 }) {
-  const parseRoomReservation = () => {
-    const { addPersionCon, addBreakfastCon } = roomReservation
-    const addPersonArray = addPersionCon.split(',')
-    const addBreakfastArray = addBreakfastCon.split(',')
-    const getPersonCount = (data) => data.split(':')[1]
-    const adult = getPersonCount(addPersonArray[0])
-    const child = getPersonCount(addPersonArray[1])
-    const infant = getPersonCount(addPersonArray[2])
-    const adultBreakfast = getPersonCount(addBreakfastArray[0])
-    const childBreakfast = getPersonCount(addBreakfastArray[1])
-    const infantBreakfast = getPersonCount(addBreakfastArray[2])
-    return { adult, child, infant, adultBreakfast, childBreakfast, infantBreakfast }
-  }
-  const { adult, child, infant, adultBreakfast, childBreakfast, infantBreakfast } =
-    parseRoomReservation()
-
-  //전역상태
-  const setRoomCount = useSetRecoilState(addReserverationRoomCountAtom)
-  const [createReservation, setCreateReservation] = useRecoilState(createReservationAtom)
-  const accommodation = useRecoilValue(currentAccommodationAtom)
-
-  //지역상태
-  const [open, setOpen] = useState(false)
-  const [room, setRoom] = useState({ rmNo: roomReservation.rmNo })
-  const [roomType, setRoomType] = useState({
-    basicPersionNum: 2,
-    maxPersionNum: 4,
-    originPrice: 0,
-    addAdultPrice: 0,
-    addChildPrice: 0,
-    addInfantPrice: 0,
-    rtNo: roomReservation.rtNo,
-  })
-
-  //변수
-  const startDate = roomReservation.checkinDate
-  const endDate = roomReservation.checkoutDate
-
-  const { addBreakfastFee, addExtFee } = accommodation
-  const {
-    basicPersionNum,
-    maxPersionNum,
-    originPrice,
-    addAdultPrice,
-    addChildPrice,
-    addInfantPrice,
-  } = roomType
-  const rmNo = room?.rmNo
-
-  const breakfastFeeObject = Object.entries(parseCustomData2(addBreakfastFee)).filter(
-    (element) => !isNaN(Number(element[1]))
-  )
-  const breakfastFeeObjectLength = breakfastFeeObject.length
-
-  const extFeeObject = Object.entries(parseCustomData2(addExtFee))
-  const extFeeObjectLength = extFeeObject.length
-
-  const adultCount = zeroOrNumber(watch(`adultCount${count}`))
-  const childCount = zeroOrNumber(watch(`childCount${count}`))
-  const infantCount = zeroOrNumber(watch(`infantCount${count}`))
-  const adultBreakFastCount = zeroOrNumber(watch(`adultBreakfastCount${count}`))
-  const childBreakFastCount = zeroOrNumber(watch(`childBreakfastCount${count}`))
-  const infantBreakFastCount = zeroOrNumber(watch(`infantBreakfastCount${count}`))
-  const addtionalOption1Count = zeroOrNumber(watch(`additionalOption1Count${count}`))
-  const addtionalOption2Count = zeroOrNumber(watch(`additionalOption2Count${count}`))
-  const addtionalOption3Count = zeroOrNumber(watch(`additionalOption3Count${count}`))
-
-  const addPersonFee =
-    Number(addAdultPrice) * adultCount +
-    Number(addChildPrice) * childCount +
-    Number(addInfantPrice) * infantCount
-  const breakFastFee = calculateTotalBreakFastFee(
-    breakfastFeeObject,
-    adultBreakFastCount,
-    childBreakFastCount,
-    infantBreakFastCount
-  )
-
-  const additionalOptionFee = calculateTotalAdditionalOptionFee(
-    extFeeObject,
-    addtionalOption1Count,
-    addtionalOption2Count,
-    addtionalOption3Count
-  )
-  const optionFee = addPersonFee + breakFastFee + additionalOptionFee
-  const roomTotalFee = Number(originPrice) + Number(optionFee)
-
-  //추가인원으로 등록가능한 총 숫자
-  const addPersonLimit = maxPersionNum - basicPersionNum
-
-  //요금 계산용 필드
-  const roomFee = Number(originPrice)
-  const optionWithoutAddPersonFee = breakFastFee + additionalOptionFee
-
-  const handleToggle = () => setOpen((prev) => !prev)
-  const decreaseRoomCount = () => setRoomCount((prev) => prev - 1)
-
-  useEffect(() => {
-    setRoomType((prev) => ({ ...prev, rtNo: roomReservation.rtNo }))
-  }, [])
-  useEffect(() => {
-    setRoomPrices((prev) => ({ ...prev, [`roomFee${count}`]: roomFee }))
-  }, [roomType])
-  useEffect(() => {
-    setAddPersonPrices((prev) => ({ ...prev, [`addPersonFee${count}`]: addPersonFee }))
-  }, [addPersonFee])
-  useEffect(() => {
-    setOptionPrices((prev) => ({ ...prev, [`optionFee${count}`]: optionWithoutAddPersonFee }))
-  }, [optionWithoutAddPersonFee])
-  useEffect(() => {
-    setTotalPrices((prev) => ({ ...prev, [`roomTotalFee${count}`]: roomTotalFee }))
-  }, [roomTotalFee])
-  useEffect(() => {
-    setRmNoObject((prev) => ({ ...prev, [`${count}`]: rmNo }))
-    return () => {
-      setRmNoObject((prev) => _.omit(prev, `${count}`))
-    }
-  }, [rmNo])
-  useEffect(() => {
-    reset({ ...getValues(), [`stayNum${count}`]: basicPersionNum })
-  }, [basicPersionNum])
   return (
     <section className='add-group'>
       <input type={'hidden'} {...register(`roomFee${count}`)} value={Number(roomFee)} />
@@ -419,50 +313,4 @@ export default function ReadReservationAddRoom({
       </div>
     </section>
   )
-}
-const calculateTotalBreakFastFee = (
-  breakfastFeeObject,
-  adultBreakFastCount,
-  childBreakFastCount,
-  infantBreakFastCount
-) => {
-  const breakfastFeeObjectLength = breakfastFeeObject.length
-  let sum = 0
-
-  if (breakfastFeeObjectLength === 0) {
-    return sum
-  }
-  if (breakfastFeeObjectLength >= 1) {
-    sum += Number(breakfastFeeObject[0][1]) * adultBreakFastCount
-  }
-  if (breakfastFeeObjectLength >= 2) {
-    sum += Number(breakfastFeeObject[1][1]) * childBreakFastCount
-  }
-  if (breakfastFeeObjectLength >= 3) {
-    sum += Number(breakfastFeeObject[2][1]) * infantBreakFastCount
-  }
-  return sum
-}
-const calculateTotalAdditionalOptionFee = (
-  extFeeObject,
-  addtionalOption1Count,
-  addtionalOption2Count,
-  addtionalOption3Count
-) => {
-  const extFeeObjectLength = extFeeObject.length
-  let sum = 0
-
-  if (extFeeObjectLength === 0) {
-    return sum
-  }
-  if (extFeeObjectLength >= 1) {
-    sum += Number(extFeeObject[0][1]) * addtionalOption1Count
-  }
-  if (extFeeObjectLength >= 2) {
-    sum += Number(extFeeObject[1][1]) * addtionalOption2Count
-  }
-  if (extFeeObjectLength >= 3) {
-    sum += Number(extFeeObject[2][1]) * addtionalOption3Count
-  }
-  return sum
 }

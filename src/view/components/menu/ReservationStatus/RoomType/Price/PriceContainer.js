@@ -40,10 +40,10 @@ function PriceContainer({
   const setDisplay = useSetRecoilState(displayAtom)
   const setOverlay = useSetRecoilState(overlayAtom)
   const setReservationList = useSetRecoilState(reservationListAtom)
+  const setIsShowDimmdLayer = useSetRecoilState(dimmdLayerAtom)
   const setIsDisplayCreateReservation = useSetRecoilState(isDisplayCreateReservationAtom)
   const setCreateReservation = useSetRecoilState(createReservationAtom)
   const setRightClickPopupProperty = useSetRecoilState(rightClickPopupAtom)
-  const setIsShowDimmdLayer = useSetRecoilState(dimmdLayerAtom)
 
   const accommodation = useRecoilValue(currentAccommodationAtom)
 
@@ -129,7 +129,8 @@ function PriceContainer({
     setIsDisplayCreateReservation((prev) => !prev)
     setCreateReservation((prev) => ({
       ...prev,
-      currentDate: stringToDate(currentDate),
+      checkinDate: stringToDate(currentDate),
+      checkoutDate: addDays(stringToDate(currentDate), 1),
       rmNo,
       rtNo,
     }))
@@ -177,6 +178,8 @@ function PriceContainer({
       handleCreateReservation={handleCreateReservation}
       handleRightClickPopup={handleRightClickPopup}
       roomNumber={roomNumber}
+      rmNo={rmNo}
+      rtNo={rtNo}
     />
   )
 }

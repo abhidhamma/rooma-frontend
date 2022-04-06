@@ -51,8 +51,8 @@ export default function CreateReservationAddRoom({
   //변수
   console.log('currentDate')
   console.log(createReservation)
-  const defaultCheckInDate = formatyyyyMMddWithHyphen(createReservation.currentDate)
-  const defaultCheckOutDate = formatyyyyMMddWithHyphen(addDays(createReservation.currentDate, 1))
+  const defaultCheckInDate = formatyyyyMMddWithHyphen(createReservation.checkinDate)
+  const defaultCheckOutDate = formatyyyyMMddWithHyphen(createReservation.checkoutDate)
 
   const { addBreakfastFee, addExtFee } = accommodation
   const {

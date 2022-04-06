@@ -1,17 +1,31 @@
 import Router from '@router/Router'
 import { dimmdLayerAtom } from '@state/common/common'
-import { rightClickPopupAtom } from '@state/reservationStatus/reservationStatus'
-import { useRecoilValue, useSetRecoilState } from 'recoil'
+import {
+  isMouseDownAtom,
+  rightClickPopupAtom,
+  selectedCellArrayAtom,
+} from '@state/reservationStatus/reservationStatus'
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 
 function App() {
+  const [isMouseDown, setIsMouseDown] = useRecoilState(isMouseDownAtom)
+  const setSelectedCellArray = useSetRecoilState(selectedCellArrayAtom)
   const isShowDimmdLayer = useRecoilValue(dimmdLayerAtom)
   const setShow = useSetRecoilState(rightClickPopupAtom)
   const hideRightClickPopup = () => {
     setShow((prev) => ({ ...prev, display: 'none' }))
   }
+
+  const handleMouseUp = () => {
+    if (isMouseDown) {
+      setIsMouseDown(false)
+      setSelectedCellArray({})
+      console.log('뗀상태')
+    }
+  }
   return (
     <>
-      <div className='Wrap' onClick={hideRightClickPopup}>
+      <div className='Wrap' onClick={hideRightClickPopup} onMouseUp={handleMouseUp}>
         <Router />
       </div>
       {isShowDimmdLayer && <div id='dimmd-layer'></div>}

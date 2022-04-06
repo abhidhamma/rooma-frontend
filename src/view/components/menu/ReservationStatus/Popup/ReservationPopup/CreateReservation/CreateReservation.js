@@ -60,8 +60,8 @@ export default function CreateReservation() {
     optionPrices,
     totalPrices
   )
-  const checkinDate = formatyyyyMMddWithHyphen(popUpParameter.currentDate)
-  const checkoutDate = formatyyyyMMddWithHyphen(addDays(popUpParameter.currentDate, 1))
+  // const checkinDate = formatyyyyMMddWithHyphen(popUpParameter.currentDate)
+  // const checkoutDate = formatyyyyMMddWithHyphen(addDays(popUpParameter.currentDate, 1))
 
   const validation = (rmNoObject, roomCount) => (submitData) => {
     // const someRmNo = _.some((number) => Number(rmNoObject[`${number}`]) === 0)

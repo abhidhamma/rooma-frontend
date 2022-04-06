@@ -14,6 +14,9 @@ import {
   UNLOCK_ROOM_SELECTOR_KEY,
   UPDATE_RESERVATION_DATE_SELECTOR_KEY,
   UPDATE_RESERVATION_STATUS_SELECTOR_KEY,
+  IS_MOUSE_DOWN_ATOM_KEY,
+  SELECTED_CELL_ARRAY,
+  SELECTED_CELL_ARRAY_ATOM_KEY,
 } from '@constant/atomKeys'
 import { removeCookie } from '@util/common/cookie'
 import { removeItem } from '@util/common/localStorage'
@@ -31,6 +34,14 @@ export const rightClickPopupAtom = atom({
 export const readReservationParameterAtom = atom({
   key: READ_RESERVATION_PARAMETER_ATOM_KEY,
   default: { rrNo: 0, rmNo: 0 },
+})
+export const isMouseDownAtom = atom({
+  key: IS_MOUSE_DOWN_ATOM_KEY,
+  default: false,
+})
+export const selectedCellArrayAtom = atom({
+  key: SELECTED_CELL_ARRAY_ATOM_KEY,
+  default: {},
 })
 
 //selector

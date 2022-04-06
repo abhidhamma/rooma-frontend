@@ -4,7 +4,7 @@ import {
   addReserverationRoomCountAtom,
   readReservationParameterAtom,
 } from '@state/reservationStatus/reservationStatus'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import {
@@ -33,6 +33,10 @@ export default function ReadReservation() {
   const [optionPrices, setOptionPrices] = useState(0)
   const [totalPrices, setTotalPrices] = useState(0)
   const [rmNoObject, setRmNoObject] = useState([])
+
+  // useEffect(() => {
+  //   setRoomCount(reservation.roomReserves.length)
+  // }, [readReservationParameter.rrNo])
 
   const { totalRoomPrice, totalAddPersonPrice, totalOptionPrice, totalPrice } = calculatePrices(
     roomCount,
