@@ -51,8 +51,6 @@ function PricePresenter({
       rtNo,
       checkinDate: stringToDate(currentDate),
     }))
-
-    console.log('누른상태')
   }
   const handleMouseOver = () => {
     if (isMouseDown) {
@@ -60,9 +58,11 @@ function PricePresenter({
     }
   }
   const handleMouseUp = () => {
-    setIsShowDimmdLayer(true)
-    setIsDisplayCreateReservation((prev) => !prev)
-    setCreateReservation((prev) => ({ ...prev, checkoutDate: stringToDate(currentDate) }))
+    if (Object.values(selectedCellArray).length > 1) {
+      setIsShowDimmdLayer(true)
+      setIsDisplayCreateReservation((prev) => !prev)
+      setCreateReservation((prev) => ({ ...prev, checkoutDate: stringToDate(currentDate) }))
+    }
   }
   return (
     <>
@@ -88,12 +88,12 @@ function PricePresenter({
             onMouseDown={handleMouseDown}
             onMouseOver={handleMouseOver}
             onMouseUp={handleMouseUp}
+            onDoubleClick={handleCreateReservation}
           >
             <a
               href='#'
               className={reservation?.checkIn === currentDate ? '' : 'none'}
               style={{ display: 'block', placeSelf: 'center' }}
-              onDoubleClick={handleCreateReservation}
             >
               {`${isNaN(price) ? 'X' : `${price}만`}`}
             </a>
