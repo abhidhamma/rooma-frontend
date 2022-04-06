@@ -72,7 +72,8 @@ function PricePresenter({
     }
   }
   const handleMouseUp = () => {
-    if (Object.values(selectedCellArray).length > 1) {
+    console.log(Object.values(selectedCellArray).length)
+    if (Object.values(selectedCellArray).length > 2) {
       setIsShowDimmdLayer(true)
       setIsDisplayCreateReservation((prev) => !prev)
       setCreateReservation((prev) => ({ ...prev, checkoutDate: stringToDate(currentDate) }))
@@ -137,6 +138,7 @@ function PricePresenter({
             dayCount={dayCount}
             currentDate={currentDate}
             roomNumber={roomNumber}
+            rtNo={rtNo}
           />
         )}
         {/* hover overlay */}

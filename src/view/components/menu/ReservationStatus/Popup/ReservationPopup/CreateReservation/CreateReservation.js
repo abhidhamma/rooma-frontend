@@ -63,43 +63,6 @@ export default function CreateReservation() {
   // const checkinDate = formatyyyyMMddWithHyphen(popUpParameter.currentDate)
   // const checkoutDate = formatyyyyMMddWithHyphen(addDays(popUpParameter.currentDate, 1))
 
-  const validation = (rmNoObject, roomCount) => (submitData) => {
-    // const someRmNo = _.some((number) => Number(rmNoObject[`${number}`]) === 0)
-    // const isRmNoNotExist = false
-    // if (isRmNoNotExist) {
-    //   alert('객실명을 선택해주세요.')
-    //   return false
-    // }
-
-    // for (let i = 1; i <= roomCount; i++) {
-    //   if (submitData[`roomType${i}`] === '0') {
-    //     alert('객실타입을 선택해주세요.')
-    //     return false
-    //   }
-    // }
-
-    for (let i = 1; i <= roomCount; i++) {
-      console.log('rmNoObject')
-      console.log(rmNoObject[`${i}`])
-      if (rmNoObject[`${i}`] === 0) {
-        alert('객실명을 선택해주세요.')
-        return false
-      }
-    }
-
-    const isUserNameNotExist = submitData.userName === ''
-    if (isUserNameNotExist) {
-      alert('실사용자명을 입력해주세요.')
-      return false
-    }
-    const isUserPhoneNotExist = submitData.userPhone === ''
-    if (isUserPhoneNotExist) {
-      alert('연락번호를 입력해주세요.')
-      return false
-    }
-
-    return submitData
-  }
   const onSubmit = _.flow(
     validation(rmNoObject, roomCount),
     preprocessSubmitData(roomCount, rmNoObject, totalPrices),
@@ -186,7 +149,28 @@ export const calculatePrices = (
   _.flow(numberToArray, eachTotalPrice)(roomCount)
   return { totalRoomPrice, totalAddPersonPrice, totalOptionPrice, totalPrice }
 }
-const preprocessSubmitData = (roomCount, rmNoObject, totalPrices) => (submitData) => {
+export const validation = (rmNoObject, roomCount) => (submitData) => {
+  for (let i = 1; i <= roomCount; i++) {
+    if (rmNoObject[`${i}`] === 0) {
+      alert('객실명을 선택해주세요.')
+      return false
+    }
+  }
+
+  const isUserNameNotExist = submitData.userName === ''
+  if (isUserNameNotExist) {
+    alert('실사용자명을 입력해주세요.')
+    return false
+  }
+  const isUserPhoneNotExist = submitData.userPhone === ''
+  if (isUserPhoneNotExist) {
+    alert('연락번호를 입력해주세요.')
+    return false
+  }
+
+  return submitData
+}
+export const preprocessSubmitData = (roomCount, rmNoObject, totalPrices) => (submitData) => {
   if (submitData === false) {
     return false
   }
@@ -211,6 +195,28 @@ const preprocessSubmitData = (roomCount, rmNoObject, totalPrices) => (submitData
     fieldMemo,
   } = submitData
   const roomReserves = makeRoomReserves(submitData, roomCount, rmNoObject, totalPrices)
+  console.log('preprocessData')
+  console.log({
+    rrNo,
+    rmNo,
+    reserveStatus,
+    payStatus,
+    payAmount,
+    reserveNum,
+    userName,
+    userPhone,
+    agentName,
+    agentPhone,
+    agentCharger,
+    agentChargerPhone,
+    adjSalePrice,
+    adjAddPersionPrice,
+    adjOptionPrice,
+    memo,
+    agentMemo,
+    fieldMemo,
+    roomReserves,
+  })
   return {
     rrNo,
     rmNo,
@@ -241,7 +247,7 @@ const makeRoomReserves = (submitData, roomCount, rmNoObject, totalPrices) => {
     const salePrice = totalPrices[`roomTotalFee${number}`]
     const addPersionCon = `성인:${submitData[`adultCount${number}`]},소아:${
       submitData[`childCount${number}`]
-    },유아:${submitData[`childCount${number}`]}`
+    },유아:${submitData[`infantCount${number}`]}`
     const addBreakfastCon = `성인:${submitData[`adultBreakfastCount${number}`]},소아:${
       submitData[`childBreakfastCount${number}`]
     },유아:${submitData[`infantBreakfastCount${number}`]}`
@@ -260,7 +266,7 @@ const makeRoomReserves = (submitData, roomCount, rmNoObject, totalPrices) => {
 
   return _.flow(numberToArray, mapRoomReservation)(roomCount)
 }
-const createReservation =
+export const createReservation =
   (createReservationCallback, resetReadReservationPrice, setIsShowDimmdLayer) => (jsonData) => {
     if (jsonData === false) {
       return false

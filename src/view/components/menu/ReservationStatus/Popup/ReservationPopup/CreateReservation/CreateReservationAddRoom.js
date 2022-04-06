@@ -26,12 +26,10 @@ export default function CreateReservationAddRoom({
   reset,
   getValues,
 }) {
-  console.log('CreateReservationAddRoom')
   //전역상태
   const setRoomCount = useSetRecoilState(addReserverationRoomCountAtom)
   const createReservation = useRecoilValue(createReservationAtom)
   const accommodation = useRecoilValue(currentAccommodationAtom)
-  console.log(accommodation)
 
   //지역상태
   const [open, setOpen] = useState(false)
@@ -45,12 +43,8 @@ export default function CreateReservationAddRoom({
     addInfantPrice: 0,
     rtNo: createReservation.rtNo,
   })
-  console.log(roomType)
-  console.log(room)
 
   //변수
-  console.log('currentDate')
-  console.log(createReservation)
   const defaultCheckInDate = formatyyyyMMddWithHyphen(createReservation.checkinDate)
   const defaultCheckOutDate = formatyyyyMMddWithHyphen(createReservation.checkoutDate)
 
@@ -195,6 +189,7 @@ export default function CreateReservationAddRoom({
                 <AddRoomTypeSelect
                   roomType={roomType}
                   setRoomType={setRoomType}
+                  setRoom={setRoom}
                   register={register}
                   count={count}
                 />

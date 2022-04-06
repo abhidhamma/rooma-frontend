@@ -1,11 +1,10 @@
 import { currentAccommodationAtom } from '@state/common/common'
-import { createReservationAtom } from '@state/reservationStatus/createReservation'
 import { addReserverationRoomCountAtom } from '@state/reservationStatus/reservationStatus'
 import { zeroOrNumber } from '@util/common/others'
 import { parseCustomData2 } from '@util/parse/parse'
 import _ from 'lodash'
 import { useEffect, useState } from 'react'
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
 import {
   calculateTotalAdditionalOptionFee,
   calculateTotalBreakFastFee,
@@ -27,6 +26,16 @@ export default function ReadReservationAddRoomContainer({
   roomReservation,
 }) {
   const parseRoomReservation = () => {
+    if (roomReservation === undefined) {
+      return {
+        adult: 0,
+        child: 0,
+        infant: 0,
+        adultBreakfast: 0,
+        childBreakfast: 0,
+        infantBreakfast: 0,
+      }
+    }
     const { addPersionCon, addBreakfastCon } = roomReservation
     const addPersonArray = addPersionCon.split(',')
     const addBreakfastArray = addBreakfastCon.split(',')
@@ -44,7 +53,7 @@ export default function ReadReservationAddRoomContainer({
 
   //전역상태
   const setRoomCount = useSetRecoilState(addReserverationRoomCountAtom)
-  const [createReservation, setCreateReservation] = useRecoilState(createReservationAtom)
+  // const [createReservation, setCreateReservation] = useRecoilState(createReservationAtom)
   const accommodation = useRecoilValue(currentAccommodationAtom)
 
   //지역상태

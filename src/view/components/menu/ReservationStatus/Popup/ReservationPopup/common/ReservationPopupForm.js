@@ -191,13 +191,11 @@ export default function ReservationPopupForm({
                   <span className='hdn'>메뉴닫기/열기</span>
                 </a>
                 <div className='boxCont' style={{ display: isShowCont2 ? 'block' : 'none' }}>
-                  {type !== 'read' && (
-                    <div className='right mgb_10'>
-                      <a href='#' className='add-gr' onClick={increaseRoom}>
-                        + 객실추가
-                      </a>
-                    </div>
-                  )}
+                  <div className='right mgb_10'>
+                    <a href='#' className='add-gr' onClick={increaseRoom}>
+                      + 객실추가
+                    </a>
+                  </div>
                   {type === 'read'
                     ? numberToArray(roomCount).map((number) =>
                         number === 1 ? (
@@ -214,10 +212,10 @@ export default function ReservationPopupForm({
                             setOptionPrices={setOptionPrices}
                             setTotalPrices={setTotalPrices}
                             setRmNoObject={setRmNoObject}
-                            // roomReservation={reservation.roomReserves[number - 1]}
-                            roomReservation={getCurrentRoomReservation(reservation)}
+                            roomReservation={reservation.roomReserves[number - 1]}
+                            // roomReservation={getCurrentRoomReservation(reservation)}
                           />
-                        ) : (
+                        ) : reservation.roomReserves[number - 1] !== undefined ? (
                           <ReadReservationAddRoom
                             key={number}
                             cancelButton={false}
@@ -231,8 +229,23 @@ export default function ReservationPopupForm({
                             setOptionPrices={setOptionPrices}
                             setTotalPrices={setTotalPrices}
                             setRmNoObject={setRmNoObject}
-                            // roomReservation={reservation.roomReserves[number - 1]}
-                            roomReservation={getCurrentRoomReservation(reservation)}
+                            roomReservation={reservation.roomReserves[number - 1]}
+                            // roomReservation={getCurrentRoomReservation(reservation)}
+                          />
+                        ) : (
+                          <CreateReservationAddRoom
+                            key={number}
+                            cancelButton={false}
+                            register={register}
+                            watch={watch}
+                            reset={reset}
+                            getValues={getValues}
+                            count={number}
+                            setRoomPrices={setRoomPrices}
+                            setAddPersonPrices={setAddPersonPrices}
+                            setOptionPrices={setOptionPrices}
+                            setTotalPrices={setTotalPrices}
+                            setRmNoObject={setRmNoObject}
                           />
                         )
                       )
@@ -456,12 +469,12 @@ export default function ReservationPopupForm({
                           <a href='#'>삭제</a>
                         </td>
                       </tr>
-                      <tr class='total'>
-                        <td class='th'>결제합계</td>
-                        <td colspan='2' class='p-total'>
+                      <tr className='total'>
+                        <td className='th'>결제합계</td>
+                        <td colSpan='2' className='p-total'>
                           100,000원
                         </td>
-                        <td class='th'>잔액</td>
+                        <td className='th'>잔액</td>
                         <td>100,000원</td>
                       </tr>
                     </tbody>

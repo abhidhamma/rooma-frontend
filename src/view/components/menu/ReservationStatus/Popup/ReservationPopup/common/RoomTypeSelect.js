@@ -5,7 +5,7 @@ import _ from 'lodash/fp'
 import { useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
 
-export default function AddRoomTypeSelect({ roomType, setRoomType, register, count }) {
+export default function AddRoomTypeSelect({ roomType, setRoomType, setRoom }) {
   const { acNo } = useRecoilValue(currentAccommodationAtom)
   const addAcNo = (data) => (acNo !== undefined ? { ...data, acNo } : data)
 
@@ -39,10 +39,12 @@ export default function AddRoomTypeSelect({ roomType, setRoomType, register, cou
     const rtNo = event.target.value
     if (rtNo === '0') {
       setRoomType({ originPrice: '', salePrice: '', providePrice: '' })
+      setRoom({ rmNo: 0 })
     } else {
       const findFromRtNo = _.find((iterRoomType) => Number(iterRoomType.rtNo) === Number(rtNo))
       const currentRoomType = findFromRtNo(list)
       setRoomType(currentRoomType)
+      setRoom({ rmNo: 0 })
     }
   }
 

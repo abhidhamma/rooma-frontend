@@ -14,8 +14,10 @@ import {
   selectedCellArrayAtom,
 } from '@state/reservationStatus/reservationStatus'
 import { dimmdLayerAtom } from '@state/common/common'
+import { createReservationAtom } from '@state/reservationStatus/createReservation'
+import { addDays } from 'date-fns'
 
-function ReservationOverlay({ data, drag, dayCount, currentDate, roomNumber }) {
+function ReservationOverlay({ data, drag, dayCount, currentDate, roomNumber, rtNo }) {
   const setDisplay = useSetRecoilState(displayAtom)
   const setIsDisplayReadReservation = useSetRecoilState(isDisplayReadReservationAtom)
   const setReadReservationParameter = useSetRecoilState(readReservationParameterAtom)
@@ -23,6 +25,7 @@ function ReservationOverlay({ data, drag, dayCount, currentDate, roomNumber }) {
   const standardDate = useRecoilValue(standardDateAtom)
   const [isMouseDown, setIsMouseDown] = useRecoilState(isMouseDownAtom)
   const setSelectedCellArray = useSetRecoilState(selectedCellArrayAtom)
+  const setCreateReservation = useSetRecoilState(createReservationAtom)
 
   const checkIn = formatMMddE(stringToDate(data.checkIn))
   const checkOut = formatMMddE(stringToDate(data.checkOut))
@@ -81,6 +84,13 @@ function ReservationOverlay({ data, drag, dayCount, currentDate, roomNumber }) {
   }
 
   const handleReadReservationPopup = () => {
+    setCreateReservation((prev) => ({
+      ...prev,
+      checkinDate: stringToDate(currentDate),
+      checkoutDate: addDays(stringToDate(currentDate), 1),
+      rmNo,
+      rtNo,
+    }))
     setReadReservationParameter({ rrNo, rmNo })
     setIsDisplayReadReservation(true)
     setIsShowDimmdLayer(true)
@@ -91,6 +101,7 @@ function ReservationOverlay({ data, drag, dayCount, currentDate, roomNumber }) {
       })
     }, 250)
   }
+
   const handleMouseOver = () => {
     if (isMouseDown) {
       alert('이미 예약이 있는곳은 예약할 수 없습니다.')
@@ -98,11 +109,15 @@ function ReservationOverlay({ data, drag, dayCount, currentDate, roomNumber }) {
       setSelectedCellArray({})
     }
   }
+
   return (
     <>
       {reserveStatus === 'CLEANING' ? (
         <div>
-          <div class='cleaning' style={{ position: 'absolute', width: '100%', zIndex: '10' }}></div>
+          <div
+            className='cleaning'
+            style={{ position: 'absolute', width: '100%', zIndex: '10' }}
+          ></div>
         </div>
       ) : (
         <div
