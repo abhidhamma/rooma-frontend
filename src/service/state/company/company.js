@@ -1,9 +1,20 @@
-import { readCompanyByNo, readCompanyList, updateCompany } from '@api/company'
 import {
+  createMember,
+  deleteMember,
+  readCompanyByNo,
+  readCompanyList,
+  readMemberList,
+  updateCompany,
+} from '@api/company'
+import {
+  CREATE_MEMBER_SELECTOR_KEY,
+  DELETE_MEMBER_SELECTOR_KEY,
   READ_COMPANY_LIST_SELECTOR_KEY,
   READ_COMPANY_SELECTOR_KEY,
+  READ_MEMBER_LIST_SELECTOR_KEY,
   UPDATE_COMPANY_SELECTOR_KEY,
 } from '@constant/atomKeys'
+import { el } from 'date-fns/locale'
 import { selectorFamily } from 'recoil'
 
 //selector
@@ -24,4 +35,28 @@ export const readCompanyListSelector = selectorFamily({
 export const updateCompanySelector = selectorFamily({
   key: UPDATE_COMPANY_SELECTOR_KEY,
   get: (formData) => async () => await updateCompany(formData),
+})
+
+export const createMemberSelector = selectorFamily({
+  key: CREATE_MEMBER_SELECTOR_KEY,
+  get: (formData) => async () => await createMember(formData),
+})
+
+export const deleteMemberSelector = selectorFamily({
+  key: DELETE_MEMBER_SELECTOR_KEY,
+  get: (formData) => async () => await deleteMember(formData),
+})
+export const readMemberListSelector = selectorFamily({
+  key: READ_MEMBER_LIST_SELECTOR_KEY,
+  get:
+    ({ cpNo }) =>
+    async () => {
+      if (cpNo === undefined) {
+        return { data: { data: [] } }
+      } else {
+        return await readMemberList({
+          cpNo,
+        })
+      }
+    },
 })

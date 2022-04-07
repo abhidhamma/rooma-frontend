@@ -1,19 +1,26 @@
 import { COMPANY_LIST_URL } from '@constant/locationURLs'
 import { dimmdLayerAtom } from '@state/common/common'
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Suspense, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useSetRecoilState } from 'recoil'
 import AddEmployee from '../Popup/AddEmployee'
+import ReadMemberList from './ReadMemberList'
 
 export default function CompanyForm({ onSubmit, handleSubmit, register, isCreate }) {
   let navigate = useNavigate()
+  let { companyId } = useParams()
+  const cpNo = companyId
 
   const cancel = () => navigate(COMPANY_LIST_URL)
   const setIsShowDimmdLayer = useSetRecoilState(dimmdLayerAtom)
   const [isAddEmployeeOpen, setIsAddEmployeeOpen] = useState(false)
   const handleAddEmployeePopup = () => {
-    setIsShowDimmdLayer(true)
-    setIsAddEmployeeOpen(true)
+    if (cpNo === undefined) {
+      alert('회사정보를 먼저 저장해 주세요')
+    } else {
+      setIsShowDimmdLayer(true)
+      setIsAddEmployeeOpen(true)
+    }
   }
   return (
     <>
@@ -223,17 +230,9 @@ export default function CompanyForm({ onSubmit, handleSubmit, register, isCreate
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td className='center'>홍길동</td>
-                          <td className='center'>dfd123</td>
-                          <td className='center'>과장</td>
-                          <td className='center'>-</td>
-                          <td className='center'>
-                            <a href='#' className='btn del '>
-                              삭제
-                            </a>
-                          </td>
-                        </tr>
+                        <Suspense fallback={<tr></tr>}>
+                          <ReadMemberList />
+                        </Suspense>
                       </tbody>
                     </table>
                   </dd>
@@ -253,10 +252,12 @@ export default function CompanyForm({ onSubmit, handleSubmit, register, isCreate
         </div>
       </div>
       {isAddEmployeeOpen && (
-        <AddEmployee
-          setIsShowDimmdLayer={setIsShowDimmdLayer}
-          setIsAddEmployeeOpen={setIsAddEmployeeOpen}
-        />
+        <Suspense fallback={<div></div>}>
+          <AddEmployee
+            setIsShowDimmdLayer={setIsShowDimmdLayer}
+            setIsAddEmployeeOpen={setIsAddEmployeeOpen}
+          />
+        </Suspense>
       )}
     </>
   )
