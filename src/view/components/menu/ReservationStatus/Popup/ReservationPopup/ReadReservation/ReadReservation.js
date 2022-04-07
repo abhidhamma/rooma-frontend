@@ -26,6 +26,7 @@ import useApiCallback from '@hook/apiHook/useApiCallback'
 import { addDays } from 'date-fns'
 import { formatyyyyMMddWithHyphen } from '@util/common/dateUtil'
 import _ from 'lodash/fp'
+import { zeroOrNumber } from '@util/common/others'
 
 export default function ReadReservation() {
   const createReservationCallback = useApiCallback('updateReservation')
@@ -34,6 +35,7 @@ export default function ReadReservation() {
     rrNo: readReservationParameter.rrNo,
   }
   const result = useRecoilValue(readReservationSelector(parameter))
+  const resetReadReservation = useRecoilRefresher_UNSTABLE(readReservationSelector(parameter))
   const reservation = result?.data?.data
   const [roomCount, setRoomCount] = useRecoilState(addReserverationRoomCountAtom)
   const setIsDisplayReadReservation = useSetRecoilState(isDisplayReadReservationAtom)
@@ -63,26 +65,53 @@ export default function ReadReservation() {
     setRoomCount(reservation.roomReserves.length)
   }, [readReservationParameter.rrNo])
 
+  const adjSalePrice = zeroOrNumber(watch('adjSalePrice'))
+  const adjAddPersionPrice = zeroOrNumber(watch('adjAddPersionPrice'))
+  const adjOptionPrice = zeroOrNumber(watch('adjOptionPrice'))
+
   const { totalRoomPrice, totalAddPersonPrice, totalOptionPrice, totalPrice } = calculatePrices(
     roomCount,
     roomPrices,
     addPersonPrices,
     optionPrices,
-    totalPrices
+    totalPrices,
+    adjSalePrice,
+    adjAddPersionPrice,
+    adjOptionPrice
   )
 
   const addUpdateData = (data) => {
-    data.roomReserves = data.roomReserves.map((roomReserve) => ({
-      ...roomReserve,
-      rrNo: readReservationParameter.rrNo,
-    }))
+    data.roomReserves = data.roomReserves.map((roomReserve, index) => {
+      const rrNo =
+        reservation?.roomReserves[index]?.rrNo === undefined
+          ? 0
+          : reservation?.roomReserves[index]?.rrNo
+      return {
+        ...roomReserve,
+        rrNo,
+      }
+    })
+    // console.log('addUpdateData')
+    // console.log(data)
     return data
+  }
+  const resetReservationForm = (result) => {
+    if (result instanceof Promise) {
+      result.then((isSuccess) => {
+        if (isSuccess) {
+          resetReadReservation()
+        }
+      })
+    } else {
+      return
+    }
   }
   const onSubmit = _.flow(
     validation(rmNoObject, roomCount),
-    preprocessSubmitData(roomCount, rmNoObject, totalPrices),
+    preprocessSubmitData(roomCount, rmNoObject, totalPrices, accommodation),
     addUpdateData,
-    createReservation(createReservationCallback, resetReadReservationPrice, setIsShowDimmdLayer)
+    createReservation(createReservationCallback, resetReadReservationPrice, setIsShowDimmdLayer),
+    resetReservationForm
   )
   const increaseRoom = () => setRoomCount((prev) => prev + 1)
 
@@ -91,9 +120,9 @@ export default function ReadReservation() {
     setIsDisplayReadReservation(false)
     setRoomCount(1)
   }
-
-  console.log('readData')
+  console.log('ReadReservation')
   console.log(reservation)
+
   return (
     <ReservationPopupForm
       register={register}

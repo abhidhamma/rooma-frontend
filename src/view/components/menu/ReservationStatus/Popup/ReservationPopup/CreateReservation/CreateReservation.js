@@ -22,7 +22,9 @@ import {
   useSetRecoilState,
 } from 'recoil'
 import { useRoomPrice } from '../common/reservationFunctions'
+import { parseCustomData2 } from '@util/parse/parse'
 import ReservationPopupForm from '../common/ReservationPopupForm'
+import { zeroOrNumber } from '@util/common/others'
 
 export default function CreateReservation() {
   const [roomPrices, setRoomPrices] = useState({})
@@ -39,6 +41,7 @@ export default function CreateReservation() {
   const popUpParameter = useRecoilValue(createReservationAtom)
   const createReservationCallback = useApiCallback('createReservation')
   const accommodation = useRecoilValue(currentAccommodationAtom)
+  console.log(accommodation)
   const standardDate = useRecoilValue(standardDateAtom)
   const parameter = {
     acNo: accommodation.acNo,
@@ -53,19 +56,25 @@ export default function CreateReservation() {
 
   const { register, handleSubmit, watch, reset, getValues } = useForm({ defaultValues })
 
+  const adjSalePrice = zeroOrNumber(watch('adjSalePrice'))
+  const adjAddPersionPrice = zeroOrNumber(watch('adjAddPersionPrice'))
+  const adjOptionPrice = zeroOrNumber(watch('adjOptionPrice'))
   const { totalRoomPrice, totalAddPersonPrice, totalOptionPrice, totalPrice } = calculatePrices(
     roomCount,
     roomPrices,
     addPersonPrices,
     optionPrices,
-    totalPrices
+    totalPrices,
+    adjSalePrice,
+    adjAddPersionPrice,
+    adjOptionPrice
   )
   // const checkinDate = formatyyyyMMddWithHyphen(popUpParameter.currentDate)
   // const checkoutDate = formatyyyyMMddWithHyphen(addDays(popUpParameter.currentDate, 1))
 
   const onSubmit = _.flow(
     validation(rmNoObject, roomCount),
-    preprocessSubmitData(roomCount, rmNoObject, totalPrices),
+    preprocessSubmitData(roomCount, rmNoObject, totalPrices, accommodation),
     createReservation(createReservationCallback, resetReadReservationPrice, setIsShowDimmdLayer),
     initializeCreateReservationForm(
       setIsDisplayCreateReservation,
@@ -132,7 +141,10 @@ export const calculatePrices = (
   roomPrices,
   addPersonPrices,
   optionPrices,
-  totalPrices
+  totalPrices,
+  adjSalePrice,
+  adjAddPersionPrice,
+  adjOptionPrice
 ) => {
   let totalRoomPrice = 0
   let totalAddPersonPrice = 0
@@ -147,6 +159,7 @@ export const calculatePrices = (
     totalPrice += totalPrices[`roomTotalFee${number}`]
   })
   _.flow(numberToArray, eachTotalPrice)(roomCount)
+  totalPrice -= adjSalePrice + adjAddPersionPrice + adjOptionPrice
   return { totalRoomPrice, totalAddPersonPrice, totalOptionPrice, totalPrice }
 }
 export const validation = (rmNoObject, roomCount) => (submitData) => {
@@ -170,76 +183,83 @@ export const validation = (rmNoObject, roomCount) => (submitData) => {
 
   return submitData
 }
-export const preprocessSubmitData = (roomCount, rmNoObject, totalPrices) => (submitData) => {
-  if (submitData === false) {
-    return false
+export const preprocessSubmitData =
+  (roomCount, rmNoObject, totalPrices, accommodation) => (submitData) => {
+    if (submitData === false) {
+      return false
+    }
+    const rmNo = rmNoObject['1']
+    const payAmount = totalPrices[`roomTotalFee1`]
+    const {
+      rrNo,
+      reserveStatus,
+      payStatus,
+      reserveNum,
+      userName,
+      userPhone,
+      agentName,
+      agentPhone,
+      agentCharger,
+      agentChargerPhone,
+      adjSalePrice,
+      adjAddPersionPrice,
+      adjOptionPrice,
+      memo,
+      agentMemo,
+      fieldMemo,
+    } = submitData
+    const roomReserves = makeRoomReserves(
+      submitData,
+      roomCount,
+      rmNoObject,
+      totalPrices,
+      accommodation
+    )
+    console.log('preprocessData')
+    console.log({
+      rrNo,
+      rmNo,
+      reserveStatus,
+      payStatus,
+      payAmount,
+      reserveNum,
+      userName,
+      userPhone,
+      agentName,
+      agentPhone,
+      agentCharger,
+      agentChargerPhone,
+      adjSalePrice,
+      adjAddPersionPrice,
+      adjOptionPrice,
+      memo,
+      agentMemo,
+      fieldMemo,
+      roomReserves,
+    })
+    return {
+      rrNo,
+      rmNo,
+      reserveStatus,
+      payStatus,
+      payAmount,
+      reserveNum,
+      userName,
+      userPhone,
+      agentName,
+      agentPhone,
+      agentCharger,
+      agentChargerPhone,
+      adjSalePrice,
+      adjAddPersionPrice,
+      adjOptionPrice,
+      memo,
+      agentMemo,
+      fieldMemo,
+      roomReserves,
+    }
   }
-  const rmNo = rmNoObject['1']
-  const payAmount = totalPrices[`roomTotalFee1`]
-  const {
-    rrNo,
-    reserveStatus,
-    payStatus,
-    reserveNum,
-    userName,
-    userPhone,
-    agentName,
-    agentPhone,
-    agentCharger,
-    agentChargerPhone,
-    adjSalePrice,
-    adjAddPersionPrice,
-    adjOptionPrice,
-    memo,
-    agentMemo,
-    fieldMemo,
-  } = submitData
-  const roomReserves = makeRoomReserves(submitData, roomCount, rmNoObject, totalPrices)
-  console.log('preprocessData')
-  console.log({
-    rrNo,
-    rmNo,
-    reserveStatus,
-    payStatus,
-    payAmount,
-    reserveNum,
-    userName,
-    userPhone,
-    agentName,
-    agentPhone,
-    agentCharger,
-    agentChargerPhone,
-    adjSalePrice,
-    adjAddPersionPrice,
-    adjOptionPrice,
-    memo,
-    agentMemo,
-    fieldMemo,
-    roomReserves,
-  })
-  return {
-    rrNo,
-    rmNo,
-    reserveStatus,
-    payStatus,
-    payAmount,
-    reserveNum,
-    userName,
-    userPhone,
-    agentName,
-    agentPhone,
-    agentCharger,
-    agentChargerPhone,
-    adjSalePrice,
-    adjAddPersionPrice,
-    adjOptionPrice,
-    memo,
-    agentMemo,
-    fieldMemo,
-    roomReserves,
-  }
-}
-const makeRoomReserves = (submitData, roomCount, rmNoObject, totalPrices) => {
+const makeRoomReserves = (submitData, roomCount, rmNoObject, totalPrices, accommodation) => {
   const mapRoomReservation = _.map((number) => {
     const checkinDate = submitData[`checkinDate${number}`]
     const checkoutDate = submitData[`checkoutDate${number}`]
@@ -251,6 +271,13 @@ const makeRoomReserves = (submitData, roomCount, rmNoObject, totalPrices) => {
     const addBreakfastCon = `성인:${submitData[`adultBreakfastCount${number}`]},소아:${
       submitData[`childBreakfastCount${number}`]
     },유아:${submitData[`infantBreakfastCount${number}`]}`
+    const optionNames = Object.keys(parseCustomData2(accommodation.addExtFee))
+    const addOptionCon = optionNames
+      .map(
+        (optionName, index) =>
+          `${optionName}:${submitData[`additionalOption${index + 1}Count${number}`]}`
+      )
+      .join(',')
     return {
       rrNo: 0,
       rmNo: rmNoObject[`${number}`],
@@ -260,7 +287,7 @@ const makeRoomReserves = (submitData, roomCount, rmNoObject, totalPrices) => {
       salePrice,
       addPersionCon,
       addBreakfastCon,
-      addOptionCon: '바베큐',
+      addOptionCon,
     }
   })
 
@@ -275,11 +302,12 @@ export const createReservation =
       (result) => {
         const { message } = result
         if (message === '업데이트 성공') {
-          alert('예약이 완료되었습니다.')
+          alert('예약이 저장되었습니다.')
           resetReadReservationPrice()
           setIsShowDimmdLayer(false)
           return true
         } else {
+          setIsShowDimmdLayer(false)
           alert('오류가 발생했습니다. 잠시후에 다시 시도해주세요.')
           return false
         }

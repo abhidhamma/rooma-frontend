@@ -2,7 +2,7 @@ import { currentAccommodationAtom } from '@state/common/common'
 import { addReserverationRoomCountAtom } from '@state/reservationStatus/reservationStatus'
 import { zeroOrNumber } from '@util/common/others'
 import { parseCustomData2 } from '@util/parse/parse'
-import _ from 'lodash'
+import _, { isArray } from 'lodash'
 import { useEffect, useState } from 'react'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import {
@@ -25,6 +25,8 @@ export default function ReadReservationAddRoomContainer({
   reset,
   roomReservation,
 }) {
+  // console.log('ReadReservationAddRoomContainer')
+  // console.log(roomReservation)
   const parseRoomReservation = () => {
     if (roomReservation === undefined) {
       return {
@@ -36,9 +38,10 @@ export default function ReadReservationAddRoomContainer({
         infantBreakfast: 0,
       }
     }
-    const { addPersionCon, addBreakfastCon } = roomReservation
+    const { addPersionCon, addBreakfastCon, addOptionCon } = roomReservation
     const addPersonArray = addPersionCon.split(',')
     const addBreakfastArray = addBreakfastCon.split(',')
+
     const getPersonCount = (data) => data.split(':')[1]
     const adult = getPersonCount(addPersonArray[0])
     const child = getPersonCount(addPersonArray[1])
@@ -46,10 +49,42 @@ export default function ReadReservationAddRoomContainer({
     const adultBreakfast = getPersonCount(addBreakfastArray[0])
     const childBreakfast = getPersonCount(addBreakfastArray[1])
     const infantBreakfast = getPersonCount(addBreakfastArray[2])
-    return { adult, child, infant, adultBreakfast, childBreakfast, infantBreakfast }
+
+    let additionalOption1 = ''
+    let additionalOption2 = ''
+    let additionalOption3 = ''
+
+    // console.log(addOptionCon.split(',').length)
+    if (addOptionCon.split(',').length > 1) {
+      const addOptionArray = addOptionCon.split(',')
+      additionalOption1 = getPersonCount(addOptionArray[0])
+      additionalOption2 = getPersonCount(addOptionArray[1])
+      additionalOption3 = getPersonCount(addOptionArray[2])
+    }
+
+    return {
+      adult,
+      child,
+      infant,
+      adultBreakfast,
+      childBreakfast,
+      infantBreakfast,
+      additionalOption1,
+      additionalOption2,
+      additionalOption3,
+    }
   }
-  const { adult, child, infant, adultBreakfast, childBreakfast, infantBreakfast } =
-    parseRoomReservation()
+  const {
+    adult,
+    child,
+    infant,
+    adultBreakfast,
+    childBreakfast,
+    infantBreakfast,
+    additionalOption1,
+    additionalOption2,
+    additionalOption3,
+  } = parseRoomReservation()
 
   //전역상태
   const setRoomCount = useSetRecoilState(addReserverationRoomCountAtom)
@@ -90,6 +125,7 @@ export default function ReadReservationAddRoomContainer({
   const breakfastFeeObjectLength = breakfastFeeObject.length
 
   const extFeeObject = Object.entries(parseCustomData2(addExtFee))
+  const extFeeObjectNames = Object.keys(parseCustomData2(addExtFee))
   const extFeeObjectLength = extFeeObject.length
 
   const adultCount = zeroOrNumber(watch(`adultCount${count}`))
@@ -128,6 +164,9 @@ export default function ReadReservationAddRoomContainer({
   //요금 계산용 필드
   const roomFee = Number(originPrice)
   const optionWithoutAddPersonFee = breakFastFee + additionalOptionFee
+
+  //추가될 rrNo
+  const rrNo = roomReservation.rrNo
 
   const handleToggle = () => setOpen((prev) => !prev)
   const decreaseRoomCount = () => setRoomCount((prev) => prev - 1)
@@ -189,6 +228,9 @@ export default function ReadReservationAddRoomContainer({
       breakfastFeeObjectLength={breakfastFeeObjectLength}
       breakfastFeeObject={breakfastFeeObject}
       //옵션추가
+      additionalOption1={additionalOption1}
+      additionalOption2={additionalOption2}
+      additionalOption3={additionalOption3}
       extFeeObject={extFeeObject}
       extFeeObjectLength={extFeeObjectLength}
       //옵션합계

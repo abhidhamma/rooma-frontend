@@ -39,6 +39,9 @@ export default function ReadReservationAddRoomPresenter({
   extFeeObject,
   extFeeObjectLength,
   optionFee,
+  additionalOption1,
+  additionalOption2,
+  additionalOption3,
 }) {
   return (
     <section className='add-group'>
@@ -201,7 +204,10 @@ export default function ReadReservationAddRoomPresenter({
                   {extFeeObjectLength > 0 ? (
                     <>
                       <span className='num'>{extFeeObject[0][0]}</span>
-                      <select {...register(`additionalOption1Count${count}`)} defaultValue={0}>
+                      <select
+                        {...register(`additionalOption1Count${count}`)}
+                        defaultValue={additionalOption1}
+                      >
                         <option value={0}>0명</option>
                         {numberToArray(maxPersionNum).map((number) => (
                           <option key={number} value={number}>{`${number}명`}</option>
@@ -251,7 +257,10 @@ export default function ReadReservationAddRoomPresenter({
                   {extFeeObjectLength > 1 && (
                     <>
                       <span className='num'>{extFeeObject[1][0]}</span>
-                      <select {...register(`additionalOption2Count${count}`)} defaultValue={0}>
+                      <select
+                        {...register(`additionalOption2Count${count}`)}
+                        defaultValue={additionalOption2}
+                      >
                         <option value={0}>0명</option>
                         {numberToArray(maxPersionNum).map((number) => (
                           <option key={number} value={number}>{`${number}명`}</option>
@@ -297,7 +306,10 @@ export default function ReadReservationAddRoomPresenter({
                   {extFeeObjectLength > 2 && (
                     <>
                       <span className='num'>{extFeeObject[2][0]}</span>
-                      <select {...register(`additionalOption3Count${count}`)} defaultValue={0}>
+                      <select
+                        {...register(`additionalOption3Count${count}`)}
+                        defaultValue={additionalOption3}
+                      >
                         <option value={0}>0명</option>
                         {numberToArray(maxPersionNum).map((number) => (
                           <option key={number} value={number}>{`${number}명`}</option>

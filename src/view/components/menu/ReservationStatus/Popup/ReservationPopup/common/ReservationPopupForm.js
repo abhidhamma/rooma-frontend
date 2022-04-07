@@ -394,9 +394,7 @@ export default function ReservationPopupForm({
                           </div>
                         </td>
                         <td>{`${
-                          isNaN(formatMoney(totalAddPersonPrice))
-                            ? '0'
-                            : formatMoney(totalAddPersonPrice)
+                          isNaN(totalAddPersonPrice) ? '0' : formatMoney(totalAddPersonPrice)
                         }원`}</td>
                         <td>
                           <div className='dF-s'>
