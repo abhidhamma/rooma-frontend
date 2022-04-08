@@ -12,6 +12,13 @@ export const reservationStatusMap = {
   청소중: RESERVE_STATUS.CLEANING,
   예약취소: RESERVE_STATUS.CALCEL,
 }
+export const reservationStatusColorMap = {
+  RESERVECOMPLETE: '#34C38F',
+  CHECKIN: '#50a5f1',
+  CHECKOUT: '#f46a6a',
+  CLEANING: '#ff6dd1',
+  CALCEL: 'CANCEL',
+}
 
 export const PAY_STATUS = {
   NOTPAY: 'NOTPAY',

@@ -1,7 +1,7 @@
 import { numberToArray } from '@util/common/lodash'
 import { formatMoney } from '@util/common/others'
 import { Suspense } from 'react'
-import ReservationDateForm from '../../common/ReservationDateForm'
+import ReservationPopupDateForm from '../../common/ReservationPopupDateForm'
 import RoomSelect from '../../common/RoomSelect'
 import AddRoomTypeSelect from '../../common/RoomTypeSelect'
 
@@ -121,7 +121,7 @@ export default function ReadReservationAddRoomPresenter({
               </Suspense>
             </td>
             <td colSpan='2'>
-              <ReservationDateForm
+              <ReservationPopupDateForm
                 register={register}
                 reset={reset}
                 getValues={getValues}

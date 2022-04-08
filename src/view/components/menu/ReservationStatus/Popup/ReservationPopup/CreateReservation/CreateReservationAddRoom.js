@@ -9,7 +9,7 @@ import { addDays } from 'date-fns'
 import _ from 'lodash'
 import { Suspense, useEffect, useState } from 'react'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
-import ReservationDateForm from '../common/ReservationDateForm'
+import ReservationPopupDateForm from '../common/ReservationPopupDateForm'
 import RoomSelect from '../common/RoomSelect'
 import AddRoomTypeSelect from '../common/RoomTypeSelect'
 
@@ -213,7 +213,7 @@ export default function CreateReservationAddRoom({
               </Suspense>
             </td>
             <td colSpan='2'>
-              <ReservationDateForm
+              <ReservationPopupDateForm
                 register={register}
                 reset={reset}
                 getValues={getValues}

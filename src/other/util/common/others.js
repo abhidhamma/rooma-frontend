@@ -6,7 +6,7 @@ export function formatMoney(string) {
 export function zeroOrNumber(parameter) {
   return isNaN(Number(parameter)) ? 0 : Number(parameter)
 }
-//object에서 key로 value를 가져온다
+//object에서 value로 key를 가져온다
 export const getKeyFromValue = (map, findValue) => {
   for (const [key, value] of Object.entries(map)) {
     if (value === findValue) {

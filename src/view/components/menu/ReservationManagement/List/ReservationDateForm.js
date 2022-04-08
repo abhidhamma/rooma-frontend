@@ -5,20 +5,11 @@ import { isDate } from 'date-fns'
 import { useEffect } from 'react'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 
-export default function ReservationDateForm({
-  register,
-  reset,
-  getValues,
-  watch,
-  top,
-  count,
-  defaultCheckInDate,
-  defaultCheckOutDate,
-}) {
+export default function ReservationDateForm({ register, reset, getValues, watch, top }) {
   const selectedDate = useRecoilValue(selectedDateAtom)
   const setShowCalendar = useSetRecoilState(showCalendarAtom)
-  const checkinDateCalendarName = `checkinDate${count}`
-  const checkoutDateCalendarName = `checkoutDate${count}`
+  const checkinDateCalendarName = `startDate`
+  const checkoutDateCalendarName = `endDate`
 
   const handleSaleStartdateCalendar = () =>
     setShowCalendar((prev) => ({
@@ -42,40 +33,43 @@ export default function ReservationDateForm({
         : selectedDate[checkoutDateCalendarName],
     })
   }, [selectedDate])
-  const night = betweenyyyyMMdd(watch(`checkinDate${count}`), watch(`checkoutDate${count}`))
+
   return (
-    <div className='term'>
-      <span onClick={handleSaleStartdateCalendar} style={{ display: 'grid' }}>
+    <>
+      <div className='date'>
+        <span>시작일</span>
         <input
           type='text'
-          {...register(`checkinDate${count}`)}
+          placeholder='기간선택'
+          className='left'
+          {...register('startDate')}
           readOnly
-          defaultValue={defaultCheckInDate}
-          style={{ width: '95px' }}
+          onClick={handleSaleStartdateCalendar}
         />
-      </span>
-      <span className='day'>{`${night}박`}</span>
-      <span onClick={handleSaleEnddateCalendar} style={{ display: 'grid' }}>
+      </div>
+      <div className='mgl_5 mgr_5 date'>
+        <span>종료일</span>
         <input
           type='text'
-          {...register(`checkoutDate${count}`)}
+          placeholder='기간선택'
+          className='left'
+          {...register('endDate')}
           readOnly
-          defaultValue={defaultCheckOutDate}
-          style={{ justifySelf: 'end', width: '95px' }}
+          onClick={handleSaleEnddateCalendar}
         />
-      </span>
+      </div>
       <Calendar
         top={`${top}px`}
-        left={'-1px'}
+        left={'218px'}
         calendarName={checkinDateCalendarName}
-        defaultDate={stringToDate(defaultCheckInDate)}
+        defaultDate={stringToDate(watch('startDate'))}
       />
       <Calendar
         top={`${top}px`}
-        left={'144px'}
+        left={'463px'}
         calendarName={checkoutDateCalendarName}
-        defaultDate={stringToDate(defaultCheckOutDate)}
+        defaultDate={stringToDate(watch('endDate'))}
       />
-    </div>
+    </>
   )
 }
