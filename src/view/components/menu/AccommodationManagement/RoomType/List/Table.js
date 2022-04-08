@@ -59,7 +59,7 @@ export default function RoomTypeTable() {
             alignContent: 'center',
           }}
         >
-          결과가 없습니다. 객실타입명의 전체이름을 검색해주세요.
+          결과가 없습니다.
         </div>
       )}
       <ButtonGroup addText={'객실타입추가'} addHref={CREATE_ROOMTYPE_URL} />

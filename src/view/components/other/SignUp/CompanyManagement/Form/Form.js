@@ -198,7 +198,6 @@ export default function CompanyForm({ onSubmit, handleSubmit, register, isCreate
                   </dl>
                 </div>
               </section>
-              {/* <AddEmployee register={register} /> */}
               <section>
                 <dl className='rowAdd'>
                   <dt>직원 아이디 추가</dt>
@@ -231,7 +230,7 @@ export default function CompanyForm({ onSubmit, handleSubmit, register, isCreate
                       </thead>
                       <tbody>
                         <Suspense fallback={<tr></tr>}>
-                          <ReadMemberList />
+                          <ReadMemberList cpNo={cpNo} />
                         </Suspense>
                       </tbody>
                     </table>
@@ -256,6 +255,7 @@ export default function CompanyForm({ onSubmit, handleSubmit, register, isCreate
           <AddEmployee
             setIsShowDimmdLayer={setIsShowDimmdLayer}
             setIsAddEmployeeOpen={setIsAddEmployeeOpen}
+            cpNo={cpNo}
           />
         </Suspense>
       )}

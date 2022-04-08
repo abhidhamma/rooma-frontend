@@ -50,6 +50,9 @@ export const readReservationPriceSelector = selectorFamily({
   get:
     ({ acNo, startDate, endDate }) =>
     async () => {
+      if (acNo === undefined) {
+        console.log('acNo없음')
+      }
       try {
         return await readReservationPrice({ acNo, startDate, endDate })
       } catch (error) {

@@ -36,7 +36,7 @@ export default function AccommodationSelect() {
   }
 
   return (
-    <select onChange={changeCurrentAccommodation} value={currentAccommodation.acNo}>
+    <select onChange={changeCurrentAccommodation} value={currentAccommodation?.acNo}>
       {list.map((accommodation) => (
         <option value={accommodation.acNo} key={accommodation.acNo}>
           {accommodation.name}

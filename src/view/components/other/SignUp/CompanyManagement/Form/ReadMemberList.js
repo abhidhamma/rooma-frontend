@@ -4,10 +4,8 @@ import { getFormDataFromJson } from '@util/common/axiosUtil'
 import { useParams } from 'react-router-dom'
 import { useRecoilRefresher_UNSTABLE, useRecoilValue } from 'recoil'
 
-export default function ReadMemberList() {
+export default function ReadMemberList({ cpNo }) {
   const deleteMemberCallback = useApiCallback('deleteMember')
-  let { companyId } = useParams()
-  const cpNo = companyId
 
   const {
     data: { data: memberList },

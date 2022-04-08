@@ -17,7 +17,7 @@ export default function RoomTypeContainer() {
   const { scrollY, canScrollCheck } = useScroll()
 
   const parameter = {
-    acNo: accommodation.acNo,
+    acNo: accommodation?.acNo,
     startDate: formatyyyyMMddWithHyphen(standardDate),
     endDate: formatyyyyMMddWithHyphen(addDays(standardDate, 29)),
   }

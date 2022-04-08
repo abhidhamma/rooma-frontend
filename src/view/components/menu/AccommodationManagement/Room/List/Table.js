@@ -56,7 +56,7 @@ export default function RoomTable() {
             alignContent: 'center',
           }}
         >
-          결과가 없습니다. 객실명에 포함되는 문자열을 검색해주세요.
+          결과가 없습니다.
         </div>
       )}
       <ButtonGroup addText={'객실추가'} addHref={CREATE_ROOM_FORM_URL} />

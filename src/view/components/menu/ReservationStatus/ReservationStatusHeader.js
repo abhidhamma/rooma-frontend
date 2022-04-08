@@ -13,7 +13,7 @@ export default function ReservationStatusHeader() {
   const accommodation = useRecoilValue(currentAccommodationAtom)
 
   const parameter = {
-    acNo: accommodation.acNo,
+    acNo: accommodation?.acNo,
     startDate: formatyyyyMMddWithHyphen(standardDate),
     endDate: formatyyyyMMddWithHyphen(addDays(29)(standardDate)),
   }

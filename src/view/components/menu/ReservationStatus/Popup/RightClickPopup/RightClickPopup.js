@@ -24,7 +24,7 @@ export default function RightClickPopUp() {
   const standardDate = useRecoilValue(standardDateAtom)
 
   const parameter = {
-    acNo: accommodation.acNo,
+    acNo: accommodation?.acNo,
     startDate: formatyyyyMMddWithHyphen(standardDate),
     endDate: formatyyyyMMddWithHyphen(addDays(standardDate, 29)),
   }

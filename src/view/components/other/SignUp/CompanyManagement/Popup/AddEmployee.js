@@ -6,11 +6,8 @@ import { useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
 import { useRecoilRefresher_UNSTABLE } from 'recoil'
 
-export default function AddEmployee({ setIsShowDimmdLayer, setIsAddEmployeeOpen }) {
+export default function AddEmployee({ setIsShowDimmdLayer, setIsAddEmployeeOpen, cpNo }) {
   const createMemberCallback = useApiCallback('createMemberCallback')
-
-  let { companyId } = useParams()
-  const cpNo = companyId
 
   const resetReadMemberList = useRecoilRefresher_UNSTABLE(readMemberListSelector({ cpNo }))
   const defaultValues = {

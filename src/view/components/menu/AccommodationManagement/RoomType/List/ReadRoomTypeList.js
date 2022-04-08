@@ -4,6 +4,7 @@ import { readRoomTypeListSelector } from '@state/accommodationManagement/roomTyp
 import { currentPageAtom, totalCountAtom } from '@state/common/paging'
 import { searchKeywordAtom } from '@state/common/search'
 import { getFormDataFromJson } from '@util/common/axiosUtil'
+import { loadItem } from '@util/common/localStorage'
 import _ from 'lodash/fp'
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
@@ -15,11 +16,12 @@ export default function ReadRoomTypeList() {
   const searchKeyword = useRecoilValue(searchKeywordAtom)
   const setTotalCount = useSetRecoilState(totalCountAtom)
 
+  const user = loadItem('user')
   const rowCount = 7
   const currentIndex = (currentPage - 1) * rowCount
 
   const data = {
-    cpNo: '1',
+    cpNo: user?.cpNo,
     roomTypeName: searchKeyword,
     startRow: `${currentIndex}`,
     rowCount: `${rowCount}`,
