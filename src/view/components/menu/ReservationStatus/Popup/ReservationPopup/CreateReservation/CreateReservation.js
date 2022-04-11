@@ -215,28 +215,6 @@ export const preprocessSubmitData =
       totalPrices,
       accommodation
     )
-    console.log('preprocessData')
-    console.log({
-      rrNo,
-      rmNo,
-      reserveStatus,
-      payStatus,
-      payAmount,
-      reserveNum,
-      userName,
-      userPhone,
-      agentName,
-      agentPhone,
-      agentCharger,
-      agentChargerPhone,
-      adjSalePrice,
-      adjAddPersionPrice,
-      adjOptionPrice,
-      memo,
-      agentMemo,
-      fieldMemo,
-      roomReserves,
-    })
     return {
       rrNo,
       rmNo,

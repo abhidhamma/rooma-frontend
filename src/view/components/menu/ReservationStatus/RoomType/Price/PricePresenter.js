@@ -74,7 +74,6 @@ function PricePresenter({
     }
   }
   const handleMouseUp = () => {
-    console.log(Object.values(selectedCellArray).length)
     if (Object.values(selectedCellArray).length > 2) {
       setIsShowDimmdLayer(true)
       setIsDisplayCreateReservation((prev) => !prev)
@@ -96,8 +95,6 @@ function PricePresenter({
   // }
   // console.log('selecetedCellArray')
   // console.log(getBackground(selectedCellArray))
-  console.log('cleaningRoom')
-  console.log(cleaningRoom)
 
   return (
     <>

@@ -24,9 +24,10 @@ import { currentAccommodationAtom, dimmdLayerAtom } from '@state/common/common'
 import { createReservation } from '../CreateReservation/CreateReservation'
 import useApiCallback from '@hook/apiHook/useApiCallback'
 import { addDays } from 'date-fns'
-import { formatyyyyMMddWithHyphen } from '@util/common/dateUtil'
+import { formatyyyyMMddWithHyphen, stringToDate } from '@util/common/dateUtil'
 import _ from 'lodash/fp'
 import { zeroOrNumber } from '@util/common/others'
+import { numberToArray } from '@util/common/lodash'
 
 export default function ReadReservation() {
   const createReservationCallback = useApiCallback('updateReservation')
@@ -52,7 +53,29 @@ export default function ReadReservation() {
     readReservationPriceSelector(readReservationPriceParameter)
   )
 
-  const defaultValues = { ...reservation }
+  const payDefaultValues = () => {
+    if (reservation?.payHists === undefined) {
+      return {}
+    } else {
+      // payGubun, payAmount, payDate, payMethod
+      const payHistoryList = reservation?.payHists
+      const length = payHistoryList.length
+      let tempMap = {}
+      numberToArray(length).forEach((number) => {
+        const payHistory = payHistoryList[number - 1]
+        tempMap = {
+          ...tempMap,
+          [`payGubun${number}`]: payHistory.payGubun,
+          [`payAmount${number}`]: payHistory.payAmount,
+          [`payDate${number}`]: payHistory.payDate,
+          [`payMethod${number}`]: payHistory.payMethod,
+        }
+      })
+
+      return tempMap
+    }
+  }
+  const defaultValues = { ...reservation, ...payDefaultValues() }
   const { register, handleSubmit, watch, reset, getValues } = useForm({ defaultValues })
 
   const [roomPrices, setRoomPrices] = useState({})

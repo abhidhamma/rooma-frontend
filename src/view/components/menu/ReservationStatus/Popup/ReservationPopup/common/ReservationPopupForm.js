@@ -4,6 +4,7 @@ import { formatMoney } from '@util/common/others'
 import { useState } from 'react'
 import { useRecoilValue } from 'recoil'
 import CreateReservationAddRoom from '../CreateReservation/CreateReservationAddRoom'
+import PayTable from '../ReadReservation/PayTable/PayTable'
 import ReadReservationAddRoom from '../ReadReservation/ReadReservationAddRoom'
 import PayStatusSelect from './PayStatusSelect'
 import ReservationStateSelect from './ReservationStatus'
@@ -423,60 +424,15 @@ export default function ReservationPopupForm({
                       </tr>
                     </tbody>
                   </table>
-                  <table className='tbl-pop mgt_20'>
-                    <caption>결제정보</caption>
-                    <colgroup>
-                      <col width='20%' />
-                      <col width='20%' />
-                      <col width='20%' />
-                      <col width='20%' />
-                      <col width='*' />
-                    </colgroup>
-                    <thead>
-                      <tr>
-                        <th>결제구분</th>
-                        <th>결제금액</th>
-                        <th>결제일</th>
-                        <th>결제방법</th>
-                        <th>비고</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          <select>
-                            <option>1차결제</option>
-                          </select>
-                        </td>
-                        <td>
-                          <div className='dF-s'>
-                            <input type='text' placeholder='요금입력' />
-                            <span className='num'>원</span>
-                          </div>
-                        </td>
-                        <td>
-                          <input type='text' defaultValue='2022.03.28' className='center' />
-                        </td>
-                        <td>
-                          <select>
-                            <option>카드</option>
-                          </select>
-                        </td>
-                        <td className='add-del'>
-                          <a href='#'>추가</a>
-                          <a href='#'>삭제</a>
-                        </td>
-                      </tr>
-                      <tr className='total'>
-                        <td className='th'>결제합계</td>
-                        <td colSpan='2' className='p-total'>
-                          100,000원
-                        </td>
-                        <td className='th'>잔액</td>
-                        <td>100,000원</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  {type === 'read' && (
+                    <PayTable
+                      register={register}
+                      reset={reset}
+                      getValues={getValues}
+                      watch={watch}
+                      payHistory={reservation.payHists}
+                    />
+                  )}
                 </div>
               </section>
             </div>
