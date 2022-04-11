@@ -23,7 +23,7 @@ export default function AccommodationSelect({ register }) {
 
   return (
     <select className='mgr_5' {...register('acNo')}>
-      <option value={'0'}>숙소선택</option>
+      <option value={'0'}>숙소선택(전체)</option>
       {list.map((accommodation) => (
         <option value={accommodation.acNo} key={accommodation.acNo}>
           {accommodation.name}

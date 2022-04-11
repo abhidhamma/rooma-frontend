@@ -28,6 +28,8 @@ export default function ReservationManagementList() {
     periodType: 'checkinDate',
     searchType: '',
     searchText: '',
+    reserveStatus: '',
+    payStatus: '',
   }
   const { register, handleSubmit, watch, reset, getValues } = useForm({ defaultValues })
   return (

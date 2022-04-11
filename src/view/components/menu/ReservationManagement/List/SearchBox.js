@@ -1,3 +1,4 @@
+import { PAY_STATUS, RESERVE_STATUS } from '@constant/constantVariable'
 import useApiCallback from '@hook/apiHook/useApiCallback'
 import { currentPageAtom, totalCountAtom } from '@state/common/paging'
 import {
@@ -35,6 +36,8 @@ export default function ReservationSearchBox({ register, handleSubmit, reset, ge
     searchText: watch('searchText'),
     startRow: `${currentIndex}`,
     rowCount: `${rowCount}`,
+    reserveStatus: watch('reserveStatus'),
+    payStatus: watch('payStatus'),
   }
 
   const onSubmit = (submitData) => {
@@ -81,10 +84,26 @@ export default function ReservationSearchBox({ register, handleSubmit, reset, ge
             Total {totalCount}건 {currentPage}페이지
           </span>
           <div className='searchBox'>
+            <select className='mgr_5' {...register('reserveStatus')}>
+              <option value={''}>예약상태(전체)</option>
+              <option value={RESERVE_STATUS.RESERVECOMPLETE}>예약완료</option>
+              <option value={RESERVE_STATUS.CHECKIN}>입실</option>
+              <option value={RESERVE_STATUS.CHECKOUT}>퇴실</option>
+              <option value={RESERVE_STATUS.CALCEL}>취소</option>
+            </select>
+            <select className='mgr_5' {...register('payStatus')}>
+              <option value={''}>결제상태(전체)</option>
+              <option value={PAY_STATUS.NOTPAY}>미결제</option>
+              <option value={PAY_STATUS.PARTIALPAY}>부분결제</option>
+              <option value={PAY_STATUS.PAYCOMPLETE}>결제완료</option>
+              <option value={PAY_STATUS.REFUNDREQUEST}>환불요청</option>
+              <option value={PAY_STATUS.REFUNDCOMPLETE}>환불완료</option>
+              <option value={PAY_STATUS.CANCEL}>결제취소</option>
+            </select>
             <Suspense
               fallback={
                 <select>
-                  <option>숙소선택</option>
+                  <option>숙소선택(전체)</option>
                 </select>
               }
             >

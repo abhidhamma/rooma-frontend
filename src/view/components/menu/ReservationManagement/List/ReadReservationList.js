@@ -14,12 +14,7 @@ import { formatyyMMddWithDot, stringToDate } from '@util/common/dateUtil'
 import { loadItem } from '@util/common/localStorage'
 import { formatMoney, getKeyFromValue } from '@util/common/others'
 import { useEffect } from 'react'
-import {
-  useRecoilRefresher_UNSTABLE,
-  useRecoilState,
-  useRecoilValue,
-  useSetRecoilState,
-} from 'recoil'
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 
 export default function ReadReservationList({ watch }) {
   const readReservationListCallback = useApiCallback('readReservationList')
@@ -48,6 +43,8 @@ export default function ReadReservationList({ watch }) {
     searchText: watch('searchText'),
     startRow: `${currentIndex}`,
     rowCount: `${rowCount}`,
+    reserveStatus: watch('reserveStatus'),
+    payStatus: watch('payStatus'),
   }
 
   console.log(list, totalCount)
@@ -86,17 +83,22 @@ export default function ReadReservationList({ watch }) {
       {list.map(
         ({
           rrNo,
-          acName,
-          payStatus,
+          reserveNum,
           reserveStatus,
+          payStatus,
+          acName,
           rtName,
-          roomSalePrice,
+          rmName,
+          agentName,
+          userName,
+          userPhone,
           checkinDate,
           checkoutDate,
+          roomSalePrice,
           regDate,
         }) => (
           <tr key={rrNo}>
-            <td>{rrNo}</td>
+            <td>{reserveNum}</td>
             <td>
               <span
                 className='state s1'
@@ -109,13 +111,21 @@ export default function ReadReservationList({ watch }) {
               <span className='state s1'>{getKeyFromValue(payStatusMap, payStatus)}</span>
             </td>
             <td>{acName}</td>
-            <td>홍길동</td>
             <td>{rtName}</td>
-            <td>온돌101호</td>
+            <td>{rmName === null ? '객실명' : rmName}</td>
+            <td>{agentName}</td>
+            <td>{userName}</td>
+            <td>{userPhone}</td>
+
             <td>{formatyyMMddWithDot(stringToDate(checkinDate))}</td>
             <td>{formatyyMMddWithDot(stringToDate(checkoutDate))}</td>
             <td>{`${formatMoney(roomSalePrice)}원`}</td>
             <td>{formatyyMMddWithDot(stringToDate(regDate))}</td>
+            <td>
+              <button type='button' className='modify'>
+                상세보기
+              </button>
+            </td>
           </tr>
         )
       )}
