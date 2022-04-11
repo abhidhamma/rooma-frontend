@@ -1,3 +1,4 @@
+//예약상태
 export const RESERVE_STATUS = {
   RESERVECOMPLETE: 'RESERVECOMPLETE',
   CHECKIN: 'CHECKIN',
@@ -20,6 +21,7 @@ export const reservationStatusColorMap = {
   CALCEL: 'CANCEL',
 }
 
+//결제상태
 export const PAY_STATUS = {
   NOTPAY: 'NOTPAY',
   PARTIALPAY: 'PARTIALPAY',
@@ -35,4 +37,12 @@ export const payStatusMap = {
   환불요청: PAY_STATUS.REFUNDREQUEST,
   환불완료: PAY_STATUS.REFUNDCOMPLETE,
   결제취소: PAY_STATUS.CANCEL,
+}
+
+//청소상태
+export const CLEANING_STATUS = {
+  REQUEST: 'REQUEST',
+  ALLOCATION: 'ALLOCATION',
+  WORKING: 'WORKING',
+  FINISHED: 'FINISHED',
 }

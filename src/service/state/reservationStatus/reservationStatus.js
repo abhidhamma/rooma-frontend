@@ -2,6 +2,7 @@ import {
   lockRoom,
   readReservationPrice,
   unlockRoom,
+  updateCleaningStatus,
   updateReservationDate,
   updateReservationStatus,
 } from '@api/reservationStatus/reservationStatus'
@@ -17,6 +18,7 @@ import {
   IS_MOUSE_DOWN_ATOM_KEY,
   SELECTED_CELL_ARRAY,
   SELECTED_CELL_ARRAY_ATOM_KEY,
+  UPDATE_CLEANING_STATUS_SELECTOR_KEY,
 } from '@constant/atomKeys'
 import { removeCookie } from '@util/common/cookie'
 import { removeItem } from '@util/common/localStorage'
@@ -79,4 +81,8 @@ export const updateReservationStatusSelector = selectorFamily({
 export const updateReservationDateSelector = selectorFamily({
   key: UPDATE_RESERVATION_DATE_SELECTOR_KEY,
   get: (formData) => async () => await updateReservationDate(formData),
+})
+export const updateCleaningStatusSelector = selectorFamily({
+  key: UPDATE_CLEANING_STATUS_SELECTOR_KEY,
+  get: (formData) => async () => await updateCleaningStatus(formData),
 })

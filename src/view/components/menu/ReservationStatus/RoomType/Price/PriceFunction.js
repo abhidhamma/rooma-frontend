@@ -11,6 +11,7 @@ import { getDateArray } from '@util/reservation/reservation'
 import { makeReservationColor } from '../../Overlay/ReservationOverlay'
 import { isBefore } from 'date-fns'
 import { getFormDataFromJson } from '@util/common/axiosUtil'
+import { CLEANING_STATUS } from '@constant/constantVariable'
 
 export const itemEffect = (
   filteredReservationList,
@@ -103,6 +104,7 @@ export const canDropEffect = (
   filteredReservationList,
   lockedRoomList,
   lockedRoom,
+  cleaningRoom,
   currentDate,
   rmNo,
   price
@@ -112,6 +114,9 @@ export const canDropEffect = (
   const checkOut = item.checkoutDate
   const location = item.rmNo
   const isLockedRoom = lockedRoom !== undefined
+  const isCleaningRoom =
+    cleaningRoom?.cleaningStatus !== CLEANING_STATUS.FINISHED &&
+    cleaningRoom?.cleaningStatus !== undefined
   return getIsCanNotDrop(
     filteredReservationList,
     lockedRoomList,
@@ -122,7 +127,8 @@ export const canDropEffect = (
     currentDate,
     rmNo,
     reservationStatus,
-    price
+    price,
+    isCleaningRoom
   )
 }
 
@@ -168,7 +174,8 @@ const getIsCanNotDrop = (
   targetDate,
   rmNo,
   reservationStatus,
-  price
+  price,
+  isCleaningRoom
 ) => {
   //0.RESERVECOMPLETE가 아니면 이동 불가능
   if (reservationStatus !== 'RESERVECOMPLETE') {
@@ -196,7 +203,12 @@ const getIsCanNotDrop = (
     return false
   }
 
-  //5.서로다른 예약끼리 겹치지 않게하기
+  //5.청소중인 방으로 이동 불가
+  if (isCleaningRoom) {
+    return false
+  }
+
+  //6.서로다른 예약끼리 겹치지 않게하기
   const otherReservationIndexList = getOtherReservationIndexList(
     filteredReservationList,
     sourceCheckIn,

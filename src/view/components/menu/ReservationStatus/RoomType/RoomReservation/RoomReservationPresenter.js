@@ -19,6 +19,7 @@ function RoomReservationPresenter({
             const currentDate = formatyyyyMMdd(stringToDate(day.targetDate))
             const currentReservation = day.reservation
             const currentLockedRoom = day.lockedRoom
+            const currentCleaningRoom = day.cleaningRoom
 
             //66500원인경우 6.6만으로 표시(칸 넓이 제한으로 소수점 둘째에서 반올림)
             const price = Math.round(day.originPrice / 1000) / 10
@@ -30,6 +31,7 @@ function RoomReservationPresenter({
                 currentDate={currentDate}
                 roomNumber={roomNumber}
                 lockedRoom={currentLockedRoom}
+                cleaningRoom={currentCleaningRoom}
                 currentReservationList={currentReservationList}
                 rmNo={rmNo}
                 rtNo={rtNo}
@@ -41,6 +43,7 @@ function RoomReservationPresenter({
                 currentDate={currentDate}
                 roomNumber={roomNumber}
                 reservation={currentReservation}
+                cleaningRoom={currentCleaningRoom}
                 currentReservationList={currentReservationList}
                 rmNo={rmNo}
                 rtNo={rtNo}

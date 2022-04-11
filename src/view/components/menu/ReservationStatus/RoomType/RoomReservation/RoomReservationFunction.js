@@ -70,6 +70,7 @@ export const getCurrentCalendar = (
   currentMonthPriceList,
   currentReservationList,
   currentLockedRoomList,
+  currentCleaningRoomList,
   standardDate,
   dayCount
 ) => {
@@ -116,6 +117,16 @@ export const getCurrentCalendar = (
 
       if (targetDate === lockDate) {
         calendarList[i] = { ...calendarList[i], lockedRoom }
+      }
+    }
+
+    //달력에 청소중인방 포함시키기
+    for (let j = 0; j < currentCleaningRoomList.length; j++) {
+      const cleaningRoom = currentCleaningRoomList[j]
+      const workDate = cleaningRoom.workDate
+
+      if (targetDate === workDate) {
+        calendarList[i] = { ...calendarList[i], cleaningRoom }
       }
     }
   }

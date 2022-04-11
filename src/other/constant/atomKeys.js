@@ -26,6 +26,7 @@ export const SHOW_CALENDAR_ATOM = 'showCalendarAtom'
 export const DIMMD_LEYER_ATOM_KEY = 'dimmdLayerAtom'
 
 //예약현황
+//atom
 export const RENDER_COUNT_ATOM_KEY = 'renderCountAtom'
 export const ROOMTYPE_LIST_ATOM_KEY = 'roomTypeListAtom'
 export const RESERVATION_LIST_ATOM_KEY = 'reservationListAtom'
@@ -41,12 +42,13 @@ export const RIGHT_CLICK_POPUP_ATOM_KEY = 'rightClickPopupAtomKey'
 export const READ_RESERVATION_PARAMETER_ATOM_KEY = 'readReservationParameterAtomKey'
 export const IS_MOUSE_DOWN_ATOM_KEY = 'isMouseDownAtomKey'
 export const SELECTED_CELL_ARRAY_ATOM_KEY = 'selectedCellArrayAtomKey'
-
+//selector
 export const READ_RESERVATION_PRICE_SELECTOR_KEY = 'readReservationPriceSelectorKey'
 export const LOCK_ROOM_SELECTOR_KEY = 'lockRoomSelectorKey'
 export const UNLOCK_ROOM_SELECTOR_KEY = 'unlockRommSelectorKey'
 export const UPDATE_RESERVATION_STATUS_SELECTOR_KEY = 'updateReservationStatusSelectorKey'
 export const UPDATE_RESERVATION_DATE_SELECTOR_KEY = 'updateReservationDateSelectorKey'
+export const UPDATE_CLEANING_STATUS_SELECTOR_KEY = 'updateCleaningStatusSelectorKey'
 
 //예약현황 - 예약팝업
 export const ADD_RESERVATION_ROOM_COUNT_ATOM_KEY = 'addReservationRoomCountAtomKey'

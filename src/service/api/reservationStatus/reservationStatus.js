@@ -3,6 +3,7 @@ import {
   LOCK_ROOM_URL,
   READ_RESERVATION_PRICE_URL,
   UNLOCK_ROOM_URL,
+  UPDATE_CLEANING_STATUS_URL,
   UPDATE_RESERVATION_DATE_URL,
   UPDATE_RESERVATION_STATUS_URL,
 } from '@constant/apiURLs'
@@ -16,3 +17,5 @@ export const updateReservationStatus = (formData) =>
   client.post(UPDATE_RESERVATION_STATUS_URL, formData, formDataHeaderConfig)
 export const updateReservationDate = (formData) =>
   client.post(UPDATE_RESERVATION_DATE_URL, formData, formDataHeaderConfig)
+export const updateCleaningStatus = (formData) =>
+  client.post(UPDATE_CLEANING_STATUS_URL, formData, formDataHeaderConfig)

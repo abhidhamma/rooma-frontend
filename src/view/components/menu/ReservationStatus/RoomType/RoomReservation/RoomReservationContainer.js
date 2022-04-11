@@ -11,6 +11,7 @@ function RoomReservationContainer({
   filteredReservationList,
   currentReservationList,
   lockedRoomList,
+  cleaningRoomList,
   rmNo,
   rtNo,
 }) {
@@ -28,6 +29,7 @@ function RoomReservationContainer({
   //   [lockedRoomList, standardDate, dayCount, roomNumber]
   // )
   const currentLockedRoomList = lockedRoomList
+  const currentCleaningRoomList = cleaningRoomList
 
   const currentCalendarList = useMemo(
     () =>
@@ -35,10 +37,17 @@ function RoomReservationContainer({
         currentMonthPriceList,
         currentReservationList,
         currentLockedRoomList,
+        currentCleaningRoomList,
         standardDate,
         dayCount
       ),
-    [currentMonthPriceList, currentReservationList, currentLockedRoomList, standardDate]
+    [
+      currentMonthPriceList,
+      currentReservationList,
+      currentLockedRoomList,
+      currentCleaningRoomList,
+      standardDate,
+    ]
   )
 
   return (

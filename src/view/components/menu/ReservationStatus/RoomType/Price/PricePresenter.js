@@ -10,6 +10,7 @@ import { createReservationAtom } from '@state/reservationStatus/createReservatio
 import { isDisplayCreateReservationAtom } from '@state/reservation'
 import { dimmdLayerAtom } from '@state/common/common'
 import { addDays } from 'date-fns'
+import { CLEANING_STATUS } from '@constant/constantVariable'
 
 function PricePresenter({
   drop,
@@ -23,6 +24,7 @@ function PricePresenter({
   dayCount,
   drag,
   lockedRoom,
+  cleaningRoom,
   roomNumber,
   rmNo,
   rtNo,
@@ -94,11 +96,14 @@ function PricePresenter({
   // }
   // console.log('selecetedCellArray')
   // console.log(getBackground(selectedCellArray))
+  console.log('cleaningRoom')
+  console.log(cleaningRoom)
+
   return (
     <>
       <div
         ref={drop}
-        onContextMenu={handleRightClickPopup(reservation, lockedRoom)}
+        onContextMenu={handleRightClickPopup(reservation, lockedRoom, cleaningRoom)}
         style={{
           background: selectedCellArray[`${roomNumber}${currentDate}`] ? 'antiquewhite' : 'none',
         }}
@@ -106,6 +111,14 @@ function PricePresenter({
         {lockedRoom?.lockDate === formatyyyyMMddWithHyphen(stringToDate(currentDate)) ? (
           <div className='lock'>
             <span className='hdn'>잠김</span>
+          </div>
+        ) : cleaningRoom?.workDate === formatyyyyMMddWithHyphen(stringToDate(currentDate)) &&
+          cleaningRoom?.cleaningStatus !== CLEANING_STATUS.FINISHED ? (
+          <div>
+            <div
+              className='cleaning'
+              style={{ position: 'absolute', width: '100%', zIndex: '10' }}
+            ></div>
           </div>
         ) : (
           <div
@@ -138,6 +151,7 @@ function PricePresenter({
             dayCount={dayCount}
             currentDate={currentDate}
             roomNumber={roomNumber}
+            cleaningRoom={cleaningRoom}
             rtNo={rtNo}
           />
         )}

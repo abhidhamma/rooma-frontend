@@ -22,6 +22,7 @@ import {
 import useApiCallback from '@hook/apiHook/useApiCallback'
 import { currentAccommodationAtom, dimmdLayerAtom } from '@state/common/common'
 import { addDays } from 'date-fns'
+import { CLEANING_STATUS } from '@constant/constantVariable'
 
 function PriceContainer({
   price,
@@ -29,6 +30,7 @@ function PriceContainer({
   roomNumber,
   reservation,
   lockedRoom,
+  cleaningRoom,
   currentReservationList,
   rmNo,
   rtNo,
@@ -100,6 +102,7 @@ function PriceContainer({
           currentReservationList,
           lockedRoomList,
           lockedRoom,
+          cleaningRoom,
           currentDate,
           rmNo,
           price
@@ -136,11 +139,14 @@ function PriceContainer({
     }))
   }, [standardDate])
 
-  const handleRightClickPopup = (reservation, lockedRoom) => (event) => {
+  const handleRightClickPopup = (reservation, lockedRoom, cleaningRoom) => (event) => {
     const { clientX, clientY } = event
     event.preventDefault()
     console.log(clientX, clientY)
     const isLocked = lockedRoom !== undefined
+    const isCleaning =
+      cleaningRoom?.cleaningStatus !== CLEANING_STATUS.FINISHED &&
+      cleaningRoom?.cleaningStatus !== undefined
     const reservationStatus = reservation?.reserveStatus
     setRightClickPopupProperty((prev) => ({
       ...prev,
@@ -149,9 +155,13 @@ function PriceContainer({
       left: Math.min(clientX, window.innerWidth - 180),
       hideLock: reservation === undefined,
       rmNo,
+      rtNo,
+      acNo: accommodation.acNo,
       rrNo: reservation?.rrNo,
-      lockDate: formatyyyyMMddWithHyphen(stringToDate(currentDate)),
+      currentDate: formatyyyyMMddWithHyphen(stringToDate(currentDate)),
       isLocked,
+      rcNo: cleaningRoom?.rcNo === undefined ? 0 : cleaningRoom.rcNo,
+      isCleaning,
       reservationStatus,
     }))
   }
@@ -173,6 +183,7 @@ function PriceContainer({
       price={price}
       reservation={reservation}
       lockedRoom={lockedRoom}
+      cleaningRoom={cleaningRoom}
       currentDate={currentDate}
       dayCount={dayCount}
       handleCreateReservation={handleCreateReservation}

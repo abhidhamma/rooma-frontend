@@ -25,6 +25,7 @@ export default function RoomTypePresenter({ roomType, style }) {
             roomNumber={room.rmName}
             currentReservationList={room.reserves}
             lockedRoomList={room.locks}
+            cleaningRoomList={room.cleanings}
             rmNo={room.rmNo}
             rtNo={roomType.rtNo}
           />

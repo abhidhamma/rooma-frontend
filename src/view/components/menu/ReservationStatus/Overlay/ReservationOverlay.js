@@ -17,7 +17,7 @@ import { dimmdLayerAtom } from '@state/common/common'
 import { createReservationAtom } from '@state/reservationStatus/createReservation'
 import { addDays } from 'date-fns'
 
-function ReservationOverlay({ data, drag, dayCount, currentDate, roomNumber, rtNo }) {
+function ReservationOverlay({ data, drag, dayCount, currentDate, roomNumber, rtNo, cleaningRoom }) {
   const setDisplay = useSetRecoilState(displayAtom)
   const setIsDisplayReadReservation = useSetRecoilState(isDisplayReadReservationAtom)
   const setReadReservationParameter = useSetRecoilState(readReservationParameterAtom)
@@ -109,15 +109,17 @@ function ReservationOverlay({ data, drag, dayCount, currentDate, roomNumber, rtN
       setSelectedCellArray({})
     }
   }
+  console.log('cleaningRoom')
+  console.log(cleaningRoom)
 
   return (
     <>
-      {reserveStatus === 'CLEANING' ? (
+      {cleaningRoom !== undefined ? (
         <div>
           <div
             className='cleaning'
             style={{ position: 'absolute', width: '100%', zIndex: '10' }}
-          ></div>
+          >{`${data.userName}`}</div>
         </div>
       ) : (
         <div
@@ -138,7 +140,7 @@ function ReservationOverlay({ data, drag, dayCount, currentDate, roomNumber, rtN
             color: 'white',
           }}
         >
-          <div style={{ placeSelf: 'center' }}>{`${data.userName} ${rrNo}`}</div>
+          <div style={{ placeSelf: 'center' }}>{`${data.userName}`}</div>
         </div>
       )}
     </>
