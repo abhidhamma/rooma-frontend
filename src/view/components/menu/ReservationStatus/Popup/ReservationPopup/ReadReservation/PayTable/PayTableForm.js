@@ -61,15 +61,28 @@ export default function PayTableForm({ register, reset, getValues, watch, payHis
           <tr key={count}>
             <td>
               <select {...register(`payGubun${count}`)}>
-                <option value={'1차결제'}>1차결제</option>
-                <option value={'2차결제'}>2차결제</option>
-                <option value={'3차결제'}>3차결제</option>
-                <option value={'4차결제'}>4차결제</option>
+                <option disabled={count <= payHistory.length} value={'1차결제'}>
+                  1차결제
+                </option>
+                <option disabled={count <= payHistory.length} value={'2차결제'}>
+                  2차결제
+                </option>
+                <option disabled={count <= payHistory.length} value={'3차결제'}>
+                  3차결제
+                </option>
+                <option disabled={count <= payHistory.length} value={'4차결제'}>
+                  4차결제
+                </option>
               </select>
             </td>
             <td>
               <div className='dF-s'>
-                <input type='text' placeholder='요금입력' {...register(`payAmount${count}`)} />
+                <input
+                  type='text'
+                  placeholder='요금입력'
+                  {...register(`payAmount${count}`)}
+                  readOnly={count <= payHistory.length}
+                />
                 <span className='num'>원</span>
               </div>
             </td>
@@ -84,12 +97,19 @@ export default function PayTableForm({ register, reset, getValues, watch, payHis
                   ? formatyyyyMMddWithHyphen(new Date())
                   : watch(`payDate${count}`)
               }
+              readOnly={count <= payHistory.length}
             />
             <td>
               <select {...register(`payMethod${count}`)}>
-                <option value={'카드'}>카드</option>
-                <option value={'이체'}>이체</option>
-                <option value={'현금'}>현금</option>
+                <option disabled={count <= payHistory.length} value={'카드'}>
+                  카드
+                </option>
+                <option disabled={count <= payHistory.length} value={'이체'}>
+                  이체
+                </option>
+                <option disabled={count <= payHistory.length} value={'현금'}>
+                  현금
+                </option>
               </select>
             </td>
             <td className='add-del'>

@@ -5,16 +5,27 @@ import { isDate } from 'date-fns'
 import { useEffect } from 'react'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 
-export default function PayDateForm({ register, reset, getValues, top, count, defaultDate }) {
+export default function PayDateForm({
+  register,
+  reset,
+  getValues,
+  top,
+  count,
+  defaultDate,
+  readOnly,
+}) {
   const selectedDate = useRecoilValue(selectedDateAtom)
   const setShowCalendar = useSetRecoilState(showCalendarAtom)
   const payDateCalendarName = `payDate${count}`
 
-  const handleCalendar = () =>
-    setShowCalendar((prev) => ({
-      ...prev,
-      [payDateCalendarName]: !prev[payDateCalendarName],
-    }))
+  const handleCalendar = () => {
+    if (!readOnly) {
+      setShowCalendar((prev) => ({
+        ...prev,
+        [payDateCalendarName]: !prev[payDateCalendarName],
+      }))
+    }
+  }
 
   useEffect(() => {
     console.log('PayDateForm useEffect')
