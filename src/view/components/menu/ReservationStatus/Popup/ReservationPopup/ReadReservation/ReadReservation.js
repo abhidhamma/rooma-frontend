@@ -154,6 +154,9 @@ export default function ReadReservation() {
       ]
     }
 
+    console.log('payHists')
+    console.log(payFormCount, length)
+    console.log(payHists)
     data = { ...data, payHists }
 
     // console.log('addUpdateData')

@@ -74,13 +74,14 @@ export default function CreateReservation() {
 
   const onSubmit = _.flow(
     validation(rmNoObject, roomCount),
-    preprocessSubmitData(roomCount, rmNoObject, totalPrices, accommodation),
+    preprocessSubmitData(roomCount, rmNoObject, totalPrices, accommodation, totalPrice),
     createReservation(createReservationCallback, resetReadReservationPrice, setIsShowDimmdLayer),
     initializeCreateReservationForm(
       setIsDisplayCreateReservation,
       setRoomCount,
       setIsReservationButtonOpen,
-      setIsCheckInButtonOpen
+      setIsCheckInButtonOpen,
+      setIsShowDimmdLayer
     )
   )
   const close = () => {
@@ -298,7 +299,8 @@ export const initializeCreateReservationForm =
     setIsDisplayCreateReservation,
     setRoomCount,
     setIsReservationButtonOpen,
-    setIsCheckInButtonOpen
+    setIsCheckInButtonOpen,
+    setIsShowDimmdLayer
   ) =>
   (result) => {
     if (result instanceof Promise) {
@@ -308,6 +310,7 @@ export const initializeCreateReservationForm =
           setRoomCount(1)
           setIsReservationButtonOpen(false)
           setIsCheckInButtonOpen(false)
+          setIsShowDimmdLayer(false)
         }
       })
     } else {
