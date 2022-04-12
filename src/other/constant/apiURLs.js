@@ -118,6 +118,8 @@ const READ_RESERVATION_SLUG = 'reserve'
 export const READ_RESERVATION_URL = v1Url(READ_RESERVATION_SLUG)
 const READ_POSSIBLE_ROOM_LIST_SLUG = 'room/possible/list'
 export const READ_POSSIBLE_ROOM_LIST_URL = v1Url(READ_POSSIBLE_ROOM_LIST_SLUG)
+const DELETE_PAY_RECORD_SLUG = 'reserve/pay/delete'
+export const DELETE_PAY_RECORD_URL = v1Url(DELETE_PAY_RECORD_SLUG)
 
 //예약관리
 const READ_RESERVATION_LIST_SLUG = 'reserve/list'

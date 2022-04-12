@@ -1,24 +1,58 @@
-import Calendar from '@components/common/Calendar'
-import { showCalendarAtom } from '@state/common/calendar'
-import { formatyyyyMMddWithHyphen, stringToDate } from '@util/common/dateUtil'
+import useApiCallback from '@hook/apiHook/useApiCallback'
+import {
+  deletePayRecordSelector,
+  payFormCountAtom,
+  readReservationSelector,
+} from '@state/reservationStatus/createReservation'
+import { readReservationParameterAtom } from '@state/reservationStatus/reservationStatus'
+import { getFormDataFromJson } from '@util/common/axiosUtil'
+import { formatyyyyMMddWithHyphen } from '@util/common/dateUtil'
 import { numberToArray } from '@util/common/lodash'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
+import { useRecoilRefresher_UNSTABLE, useRecoilState, useRecoilValue } from 'recoil'
 import PayDateForm from './PayDateForm'
 
 export default function PayTableForm({ register, reset, getValues, watch, payHistory }) {
-  const [payFormCount, setPayFormCount] = useState(1)
-  const today = new Date()
+  const deletePayRecordCallback = useApiCallback('deletePayRecord')
+  const [payFormCount, setPayFormCount] = useRecoilState(payFormCountAtom)
+
+  const readReservationParameter = useRecoilValue(readReservationParameterAtom)
+  const parameter = {
+    rrNo: readReservationParameter.rrNo,
+  }
+  const resetReadReservation = useRecoilRefresher_UNSTABLE(readReservationSelector(parameter))
 
   const increasePayFormCount = () => {
     setPayFormCount((prev) => (prev === 4 ? prev : prev + 1))
   }
-  const decreasePayFormCount = () => {
-    setPayFormCount((prev) => (prev === 1 ? prev : prev - 1))
+  const decreasePayFormCount = (count) => {
+    const confirm = window.confirm('삭제하시겠습니까?')
+
+    if (confirm) {
+      deletePayRecordCallback(
+        deletePayRecordSelector(
+          getFormDataFromJson({
+            rpNo: payHistory[count - 1].rpNo,
+            reserveNum: Number(payHistory[count - 1].reserveNum),
+          })
+        )
+      ).then((result) => {
+        const { message } = result
+        if (message === '저장되었습니다.') {
+          alert('삭제되었습니다.')
+          resetReadReservation()
+        }
+      })
+    }
   }
 
   useEffect(() => {
-    setPayFormCount(payHistory.length)
-  }, [])
+    if (payHistory.length === 0) {
+      setPayFormCount(1)
+    } else {
+      setPayFormCount(payHistory.length)
+    }
+  }, [payHistory.length])
 
   return (
     <>
@@ -62,7 +96,7 @@ export default function PayTableForm({ register, reset, getValues, watch, payHis
               <a href='#' onClick={increasePayFormCount}>
                 추가
               </a>
-              <a href='#' onClick={decreasePayFormCount}>
+              <a href='#' onClick={() => decreasePayFormCount(count)}>
                 삭제
               </a>
             </td>

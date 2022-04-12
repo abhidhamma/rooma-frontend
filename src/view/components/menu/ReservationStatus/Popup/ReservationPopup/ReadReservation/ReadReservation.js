@@ -1,5 +1,8 @@
 import { isDisplayReadReservationAtom, standardDateAtom } from '@state/reservation'
-import { readReservationSelector } from '@state/reservationStatus/createReservation'
+import {
+  payFormCountAtom,
+  readReservationSelector,
+} from '@state/reservationStatus/createReservation'
 import {
   addReserverationRoomCountAtom,
   readReservationParameterAtom,
@@ -52,6 +55,7 @@ export default function ReadReservation() {
   const resetReadReservationPrice = useRecoilRefresher_UNSTABLE(
     readReservationPriceSelector(readReservationPriceParameter)
   )
+  const payFormCount = useRecoilValue(payFormCountAtom)
 
   const payDefaultValues = () => {
     if (reservation?.payHists === undefined) {
@@ -104,6 +108,7 @@ export default function ReadReservation() {
   )
 
   const addUpdateData = (data) => {
+    //roomReserves에 rrNo넣기
     data.roomReserves = data.roomReserves.map((roomReserve, index) => {
       const rrNo =
         reservation?.roomReserves[index]?.rrNo === undefined
@@ -114,6 +119,43 @@ export default function ReadReservation() {
         rrNo,
       }
     })
+
+    //payHists넣기
+    let payHists = []
+    const payHistoryList = reservation?.payHists
+    const length = payHistoryList.length
+
+    // numberToArray(payFormCount).forEach((number) => {
+    //   payHists = [
+    //     ...payHists,
+    //     {
+    //       rpNo: 0,
+    //       reserveNum: data.reserveNum,
+    //       payGubun: watch(`payGubun${number}`),
+    //       payAmount: watch(`payAmount${number}`),
+    //       payDate: watch(`payDate${number}`),
+    //       payMethod: watch(`payMethod${number}`),
+    //     },
+    //   ]
+    // })
+
+    for (let i = 0; i < payFormCount - length; i++) {
+      const number = i + length + 1
+      payHists = [
+        ...payHists,
+        {
+          rpNo: 0,
+          reserveNum: data.reserveNum,
+          payGubun: watch(`payGubun${number}`),
+          payAmount: watch(`payAmount${number}`),
+          payDate: watch(`payDate${number}`),
+          payMethod: watch(`payMethod${number}`),
+        },
+      ]
+    }
+
+    data = { ...data, payHists }
+
     // console.log('addUpdateData')
     // console.log(data)
     return data
@@ -131,7 +173,7 @@ export default function ReadReservation() {
   }
   const onSubmit = _.flow(
     validation(rmNoObject, roomCount),
-    preprocessSubmitData(roomCount, rmNoObject, totalPrices, accommodation),
+    preprocessSubmitData(roomCount, rmNoObject, totalPrices, accommodation, totalPrice),
     addUpdateData,
     createReservation(createReservationCallback, resetReadReservationPrice, setIsShowDimmdLayer),
     resetReservationForm

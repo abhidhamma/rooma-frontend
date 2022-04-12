@@ -431,6 +431,7 @@ export default function ReservationPopupForm({
                       getValues={getValues}
                       watch={watch}
                       payHistory={reservation.payHists}
+                      payAmount={reservation.payAmount}
                     />
                   )}
                 </div>
@@ -455,7 +456,7 @@ export default function ReservationPopupForm({
               >
                 저장하기
               </button>
-              <a href='#' style={{ marginLeft: '10px' }}>
+              <a href='#' style={{ marginLeft: '10px' }} onClick={close}>
                 닫기
               </a>
             </div>

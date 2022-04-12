@@ -42,6 +42,7 @@ export const RIGHT_CLICK_POPUP_ATOM_KEY = 'rightClickPopupAtomKey'
 export const READ_RESERVATION_PARAMETER_ATOM_KEY = 'readReservationParameterAtomKey'
 export const IS_MOUSE_DOWN_ATOM_KEY = 'isMouseDownAtomKey'
 export const SELECTED_CELL_ARRAY_ATOM_KEY = 'selectedCellArrayAtomKey'
+
 //selector
 export const READ_RESERVATION_PRICE_SELECTOR_KEY = 'readReservationPriceSelectorKey'
 export const LOCK_ROOM_SELECTOR_KEY = 'lockRoomSelectorKey'
@@ -53,9 +54,12 @@ export const UPDATE_CLEANING_STATUS_SELECTOR_KEY = 'updateCleaningStatusSelector
 //예약현황 - 예약팝업
 export const ADD_RESERVATION_ROOM_COUNT_ATOM_KEY = 'addReservationRoomCountAtomKey'
 export const CREATE_RESERVATION_ATOM_KEY = 'createReservationAtomKey'
+export const PAY_FORM_COUNT_ATOM_KEY = 'payFormCountAtomKey'
+
 export const CREATE_RESERVATION_SELECTOR_KEY = 'createReservationSelectorKey'
 export const READ_RESERVATION_SELECTOR_KEY = 'readReservationSelectorKey'
 export const READ_POSSIBLE_ROOM_LIST_SELECTOR_KEY = 'readPossibleRoomListSelectorKey'
+export const DELETE_PAY_RECORD_SELECTOR_KEY = 'deletePayRecordSelectorKey'
 
 //auth
 export const AUTH_RESULT_ATOM_KEY = 'authResultAtom'

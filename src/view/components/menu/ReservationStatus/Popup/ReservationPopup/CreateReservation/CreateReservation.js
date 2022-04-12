@@ -184,12 +184,13 @@ export const validation = (rmNoObject, roomCount) => (submitData) => {
   return submitData
 }
 export const preprocessSubmitData =
-  (roomCount, rmNoObject, totalPrices, accommodation) => (submitData) => {
+  (roomCount, rmNoObject, totalPrices, accommodation, totalPrice) => (submitData) => {
     if (submitData === false) {
       return false
     }
     const rmNo = rmNoObject['1']
-    const payAmount = totalPrices[`roomTotalFee1`]
+    // const payAmount = totalPrices[`roomTotalFee1`]
+    const payAmount = totalPrice
     const {
       rrNo,
       reserveStatus,
@@ -215,6 +216,7 @@ export const preprocessSubmitData =
       totalPrices,
       accommodation
     )
+
     return {
       rrNo,
       rmNo,
@@ -282,10 +284,8 @@ export const createReservation =
         if (message === '업데이트 성공') {
           alert('예약이 저장되었습니다.')
           resetReadReservationPrice()
-          setIsShowDimmdLayer(false)
           return true
         } else {
-          setIsShowDimmdLayer(false)
           alert('오류가 발생했습니다. 잠시후에 다시 시도해주세요.')
           return false
         }
