@@ -133,7 +133,7 @@ export default function UpdateAccommodation() {
   }
 
   const defaultValues = preprocessDefaultValues(accommodationData)
-  const { register, handleSubmit, reset, getValues } = useForm({
+  const { register, handleSubmit, reset, getValues, watch } = useForm({
     defaultValues: defaultValues,
   })
 
@@ -161,6 +161,7 @@ export default function UpdateAccommodation() {
       reset={reset}
       getValues={getValues}
       formType={'수정'}
+      watch={watch}
     />
   )
 }

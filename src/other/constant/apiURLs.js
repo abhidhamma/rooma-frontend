@@ -82,6 +82,16 @@ export const UPDATE_ROOM_URL = v1Url(UPDATE_ROOM_SLUG)
 const DELETE_ROOM_SLUG = 'room/delete'
 export const DELETE_ROOM_URL = v1Url(DELETE_ROOM_SLUG)
 
+//숙소관리 - 이미지
+const READ_IMAGE_LIST_SLUG = 'file/list'
+export const READ_IMAGE_LIST_URL = v1Url(READ_IMAGE_LIST_SLUG)
+const READ_IMAGE_SLUG = 'file'
+export const READ_IMAGE_URL = v1Url(READ_IMAGE_SLUG)
+const CREATE_IMAGE_SLUG = 'file/upload'
+export const CREATE_IMAGE_URL = v1Url(CREATE_IMAGE_SLUG)
+const DELETE_IMAGE_SLUG = 'file/delete'
+export const DELETE_IMAGE_URL = v1Url(DELETE_IMAGE_SLUG)
+
 //요금관리 - 객실타입별요금관리
 const UPDATE_ROOMTYPE_PRICES_SLUG = 'roomtype/prices/save'
 export const UPDATE_ROOMTYPE_PRICES_URL = v1Url(UPDATE_ROOMTYPE_PRICES_SLUG)

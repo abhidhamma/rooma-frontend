@@ -1,5 +1,48 @@
-import image from '@asset/images/@sample.png'
-export default function PictureForm({ formType }) {
+import { READ_IMAGE_URL } from '@constant/apiURLs'
+import useApiCallback from '@hook/apiHook/useApiCallback'
+import {
+  createImageSelector,
+  deleteImageSelector,
+  readImageListSelector,
+} from '@state/accommodationManagement/image'
+import { getFormDataFromJson } from '@util/common/axiosUtil'
+import { useParams } from 'react-router-dom'
+import { useRecoilRefresher_UNSTABLE, useRecoilValue } from 'recoil'
+export default function PictureForm({ formType, watch, register }) {
+  const createImageCallback = useApiCallback('createImageCallback')
+  const deleteImageCallback = useApiCallback('deleteImageCallback')
+
+  let { accommodationId } = useParams()
+  const acNo = accommodationId
+  const paramater = { group: 'ACCMD', rtNo: 0, acNo }
+  const {
+    data: { data: imageList },
+  } = useRecoilValue(readImageListSelector(paramater))
+  const resetReadImageList = useRecoilRefresher_UNSTABLE(readImageListSelector(paramater))
+
+  console.log(imageList)
+  const imageUrl = (fileNo) => `${READ_IMAGE_URL}/${fileNo}`
+
+  const createImage = (event) => {
+    const file = event.target.files[0]
+    const parameterWithFile = (file) => ({ ...paramater, file: file })
+    const createImage = () => {
+      createImageCallback(createImageSelector(getFormDataFromJson(parameterWithFile(file)))).then(
+        (result) => {
+          console.log(result)
+          resetReadImageList()
+        }
+      )
+    }
+    createImage()
+  }
+
+  const deleteImage = (fileNo) => {
+    deleteImageCallback(deleteImageSelector({ fileNo })).then((result) => {
+      console.log(result)
+      resetReadImageList()
+    })
+  }
   return (
     <section>
       <dl>
@@ -13,6 +56,25 @@ export default function PictureForm({ formType }) {
         ) : (
           <dd>
             <ul className='imgList'>
+              {imageList.map((image, index) => (
+                <li key={image.fileNo}>
+                  <span>
+                    {index === 0 ? (
+                      <>
+                        <em>[대표]</em>대표이미지
+                      </>
+                    ) : (
+                      `추가이미지${index}`
+                    )}
+                  </span>
+                  <div className='thumnail'>
+                    <img src={imageUrl(image.fileNo)} alt='' />
+                    <a href='#' onClick={() => deleteImage(image.fileNo)}>
+                      <span className='hdn'>삭제</span>
+                    </a>
+                  </div>
+                </li>
+              ))}
               {/* <li>
                 <span>
                   <em>[대표]</em>대표이미지
@@ -42,7 +104,7 @@ export default function PictureForm({ formType }) {
               <li>
                 <div className='thumnail'>
                   <a href='#' className='thumnailAdd'>
-                    <input type='file' />
+                    <input type='file' onChange={createImage} />
                     <span className='추가'></span>
                   </a>
                 </div>

@@ -30,7 +30,7 @@ export default function Header() {
             <Link to={'/reservationManagement'}>예약관리</Link>
             <Link to={'/accommodation/list'}>숙소관리</Link>
             <Link to={'/priceManagement'}>요금관리</Link>
-            <a href='#'>정산관리</a>
+            <Link to={'/calculate'}>정산관리</Link>
             {/* <a href='#'>키관리</a> */}
             <a href='#'>청소관리</a>
             <a href='#'>공지사항</a>

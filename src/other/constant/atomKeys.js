@@ -92,6 +92,12 @@ export const READ_ROOM_LIST_SELECTOR_KEY = 'readRoomListSelectorKey'
 export const UPDATE_ROOM_SELECTOR_KEY = 'updateRoomSelectorKey'
 export const DELETE_ROOM_SELECTOR_KEY = 'deleteRoomSelectorKey'
 
+//숙소관리 - 이미지
+export const READ_IMAGE_LIST_SELECTOR_KEY = 'readImageListSelectorKey'
+export const READ_IMAGE_SELECTOR_KEY = 'readImageSelectorKey'
+export const CREATE_IMAGE_SELECTOR_KEY = 'createImageSelectorKey'
+export const DELETE_IMAGE_SELECTOR_KEY = 'deleteImageSelectorKey'
+
 //user
 export const SIGNIN_SELECTOR_KEY = 'signInSelector'
 export const SIGNUP_SELECTOR_KEY = 'signUpSelector'
