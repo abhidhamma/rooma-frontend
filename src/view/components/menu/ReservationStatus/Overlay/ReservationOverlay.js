@@ -119,6 +119,7 @@ function ReservationOverlay({ data, drag, dayCount, currentDate, roomNumber, rtN
           <div
             className='cleaning'
             style={{ position: 'absolute', width: '100%', zIndex: '10' }}
+            onDoubleClick={handleReadReservationPopup}
           >{`${data.userName}`}</div>
         </div>
       ) : (
