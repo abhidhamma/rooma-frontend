@@ -19,6 +19,37 @@ export default function AccommodationForm({
   getValues,
 }) {
   let navigate = useNavigate()
+  const daum = window.daum
+
+  const searchAddress = () => {
+    new daum.Postcode({
+      oncomplete: function (data) {
+        Promise.resolve(data)
+          .then((o) => {
+            const { address } = data
+            reset({ ...getValues(), address1: address })
+
+            return new Promise((resolve, reject) => {
+              const geocoder = new daum.maps.services.Geocoder()
+
+              geocoder.addressSearch(address, (result, status) => {
+                if (status === daum.maps.services.Status.OK) {
+                  const { x, y } = result[0]
+
+                  resolve({ positionY: y, positionX: x })
+                } else {
+                  reject()
+                }
+              })
+            })
+          })
+          .then((result) => {
+            const { positionY, positionX } = result
+            reset({ ...getValues(), positionX, positionY })
+          })
+      },
+    }).open()
+  }
 
   return (
     <>
@@ -98,7 +129,13 @@ export default function AccommodationForm({
                 <dl>
                   <dt>주소</dt>
                   <dd>
-                    <input type='text' className='w50' {...register('address1')} />
+                    <input
+                      type='text'
+                      className='w50'
+                      {...register('address1')}
+                      readOnly
+                      onClick={searchAddress}
+                    />
                     <button type='button'>좌표불러오기</button>
                   </dd>
                 </dl>
