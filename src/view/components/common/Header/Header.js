@@ -25,16 +25,16 @@ export default function Header() {
         </h1>
         <nav>
           <div id='gnb'>
-            <a href='#'>대시보드</a>
+            {/* <a href='#'>대시보드</a> */}
             <Link to={'/schedule'}>예약현황</Link>
             <Link to={'/reservationManagement'}>예약관리</Link>
             <Link to={'/accommodation/list'}>숙소관리</Link>
             <Link to={'/priceManagement'}>요금관리</Link>
             <a href='#'>정산관리</a>
-            <a href='#'>키관리</a>
+            {/* <a href='#'>키관리</a> */}
             <a href='#'>청소관리</a>
             <a href='#'>공지사항</a>
-            <a href='#'>메뉴추가</a>
+            {/* <a href='#'>메뉴추가</a> */}
           </div>
           <div className='top-menu'>
             <Suspense
