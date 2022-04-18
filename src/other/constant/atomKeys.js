@@ -71,6 +71,7 @@ export const CREATE_ACCOMMODATION_SELECTOR_KEY = 'createAccommodationKey'
 export const READ_ACCOMMODATION_LIST_SELECTOR_KEY = 'readAccommodationListKey'
 export const READ_ACCOMMODATION_SELECTOR_KEY = 'readAccommodationKey'
 export const UPDATE_ACCOMMODATION_SELECTOR_KEY = 'updateAccommodationKey'
+export const READ_AREA_LIST_SELECTOR_KEY = 'readAreaListSelectorKey'
 
 export const BREAKFAST_OPTION_COUNT_ATOM_KEY = 'breakfastOptionCountAtomKey'
 export const EXT_OPTION_COUNT_ATOM_KEY = 'extOptionCountAtomKey'

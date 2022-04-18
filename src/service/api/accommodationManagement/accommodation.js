@@ -4,6 +4,7 @@ import {
   READ_ACCOMMODATION_LIST_API_URL,
   READ_ACCOMMODATION_API_URL,
   UPDATE_ACCOMMODATION_API_URL,
+  READ_AREA_LIST_API_URL,
 } from '@constant/apiURLs'
 import { formDataHeaderConfig } from '@util/common/axiosUtil'
 
@@ -22,3 +23,8 @@ export const readAccommodationList = (formData) =>
 
 export const updateAccommodation = (formData) =>
   client.post(UPDATE_ACCOMMODATION_API_URL, formData, formDataHeaderConfig)
+
+export const readAreaList = ({ level, areaCode }) =>
+  client.get(READ_AREA_LIST_API_URL, {
+    params: { level, areaCode },
+  })

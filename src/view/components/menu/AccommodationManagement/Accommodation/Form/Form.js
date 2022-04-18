@@ -9,6 +9,8 @@ import {
 import PictureForm from '../../common/PictureForm'
 import SaleDateForm from '../../common/SaleDateForm'
 import { ACCOMMODATION_LIST_URL } from '@constant/locationURLs'
+import Area1 from '../Area1'
+import Area2 from '../Area2'
 
 export default function AccommodationForm({
   register,
@@ -137,7 +139,7 @@ export default function AccommodationForm({
                       readOnly
                       onClick={searchAddress}
                     />
-                    <button type='button'>좌표불러오기</button>
+                    {/* <button type='button'>좌표불러오기</button> */}
                   </dd>
                 </dl>
                 <dl>
@@ -180,22 +182,8 @@ export default function AccommodationForm({
               <SaleDateForm register={register} reset={reset} getValues={getValues} top={'698'} />
 
               <section>
-                <dl>
-                  <dt>지역1</dt>
-                  <dd>
-                    <select {...register('area1')}>
-                      <option value={'1'}>1</option>-
-                    </select>
-                  </dd>
-                </dl>
-                <dl>
-                  <dt>지역2</dt>
-                  <dd>
-                    <select {...register('area2')}>
-                      <option value={'2'}>2</option>
-                    </select>
-                  </dd>
-                </dl>
+                <Area1 register={register} watch={watch} reset={reset} getValues={getValues} />
+                <Area2 register={register} watch={watch} reset={reset} getValues={getValues} />
               </section>
               <section>
                 <dl>
@@ -532,7 +520,7 @@ export default function AccommodationForm({
                   </dd>
                 </dl>
               </section>
-              <PictureForm formType={formType} watch={watch} register={register} />
+              {/* <PictureForm formType={formType} watch={watch} register={register} /> */}
             </div>
             <div className='center mgt_30'>
               <button type='submit' className='btn btn-large purple'>

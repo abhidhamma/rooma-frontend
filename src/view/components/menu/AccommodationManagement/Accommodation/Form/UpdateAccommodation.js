@@ -129,6 +129,7 @@ export default function UpdateAccommodation() {
     defaultValues = makeExtFeeInput(defaultValues)
     //기타옵션 나누기
     defaultValues = makeAccommodationOptionInputs(defaultValues)
+
     return defaultValues
   }
 

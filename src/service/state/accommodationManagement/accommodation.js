@@ -7,11 +7,13 @@ import {
   UPDATE_ACCOMMODATION_SELECTOR_KEY,
   BREAKFAST_OPTION_COUNT_ATOM_KEY,
   EXT_OPTION_COUNT_ATOM_KEY,
+  READ_AREA_LIST_SELECTOR_KEY,
 } from '@constant/atomKeys'
 import {
   createAccommodation,
   readAccommodation,
   readAccommodationList,
+  readAreaList,
   updateAccommodation,
 } from '@api/accommodationManagement/accommodation'
 
@@ -50,4 +52,15 @@ export const readAccommodationListSelector = selectorFamily({
 export const updateAccommodationSelector = selectorFamily({
   key: UPDATE_ACCOMMODATION_SELECTOR_KEY,
   get: (formData) => async () => await updateAccommodation(formData),
+})
+
+export const readAreaListSelector = selectorFamily({
+  key: READ_AREA_LIST_SELECTOR_KEY,
+  get: (jsonData) => async () => {
+    if (jsonData.areaCode === '0') {
+      return { data: { data: [] } }
+    } else {
+      return await readAreaList(jsonData)
+    }
+  },
 })

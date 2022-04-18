@@ -84,7 +84,7 @@ export default function RoomForm({
               top={'470'}
               left={'490'}
             />
-            <PictureForm formType={formType} />
+            {/* <PictureForm formType={formType} /> */}
           </div>
           <div className='center mgt_30'>
             <button type='submit' className='btn btn-large purple'>

@@ -276,7 +276,7 @@ export default function RoomTypeForm({
                   </dd>
                 </dl>
               </section>
-              <PictureForm formType={formType} />
+              {/* <PictureForm formType={formType} /> */}
             </div>
             <div className='center mgt_30'>
               <button type='submit' className='btn btn-large purple'>
