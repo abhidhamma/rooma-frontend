@@ -88,6 +88,11 @@ a {
   background: #5b73e8;
   color: #fff;
 }
+.date-selectWrap .date-view.v1 {
+  position: absolute;
+  left: 50%;
+  margin-left: -230px;
+}
 .date-selectWrap .today-date .today {
   font-size: 28px;
   font-weight: bold;
@@ -1025,6 +1030,56 @@ a {
   border-radius: 3px;
 }
 .add-del a:hover {
+  background: #5b73e8;
+  color: #fff;
+}
+.clean-info {
+  display: flex;
+  align-items: center;
+}
+.clean-info select {
+  height: 36px;
+  margin-right: 3px;
+  flex: 1;
+}
+.clean-info a {
+  flex: 1;
+  margin: 0 3px;
+}
+.clean-info a.clean-state {
+  height: 36px;
+  line-height: 36px;
+  border-radius: 5px;
+  display: inline-block;
+  color: #fff;
+}
+.clean-info a.clean-state.ing {
+  background: #f46a6a;
+}
+.clean-info a.clean-state.ready {
+  background: #e5e5e5;
+  color: #666;
+}
+.clean-info a.clean-state.start {
+  background: #50a5f1;
+}
+.clean-info a.clean-state.finish {
+  background: #555;
+}
+.clean-list {
+  min-width: 400px;
+  padding: 15px 20px;
+}
+.clean-list a {
+  display: block;
+  width: 100%;
+  text-align: center;
+  border-radius: 5px;
+  background: #f4f4f4;
+  padding: 15px;
+  margin: 5px 0;
+}
+.clean-list a:hover {
   background: #5b73e8;
   color: #fff;
 }

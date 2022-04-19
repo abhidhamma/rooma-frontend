@@ -32,7 +32,7 @@ export default function Header() {
             <Link to={'/priceManagement'}>요금관리</Link>
             <Link to={'/calculate'}>정산관리</Link>
             {/* <a href='#'>키관리</a> */}
-            <a href='#'>청소관리</a>
+            <Link to={'/cleaning'}>청소관리</Link>
             <a href='#'>공지사항</a>
             {/* <a href='#'>메뉴추가</a> */}
           </div>

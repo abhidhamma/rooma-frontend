@@ -16,6 +16,8 @@ import CompanyList from '@components/other/SignUp/CompanyManagement/List/List'
 import ReservationList from '@components/menu/CalculateManagement/ReservationList/List'
 import SalesStatusList from '@components/menu/CalculateManagement/SalesStatus/List'
 import CalculateManagement from '@pages/CalculateManagement'
+import CleaningManagementContainer from '@components/menu/CleaningManagement/Container'
+import CleaningManagement from '@pages/CleaningManagement'
 
 export default function Router() {
   //유저라는 이름으로 localStorage에 넣기만 하면 접근할 수 있게된다 이거하고 바꾸자
@@ -58,18 +60,19 @@ export default function Router() {
             {/* 5.요금관리 메뉴*/}
             <Route path='priceManagement' element={<PriceManagement />}>
               <Route index element={<PriceManagementContainer />} />
-              {/* 추후 route추가 */}
             </Route>
 
             {/* 6.정산관리 메뉴*/}
             <Route path='calculate/*' element={<CalculateManagement />}>
               <Route index element={<ReservationList />} />
               <Route path='account/list' element={<SalesStatusList />} />
-              {/* 추후 route추가 */}
             </Route>
 
             {/* 7.키관리 메뉴*/}
             {/* 8.청소관리 메뉴*/}
+            <Route path='cleaning/*' element={<CleaningManagement />}>
+              <Route index element={<CleaningManagementContainer />} />
+            </Route>
             {/* 9.공지사항 메뉴*/}
             {/* 10.메뉴추가 메뉴*/}
           </>

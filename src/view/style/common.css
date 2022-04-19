@@ -125,6 +125,11 @@ span.ess {
   display: flex;
   align-items: center;
 }
+.dF-c {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .hdn {
   overflow: hidden;

@@ -1,9 +1,9 @@
 import RoomReservation from '../RoomReservation'
 import RoomName from '../RoomName'
 
-export default function RoomTypePresenter({ roomType, style }) {
+export default function RoomTypePresenter({ roomType }) {
   return (
-    <div className='scheduler-rows dF-f' style={style}>
+    <div className='scheduler-rows dF-f'>
       <div className='room-type'>{`${roomType.rtName} ${roomType.rtNo}`}</div>
       <div className='room-number'>
         {roomType.rooms.map((room, index) => (
