@@ -138,4 +138,6 @@ export const AMOUNT_ATOM_KEY = 'amountAtomKey'
 //청소관리
 export const CLEANING_DAY_COUNT_ATOM_KEY = 'cleaningDayCountAtomKey'
 export const CLEANING_STANDARD_DATE_ATOM_KEY = 'cleaningStandardDateAtomKey'
+export const CLEANGING_POPUP_ATOM_KEY = 'cleaningPopupAtomKey'
+
 export const READ_CLEANING_STATUS_LIST_SELECTOR_KEY = 'readCleaningStatusListSelectorKey'

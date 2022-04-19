@@ -41,8 +41,16 @@ export const payStatusMap = {
 
 //청소상태
 export const CLEANING_STATUS = {
+  NOTREQUEST: 'NOTREQUEST',
   REQUEST: 'REQUEST',
   ALLOCATION: 'ALLOCATION',
   WORKING: 'WORKING',
   FINISHED: 'FINISHED',
+}
+export const cleaningMap = {
+  NOTREQUEST: '요청전',
+  REQUEST: '청소요청',
+  ALLOCATION: '',
+  WORKING: '청소중',
+  FINISHED: '청소완료',
 }

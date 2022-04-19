@@ -1,4 +1,5 @@
 import RoomName from '../ReservationStatus/RoomType/RoomName'
+import Room from './Room'
 
 export default function RoomType({ roomType }) {
   return (
@@ -19,48 +20,7 @@ export default function RoomType({ roomType }) {
       </div>
       <div className='room-state'>
         {roomType.rooms.map((room, index) => (
-          <div className='dF-f' key={index}>
-            <div className='clean-info'>
-              <a href='#' className='clean-state start'>
-                청소요청
-              </a>
-              <select>
-                <option>담당자선택</option>
-              </select>
-            </div>
-            <div className='clean-info'>
-              <a href='#' className='clean-state ing'>
-                청소중
-              </a>
-              <select>
-                <option>담당자선택</option>
-              </select>
-            </div>
-            <div className='clean-info'>
-              <a href='#' className='clean-state ready'>
-                요청전
-              </a>
-              <select>
-                <option>담당자선택</option>
-              </select>
-            </div>
-            <div className='clean-info'>
-              <a href='#' className='clean-state finish'>
-                청소완료
-              </a>
-              <select>
-                <option>담당자선택</option>
-              </select>
-            </div>
-            <div className='clean-info'>
-              <a href='#' className='clean-state ing'>
-                청소중
-              </a>
-              <select>
-                <option>담당자선택</option>
-              </select>
-            </div>
-          </div>
+          <Room key={index} room={room} rmNo={room.rmNo} rtNo={roomType.rtNo} />
         ))}
       </div>
     </div>

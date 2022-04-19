@@ -1,5 +1,6 @@
 import { readCleaningStatusList } from '@api/cleaningManagement/cleaningStatus'
 import {
+  CLEANGING_POPUP_ATOM_KEY,
   CLEANING_DAY_COUNT_ATOM_KEY,
   CLEANING_STANDARD_DATE_ATOM_KEY,
   READ_CLEANING_STATUS_LIST_SELECTOR_KEY,
@@ -17,6 +18,11 @@ export const cleaningDayCountAtom = atom({
 export const cleaningStandardDateAtom = atom({
   key: CLEANING_STANDARD_DATE_ATOM_KEY,
   default: new Date(),
+})
+
+export const cleaningPopUpAtom = atom({
+  key: CLEANGING_POPUP_ATOM_KEY,
+  default: { display: false, rtNo: null, rmNo: null, workDate: null, rcNo: null },
 })
 
 //selector

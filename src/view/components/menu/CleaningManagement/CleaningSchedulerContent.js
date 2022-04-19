@@ -23,6 +23,7 @@ export default function CleaningSchedulerContent() {
   //지역변수
   const roomTypeList = data?.data?.data === null ? [] : data.data.data.roomTypes
   const roomTypeListLength = data?.data?.data === null ? 0 : data.data.data.roomTypes.length
+  console.log(roomTypeList)
   return (
     <>
       {roomTypeList

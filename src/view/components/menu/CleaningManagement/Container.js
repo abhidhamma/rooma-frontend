@@ -1,5 +1,6 @@
 import { Suspense } from 'react'
 import CleaningStatusHeader from './CleaingStatusHeader'
+import CleaningPopup from './CleaningPopup'
 import CleaningSchedulerContent from './CleaningSchedulerContent'
 import CleaningSchedulerHeader from './CleaningSchedulerHeader'
 
@@ -23,6 +24,7 @@ export default function CleaningManagementContainer() {
         {/* <!-- E:content --> */}
       </div>
       {/* <!-- E:Container --> */}
+      <CleaningPopup />
     </>
   )
 }
