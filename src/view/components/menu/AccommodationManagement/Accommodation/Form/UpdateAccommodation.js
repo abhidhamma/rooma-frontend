@@ -163,6 +163,7 @@ export default function UpdateAccommodation() {
       getValues={getValues}
       formType={'수정'}
       watch={watch}
+      acNo={acNo}
     />
   )
 }

@@ -21,6 +21,8 @@ export default function RoomTypeForm({
   watch,
   reset,
   getValues,
+  rtNo,
+  acNo,
 }) {
   console.log('RoomTypeForm called...')
   console.log(watch('roomTotalNum'))
@@ -276,7 +278,16 @@ export default function RoomTypeForm({
                   </dd>
                 </dl>
               </section>
-              {/* <PictureForm formType={formType} /> */}
+              {formType === '수정' && (
+                <PictureForm
+                  formType={formType}
+                  watch={watch}
+                  register={register}
+                  group={'ROOMTYPE'}
+                  rtNo={rtNo}
+                  acNo={acNo}
+                />
+              )}
             </div>
             <div className='center mgt_30'>
               <button type='submit' className='btn btn-large purple'>

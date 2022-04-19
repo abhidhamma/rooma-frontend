@@ -48,6 +48,8 @@ export default function UpdateRoomType() {
   } = useRecoilValue(readRoomTypeSelector({ rtNo }))
   const resetReadRoomTypeSelector = useRecoilRefresher_UNSTABLE(readRoomTypeSelector({ rtNo }))
 
+  const acNo = roomTypeData.acNo
+
   const [breakfastConfigOptionCount, setBreakfastConfigOptionCount] = useRecoilState(
     breakfastConfigOptionCountAtom
   )
@@ -201,6 +203,8 @@ export default function UpdateRoomType() {
       watch={watch}
       reset={reset}
       getValues={getValues}
+      rtNo={rtNo}
+      acNo={acNo}
     />
   )
 }

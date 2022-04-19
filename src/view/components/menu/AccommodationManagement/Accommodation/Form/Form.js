@@ -20,6 +20,7 @@ export default function AccommodationForm({
   formType,
   getValues,
   watch,
+  acNo,
 }) {
   let navigate = useNavigate()
   const daum = window.daum
@@ -520,7 +521,16 @@ export default function AccommodationForm({
                   </dd>
                 </dl>
               </section>
-              {/* <PictureForm formType={formType} watch={watch} register={register} /> */}
+              {formType === '수정' && (
+                <PictureForm
+                  formType={formType}
+                  watch={watch}
+                  register={register}
+                  group={'ACCMD'}
+                  rtNo={'0'}
+                  acNo={acNo}
+                />
+              )}
             </div>
             <div className='center mgt_30'>
               <button type='submit' className='btn btn-large purple'>

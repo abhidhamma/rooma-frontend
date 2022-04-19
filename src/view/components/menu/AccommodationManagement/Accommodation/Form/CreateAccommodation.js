@@ -62,7 +62,7 @@ export default function CreateAccommodation() {
     childBreakfastName: '소아',
     infantBreakfastName: '유아',
   }
-  const { register, handleSubmit, reset, getValues } = useForm({ defaultValues })
+  const { register, handleSubmit, reset, getValues, watch } = useForm({ defaultValues })
 
   const onSubmit = _.flow(
     validateAccommodationInput,
@@ -79,6 +79,7 @@ export default function CreateAccommodation() {
       reset={reset}
       getValues={getValues}
       formType={'등록'}
+      watch={watch}
     />
   )
 }

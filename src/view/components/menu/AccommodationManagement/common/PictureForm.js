@@ -8,13 +8,11 @@ import {
 import { getFormDataFromJson } from '@util/common/axiosUtil'
 import { useParams } from 'react-router-dom'
 import { useRecoilRefresher_UNSTABLE, useRecoilValue } from 'recoil'
-export default function PictureForm({ formType, watch, register }) {
+export default function PictureForm({ formType, watch, register, group, rtNo, acNo }) {
   const createImageCallback = useApiCallback('createImageCallback')
   const deleteImageCallback = useApiCallback('deleteImageCallback')
 
-  let { accommodationId } = useParams()
-  const acNo = accommodationId
-  const paramater = { group: 'ACCMD', rtNo: 0, acNo }
+  const paramater = { group, rtNo, acNo }
   const {
     data: { data: imageList },
   } = useRecoilValue(readImageListSelector(paramater))
@@ -24,6 +22,10 @@ export default function PictureForm({ formType, watch, register }) {
   const imageUrl = (fileNo) => `${READ_IMAGE_URL}/${fileNo}`
 
   const createImage = (event) => {
+    if (imageList.length > 6) {
+      alert('7개까지 등록할 수 있습니다.')
+      return
+    }
     const file = event.target.files[0]
     const parameterWithFile = (file) => ({ ...paramater, file: file })
     const createImage = () => {
@@ -102,6 +104,15 @@ export default function PictureForm({ formType, watch, register }) {
                 </div>
               </li> */}
               <li>
+                <span>
+                  {imageList.length === 0 ? (
+                    <>
+                      <em>[대표]</em>대표이미지
+                    </>
+                  ) : (
+                    `추가이미지${imageList.length}`
+                  )}
+                </span>
                 <div className='thumnail'>
                   <a href='#' className='thumnailAdd'>
                     <input type='file' onChange={createImage} />
