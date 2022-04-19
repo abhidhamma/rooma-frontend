@@ -129,3 +129,8 @@ export const UPDATE_ROOM_PRICE_CALENDAR_SELECTOR_KEY = 'updateRoomPriceCAlendarS
 //예약관리
 export const READ_RESERVATION_LIST_SELECTOR_KEY = 'readReservationListSelectorKey'
 export const READ_RESERVATION_LIST_ATOM_KEY = 'readReservationListAtomKey'
+
+//정산관리
+export const READ_CALCULATE_RESERVATION_LIST_SELECTOR_KEY =
+  'readCalculateReservationListSelectorKey'
+export const AMOUNT_ATOM_KEY = 'amountAtomKey'
