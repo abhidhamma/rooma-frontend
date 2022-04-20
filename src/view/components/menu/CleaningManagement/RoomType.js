@@ -1,4 +1,3 @@
-import RoomName from '../ReservationStatus/RoomType/RoomName'
 import Room from './Room'
 
 export default function RoomType({ roomType }) {
@@ -8,14 +7,9 @@ export default function RoomType({ roomType }) {
       <div className='room-type'>{roomType.rtName}</div>
       <div className='room-number'>
         {roomType.rooms.map((room, index) => (
-          <RoomName
-            rtName={roomType.rtName}
-            room={room}
-            key={index}
-            rmNo={room.rmNo}
-            reservationList={room.reserves}
-            lockedRoomList={room.locks}
-          />
+          <div key={index} style={{ width: '150px' }}>
+            <span>{room.rmName}</span>
+          </div>
         ))}
       </div>
       <div className='room-state'>
