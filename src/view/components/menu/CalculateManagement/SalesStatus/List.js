@@ -1,6 +1,9 @@
+import { sidebarOpenAtom } from '@state/common/common'
+import { useRecoilValue } from 'recoil'
 import CalculateSidebar from '../common/Sidebar'
 
 export default function SalesStatusList() {
+  const sidebarOpen = useRecoilValue(sidebarOpenAtom)
   return (
     <>
       {/* <!-- S:Container --> */}
@@ -9,7 +12,7 @@ export default function SalesStatusList() {
         <CalculateSidebar active={1} />
         {/* <!-- E:lnb --> */}
         {/* <!-- S:content --> */}
-        <div className='content2'>
+        <div className='content2' style={{ marginLeft: sidebarOpen ? '250px' : '65px' }}>
           <div className='titWrap'>
             <h3>거래처별 판매현황</h3>
           </div>

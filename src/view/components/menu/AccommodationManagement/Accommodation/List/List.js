@@ -4,10 +4,12 @@ import SideBar from '@components/menu/AccommodationManagement/SideBar'
 import AccommodationTable from '@components/menu/AccommodationManagement/Accommodation/List/Table'
 import SearchBox from '../../common/SearchBox'
 import { CREATE_ACCOMMODATION_URL } from '@constant/locationURLs'
+import { sidebarOpenAtom } from '@state/common/common'
 
 export default function AccommodationList() {
   const totalCount = useRecoilValue(totalCountAtom)
   const currentPage = useRecoilValue(currentPageAtom)
+  const sidebarOpen = useRecoilValue(sidebarOpenAtom)
 
   return (
     <>
@@ -17,7 +19,7 @@ export default function AccommodationList() {
         <SideBar active={0} />
         {/* <!-- E:lnb --> */}
         {/* <!-- S:content --> */}
-        <div className='content2'>
+        <div className='content2' style={{ marginLeft: sidebarOpen ? '250px' : '65px' }}>
           <div className='titWrap'>
             <h3>숙소등록관리</h3>
           </div>

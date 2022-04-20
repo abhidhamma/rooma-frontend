@@ -1,3 +1,4 @@
+import { sidebarOpenAtom } from '@state/common/common'
 import { dayCountAtom, standardDateAtom } from '@state/reservation'
 import { formatyyyyMMddWithHyphen } from '@util/common/dateUtil'
 import { addDays } from 'date-fns'
@@ -12,6 +13,7 @@ export default function ReservationList() {
   const dayCount = useRecoilValue(dayCountAtom)
   const defaultStartDate = formatyyyyMMddWithHyphen(standardDate)
   const defaultEndDate = formatyyyyMMddWithHyphen(addDays(standardDate, dayCount - 1))
+  const sidebarOpen = useRecoilValue(sidebarOpenAtom)
 
   const defaultValues = {
     startDate: defaultStartDate,
@@ -35,7 +37,7 @@ export default function ReservationList() {
         <CalculateSidebar active={0} />
         {/* <!-- E:lnb --> */}
         {/* <!-- S:content --> */}
-        <div className='content2'>
+        <div className='content2' style={{ marginLeft: sidebarOpen ? '250px' : '65px' }}>
           <div className='titWrap'>
             <h3>예약목록</h3>
           </div>

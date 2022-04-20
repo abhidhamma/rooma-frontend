@@ -25,6 +25,9 @@ export const SHOW_CALENDAR_ATOM = 'showCalendarAtom'
 //common-popup
 export const DIMMD_LEYER_ATOM_KEY = 'dimmdLayerAtom'
 
+//common-sidebar
+export const SIDEBAR_OPEN_ATOM_KEY = 'sidebarOpenAtom'
+
 //예약현황
 //atom
 export const RENDER_COUNT_ATOM_KEY = 'renderCountAtom'

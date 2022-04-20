@@ -5,6 +5,7 @@ import {
   DIMMD_LEYER_ATOM_KEY,
   IS_LOGGED_IN_ATOM_KEY,
   RENDER_COUNT_ATOM_KEY,
+  SIDEBAR_OPEN_ATOM_KEY,
 } from '@constant/atomKeys'
 import { loadItem } from '@util/common/localStorage'
 //테스트용으로 렌더횟수를 세는 atom
@@ -30,4 +31,9 @@ export const currentAccommodationAtom = atom({
 export const dimmdLayerAtom = atom({
   key: DIMMD_LEYER_ATOM_KEY,
   default: false,
+})
+//사이드바 토글 관리
+export const sidebarOpenAtom = atom({
+  key: SIDEBAR_OPEN_ATOM_KEY,
+  default: true,
 })

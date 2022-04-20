@@ -1,5 +1,6 @@
 import SideBar from '@components/menu/AccommodationManagement/SideBar'
 import { CREATE_ROOMTYPE_URL } from '@constant/locationURLs'
+import { sidebarOpenAtom } from '@state/common/common'
 import { currentPageAtom, totalCountAtom } from '@state/common/paging'
 import { useRecoilValue } from 'recoil'
 import SearchBox from '../../common/SearchBox'
@@ -8,6 +9,7 @@ import RoomTypeTable from './Table'
 export default function RoomTypeList() {
   const totalCount = useRecoilValue(totalCountAtom)
   const currentPage = useRecoilValue(currentPageAtom)
+  const sidebarOpen = useRecoilValue(sidebarOpenAtom)
   return (
     <>
       {/* <!-- S:Container --> */}
@@ -16,7 +18,7 @@ export default function RoomTypeList() {
         <SideBar active={1} />
         {/* <!-- E:lnb --> */}
         {/* <!-- S:content --> */}
-        <div className='content2'>
+        <div className='content2' style={{ marginLeft: sidebarOpen ? '250px' : '65px' }}>
           <div className='titWrap'>
             <h3>객실타입등록관리</h3>
           </div>

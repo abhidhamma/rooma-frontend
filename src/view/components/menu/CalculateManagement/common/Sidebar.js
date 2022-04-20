@@ -1,25 +1,41 @@
+import { sidebarOpenAtom } from '@state/common/common'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useRecoilState } from 'recoil'
 
 export default function CalculateSidebar({ active }) {
+  const [menuOpen, setMenuOpen] = useRecoilState(sidebarOpenAtom)
+
+  useEffect(() => {
+    return () => {
+      setMenuOpen(true)
+    }
+  }, [])
   return (
     // <!-- S:lnb -->
-    <div id='lnb'>
-      <h2>정산관리</h2>
-      <a href='#' className='menu close'>
+    <div id='lnb' style={{ width: menuOpen ? '250px' : '65px' }}>
+      {menuOpen && <h2>정산관리</h2>}
+      <a
+        href='#'
+        className={menuOpen ? 'menu close' : 'menu close open'}
+        onClick={() => setMenuOpen((prev) => !prev)}
+      >
         <span className='hidden'>메뉴열기/닫기</span>
       </a>
-      <ul>
-        <li>
-          <Link className={active === 0 ? 'on' : ''} to={'/calculate'}>
-            예약목록
-          </Link>
-        </li>
-        <li>
-          <Link className={active === 1 ? 'on' : ''} to={'/calculate/account/list'}>
-            거래처별 판매현황
-          </Link>
-        </li>
-      </ul>
+      {menuOpen && (
+        <ul>
+          <li>
+            <Link className={active === 0 ? 'on' : ''} to={'/calculate'}>
+              예약목록
+            </Link>
+          </li>
+          <li>
+            <Link className={active === 1 ? 'on' : ''} to={'/calculate/account/list'}>
+              거래처별 판매현황
+            </Link>
+          </li>
+        </ul>
+      )}
     </div>
     // <!-- E:lnb -->
   )
