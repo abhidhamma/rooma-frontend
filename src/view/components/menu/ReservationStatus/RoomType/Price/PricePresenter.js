@@ -64,6 +64,10 @@ function PricePresenter({
         alert('서로 다른 객실을 연속예약할 수 없습니다.')
         setIsMouseDown(false)
         setSelectedCellArray({})
+      } else if (isNaN(price)) {
+        alert('가격이 설정되지 않은 객실을 연속예약할 수 없습니다.')
+        setIsMouseDown(false)
+        setSelectedCellArray({})
       } else {
         setSelectedCellArray((prev) => ({
           ...prev,
@@ -117,6 +121,26 @@ function PricePresenter({
               style={{ position: 'absolute', width: '100%', zIndex: '10' }}
             ></div>
           </div>
+        ) : isNaN(price) ? (
+          <div
+            style={{
+              display: 'grid',
+              position: 'relative',
+              width: '100%',
+              height: '100%',
+            }}
+            onMouseDown={handleMouseDown}
+            onMouseOver={handleMouseOver}
+            onMouseUp={handleMouseUp}
+          >
+            <a
+              href='#'
+              className={reservation?.checkIn === currentDate ? '' : 'none'}
+              style={{ display: 'block', placeSelf: 'center' }}
+            >
+              X
+            </a>
+          </div>
         ) : (
           <div
             style={{
@@ -135,7 +159,7 @@ function PricePresenter({
               className={reservation?.checkIn === currentDate ? '' : 'none'}
               style={{ display: 'block', placeSelf: 'center' }}
             >
-              {`${isNaN(price) ? 'X' : `${price}만`}`}
+              {`${price}만`}
             </a>
           </div>
         )}

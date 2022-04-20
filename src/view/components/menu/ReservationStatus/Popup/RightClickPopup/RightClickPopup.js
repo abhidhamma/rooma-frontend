@@ -96,6 +96,19 @@ export default function RightClickPopUp() {
       }
     })
   }
+  const cancel = () => {
+    const rrNo = rightClickPopupProperty?.rrNo
+    const reserveStatus = RESERVE_STATUS.CALCEL
+    checkinCallback(
+      updateReservationStatusSelector(getFormDataFromJson({ rrNo, reserveStatus }))
+    ).then((result) => {
+      const { message } = result
+      if (message === '저장되었습니다.') {
+        resetReadReservationPrice()
+        alert('취소되었습니다.')
+      }
+    })
+  }
   // const cleaning = () => {
   //   const rrNo = rightClickPopupProperty?.rrNo
   //   const reserveStatus = RESERVE_STATUS.CLEANING
@@ -170,7 +183,9 @@ export default function RightClickPopUp() {
         </li>
         {rightClickPopupProperty.reservationStatus === 'RESERVECOMPLETE' && (
           <li>
-            <a href='#'>예약취소</a>
+            <a href='#' onClick={cancel}>
+              예약취소
+            </a>
           </li>
         )}
         {rightClickPopupProperty.reservationStatus === 'RESERVECOMPLETE' && (
