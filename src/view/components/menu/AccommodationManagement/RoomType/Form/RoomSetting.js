@@ -142,12 +142,10 @@ export default function RoomSetting({
         if (isCreateRooms) {
           console.log('추가될 방 개수' + createLength)
 
-          for (let i = roomList.length + 1; i <= roomTotalNum; i++) {
+          for (let i = roomList.length; i < roomTotalNum; i++) {
             const defaultRoomName = `${prefix}${
               roomNumber === '' ? roomNumber : Number(roomNumber) + Number(i)
             }${suffix}`
-            console.log('버그예상위치')
-            console.log(defaultRoomName)
             const createType = 'selectChange'
             createRoom(defaultRoomName, createType)
           }

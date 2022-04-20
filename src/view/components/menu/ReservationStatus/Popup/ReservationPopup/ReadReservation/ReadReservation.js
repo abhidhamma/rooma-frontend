@@ -27,7 +27,7 @@ import { currentAccommodationAtom, dimmdLayerAtom } from '@state/common/common'
 import { createReservation } from '../CreateReservation/CreateReservation'
 import useApiCallback from '@hook/apiHook/useApiCallback'
 import { addDays } from 'date-fns'
-import { formatyyyyMMddWithHyphen, stringToDate } from '@util/common/dateUtil'
+import { formatyyyyMMddWithHyphen } from '@util/common/dateUtil'
 import _ from 'lodash/fp'
 import { zeroOrNumber } from '@util/common/others'
 import { numberToArray } from '@util/common/lodash'
@@ -41,6 +41,8 @@ export default function ReadReservation() {
   const result = useRecoilValue(readReservationSelector(parameter))
   const resetReadReservation = useRecoilRefresher_UNSTABLE(readReservationSelector(parameter))
   const reservation = result?.data?.data
+  console.log('reservation')
+  console.log(reservation)
   const [roomCount, setRoomCount] = useRecoilState(addReserverationRoomCountAtom)
   const setIsDisplayReadReservation = useSetRecoilState(isDisplayReadReservationAtom)
   const setIsShowDimmdLayer = useSetRecoilState(dimmdLayerAtom)
@@ -153,10 +155,6 @@ export default function ReadReservation() {
         },
       ]
     }
-
-    console.log('payHists')
-    console.log(payFormCount, length)
-    console.log(payHists)
     data = { ...data, payHists }
 
     // console.log('addUpdateData')

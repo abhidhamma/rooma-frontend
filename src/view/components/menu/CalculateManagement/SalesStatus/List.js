@@ -63,13 +63,15 @@ export default function SalesStatusList() {
               <div className='dateArea'>
                 <table>
                   <caption>datepicker</caption>
-                  <col width='14.2%' />
-                  <col width='14.2%' />
-                  <col width='14.2%' />
-                  <col width='14.2%' />
-                  <col width='14.2%' />
-                  <col width='14.2%' />
-                  <col width='*' />
+                  <colgroup>
+                    <col width='14.2%' />
+                    <col width='14.2%' />
+                    <col width='14.2%' />
+                    <col width='14.2%' />
+                    <col width='14.2%' />
+                    <col width='14.2%' />
+                    <col width='*' />
+                  </colgroup>
                   <thead>
                     <tr>
                       <th className='sun'>일</th>
@@ -239,236 +241,244 @@ export default function SalesStatusList() {
               <col width='' />
               <col width='' />
             </colgroup>
-            <tr>
-              <th>번호</th>
-              <th>거래처명</th>
-              <th>객실판매금액</th>
-              <th>판매객실수</th>
-              <th>객실취소금액</th>
-              <th>취소객실수</th>
-              <th>입금금액</th>
-              <th>미입금금액</th>
-              <th>환불금액</th>
-              <th>실판매금액</th>
-              <th>비고</th>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>에어비앤비</td>
-              <td>4,200,000</td>
-              <td>11</td>
-              <td>4,200,000</td>
-              <td>11</td>
-              <td>4,200,000</td>
-              <td>4,200,000</td>
-              <td>4,200,000</td>
-              <td>4,200,000</td>
-              <td>상세보기</td>
-            </tr>
-            <tr className='selected'>
-              <td>1</td>
-              <td>에어비앤비</td>
-              <td>4,200,000</td>
-              <td>11</td>
-              <td>4,200,000</td>
-              <td>11</td>
-              <td>4,200,000</td>
-              <td>4,200,000</td>
-              <td>4,200,000</td>
-              <td>4,200,000</td>
-              <td>상세보기</td>
-            </tr>
-            <tr className='selected'>
-              <td colspan='11'>
-                <table className='in-list'>
-                  <caption>숙소목록</caption>
-                  <colgroup>
-                    <col width='' />
-                    <col width='' />
-                    <col width='' />
-                    <col width='' />
-                    <col width='' />
-                    <col width='' />
-                    <col width='' />
-                    <col width='' />
-                    <col width='' />
-                    <col width='' />
-                    <col width='' />
-                    <col width='' />
-                    <col width='' />
-                    <col width='' />
-                    <col width='' />
-                    <col width='' />
-                    <col width='' />
-                    <col width='' />
-                    <col width='' />
-                    <col width='' />
-                    <col width='' />
-                  </colgroup>
-                  <tr>
-                    <th>예약일</th>
-                    <th>예약처</th>
-                    <th>고객명</th>
-                    <th>고객연락처</th>
-                    <th>투숙일</th>
-                    <th>퇴실일</th>
-                    <th>투숙기간</th>
-                    <th>거래처명</th>
-                    <th>숙소명</th>
-                    <th>객실타입</th>
-                    <th>객실명</th>
-                    <th>객실판매요금</th>
-                    <th>인원추가요금</th>
-                    <th>옵션추가요금</th>
-                    <th>객실조정요금</th>
-                    <th>합계</th>
-                    <th>결제금액</th>
-                    <th>잔액</th>
-                    <th>결제방법</th>
-                    <th>상태</th>
-                    <th>비고</th>
-                  </tr>
-                  <tr>
-                    <td>21-11-29</td>
-                    <td>숙박</td>
-                    <td>홍길동</td>
-                    <td>01023232323</td>
-                    <td>21-11-29</td>
-                    <td>21-11-29</td>
-                    <td>2N</td>
-                    <td>에어비앤비</td>
-                    <td>롯데호텔</td>
-                    <td>디럭스룸</td>
-                    <td>101호</td>
-                    <td>440,000</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>440,000</td>
-                    <td>0</td>
-                    <td>440,000</td>
-                    <td>카드</td>
-                    <td>
-                      <span className='state s1'>예약</span>
-                    </td>
-                    <td>상세보기</td>
-                  </tr>
-                  <tr>
-                    <td>21-11-29</td>
-                    <td>숙박</td>
-                    <td>홍길동</td>
-                    <td>01023232323</td>
-                    <td>21-11-29</td>
-                    <td>21-11-29</td>
-                    <td>2N</td>
-                    <td>에어비앤비</td>
-                    <td>롯데호텔</td>
-                    <td>디럭스룸</td>
-                    <td>101호</td>
-                    <td>440,000</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>440,000</td>
-                    <td>0</td>
-                    <td>440,000</td>
-                    <td>카드</td>
-                    <td>
-                      <span className='state s2'>잔금</span>
-                    </td>
-                    <td>상세보기</td>
-                  </tr>
-                  <tr>
-                    <td>21-11-29</td>
-                    <td>숙박</td>
-                    <td>홍길동</td>
-                    <td>01023232323</td>
-                    <td>21-11-29</td>
-                    <td>21-11-29</td>
-                    <td>2N</td>
-                    <td>에어비앤비</td>
-                    <td>롯데호텔</td>
-                    <td>디럭스룸</td>
-                    <td>101호</td>
-                    <td>440,000</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>440,000</td>
-                    <td>0</td>
-                    <td>440,000</td>
-                    <td>카드</td>
-                    <td>
-                      <span className='state s3'>미입금</span>
-                    </td>
-                    <td>상세보기</td>
-                  </tr>
-                  <tr>
-                    <td>21-11-29</td>
-                    <td>숙박</td>
-                    <td>홍길동</td>
-                    <td>01023232323</td>
-                    <td>21-11-29</td>
-                    <td>21-11-29</td>
-                    <td>2N</td>
-                    <td>에어비앤비</td>
-                    <td>롯데호텔</td>
-                    <td>디럭스룸</td>
-                    <td>101호</td>
-                    <td>440,000</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>440,000</td>
-                    <td>0</td>
-                    <td>440,000</td>
-                    <td>카드</td>
-                    <td>
-                      <span className='state s4'>예약완료</span>
-                    </td>
-                    <td>상세보기</td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>에어비앤비</td>
-              <td>4,200,000</td>
-              <td>11</td>
-              <td>4,200,000</td>
-              <td>11</td>
-              <td>4,200,000</td>
-              <td>4,200,000</td>
-              <td>4,200,000</td>
-              <td>4,200,000</td>
-              <td>상세보기</td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>에어비앤비</td>
-              <td>4,200,000</td>
-              <td>11</td>
-              <td>4,200,000</td>
-              <td>11</td>
-              <td>4,200,000</td>
-              <td>4,200,000</td>
-              <td>4,200,000</td>
-              <td>4,200,000</td>
-              <td>상세보기</td>
-            </tr>
-            <tr className='total'>
-              <td colspan='2'>합계</td>
-              <td>4,200,000</td>
-              <td>11</td>
-              <td>4,200,000</td>
-              <td>11</td>
-              <td>4,200,000</td>
-              <td>4,200,000</td>
-              <td>4,200,000</td>
-              <td>4,200,000</td>
-              <td></td>
-            </tr>
+            <thead>
+              <tr>
+                <th>번호</th>
+                <th>거래처명</th>
+                <th>객실판매금액</th>
+                <th>판매객실수</th>
+                <th>객실취소금액</th>
+                <th>취소객실수</th>
+                <th>입금금액</th>
+                <th>미입금금액</th>
+                <th>환불금액</th>
+                <th>실판매금액</th>
+                <th>비고</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>에어비앤비</td>
+                <td>4,200,000</td>
+                <td>11</td>
+                <td>4,200,000</td>
+                <td>11</td>
+                <td>4,200,000</td>
+                <td>4,200,000</td>
+                <td>4,200,000</td>
+                <td>4,200,000</td>
+                <td>상세보기</td>
+              </tr>
+              <tr className='selected'>
+                <td>1</td>
+                <td>에어비앤비</td>
+                <td>4,200,000</td>
+                <td>11</td>
+                <td>4,200,000</td>
+                <td>11</td>
+                <td>4,200,000</td>
+                <td>4,200,000</td>
+                <td>4,200,000</td>
+                <td>4,200,000</td>
+                <td>상세보기</td>
+              </tr>
+              <tr className='selected'>
+                <td colSpan='11'>
+                  <table className='in-list'>
+                    <caption>숙소목록</caption>
+                    <colgroup>
+                      <col width='' />
+                      <col width='' />
+                      <col width='' />
+                      <col width='' />
+                      <col width='' />
+                      <col width='' />
+                      <col width='' />
+                      <col width='' />
+                      <col width='' />
+                      <col width='' />
+                      <col width='' />
+                      <col width='' />
+                      <col width='' />
+                      <col width='' />
+                      <col width='' />
+                      <col width='' />
+                      <col width='' />
+                      <col width='' />
+                      <col width='' />
+                      <col width='' />
+                      <col width='' />
+                    </colgroup>
+                    <thead>
+                      <tr>
+                        <th>예약일</th>
+                        <th>예약처</th>
+                        <th>고객명</th>
+                        <th>고객연락처</th>
+                        <th>투숙일</th>
+                        <th>퇴실일</th>
+                        <th>투숙기간</th>
+                        <th>거래처명</th>
+                        <th>숙소명</th>
+                        <th>객실타입</th>
+                        <th>객실명</th>
+                        <th>객실판매요금</th>
+                        <th>인원추가요금</th>
+                        <th>옵션추가요금</th>
+                        <th>객실조정요금</th>
+                        <th>합계</th>
+                        <th>결제금액</th>
+                        <th>잔액</th>
+                        <th>결제방법</th>
+                        <th>상태</th>
+                        <th>비고</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>21-11-29</td>
+                        <td>숙박</td>
+                        <td>홍길동</td>
+                        <td>01023232323</td>
+                        <td>21-11-29</td>
+                        <td>21-11-29</td>
+                        <td>2N</td>
+                        <td>에어비앤비</td>
+                        <td>롯데호텔</td>
+                        <td>디럭스룸</td>
+                        <td>101호</td>
+                        <td>440,000</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>440,000</td>
+                        <td>0</td>
+                        <td>440,000</td>
+                        <td>카드</td>
+                        <td>
+                          <span className='state s1'>예약</span>
+                        </td>
+                        <td>상세보기</td>
+                      </tr>
+                      <tr>
+                        <td>21-11-29</td>
+                        <td>숙박</td>
+                        <td>홍길동</td>
+                        <td>01023232323</td>
+                        <td>21-11-29</td>
+                        <td>21-11-29</td>
+                        <td>2N</td>
+                        <td>에어비앤비</td>
+                        <td>롯데호텔</td>
+                        <td>디럭스룸</td>
+                        <td>101호</td>
+                        <td>440,000</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>440,000</td>
+                        <td>0</td>
+                        <td>440,000</td>
+                        <td>카드</td>
+                        <td>
+                          <span className='state s2'>잔금</span>
+                        </td>
+                        <td>상세보기</td>
+                      </tr>
+                      <tr>
+                        <td>21-11-29</td>
+                        <td>숙박</td>
+                        <td>홍길동</td>
+                        <td>01023232323</td>
+                        <td>21-11-29</td>
+                        <td>21-11-29</td>
+                        <td>2N</td>
+                        <td>에어비앤비</td>
+                        <td>롯데호텔</td>
+                        <td>디럭스룸</td>
+                        <td>101호</td>
+                        <td>440,000</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>440,000</td>
+                        <td>0</td>
+                        <td>440,000</td>
+                        <td>카드</td>
+                        <td>
+                          <span className='state s3'>미입금</span>
+                        </td>
+                        <td>상세보기</td>
+                      </tr>
+                      <tr>
+                        <td>21-11-29</td>
+                        <td>숙박</td>
+                        <td>홍길동</td>
+                        <td>01023232323</td>
+                        <td>21-11-29</td>
+                        <td>21-11-29</td>
+                        <td>2N</td>
+                        <td>에어비앤비</td>
+                        <td>롯데호텔</td>
+                        <td>디럭스룸</td>
+                        <td>101호</td>
+                        <td>440,000</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>440,000</td>
+                        <td>0</td>
+                        <td>440,000</td>
+                        <td>카드</td>
+                        <td>
+                          <span className='state s4'>예약완료</span>
+                        </td>
+                        <td>상세보기</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>에어비앤비</td>
+                <td>4,200,000</td>
+                <td>11</td>
+                <td>4,200,000</td>
+                <td>11</td>
+                <td>4,200,000</td>
+                <td>4,200,000</td>
+                <td>4,200,000</td>
+                <td>4,200,000</td>
+                <td>상세보기</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>에어비앤비</td>
+                <td>4,200,000</td>
+                <td>11</td>
+                <td>4,200,000</td>
+                <td>11</td>
+                <td>4,200,000</td>
+                <td>4,200,000</td>
+                <td>4,200,000</td>
+                <td>4,200,000</td>
+                <td>상세보기</td>
+              </tr>
+              <tr className='total'>
+                <td colSpan='2'>합계</td>
+                <td>4,200,000</td>
+                <td>11</td>
+                <td>4,200,000</td>
+                <td>11</td>
+                <td>4,200,000</td>
+                <td>4,200,000</td>
+                <td>4,200,000</td>
+                <td>4,200,000</td>
+                <td></td>
+              </tr>
+            </tbody>
           </table>
           <div className='paging mgt_20'>
             <a href='#' className='first'>

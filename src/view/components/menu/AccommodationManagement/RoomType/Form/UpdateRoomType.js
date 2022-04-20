@@ -47,6 +47,8 @@ export default function UpdateRoomType() {
     data: { data: roomTypeData },
   } = useRecoilValue(readRoomTypeSelector({ rtNo }))
   const resetReadRoomTypeSelector = useRecoilRefresher_UNSTABLE(readRoomTypeSelector({ rtNo }))
+  console.log('roomType')
+  console.log(roomTypeData)
 
   const acNo = roomTypeData.acNo
 
@@ -214,7 +216,7 @@ const updateRoomType = (updateRoomTypeCallback, navigate) => (formData) => {
     const { message } = data
     if (message === '성공') {
       alert('수정되었습니다.')
-      navigate('/accommodationManagement/roomType')
+      navigate('/accommodation/roomType/list')
     } else {
       alert('오류가 발생했습니다. 잠시후에 다시 시도해주세요.')
     }
