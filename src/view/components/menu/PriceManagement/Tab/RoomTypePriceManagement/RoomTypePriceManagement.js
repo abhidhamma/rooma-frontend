@@ -4,6 +4,7 @@ import { currentAccommodationAtom } from '@state/common/common'
 import { updateRoomTypePricesSelector } from '@state/priceManagement/roomTypePriceManagement'
 import { getFormDataFromJson } from '@util/common/axiosUtil'
 import _ from 'lodash/fp'
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useRecoilRefresher_UNSTABLE, useRecoilValue } from 'recoil'
 import RoomTypePriceManagementRow from './Row'
@@ -37,6 +38,10 @@ export default function RoomTypePriceManagement({ isRoomTypePriceManagementTab }
     makeSubmitData(rtNoArray),
     updateRoomTypePrices(updateRoomTypePricesCallback, resetReadRoomTypeList)
   )
+
+  useEffect(() => {
+    resetReadRoomTypeList()
+  }, [])
 
   return (
     <div id='priceTab1' className={`tabcontent ${isRoomTypePriceManagementTab ? 'current' : ''}`}>

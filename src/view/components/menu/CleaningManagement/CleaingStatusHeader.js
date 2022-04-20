@@ -74,7 +74,7 @@ export default function CleaningStatusHeader() {
             <span className='hdn'>다음일</span>
           </button>
         </div>
-        <div class='item-state' style={{ width: '215px' }}></div>
+        <div className='item-state' style={{ width: '215px' }}></div>
       </div>
     </>
   )

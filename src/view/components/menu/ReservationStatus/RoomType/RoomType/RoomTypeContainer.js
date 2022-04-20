@@ -45,6 +45,8 @@ export default function RoomTypeContainer() {
   //지역변수
   const roomTypeList = data?.data?.data === null ? [] : data.data.data.roomTypes
   const roomTypeListLength = data?.data?.data === null ? 0 : data.data.data.roomTypes.length
+  console.log('roomTypeList')
+  console.log(roomTypeList)
 
   const makeRoomTypes = (length) => {
     if (roomTypeListLength === 0 || typeof roomTypeList === 'undefined') {
