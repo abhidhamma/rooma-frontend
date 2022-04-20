@@ -28,7 +28,6 @@ export default function RoomTypeContainer() {
   )
 
   useEffect(() => {
-    resetReadReservationPrice()
     return () => {
       resetReadReservationPrice()
     }
