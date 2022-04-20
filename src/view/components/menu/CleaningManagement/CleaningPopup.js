@@ -56,6 +56,8 @@ export default function CleaningPopup() {
       console.log(result)
       const { message } = result
       if (message === '성공') {
+        setCleaningPopup((prev) => ({ ...prev, display: false }))
+        setDimmdLayer(false)
         resetReadCleaningStatusList()
         alert('저장되었습니다.')
       }
