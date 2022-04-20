@@ -11,6 +11,8 @@ import {
 import PictureForm from '../../common/PictureForm'
 import SaleDateForm from '../../common/SaleDateForm'
 import { ROOMTYPE_LIST_URL } from '@constant/locationURLs'
+import { sidebarOpenAtom } from '@state/common/common'
+import { useRecoilValue } from 'recoil'
 
 export default function RoomTypeForm({
   register,
@@ -24,8 +26,7 @@ export default function RoomTypeForm({
   rtNo,
   acNo,
 }) {
-  console.log('RoomTypeForm called...')
-  console.log(watch('roomTotalNum'))
+  const sidebarOpen = useRecoilValue(sidebarOpenAtom)
   let navigate = useNavigate()
 
   return (
@@ -44,7 +45,7 @@ export default function RoomTypeForm({
           <input type={'hidden'} {...register('roomTypeCd')} />
           <input type={'hidden'} {...register('roomMakeConfig')} />
           <input type={'hidden'} {...register('roomShortDesc')} />
-          <div className='content2'>
+          <div className='content2' style={{ marginLeft: sidebarOpen ? '250px' : '65px' }}>
             <div className='titWrap'>
               <h3>{titleText}</h3>
             </div>

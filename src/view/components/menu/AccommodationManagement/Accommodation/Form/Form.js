@@ -11,6 +11,8 @@ import SaleDateForm from '../../common/SaleDateForm'
 import { ACCOMMODATION_LIST_URL } from '@constant/locationURLs'
 import Area1 from '../Area1'
 import Area2 from '../Area2'
+import { sidebarOpenAtom } from '@state/common/common'
+import { useRecoilValue } from 'recoil'
 
 export default function AccommodationForm({
   register,
@@ -22,6 +24,7 @@ export default function AccommodationForm({
   watch,
   acNo,
 }) {
+  const sidebarOpen = useRecoilValue(sidebarOpenAtom)
   let navigate = useNavigate()
   const daum = window.daum
 
@@ -63,7 +66,7 @@ export default function AccommodationForm({
         <SideBar active={0} />
         {/* <!-- E:lnb --> */}
         {/* <!-- S:content --> */}
-        <div className='content2'>
+        <div className='content2' style={{ marginLeft: sidebarOpen ? '250px' : '65px' }}>
           <div className='titWrap'>
             <h3>숙소등록관리</h3>
           </div>

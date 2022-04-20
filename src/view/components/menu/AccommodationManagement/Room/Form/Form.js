@@ -6,6 +6,8 @@ import RoomTypeListSelect from '../../common/RoomTypeListSelect'
 import PictureForm from '../../common/PictureForm'
 import SaleDateForm from '../../common/SaleDateForm'
 import { ROOM_LIST_URL } from '@constant/locationURLs'
+import { sidebarOpenAtom } from '@state/common/common'
+import { useRecoilValue } from 'recoil'
 
 export default function RoomForm({
   formType,
@@ -17,6 +19,7 @@ export default function RoomForm({
   reset,
   getValues,
 }) {
+  const sidebarOpen = useRecoilValue(sidebarOpenAtom)
   let navigate = useNavigate()
   return (
     // <!-- S:Container -->
@@ -27,7 +30,7 @@ export default function RoomForm({
       {/* <!-- S:content --> */}
       <form onSubmit={handleSubmit(onSubmit)}>
         <input type={'hidden'} {...register('cpNo')} />
-        <div className='content2'>
+        <div className='content2' style={{ marginLeft: sidebarOpen ? '250px' : '65px' }}>
           <div className='titWrap'>
             <h3>{titleText}</h3>
           </div>
