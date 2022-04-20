@@ -109,8 +109,6 @@ function ReservationOverlay({ data, drag, dayCount, currentDate, roomNumber, rtN
       setSelectedCellArray({})
     }
   }
-  console.log('cleaningRoom')
-  console.log(cleaningRoom)
 
   return (
     <>

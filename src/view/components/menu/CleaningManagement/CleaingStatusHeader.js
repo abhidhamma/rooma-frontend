@@ -48,21 +48,21 @@ export default function CleaningStatusHeader() {
       <div className='titWrap'>
         <h3>청소현황</h3>
       </div>
-      <div className='date-selectWrap dF-c'>
-        <div className='date-view v1' style={{ marginLeft: '-305px' }}>
-          <button
-            type='button'
-            className={dayCount === 1 ? 'btn btn-middle gray active' : 'btn btn-middle gray'}
-            onClick={() => handleDayCount(1)}
-          >
-            오늘
-          </button>
+      <div className='date-selectWrap dF-s'>
+        <div className='date-view'>
           <button
             type='button'
             className={dayCount === 5 ? 'btn btn-middle gray active' : 'btn btn-middle gray'}
             onClick={() => handleDayCount(5)}
           >
             5일보기
+          </button>
+          <button
+            type='button'
+            className={dayCount === 1 ? 'btn btn-middle gray active' : 'btn btn-middle gray'}
+            onClick={() => handleDayCount(1)}
+          >
+            오늘
           </button>
         </div>
         <div className='today-date'>
@@ -74,6 +74,7 @@ export default function CleaningStatusHeader() {
             <span className='hdn'>다음일</span>
           </button>
         </div>
+        <div class='item-state' style={{ width: '215px' }}></div>
       </div>
     </>
   )
