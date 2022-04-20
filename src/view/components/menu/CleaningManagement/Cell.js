@@ -5,6 +5,7 @@ import { useSetRecoilState } from 'recoil'
 import WorkerSelectBox from './WorkerSelect'
 
 export default function Cell({ currentDate, cleaning, rtNo, rmNo }) {
+  console.log(cleaning)
   const setCleaningPopup = useSetRecoilState(cleaningPopUpAtom)
   const setDimmdLayer = useSetRecoilState(dimmdLayerAtom)
   const cleaningClassMap = {
@@ -17,13 +18,14 @@ export default function Cell({ currentDate, cleaning, rtNo, rmNo }) {
     rtNo,
     rmNo,
     workDate: currentDate,
-    rcNo: cleaning?.rcNo,
+    rcNo: cleaning?.rcNo === undefined ? '0' : cleaning.rcNo,
     workerId: cleaning?.workerId,
     workerName: cleaning?.workerName,
-    cleaningStatus: cleaning?.cleaningStatus,
+    cleaningStatus:
+      cleaning?.cleaningStatus === undefined ? CLEANING_STATUS.NOTREQUEST : cleaning.cleaningStatus,
   }
   const getCleaningState = (cleaning) => {
-    if (cleaning === undefined) {
+    if (cleaning === undefined || cleaning.cleaningStatus === 'undefined') {
       return cleaningMap[CLEANING_STATUS.NOTREQUEST]
     } else {
       return cleaningMap[cleaning.cleaningStatus]
@@ -42,6 +44,8 @@ export default function Cell({ currentDate, cleaning, rtNo, rmNo }) {
         href='#'
         className={`clean-state ${
           cleaning === undefined
+            ? cleaningClassMap['NOTREQUEST']
+            : cleaning.cleaningStatus === 'undefined'
             ? cleaningClassMap['NOTREQUEST']
             : cleaningClassMap[cleaning.cleaningStatus]
         }`}

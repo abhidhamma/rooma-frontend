@@ -30,7 +30,6 @@ export default function WorkerSelectBox({ cleaning, cleaningStatusParameter }) {
   const {
     data: { data: memberList },
   } = useRecoilValue(readMemberListSelector({ cpNo }))
-  console.log(memberList)
 
   const handleChange = (event) => {
     const workerId = event.target.value
