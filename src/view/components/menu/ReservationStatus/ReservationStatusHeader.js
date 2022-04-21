@@ -14,7 +14,7 @@ export default function ReservationStatusHeader() {
 
   const parameter = {
     acNo: accommodation?.acNo,
-    startDate: formatyyyyMMddWithHyphen(standardDate),
+    startDate: formatyyyyMMddWithHyphen(addDays(-5)(standardDate)),
     endDate: formatyyyyMMddWithHyphen(addDays(29)(standardDate)),
   }
 

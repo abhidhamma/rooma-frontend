@@ -18,7 +18,7 @@ export default function RoomTypeContainer() {
 
   const parameter = {
     acNo: accommodation?.acNo,
-    startDate: formatyyyyMMddWithHyphen(standardDate),
+    startDate: formatyyyyMMddWithHyphen(addDays(standardDate, -5)),
     endDate: formatyyyyMMddWithHyphen(addDays(standardDate, 29)),
   }
 

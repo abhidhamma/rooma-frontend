@@ -44,8 +44,8 @@ export default function CreateReservation() {
   console.log(accommodation)
   const standardDate = useRecoilValue(standardDateAtom)
   const parameter = {
-    acNo: accommodation.acNo,
-    startDate: formatyyyyMMddWithHyphen(standardDate),
+    acNo: accommodation?.acNo,
+    startDate: formatyyyyMMddWithHyphen(addDays(standardDate, -5)),
     endDate: formatyyyyMMddWithHyphen(addDays(standardDate, 29)),
   }
   const resetReadReservationPrice = useRecoilRefresher_UNSTABLE(
@@ -75,13 +75,14 @@ export default function CreateReservation() {
   const onSubmit = _.flow(
     validation(rmNoObject, roomCount),
     preprocessSubmitData(roomCount, rmNoObject, totalPrices, accommodation, totalPrice),
-    createReservation(createReservationCallback, resetReadReservationPrice, setIsShowDimmdLayer),
+    createReservation(createReservationCallback),
     initializeCreateReservationForm(
       setIsDisplayCreateReservation,
       setRoomCount,
       setIsReservationButtonOpen,
       setIsCheckInButtonOpen,
-      setIsShowDimmdLayer
+      setIsShowDimmdLayer,
+      resetReadReservationPrice
     )
   )
   const close = () => {
@@ -274,33 +275,32 @@ const makeRoomReserves = (submitData, roomCount, rmNoObject, totalPrices, accomm
 
   return _.flow(numberToArray, mapRoomReservation)(roomCount)
 }
-export const createReservation =
-  (createReservationCallback, resetReadReservationPrice, setIsShowDimmdLayer) => (jsonData) => {
-    if (jsonData === false) {
-      return false
-    }
-    const isSuccess = createReservationCallback(createReservationSelector(jsonData)).then(
-      (result) => {
-        const { message } = result
-        if (message === '업데이트 성공') {
-          alert('예약이 저장되었습니다.')
-          resetReadReservationPrice()
-          return true
-        } else {
-          alert('오류가 발생했습니다. 잠시후에 다시 시도해주세요.')
-          return false
-        }
-      }
-    )
-    return isSuccess
+export const createReservation = (createReservationCallback) => (jsonData) => {
+  if (jsonData === false) {
+    return false
   }
+  const isSuccess = createReservationCallback(createReservationSelector(jsonData)).then(
+    (result) => {
+      const { message } = result
+      if (message === '업데이트 성공') {
+        alert('예약이 저장되었습니다.')
+        return true
+      } else {
+        alert('오류가 발생했습니다. 잠시후에 다시 시도해주세요.')
+        return false
+      }
+    }
+  )
+  return isSuccess
+}
 export const initializeCreateReservationForm =
   (
     setIsDisplayCreateReservation,
     setRoomCount,
     setIsReservationButtonOpen,
     setIsCheckInButtonOpen,
-    setIsShowDimmdLayer
+    setIsShowDimmdLayer,
+    resetReadReservationPrice
   ) =>
   (result) => {
     if (result instanceof Promise) {
@@ -311,6 +311,7 @@ export const initializeCreateReservationForm =
           setIsReservationButtonOpen(false)
           setIsCheckInButtonOpen(false)
           setIsShowDimmdLayer(false)
+          resetReadReservationPrice()
         }
       })
     } else {

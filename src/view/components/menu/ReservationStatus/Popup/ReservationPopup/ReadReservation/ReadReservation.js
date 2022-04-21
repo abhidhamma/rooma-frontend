@@ -51,7 +51,7 @@ export default function ReadReservation() {
   const standardDate = useRecoilValue(standardDateAtom)
   const readReservationPriceParameter = {
     acNo: accommodation.acNo,
-    startDate: formatyyyyMMddWithHyphen(standardDate),
+    startDate: formatyyyyMMddWithHyphen(addDays(standardDate, -5)),
     endDate: formatyyyyMMddWithHyphen(addDays(standardDate, 29)),
   }
   const resetReadReservationPrice = useRecoilRefresher_UNSTABLE(

@@ -46,4 +46,4 @@ function Container() {
     </>
   )
 }
-export default React.memo(Container)
+export default Container

@@ -130,17 +130,17 @@ export const getCurrentCalendar = (
       }
     }
   }
-
   return calendarList
 }
 
 //달력의 시작과 끝에 걸쳐있는 예약인지 체크
 const getIsHangOnTwoCalendar = (reservation, standardDate, currentDate) => {
   let reservationDateArray = []
-  reservationDateArray = getDateArray(reservation.checkIn, reservation.checkOut)
+  reservationDateArray = getDateArray(reservation.checkinDate, reservation.checkoutDate)
 
   const startDate = formatyyyyMMdd(standardDate)
   const prevEndDate = addyyyyMMdd(startDate, -1)
+  currentDate = formatyyyyMMdd(stringToDate(currentDate))
 
   //걸쳐있는 예약인지 확인하려면 지금달력의 시작날짜, 이전달력의 끝날짜 모두에 포함되어있는지 확인하면 된다
   return (

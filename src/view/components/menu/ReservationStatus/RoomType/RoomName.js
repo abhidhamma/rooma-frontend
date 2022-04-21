@@ -22,7 +22,7 @@ export default function RoomName({ rtName, room, rmNo, reservationList, lockedRo
 
   const parameter = {
     acNo: accommodation.acNo,
-    startDate: formatyyyyMMddWithHyphen(standardDate),
+    startDate: formatyyyyMMddWithHyphen(addDays(-5)(standardDate)),
     endDate: formatyyyyMMddWithHyphen(addDays(29)(standardDate)),
   }
 

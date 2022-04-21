@@ -7,6 +7,8 @@ import {
 } from '@state/priceManagement/calendarPriceManagement'
 import { priceManagementTabAtom } from '@state/priceManagement/common'
 import { currentPeriodPriceManagementRoomTypeAtom } from '@state/priceManagement/periodPriceManagement'
+import { standardDateAtom } from '@state/reservation'
+import { readReservationPriceSelector } from '@state/reservationStatus/reservationStatus'
 import { formatMMdd, formatMW, formatyyyyMMddWithHyphen, stringToDate } from '@util/common/dateUtil'
 import { getDay, getYear, setMonth, setYear, startOfMonth } from 'date-fns'
 import { addYears, addDays } from 'date-fns/fp'
@@ -25,6 +27,18 @@ export default function CalendarPriceManagement({ isCalendarPriceManagementTab }
   const [selectedMonth, setSelectedMonth] = useRecoilState(calendarPriceManagementCurrentMonthAtom)
   const currentTab = useRecoilValue(priceManagementTabAtom)
   const today = new Date()
+
+  const standardDate = useRecoilValue(standardDateAtom)
+  const sub5Days = addDays(-5)
+  const add29Days = addDays(29)
+  const readReservationPriceParameter = {
+    acNo: acNo,
+    startDate: formatyyyyMMddWithHyphen(sub5Days(standardDate)),
+    endDate: formatyyyyMMddWithHyphen(add29Days(standardDate)),
+  }
+  const resetReadReservationPrice = useRecoilRefresher_UNSTABLE(
+    readReservationPriceSelector(readReservationPriceParameter)
+  )
 
   const { currentMonthDateArray, calendarStartDate, calendarEndDate } =
     makeCurrentMonthDateArray(selectedMonth)
@@ -80,7 +94,7 @@ export default function CalendarPriceManagement({ isCalendarPriceManagementTab }
 
   const onSubmit = _.flow(
     preprocessSubmitData(calendarStartDate, acNo, rtNo),
-    updateCalendarRoomPriceList(updateCalendarRoomPriceListCallback)
+    updateCalendarRoomPriceList(updateCalendarRoomPriceListCallback, resetReadReservationPrice)
   )
 
   return (
@@ -283,15 +297,17 @@ const preprocessSubmitData = (calendarStartDate, acNo, rtNo) => (submitData) => 
   jsonData = { acNo, rtNo, roomPrices }
   return jsonData
 }
-const updateCalendarRoomPriceList = (updateCalendarRoomPriceListCallback) => (jsonData) => {
-  updateCalendarRoomPriceListCallback(updateCalendarRoomPriceListSelector(jsonData)).then(
-    (result) => {
-      const { message } = result
-      if (message === '업데이트 성공') {
-        alert('객실요금이 변경되었습니다.')
-      } else {
-        alert('오류가 발생했습니다. 잠시후에 다시 시도해주세요.')
+const updateCalendarRoomPriceList =
+  (updateCalendarRoomPriceListCallback, resetReadReservationPrice) => (jsonData) => {
+    updateCalendarRoomPriceListCallback(updateCalendarRoomPriceListSelector(jsonData)).then(
+      (result) => {
+        const { message } = result
+        if (message === '업데이트 성공') {
+          resetReadReservationPrice()
+          alert('객실요금이 변경되었습니다.')
+        } else {
+          alert('오류가 발생했습니다. 잠시후에 다시 시도해주세요.')
+        }
       }
-    }
-  )
-}
+    )
+  }

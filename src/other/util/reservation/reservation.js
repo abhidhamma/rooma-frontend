@@ -1,5 +1,11 @@
 import { addDays, isSaturday, isSunday } from 'date-fns/fp'
-import { addyyyyMMdd, formatddE, formatMdWithDot, formatyyyyMMdd } from '@util/common/dateUtil'
+import {
+  addyyyyMMdd,
+  formatddE,
+  formatMdWithDot,
+  formatyyyyMMdd,
+  stringToDate,
+} from '@util/common/dateUtil'
 import { getMonth } from 'date-fns'
 
 /*
@@ -11,6 +17,8 @@ export const getDateArray = (startDate, endDate) => {
   if (startDate === undefined || endDate === undefined) {
     return []
   }
+  startDate = formatyyyyMMdd(stringToDate(startDate))
+  endDate = formatyyyyMMdd(stringToDate(endDate))
 
   const reservationDateArray = []
 

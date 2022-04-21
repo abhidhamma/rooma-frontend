@@ -55,10 +55,14 @@ export default function ReadReservationAddRoomContainer({
     let additionalOption3 = ''
 
     // console.log(addOptionCon.split(',').length)
-    if (addOptionCon.split(',').length > 1) {
-      const addOptionArray = addOptionCon.split(',')
+    const addOptionArray = addOptionCon.split(',')
+    if (addOptionArray.length > 0) {
       additionalOption1 = getPersonCount(addOptionArray[0])
+    }
+    if (addOptionArray.length > 1) {
       additionalOption2 = getPersonCount(addOptionArray[1])
+    }
+    if (addOptionArray.length > 2) {
       additionalOption3 = getPersonCount(addOptionArray[2])
     }
 
