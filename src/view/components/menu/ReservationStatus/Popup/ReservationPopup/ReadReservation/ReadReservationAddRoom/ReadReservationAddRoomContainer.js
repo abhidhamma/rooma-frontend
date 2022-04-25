@@ -111,8 +111,11 @@ export default function ReadReservationAddRoomContainer({
   //변수
   const startDate = roomReservation.checkinDate
   const endDate = roomReservation.checkoutDate
+  const acNo = roomReservation.acNo
 
   const { addBreakfastFee, addExtFee } = accommodation
+  console.log('roomType')
+  console.log(roomType)
   const {
     basicPersionNum,
     maxPersionNum,
@@ -247,6 +250,7 @@ export default function ReadReservationAddRoomContainer({
       optionWithoutAddPersonFee={optionWithoutAddPersonFee}
       roomFee={roomFee}
       originPrice={originPrice}
+      acNo={acNo}
     />
   )
 }

@@ -35,6 +35,9 @@ export default function ReadAccommodationList() {
   useEffect(() => {
     setTotalCount(totalCount)
     resetReadAccommodationListSelector()
+    return () => {
+      resetReadAccommodationListSelector()
+    }
   }, [currentIndex, searchKeyword])
   return (
     <>

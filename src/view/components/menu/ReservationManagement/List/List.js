@@ -1,4 +1,5 @@
-import { dayCountAtom, standardDateAtom } from '@state/reservation'
+import ReadReservation from '@components/menu/ReservationStatus/Popup/ReservationPopup/ReadReservation/ReadReservation'
+import { dayCountAtom, isDisplayReadReservationAtom, standardDateAtom } from '@state/reservation'
 import { formatyyyyMMddWithHyphen } from '@util/common/dateUtil'
 import { loadItem } from '@util/common/localStorage'
 import { addDays } from 'date-fns'
@@ -13,6 +14,7 @@ export default function ReservationManagementList() {
   const dayCount = useRecoilValue(dayCountAtom)
   const defaultStartDate = formatyyyyMMddWithHyphen(standardDate)
   const defaultEndDate = formatyyyyMMddWithHyphen(addDays(standardDate, dayCount - 1))
+  const isDisplayReadReservation = useRecoilValue(isDisplayReadReservationAtom)
 
   const user = loadItem('user')
   console.log(user?.cpNo)
@@ -33,25 +35,28 @@ export default function ReservationManagementList() {
   }
   const { register, handleSubmit, watch, reset, getValues } = useForm({ defaultValues })
   return (
-    // <!-- S:Container -->
-    <div id='container'>
-      {/* <!-- S:content --> */}
-      <div className='content3'>
-        <div className='titWrap'>
-          <h3>예약관리</h3>
-        </div>
+    <>
+      {isDisplayReadReservation && <ReadReservation />}
+      {/* <!-- S:Container --> */}
+      <div id='container'>
+        {/* <!-- S:content --> */}
+        <div className='content3'>
+          <div className='titWrap'>
+            <h3>예약관리</h3>
+          </div>
 
-        <ReservationSearchBox
-          register={register}
-          handleSubmit={handleSubmit}
-          watch={watch}
-          reset={reset}
-          getValues={getValues}
-        />
-        <ReservationListTable watch={watch} />
+          <ReservationSearchBox
+            register={register}
+            handleSubmit={handleSubmit}
+            watch={watch}
+            reset={reset}
+            getValues={getValues}
+          />
+          <ReservationListTable watch={watch} />
+        </div>
+        {/* <!-- E:content --> */}
       </div>
-      {/* <!-- E:content --> */}
-    </div>
-    //<!-- E:Container -->
+      {/* <!-- E:Container --> */}
+    </>
   )
 }

@@ -166,6 +166,8 @@ export default function ReadReservation() {
       result.then((isSuccess) => {
         if (isSuccess) {
           resetReadReservation()
+          setIsDisplayReadReservation(false)
+          setIsShowDimmdLayer(false)
         }
       })
     } else {
@@ -176,7 +178,7 @@ export default function ReadReservation() {
     validation(rmNoObject, roomCount),
     preprocessSubmitData(roomCount, rmNoObject, totalPrices, accommodation, totalPrice),
     addUpdateData,
-    createReservation(createReservationCallback, resetReadReservationPrice, setIsShowDimmdLayer),
+    createReservation(createReservationCallback),
     resetReservationForm
   )
   const increaseRoom = () => setRoomCount((prev) => prev + 1)

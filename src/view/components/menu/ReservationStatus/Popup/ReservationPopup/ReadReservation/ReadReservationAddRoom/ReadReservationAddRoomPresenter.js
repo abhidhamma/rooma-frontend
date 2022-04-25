@@ -42,6 +42,7 @@ export default function ReadReservationAddRoomPresenter({
   additionalOption1,
   additionalOption2,
   additionalOption3,
+  acNo,
 }) {
   return (
     <section className='add-group'>
@@ -91,7 +92,7 @@ export default function ReadReservationAddRoomPresenter({
               <Suspense
                 fallback={
                   <select>
-                    <option></option>
+                    <option>객실타입선택</option>
                   </select>
                 }
               >
@@ -100,6 +101,7 @@ export default function ReadReservationAddRoomPresenter({
                   setRoomType={setRoomType}
                   register={register}
                   count={count}
+                  acNo={acNo}
                 />
               </Suspense>
             </td>
@@ -117,6 +119,7 @@ export default function ReadReservationAddRoomPresenter({
                   setRoom={setRoom}
                   count={count}
                   watch={watch}
+                  acNo={acNo}
                 />
               </Suspense>
             </td>

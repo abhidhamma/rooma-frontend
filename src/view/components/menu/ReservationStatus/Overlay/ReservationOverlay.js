@@ -20,8 +20,9 @@ import { addDays } from 'date-fns'
 function ReservationOverlay({ data, drag, dayCount, currentDate, roomNumber, rtNo, cleaningRoom }) {
   const setDisplay = useSetRecoilState(displayAtom)
   const setIsDisplayReadReservation = useSetRecoilState(isDisplayReadReservationAtom)
-  const setReadReservationParameter = useSetRecoilState(readReservationParameterAtom)
   const setIsShowDimmdLayer = useSetRecoilState(dimmdLayerAtom)
+  const setReadReservationParameter = useSetRecoilState(readReservationParameterAtom)
+
   const standardDate = useRecoilValue(standardDateAtom)
   const [isMouseDown, setIsMouseDown] = useRecoilState(isMouseDownAtom)
   const setSelectedCellArray = useSetRecoilState(selectedCellArrayAtom)

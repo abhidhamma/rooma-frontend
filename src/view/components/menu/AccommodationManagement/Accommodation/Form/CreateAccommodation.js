@@ -40,7 +40,7 @@ export default function CreateAccommodation() {
 
   const defaultValues = {
     cpName: name,
-    cpNo: 1,
+    cpNo: user?.cpNo,
     nickname: '롯데호텔',
     homepage: 'www.lottehotel.com',
     email: 'lottel@lotte.com',

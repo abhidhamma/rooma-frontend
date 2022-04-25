@@ -1,16 +1,17 @@
 import { readRoomTypeListSelector } from '@state/accommodationManagement/roomType'
 import { currentAccommodationAtom } from '@state/common/common'
 import { getFormDataFromJson } from '@util/common/axiosUtil'
+import { loadItem } from '@util/common/localStorage'
 import _ from 'lodash/fp'
 import { useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
 
-export default function AddRoomTypeSelect({ roomType, setRoomType, setRoom }) {
-  const { acNo } = useRecoilValue(currentAccommodationAtom)
+export default function AddRoomTypeSelect({ roomType, setRoomType, setRoom, acNo }) {
   const addAcNo = (data) => (acNo !== undefined ? { ...data, acNo } : data)
 
+  const user = loadItem('user')
   const data = {
-    cpNo: '1',
+    cpNo: user.cpNo,
     roomTypeName: '',
     startRow: '0',
     rowCount: '999',

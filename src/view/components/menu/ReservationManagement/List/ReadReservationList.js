@@ -4,11 +4,14 @@ import {
   reservationStatusMap,
 } from '@constant/constantVariable'
 import useApiCallback from '@hook/apiHook/useApiCallback'
+import { dimmdLayerAtom } from '@state/common/common'
 import { currentPageAtom, totalCountAtom } from '@state/common/paging'
+import { isDisplayReadReservationAtom } from '@state/reservation'
 import {
   readReservationListAtom,
   readReservationListSelector,
 } from '@state/reservationManagement/reservationManagement'
+import { readReservationParameterAtom } from '@state/reservationStatus/reservationStatus'
 import { getFormDataFromJson } from '@util/common/axiosUtil'
 import { formatyyMMddWithDot, stringToDate } from '@util/common/dateUtil'
 import { loadItem } from '@util/common/localStorage'
@@ -22,6 +25,10 @@ export default function ReadReservationList({ watch }) {
   const { list, totalCount } = readReservationList
   const setTotalCount = useSetRecoilState(totalCountAtom)
   const currentPage = useRecoilValue(currentPageAtom)
+  //상세보기 팝업
+  const setReadReservationParameter = useSetRecoilState(readReservationParameterAtom)
+  const setIsDisplayReadReservation = useSetRecoilState(isDisplayReadReservationAtom)
+  const setIsShowDimmdLayer = useSetRecoilState(dimmdLayerAtom)
 
   const rowCount = 7
   const currentIndex = (currentPage - 1) * rowCount
@@ -47,6 +54,7 @@ export default function ReadReservationList({ watch }) {
     payStatus: watch('payStatus'),
   }
 
+  console.log('ReadReservationList')
   console.log(list, totalCount)
   useEffect(() => {
     setTotalCount(totalCount)
@@ -78,6 +86,13 @@ export default function ReadReservationList({ watch }) {
       }
     })
   }, [])
+
+  const showReadReservationPopup = ({ rrNo, rmNo }) => {
+    setReadReservationParameter({ rrNo, rmNo })
+    setIsDisplayReadReservation(true)
+    setIsShowDimmdLayer(true)
+  }
+
   return (
     <>
       {list.map(
@@ -96,6 +111,7 @@ export default function ReadReservationList({ watch }) {
           checkoutDate,
           roomSalePrice,
           regDate,
+          rmNo,
         }) => (
           <tr key={rrNo}>
             <td>{reserveNum}</td>
@@ -122,7 +138,11 @@ export default function ReadReservationList({ watch }) {
             <td>{`${formatMoney(roomSalePrice)}원`}</td>
             <td>{formatyyMMddWithDot(stringToDate(regDate))}</td>
             <td>
-              <button type='button' className='modify'>
+              <button
+                type='button'
+                className='modify'
+                onClick={() => showReadReservationPopup({ rrNo, rmNo })}
+              >
                 상세보기
               </button>
             </td>

@@ -2,14 +2,14 @@ import { readRoomListSelector } from '@state/accommodationManagement/room'
 import { selectedDateAtom } from '@state/common/calendar'
 import { currentAccommodationAtom } from '@state/common/common'
 import { getFormDataFromJson } from '@util/common/axiosUtil'
+import { loadItem } from '@util/common/localStorage'
 import _ from 'lodash/fp'
 import { useEffect } from 'react'
 import { useRecoilRefresher_UNSTABLE, useRecoilValue } from 'recoil'
 
-export default function RoomSelect({ roomType, room, setRoom, count, watch }) {
+export default function RoomSelect({ roomType, room, setRoom, count, watch, acNo }) {
   const selectedDate = useRecoilValue(selectedDateAtom)
-  // const { cpNo } = loadItem('user')
-  const { acNo } = useRecoilValue(currentAccommodationAtom)
+  const user = loadItem('user')
 
   const { rtNo } = roomType
   const addParameter = (data) => {
@@ -28,7 +28,7 @@ export default function RoomSelect({ roomType, room, setRoom, count, watch }) {
   const checkoutDate = watch(`checkoutDate${count}`)
 
   const data = {
-    cpNo: '1',
+    cpNo: user.cpNo,
     name: '',
     startRow: '0',
     rowCount: '999',
