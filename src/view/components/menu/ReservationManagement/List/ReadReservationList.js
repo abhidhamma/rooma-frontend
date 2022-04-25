@@ -43,7 +43,7 @@ export default function ReadReservationList({ watch }) {
     endDate: watch('endDate'),
     rmNo: 0,
     rtNo: 0,
-    cpNo: 0,
+    cpNo: cpNo,
     acNo: watch('acNo'),
     periodType: watch('periodType'),
     searchType: watch('searchType'),
