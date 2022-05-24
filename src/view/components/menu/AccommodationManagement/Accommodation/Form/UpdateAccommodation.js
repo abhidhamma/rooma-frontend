@@ -29,7 +29,7 @@ export default function UpdateAccommodation() {
 
   const user = loadItem('user')
   const readAccommodationListParameter = {
-    cpNo: user?.cpNo,
+    cpNo: user?.cpNo === 1 ? '0' : user?.cpNo,
     name: '',
     startRow: 0,
     rowCount: 999,

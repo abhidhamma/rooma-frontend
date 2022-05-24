@@ -25,7 +25,7 @@ export const currentCompanyAtom = atom({
 })
 export const currentAccommodationAtom = atom({
   key: CURRENT_ACCOMMODATION_ATOM_KEY,
-  default: { acNo: '65' },
+  default: { acNo: '0' },
 })
 //팝업시 뒷배경 검은색으로 바꿔주는 atom
 export const dimmdLayerAtom = atom({

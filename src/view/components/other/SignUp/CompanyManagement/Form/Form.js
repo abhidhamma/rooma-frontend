@@ -6,7 +6,14 @@ import { useSetRecoilState } from 'recoil'
 import AddEmployee from '../Popup/AddEmployee'
 import ReadMemberList from './ReadMemberList'
 
-export default function CompanyForm({ onSubmit, handleSubmit, register, isCreate }) {
+export default function CompanyForm({
+  onSubmit,
+  handleSubmit,
+  register,
+  reset,
+  getValues,
+  isCreate,
+}) {
   let navigate = useNavigate()
   let { companyId } = useParams()
   const cpNo = companyId
@@ -21,6 +28,18 @@ export default function CompanyForm({ onSubmit, handleSubmit, register, isCreate
       setIsShowDimmdLayer(true)
       setIsAddEmployeeOpen(true)
     }
+  }
+  const daum = window.daum
+
+  const searchAddress = () => {
+    new daum.Postcode({
+      oncomplete: function (data) {
+        Promise.resolve(data).then((o) => {
+          const { address, zonecode } = data
+          reset({ ...getValues(), address1: address, zipcode: zonecode })
+        })
+      },
+    }).open()
   }
   return (
     <>
@@ -151,11 +170,13 @@ export default function CompanyForm({ onSubmit, handleSubmit, register, isCreate
                   <dt>사업자주소</dt>
                   <dd>
                     <p>
-                      <input type='text' {...register('zipcode')} />
-                      <button type='button'>우편번호검색</button>
+                      <input type='text' {...register('zipcode')} readOnly />
+                      <button type='button' onClick={searchAddress}>
+                        우편번호검색
+                      </button>
                     </p>
                     <p>
-                      <input type='text' {...register('address1')} />
+                      <input type='text' {...register('address1')} readOnly />
                     </p>
                     <p>
                       <input

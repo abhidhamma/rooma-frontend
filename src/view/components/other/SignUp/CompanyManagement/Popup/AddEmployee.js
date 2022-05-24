@@ -12,15 +12,15 @@ export default function AddEmployee({ setIsShowDimmdLayer, setIsAddEmployeeOpen,
   const resetReadMemberList = useRecoilRefresher_UNSTABLE(readMemberListSelector({ cpNo }))
   const defaultValues = {
     mbNo: 0,
-    name: '홍길동',
+    name: '',
     cpNo,
-    mbId: 'test111',
+    mbId: '',
     email: 'aaaa@aaaa.com',
-    tel: '010-1111-2222',
+    tel: '',
     grade: 'CE', //고정
     memo: '',
     role: '0',
-    mbPasswd: '1234',
+    mbPasswd: '',
   }
   const { register, handleSubmit } = useForm({ defaultValues })
 

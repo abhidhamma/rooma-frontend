@@ -13,6 +13,10 @@ import Area1 from '../Area1'
 import Area2 from '../Area2'
 import { sidebarOpenAtom } from '@state/common/common'
 import { useRecoilValue } from 'recoil'
+import { loadItem } from '@util/common/localStorage'
+import { Suspense } from 'react'
+import CompanyListSelect from '../CompanyListSelect'
+import { readCompanyByNoSelector } from '@state/company/company'
 
 export default function AccommodationForm({
   register,
@@ -26,8 +30,21 @@ export default function AccommodationForm({
 }) {
   const sidebarOpen = useRecoilValue(sidebarOpenAtom)
   let navigate = useNavigate()
-  const daum = window.daum
 
+  const {
+    authorities: [{ authority }],
+    cpNo,
+  } = loadItem('user')
+  const isSuperAdmin = authority === 'ROLE_SUPERMASTER'
+  console.log(isSuperAdmin)
+
+  const parameter = {
+    cpNo: cpNo,
+  }
+  const result = useRecoilValue(readCompanyByNoSelector(parameter))
+  const company = result?.data?.data
+
+  const daum = window.daum
   const searchAddress = () => {
     new daum.Postcode({
       oncomplete: function (data) {
@@ -90,7 +107,24 @@ export default function AccommodationForm({
                 <dl>
                   <dt>회사명</dt>
                   <dd>
-                    <input type='text' disabled {...register('cpName')} defaultValue={'신라호텔'} />
+                    {isSuperAdmin && formType === '등록' ? (
+                      <Suspense
+                        fallback={
+                          <select>
+                            <option>회사명선택</option>
+                          </select>
+                        }
+                      >
+                        <CompanyListSelect register={register} />
+                      </Suspense>
+                    ) : (
+                      <input
+                        type='text'
+                        disabled
+                        {...register('cpName')}
+                        defaultValue={company.name}
+                      />
+                    )}
                   </dd>
                 </dl>
                 <dl>
@@ -153,6 +187,7 @@ export default function AccommodationForm({
                       type='text'
                       placeholder='위도를 입력해주세요'
                       {...register('positionX')}
+                      readOnly
                     />
                   </dd>
                 </dl>
@@ -163,6 +198,7 @@ export default function AccommodationForm({
                       type='text'
                       placeholder='경도를 입력해주세요'
                       {...register('positionY')}
+                      readOnly
                     />
                   </dd>
                 </dl>
@@ -187,7 +223,20 @@ export default function AccommodationForm({
 
               <section>
                 <Area1 register={register} watch={watch} reset={reset} getValues={getValues} />
-                <Area2 register={register} watch={watch} reset={reset} getValues={getValues} />
+                <Suspense
+                  fallback={
+                    <dl>
+                      <dt>지역2</dt>
+                      <dd>
+                        <select>
+                          <option>지역선택</option>
+                        </select>
+                      </dd>
+                    </dl>
+                  }
+                >
+                  <Area2 register={register} watch={watch} reset={reset} getValues={getValues} />
+                </Suspense>
               </section>
               <section>
                 <dl>

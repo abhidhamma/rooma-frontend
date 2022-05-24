@@ -1,6 +1,7 @@
-import { sidebarOpenAtom } from '@state/common/common'
+import { currentAccommodationAtom, sidebarOpenAtom } from '@state/common/common'
 import { dayCountAtom, standardDateAtom } from '@state/reservation'
 import { formatyyyyMMddWithHyphen } from '@util/common/dateUtil'
+import { loadItem } from '@util/common/localStorage'
 import { addDays } from 'date-fns'
 import { useForm } from 'react-hook-form'
 import { useRecoilValue } from 'recoil'
@@ -14,14 +15,17 @@ export default function ReservationList() {
   const defaultStartDate = formatyyyyMMddWithHyphen(standardDate)
   const defaultEndDate = formatyyyyMMddWithHyphen(addDays(standardDate, dayCount - 1))
   const sidebarOpen = useRecoilValue(sidebarOpenAtom)
+  const accommodation = useRecoilValue(currentAccommodationAtom)
+  console.log(accommodation)
+  const user = loadItem('user')
 
   const defaultValues = {
     startDate: defaultStartDate,
     endDate: defaultEndDate,
     rmNo: 0,
     rtNo: 0,
-    cpNo: 0,
-    acNo: 0,
+    cpNo: user?.cpNo === 1 ? '0' : user?.cpNo,
+    acNo: String(accommodation.acNo),
     periodType: 'checkinDate',
     searchType: '',
     searchText: '',

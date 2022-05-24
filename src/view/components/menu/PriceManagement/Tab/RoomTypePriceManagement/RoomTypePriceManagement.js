@@ -3,6 +3,7 @@ import { readRoomTypeListSelector } from '@state/accommodationManagement/roomTyp
 import { currentAccommodationAtom } from '@state/common/common'
 import { updateRoomTypePricesSelector } from '@state/priceManagement/roomTypePriceManagement'
 import { getFormDataFromJson } from '@util/common/axiosUtil'
+import { loadItem } from '@util/common/localStorage'
 import _ from 'lodash/fp'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
@@ -15,8 +16,12 @@ export default function RoomTypePriceManagement({ isRoomTypePriceManagementTab }
   const { acNo } = useRecoilValue(currentAccommodationAtom)
   const addAcNo = (data) => (acNo !== undefined ? { ...data, acNo } : data)
 
+  const currentAccommodation = useRecoilValue(currentAccommodationAtom)
+  const user = loadItem('user')
+
   const data = {
-    cpNo: '1',
+    cpNo: user?.cpNo === 1 ? '0' : user?.cpNo,
+    acNo: currentAccommodation.acNo,
     roomTypeName: '',
     startRow: '0',
     rowCount: '999',

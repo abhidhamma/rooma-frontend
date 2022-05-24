@@ -7,6 +7,7 @@ import {
 import { readReservationListAtom } from '@state/reservationManagement/reservationManagement'
 import { getFormDataFromJson } from '@util/common/axiosUtil'
 import { betweenyyyyMMdd, formatyyyyMMddWithHyphen, stringToDate } from '@util/common/dateUtil'
+import { loadItem } from '@util/common/localStorage'
 import { formatMoney, getKeyFromValue } from '@util/common/others'
 import { useEffect } from 'react'
 import { useRecoilState, useSetRecoilState } from 'recoil'
@@ -16,13 +17,14 @@ export default function ReadReservationList({ watch }) {
   const [readReservationList, setReadReservationList] = useRecoilState(readReservationListAtom)
   const setAmount = useSetRecoilState(amountAtom)
   const { list } = readReservationList
+  const user = loadItem('user')
 
   const readReservationListParameter = {
     startDate: watch('startDate'),
     endDate: watch('endDate'),
     rmNo: 0,
     rtNo: 0,
-    cpNo: 0,
+    cpNo: user?.cpNo === 1 ? '0' : user?.cpNo,
     acNo: watch('acNo'),
     periodType: watch('periodType'),
     searchType: watch('searchType'),
