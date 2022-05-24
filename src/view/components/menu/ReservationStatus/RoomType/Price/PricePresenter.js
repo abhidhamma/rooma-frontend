@@ -152,7 +152,7 @@ function PricePresenter({
             onMouseDown={handleMouseDown}
             onMouseOver={handleMouseOver}
             onMouseUp={handleMouseUp}
-            onDoubleClick={handleCreateReservation}
+            onClick={handleCreateReservation}
           >
             <a
               href='#'

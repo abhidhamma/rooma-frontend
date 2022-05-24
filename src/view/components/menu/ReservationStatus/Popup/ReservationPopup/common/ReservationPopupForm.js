@@ -32,7 +32,7 @@ export default function ReservationPopupForm({
   type,
 }) {
   const [isShowCont1, setIsShowCont1] = useState(true)
-  const [isShowCont2, setIsShowCont2] = useState(false)
+  const [isShowCont2, setIsShowCont2] = useState(true)
   const [isShowCont3, setIsShowCont3] = useState(false)
   const [isShowCont4, setIsShowCont4] = useState(true)
   const readReservationParameter = useRecoilValue(readReservationParameterAtom)

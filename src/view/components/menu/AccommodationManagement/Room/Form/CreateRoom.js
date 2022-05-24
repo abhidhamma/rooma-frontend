@@ -1,15 +1,18 @@
 import { ROOM_LIST_URL } from '@constant/locationURLs'
 import useCreateAccommodationCallback from '@hook/apiHook/useCreateAccommodationCallback'
-import { createRoomSelector } from '@state/accommodationManagement/room'
+import { createRoomSelector, readRoomListSelector } from '@state/accommodationManagement/room'
 import { getFormDataFromJson } from '@util/common/axiosUtil'
+import { loadItem } from '@util/common/localStorage'
 import { validateRoomForm } from '@util/validation/validateRoomForm'
 import _ from 'lodash'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
+import { useRecoilRefresher_UNSTABLE } from 'recoil'
 import RoomForm from './Form'
 
 export default function CreateRoom() {
   const createRoomCallback = useCreateAccommodationCallback('create Room')
+
   let navigate = useNavigate()
   const defaultValues = {
     cpNo: '1',
@@ -22,10 +25,23 @@ export default function CreateRoom() {
     description: '',
   }
   const { register, handleSubmit, watch, reset, getValues } = useForm({ defaultValues })
+
+  const user = loadItem('user')
+  const data = {
+    cpNo: user.cpNo,
+    name: '',
+    startRow: '0',
+    rowCount: '999',
+    rtNo: watch('rtNo'),
+  }
+  const resetReadRoomListSelector = useRecoilRefresher_UNSTABLE(
+    readRoomListSelector(getFormDataFromJson(data))
+  )
+
   const onSubmit = _.flow(
     validateRoomForm,
     getFormDataFromJson,
-    createRoom(createRoomCallback, navigate)
+    createRoom(createRoomCallback, navigate, resetReadRoomListSelector)
   )
   return (
     <RoomForm
@@ -40,7 +56,7 @@ export default function CreateRoom() {
     />
   )
 }
-const createRoom = (createRoomCallback, navigate) => (formData) => {
+const createRoom = (createRoomCallback, navigate, resetReadRoomListSelector) => (formData) => {
   if (formData === false) {
     return
   }
@@ -50,6 +66,7 @@ const createRoom = (createRoomCallback, navigate) => (formData) => {
     if (message === '성공') {
       alert('등록되었습니다.')
       navigate(ROOM_LIST_URL)
+      resetReadRoomListSelector()
     } else {
       alert('오류가 발생했습니다. 잠시후에 다시 시도해주세요.')
     }

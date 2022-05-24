@@ -6,6 +6,7 @@ import {
   updateRoomSelector,
 } from '@state/accommodationManagement/room'
 import { getFormDataFromJson } from '@util/common/axiosUtil'
+import { loadItem } from '@util/common/localStorage'
 import _ from 'lodash/fp'
 import { useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
@@ -34,8 +35,10 @@ export default function RoomSetting({
   const saleStartdate = watch('saleStartdate')
   const saleEnddate = watch('saleEnddate')
 
+  const user = loadItem('user')
+
   const data = {
-    cpNo: '1',
+    cpNo: user.cpNo,
     name: '',
     startRow: '0',
     rowCount: '999',

@@ -36,6 +36,8 @@ export default function ReadRoomList() {
   const resetReadRoomListSelector = useRecoilRefresher_UNSTABLE(
     readRoomListSelector(getFormDataFromJson(data))
   )
+  console.log('ReadRoomList')
+  console.log(list)
 
   //숙소명 찾기
   const readAccommodationParameter = { cpNo: '1', name: '', startRow: 0, rowCount: 999 }
