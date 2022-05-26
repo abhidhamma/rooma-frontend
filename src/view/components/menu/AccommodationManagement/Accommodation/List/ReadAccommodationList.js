@@ -2,7 +2,7 @@ import { makeUpdateAccommodationUrl } from '@constant/locationURLs'
 import { readAccommodationListSelector } from '@state/accommodationManagement/accommodation'
 import { currentPageAtom, totalCountAtom } from '@state/common/paging'
 import { searchKeywordAtom } from '@state/common/search'
-import { readCompanyListSelector } from '@state/company/company'
+import { readCompanyByNoSelector, readCompanyListSelector } from '@state/company/company'
 import { getFormDataFromJson } from '@util/common/axiosUtil'
 import { loadItem } from '@util/common/localStorage'
 import { useEffect } from 'react'
@@ -36,18 +36,24 @@ export default function ReadAccommodationList() {
     readAccommodationListSelector(getFormDataFromJson(readAccommodationListParameter))
   )
 
-  // const readCompanyListParameter = {
-  //   cpNo: user.cpNo === 1 ? '0' : user.cpNo,
-  //   name: '',
-  //   startRow: `0`,
-  //   rowCount: `999`,
-  // }
+  const readCompanyListParameter = {
+    cpNo: '0',
+    name: '',
+    startRow: `0`,
+    rowCount: `999`,
+  }
 
-  // const {
-  //   data: {
-  //     data: { list: companyList },
-  //   },
-  // } = useRecoilValue(readCompanyListSelector(getFormDataFromJson(readCompanyListParameter)))
+  const {
+    data: {
+      data: { list: companyList },
+    },
+  } = useRecoilValue(readCompanyListSelector(getFormDataFromJson(readCompanyListParameter)))
+
+  const parameter = {
+    cpNo: user.cpNo,
+  }
+  const result = useRecoilValue(readCompanyByNoSelector(parameter))
+  const companyName = result?.data?.data?.name
 
   useEffect(() => {
     setTotalCount(totalCount)
@@ -76,8 +82,9 @@ export default function ReadAccommodationList() {
             <td>{textWithLink(accommodation.acNo)}</td>
             <td>
               {textWithLink(
-                '신라호텔'
-                // companyList.find((company) => company.cpNo === accommodation.cpNo).name
+                user.cpNo === 1
+                  ? companyList.find((company) => company.cpNo === accommodation.cpNo).name
+                  : companyName
               )}
             </td>
             <td>{textWithLink(accommodation.name)}</td>
