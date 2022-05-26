@@ -5,6 +5,7 @@ import { getCookie, removeCookie, setCookie } from '@util/common/cookie'
 import { decode } from '@util/common/hash'
 import { loadItem, removeItem } from '@util/common/localStorage'
 
+let count = 0
 // axios 설정
 const clientConfig = () => {
   const client = axios.create({
@@ -36,7 +37,12 @@ const clientConfig = () => {
 
     if (status === 'UNAUTHORIZED' && url.indexOf('signin') === -1) {
       console.log('UNAUTHORIZED jwttoken변경시도')
+      console.log('count : ', count)
 
+      if (count === 1) {
+        console.log('두번째시도 실패로 종료')
+        return response
+      }
       const { userId } = loadItem('user')
       const password = decode(loadItem('PAPAGO_LANG_DETECT'))
 
@@ -54,12 +60,14 @@ const clientConfig = () => {
 
         setCookie('jwttoken', jwttoken)
         config.headers.Authorization = jwttoken ? 'Bearer ' + jwttoken : ''
+        count += 1
 
         return client(config)
       } catch (error) {
         console.log(error)
       }
     }
+    count = 0
     return response
   })
 

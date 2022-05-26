@@ -36,18 +36,18 @@ export default function ReadAccommodationList() {
     readAccommodationListSelector(getFormDataFromJson(readAccommodationListParameter))
   )
 
-  const readCompanyListParameter = {
-    cpNo: user.cpNo === 1 ? '0' : user.cpNo,
-    name: '',
-    startRow: `0`,
-    rowCount: `999`,
-  }
+  // const readCompanyListParameter = {
+  //   cpNo: user.cpNo === 1 ? '0' : user.cpNo,
+  //   name: '',
+  //   startRow: `0`,
+  //   rowCount: `999`,
+  // }
 
-  const {
-    data: {
-      data: { list: companyList },
-    },
-  } = useRecoilValue(readCompanyListSelector(getFormDataFromJson(readCompanyListParameter)))
+  // const {
+  //   data: {
+  //     data: { list: companyList },
+  //   },
+  // } = useRecoilValue(readCompanyListSelector(getFormDataFromJson(readCompanyListParameter)))
 
   useEffect(() => {
     setTotalCount(totalCount)
@@ -57,7 +57,7 @@ export default function ReadAccommodationList() {
     }
   }, [currentIndex, searchKeyword])
   console.log('list : ', list)
-  console.log('companyList : ', companyList)
+  // console.log('companyList : ', companyList)
   return (
     <>
       {list.map((accommodation) => {
@@ -76,7 +76,8 @@ export default function ReadAccommodationList() {
             <td>{textWithLink(accommodation.acNo)}</td>
             <td>
               {textWithLink(
-                companyList.find((company) => company.cpNo === accommodation.cpNo).name
+                '신라호텔'
+                // companyList.find((company) => company.cpNo === accommodation.cpNo).name
               )}
             </td>
             <td>{textWithLink(accommodation.name)}</td>
