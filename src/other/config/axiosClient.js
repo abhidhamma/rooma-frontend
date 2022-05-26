@@ -41,7 +41,7 @@ const clientConfig = () => {
 
       if (count === 1) {
         console.log('두번째시도 실패로 종료')
-        return response
+        window.location = '/'
       }
       const { userId } = loadItem('user')
       const password = decode(loadItem('PAPAGO_LANG_DETECT'))
