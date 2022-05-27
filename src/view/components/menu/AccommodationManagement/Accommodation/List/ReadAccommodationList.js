@@ -37,7 +37,7 @@ export default function ReadAccommodationList() {
   )
 
   const readCompanyListParameter = {
-    cpNo: '0',
+    cpNo: user.cpNo === 1 ? '0' : user.cpNo,
     name: '',
     startRow: `0`,
     rowCount: `999`,
@@ -47,7 +47,7 @@ export default function ReadAccommodationList() {
     data: {
       data: { list: companyList },
     },
-  } = useRecoilValue(readCompanyListSelector(getFormDataFromJson(readCompanyListParameter)))
+  } = useRecoilValue(readCompanyListSelector(readCompanyListParameter))
 
   const parameter = {
     cpNo: user.cpNo,
@@ -63,7 +63,7 @@ export default function ReadAccommodationList() {
     }
   }, [currentIndex, searchKeyword])
   console.log('list : ', list)
-  // console.log('companyList : ', companyList)
+  console.log('companyList : ', companyList)
   return (
     <>
       {list.map((accommodation) => {

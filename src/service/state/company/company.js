@@ -14,6 +14,7 @@ import {
   READ_MEMBER_LIST_SELECTOR_KEY,
   UPDATE_COMPANY_SELECTOR_KEY,
 } from '@constant/atomKeys'
+import { getFormDataFromJson } from '@util/common/axiosUtil'
 import { el } from 'date-fns/locale'
 import { selectorFamily } from 'recoil'
 
@@ -29,7 +30,14 @@ export const readCompanyByNoSelector = selectorFamily({
 })
 export const readCompanyListSelector = selectorFamily({
   key: READ_COMPANY_LIST_SELECTOR_KEY,
-  get: (formData) => async () => await readCompanyList(formData),
+  get: (readCompanyListParameter) => async () => {
+    if (readCompanyListParameter.cpNo !== '0') {
+      return { data: { data: { list: [] } } }
+    } else {
+      const formData = getFormDataFromJson(readCompanyListParameter)
+      return await readCompanyList(formData)
+    }
+  },
 })
 
 export const updateCompanySelector = selectorFamily({
