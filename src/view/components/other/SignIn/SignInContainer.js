@@ -1,6 +1,13 @@
+import { currentAccommodationAtom } from '@state/common/common'
+import { useEffect } from 'react'
+import { useResetRecoilState } from 'recoil'
 import SignInInput from './SignInInput'
 
 export default function SignInContainer() {
+  const resetAccommodation = useResetRecoilState(currentAccommodationAtom)
+  useEffect(() => {
+    resetAccommodation()
+  }, [])
   return (
     <>
       <div id='skip-nav'>

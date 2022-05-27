@@ -4,11 +4,10 @@ import { getFormDataFromJson } from '@util/common/axiosUtil'
 import { loadItem } from '@util/common/localStorage'
 import _ from 'lodash/fp'
 import { useEffect } from 'react'
-import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 
 export default function AccommodationSelect() {
   const [currentAccommodation, setCurrentAccommodation] = useRecoilState(currentAccommodationAtom)
-  const resetAccommodation = useResetRecoilState(currentAccommodationAtom)
 
   const user = loadItem('user')
 
@@ -28,9 +27,6 @@ export default function AccommodationSelect() {
   useEffect(() => {
     if (currentAccommodation?.name === undefined) {
       setCurrentAccommodation(list[0])
-    }
-    return () => {
-      resetAccommodation()
     }
   }, [])
 

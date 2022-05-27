@@ -16,12 +16,12 @@ export default function RoomTypePriceManagement({ isRoomTypePriceManagementTab }
   const { acNo } = useRecoilValue(currentAccommodationAtom)
   const addAcNo = (data) => (acNo !== undefined ? { ...data, acNo } : data)
 
-  const currentAccommodation = useRecoilValue(currentAccommodationAtom)
   const user = loadItem('user')
 
+  console.log('acNo : ', acNo)
   const data = {
     cpNo: user?.cpNo === 1 ? '0' : user?.cpNo,
-    acNo: currentAccommodation.acNo,
+    acNo,
     roomTypeName: '',
     startRow: '0',
     rowCount: '999',
@@ -40,7 +40,7 @@ export default function RoomTypePriceManagement({ isRoomTypePriceManagementTab }
 
   const rtNoArray = list.map((roomType) => roomType.rtNo)
   const onSubmit = _.flow(
-    makeSubmitData(rtNoArray),
+    makeSubmitData(rtNoArray, acNo),
     updateRoomTypePrices(updateRoomTypePricesCallback, resetReadRoomTypeList)
   )
 
@@ -102,8 +102,8 @@ export default function RoomTypePriceManagement({ isRoomTypePriceManagementTab }
     </div>
   )
 }
-const makeSubmitData = (rtNoArray) => (submitData) => {
-  let tempSubmitData = { acNo: '1' }
+const makeSubmitData = (rtNoArray, acNo) => (submitData) => {
+  let tempSubmitData = { acNo }
   let roomTypes = []
 
   const eachRoomTypes = _.each((rtNo) => {
