@@ -9,6 +9,7 @@ import { standardDateAtom } from '@state/reservation'
 import { readReservationListAtom } from '@state/reservationManagement/reservationManagement'
 import { getFormDataFromJson } from '@util/common/axiosUtil'
 import { formatyyyyMMddWithHyphen } from '@util/common/dateUtil'
+import { loadItem } from '@util/common/localStorage'
 import { Suspense } from 'react'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { calculateAmount } from './ReadReservationList'
@@ -20,13 +21,14 @@ export default function SearchBox({ register, handleSubmit, reset, getValues, wa
 
   const standardDate = useRecoilValue(standardDateAtom)
   const today = formatyyyyMMddWithHyphen(standardDate)
+  const user = loadItem('user')
 
   const readReservationListParameter = {
     startDate: watch('startDate'),
     endDate: watch('endDate'),
     rmNo: 0,
     rtNo: 0,
-    cpNo: 0,
+    cpNo: user?.cpNo === 1 ? '0' : user?.cpNo,
     acNo: watch('acNo'),
     periodType: watch('periodType'),
     searchType: watch('searchType'),
