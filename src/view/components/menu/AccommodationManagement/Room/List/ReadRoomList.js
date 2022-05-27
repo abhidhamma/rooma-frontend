@@ -50,7 +50,7 @@ export default function ReadRoomList() {
 
   //객실타입 찾기
   const readRoomTypeParameter = {
-    cpNo: '1',
+    cpNo: user?.cpNo,
     roomTypeName: '',
     startRow: 0,
     rowCount: 999,

@@ -7,7 +7,9 @@ import {
   updateRoomTypeSelector,
 } from '@state/accommodationManagement/roomType'
 import { getFormDataFromJson } from '@util/common/axiosUtil'
+import { loadItem } from '@util/common/localStorage'
 import { numberToArray } from '@util/common/lodash'
+import { validateRoomTypeForm } from '@util/validation/validateRoomTypeForm'
 import _ from 'lodash/fp'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
@@ -25,9 +27,9 @@ export default function UpdateRoomType() {
   const updateRoomTypeCallback = useUpdateAccommodationCallback('update roomType')
   let navigate = useNavigate()
 
-  // const { roomList}
+  const user = loadItem('user')
   const parameter = {
-    cpNo: '1',
+    cpNo: user.cpNo,
     name: '',
     startRow: '0',
     rowCount: '999',
@@ -190,6 +192,7 @@ export default function UpdateRoomType() {
 
   const onSubmit = _.flow(
     addRtNo,
+    validateRoomTypeForm,
     preprocessRoomTypeFormData(breakfastConfigOptionCount, etcConfigOptionCount),
     getFormDataFromJson,
     updateRoomType(updateRoomTypeCallback, navigate)
@@ -212,6 +215,9 @@ export default function UpdateRoomType() {
 }
 
 const updateRoomType = (updateRoomTypeCallback, navigate) => (formData) => {
+  if (formData === false) {
+    return false
+  }
   updateRoomTypeCallback(updateRoomTypeSelector(formData)).then((data) => {
     const { message } = data
     if (message === '성공') {

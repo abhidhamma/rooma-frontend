@@ -58,7 +58,7 @@ export default function RoomSetting({
 
   const createRoom = (defaultRoomName, createType) => {
     let createObject = {
-      cpNo: '1',
+      cpNo: user.cpNo,
       acNo,
       rtNo,
       saleStartdate,
@@ -99,28 +99,28 @@ export default function RoomSetting({
   }
 
   const deleteRoom = (targetRmNo, roomTotalNum, deleteType, roomName) => {
-    deleteRoomCallback(deleteRoomSelector(getFormDataFromJson({ rmNo: targetRmNo }))).then(
-      (result) => {
-        const { message } = result
-        if (message === '성공') {
-          if (deleteType === 'deleteButton') {
-            // reset({ ...getValues(), roomTotalNum: Number(roomTotalNum) - 1, [roomName]: undefined })
-            // resetRoomNames(roomTotalNum, getValues, reset)
-            // resetReadRoomListSelector()
-            window.location.reload()
-          } else if (deleteType === 'decreaseRoomTotalNum') {
-            reset({
-              ...getValues(),
-              roomTotalNum: roomTotalNum === 0 ? roomTotalNum : roomTotalNum - 1,
-              [`room${roomTotalNum}`]: undefined,
-            })
-            resetReadRoomListSelector()
-          } else if (deleteType === 'selectChange') {
-            resetReadRoomListSelector()
-          }
+    deleteRoomCallback(
+      deleteRoomSelector(getFormDataFromJson({ cpNo: user.cpNo, rmNo: targetRmNo }))
+    ).then((result) => {
+      const { message } = result
+      if (message === '성공') {
+        if (deleteType === 'deleteButton') {
+          // reset({ ...getValues(), roomTotalNum: Number(roomTotalNum) - 1, [roomName]: undefined })
+          // resetRoomNames(roomTotalNum, getValues, reset)
+          // resetReadRoomListSelector()
+          window.location.reload()
+        } else if (deleteType === 'decreaseRoomTotalNum') {
+          reset({
+            ...getValues(),
+            roomTotalNum: roomTotalNum === 0 ? roomTotalNum : roomTotalNum - 1,
+            [`room${roomTotalNum}`]: undefined,
+          })
+          resetReadRoomListSelector()
+        } else if (deleteType === 'selectChange') {
+          resetReadRoomListSelector()
         }
       }
-    )
+    })
   }
 
   useEffect(() => {
@@ -137,6 +137,10 @@ export default function RoomSetting({
   const createRooms = (roomTotalNum) => {
     if (formType === '수정') {
       const createLength = roomTotalNum - roomList.length
+      console.log('디버그 : ', createLength, roomTotalNum, roomList.length)
+      // if (roomTotalNum === 0) {
+      //   return
+      // }
       if (createLength === 0) {
         return
       } else if (createLength > 0) {

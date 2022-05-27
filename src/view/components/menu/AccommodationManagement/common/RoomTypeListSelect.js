@@ -1,12 +1,14 @@
 import { readRoomTypeListSelector } from '@state/accommodationManagement/roomType'
 import { getFormDataFromJson } from '@util/common/axiosUtil'
+import { loadItem } from '@util/common/localStorage'
 import _ from 'lodash/fp'
 import { useRecoilValue } from 'recoil'
 
 export default function RoomTypeListSelect({ register, watch }) {
   console.log('RoomTypeListSelect called...')
   console.log(watch('acNo'))
-  let initialParameter = { cpNo: '1', roomTypeName: '', startRow: 0, rowCount: 999 }
+  const user = loadItem('user')
+  let initialParameter = { cpNo: user.cpNo, roomTypeName: '', startRow: 0, rowCount: 999 }
   const addAcNo = (acNo) =>
     typeof Number(acNo) === 'number' && typeof acNo !== 'undefined' && acNo !== 'unSelected'
       ? { ...initialParameter, acNo }

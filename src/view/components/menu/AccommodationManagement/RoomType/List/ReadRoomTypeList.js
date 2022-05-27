@@ -3,6 +3,7 @@ import { readAccommodationListSelector } from '@state/accommodationManagement/ac
 import { readRoomTypeListSelector } from '@state/accommodationManagement/roomType'
 import { currentPageAtom, totalCountAtom } from '@state/common/paging'
 import { searchKeywordAtom } from '@state/common/search'
+import { readCompanyByNoSelector } from '@state/company/company'
 import { getFormDataFromJson } from '@util/common/axiosUtil'
 import { loadItem } from '@util/common/localStorage'
 import _ from 'lodash/fp'
@@ -36,7 +37,7 @@ export default function ReadRoomTypeList() {
   )
 
   //숙소명 찾기
-  const parameter = { cpNo: '1', name: '', startRow: 0, rowCount: 999 }
+  const parameter = { cpNo: user?.cpNo, name: '', startRow: 0, rowCount: 999 }
   const {
     data: {
       data: { list: cpList },
@@ -44,6 +45,12 @@ export default function ReadRoomTypeList() {
   } = useRecoilValue(readAccommodationListSelector(getFormDataFromJson(parameter)))
   let acNameMap = listToMap(cpList)
 
+  //회사명 찾기
+  const readCompanyByNoParameter = {
+    cpNo: user.cpNo,
+  }
+  const result = useRecoilValue(readCompanyByNoSelector(readCompanyByNoParameter))
+  const companyName = result?.data?.data?.name
   useEffect(() => {
     setTotalCount(totalCount)
     resetReadRoomTypeListSelector()
@@ -66,7 +73,7 @@ export default function ReadRoomTypeList() {
                 </span>
               </td>
               <td>{textWithLink(roomType.rtNo)}</td>
-              <td>{textWithLink('신라호텔')}</td>
+              <td>{textWithLink(companyName)}</td>
               <td>{textWithLink(roomType.acName)}</td>
               <td>{textWithLink(roomType.roomTypeName)}</td>
               <td>{textWithLink(roomType.roomTotalNum)}</td>

@@ -2,6 +2,7 @@ import { ROOM_LIST_URL } from '@constant/locationURLs'
 import useCreateAccommodationCallback from '@hook/apiHook/useCreateAccommodationCallback'
 import { createRoomSelector, readRoomListSelector } from '@state/accommodationManagement/room'
 import { getFormDataFromJson } from '@util/common/axiosUtil'
+import { formatyyMMddWithDot, formatyyyyMMddWithHyphen } from '@util/common/dateUtil'
 import { loadItem } from '@util/common/localStorage'
 import { validateRoomForm } from '@util/validation/validateRoomForm'
 import _ from 'lodash'
@@ -14,19 +15,22 @@ export default function CreateRoom() {
   const createRoomCallback = useCreateAccommodationCallback('create Room')
 
   let navigate = useNavigate()
+  const user = loadItem('user')
+  const today = new Date()
+  const defaultSaleStartdate = formatyyyyMMddWithHyphen(today)
+
   const defaultValues = {
-    cpNo: '1',
+    cpNo: user.cpNo,
     acNo: 'unSelected',
     rtNo: '1',
-    saleStartdate: '선택해주세요',
-    saleEnddate: '선택해주세요',
-    name: '101호',
+    saleStartdate: defaultSaleStartdate,
+    saleEnddate: '',
+    name: '',
     useYn: 'Y',
     description: '',
   }
   const { register, handleSubmit, watch, reset, getValues } = useForm({ defaultValues })
 
-  const user = loadItem('user')
   const data = {
     cpNo: user.cpNo,
     name: '',

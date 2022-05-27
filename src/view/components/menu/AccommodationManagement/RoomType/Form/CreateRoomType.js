@@ -6,7 +6,11 @@ import {
   etcConfigOptionCountAtom,
 } from '@state/accommodationManagement/roomType'
 import { getFormDataFromJson } from '@util/common/axiosUtil'
+import { formatyyyyMMddWithHyphen } from '@util/common/dateUtil'
+import { loadItem } from '@util/common/localStorage'
 import { numberToArray } from '@util/common/lodash'
+import { validateRoomTypeForm } from '@util/validation/validateRoomTypeForm'
+import { addDays } from 'date-fns'
 import _ from 'lodash/fp'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
@@ -18,7 +22,50 @@ export default function CreateRoomType() {
   const breakfastConfigOptionCount = useRecoilValue(breakfastConfigOptionCountAtom)
   const etcConfigOptionCount = useRecoilValue(etcConfigOptionCountAtom)
 
+  const today = new Date()
+  const defaultSaleStartdate = formatyyyyMMddWithHyphen(today)
+  const defaultSaleEnddate = formatyyyyMMddWithHyphen(addDays(today, 1))
+
   let navigate = useNavigate()
+  // const defaultValues = {
+  //   //객실설정
+  //   roomTotalNum: 0,
+  //   prefix: '디럭스',
+  //   roomNumber: '101',
+  //   suffix: '호',
+
+  //   //인풋이 있는값
+  //   useYn: 'Y',
+  //   roomTypeName: '디럭스룸',
+  //   roomNames: '',
+  //   saleStartdate: '2022-03-02',
+  //   saleEnddate: '2022-03-03',
+  //   roomComposition: '방2개,화장실1개',
+  //   viewType: '바다전망',
+  //   basicPersionNum: '2',
+  //   addPersionConfig: '조식포함',
+  //   maxPersionNum: '4',
+  //   addBreakfastConfigName: '조식',
+  //   addBreakfastConfigPrice: '10000',
+  //   addEtcConfigName: '바베큐',
+  //   addEtcConfigPrice: '30000',
+  //   roomOptions: 'TV|WIFI',
+  //   convInfo: '객실편의시설',
+  //   etcInfo: '특이사항',
+  //   adultBreakfastName: '성인',
+  //   childBreakfastName: '소아',
+  //   infantBreakfastName: '유아',
+  //   //히든값
+  //   cpNo: '1',
+  //   originPrice: '50000',
+  //   salePrice: '40000',
+  //   providerPrice: '30000',
+  //   roomTypeCd: '',
+  //   roomMakeConfig: '',
+  //   roomShortDesc: '',
+  // }
+
+  const user = loadItem('user')
   const defaultValues = {
     //객실설정
     roomTotalNum: 0,
@@ -28,27 +75,27 @@ export default function CreateRoomType() {
 
     //인풋이 있는값
     useYn: 'Y',
-    roomTypeName: '디럭스룸',
+    roomTypeName: '',
     roomNames: '',
-    saleStartdate: '2022-03-02',
-    saleEnddate: '2022-03-03',
-    roomComposition: '방2개,화장실1개',
+    saleStartdate: defaultSaleStartdate,
+    saleEnddate: '',
+    roomComposition: '',
     viewType: '바다전망',
     basicPersionNum: '2',
-    addPersionConfig: '조식포함',
+    addPersionConfig: '',
     maxPersionNum: '4',
     addBreakfastConfigName: '조식',
     addBreakfastConfigPrice: '10000',
     addEtcConfigName: '바베큐',
     addEtcConfigPrice: '30000',
     roomOptions: 'TV|WIFI',
-    convInfo: '객실편의시설',
-    etcInfo: '특이사항',
+    convInfo: '',
+    etcInfo: '',
     adultBreakfastName: '성인',
     childBreakfastName: '소아',
     infantBreakfastName: '유아',
     //히든값
-    cpNo: '1',
+    cpNo: user.cpNo,
     originPrice: '50000',
     salePrice: '40000',
     providerPrice: '30000',
@@ -59,6 +106,7 @@ export default function CreateRoomType() {
   const { register, handleSubmit, watch, reset, getValues } = useForm({ defaultValues })
 
   const onSubmit = _.flow(
+    validateRoomTypeForm,
     preprocessRoomTypeFormData(breakfastConfigOptionCount, etcConfigOptionCount),
     getFormDataFromJson,
     createRoomType(createRoomTypeCallback, navigate)
@@ -145,6 +193,9 @@ const makeRoomOptions = (submitData) => {
 
 export const preprocessRoomTypeFormData =
   (breakfastConfigOptionCount, etcConfigOptionCount) => (submitData) => {
+    if (submitData === false) {
+      return false
+    }
     const { prefix, roomNumber, suffix } = submitData
     //객실설정 방번호 합치기
     submitData.roomMakeConfig = prefix + '||' + roomNumber + '||' + suffix
@@ -164,6 +215,9 @@ export const preprocessRoomTypeFormData =
   }
 
 const createRoomType = (createRoomTypeCallback, navigate) => (formData) => {
+  if (formData === false) {
+    return false
+  }
   createRoomTypeCallback(createRoomTypeSelector(formData)).then((data) => {
     const { message } = data
     if (message === '성공') {
@@ -174,3 +228,5 @@ const createRoomType = (createRoomTypeCallback, navigate) => (formData) => {
     }
   })
 }
+
+const validation = () => {}
