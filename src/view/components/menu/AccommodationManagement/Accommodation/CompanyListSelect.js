@@ -15,7 +15,7 @@ export default function CompanyListSelect({ register }) {
     data: {
       data: { list },
     },
-  } = useRecoilValue(readCompanyListSelector(getFormDataFromJson(readCompanyListParameter)))
+  } = useRecoilValue(readCompanyListSelector(readCompanyListParameter))
   return (
     <select {...register('cpNo')} defaultValue={'unSelected'}>
       <option value={'unSelected'}>회사명선택</option>

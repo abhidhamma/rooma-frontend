@@ -37,7 +37,7 @@ export default function ReadAccommodationList() {
   )
 
   const readCompanyListParameter = {
-    cpNo: user.cpNo === 1 ? '0' : user.cpNo,
+    cpNo: user.cpNo === 1 ? '0' : undefined,
     name: '',
     startRow: `0`,
     rowCount: `999`,

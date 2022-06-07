@@ -15,7 +15,7 @@ export default function CompanySelect({ register }) {
     data: {
       data: { list: companyList },
     },
-  } = useRecoilValue(readCompanyListSelector(getFormDataFromJson(readCompanyListParameter)))
+  } = useRecoilValue(readCompanyListSelector(readCompanyListParameter))
   console.log(companyList)
   return (
     <select {...register('name')}>

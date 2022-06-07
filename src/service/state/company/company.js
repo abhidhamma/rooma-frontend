@@ -28,10 +28,15 @@ export const readCompanyByNoSelector = selectorFamily({
         cpNo,
       }),
 })
+// export const readCompanyListSelector = selectorFamily({
+//   key: READ_COMPANY_LIST_SELECTOR_KEY,
+//   get: (formData) => async () => await readCompanyList(formData)
+// })
+
 export const readCompanyListSelector = selectorFamily({
   key: READ_COMPANY_LIST_SELECTOR_KEY,
   get: (readCompanyListParameter) => async () => {
-    if (readCompanyListParameter.cpNo !== '0') {
+    if (readCompanyListParameter.cpNo === undefined) {
       return { data: { data: { list: [] } } }
     } else {
       const formData = getFormDataFromJson(readCompanyListParameter)

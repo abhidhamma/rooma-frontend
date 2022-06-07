@@ -19,7 +19,7 @@ export default function ReadCompanyList() {
   const currentIndex = (currentPage - 1) * rowCount
 
   const readCompanyListParameter = {
-    cpNo: user?.cpNo,
+    cpNo: '0',
     name: '',
     startRow: `${currentIndex}`,
     rowCount: `${rowCount}`,
@@ -28,10 +28,10 @@ export default function ReadCompanyList() {
     data: {
       data: { list, totalCount },
     },
-  } = useRecoilValue(readCompanyListSelector(getFormDataFromJson(readCompanyListParameter)))
+  } = useRecoilValue(readCompanyListSelector(readCompanyListParameter))
 
   const resetReadCompanyListSelector = useRecoilRefresher_UNSTABLE(
-    readCompanyListSelector(getFormDataFromJson(readCompanyListParameter))
+    readCompanyListSelector(readCompanyListParameter)
   )
 
   useEffect(() => {
