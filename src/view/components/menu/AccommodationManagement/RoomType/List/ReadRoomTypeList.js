@@ -3,7 +3,7 @@ import { readAccommodationListSelector } from '@state/accommodationManagement/ac
 import { readRoomTypeListSelector } from '@state/accommodationManagement/roomType'
 import { currentPageAtom, totalCountAtom } from '@state/common/paging'
 import { searchKeywordAtom } from '@state/common/search'
-import { readCompanyByNoSelector } from '@state/company/company'
+import { readCompanyByNoSelector, readCompanyListSelector } from '@state/company/company'
 import { getFormDataFromJson } from '@util/common/axiosUtil'
 import { loadItem } from '@util/common/localStorage'
 import _ from 'lodash/fp'
@@ -22,7 +22,7 @@ export default function ReadRoomTypeList() {
   const currentIndex = (currentPage - 1) * rowCount
 
   const data = {
-    cpNo: user?.cpNo,
+    cpNo: user.cpNo === 1 ? '0' : user.cpNo,
     roomTypeName: searchKeyword,
     startRow: `${currentIndex}`,
     rowCount: `${rowCount}`,
@@ -37,7 +37,12 @@ export default function ReadRoomTypeList() {
   )
 
   //숙소명 찾기
-  const parameter = { cpNo: user?.cpNo, name: '', startRow: 0, rowCount: 999 }
+  const parameter = {
+    cpNo: user.cpNo === 1 ? '0' : user.cpNo,
+    name: '',
+    startRow: 0,
+    rowCount: 999,
+  }
   const {
     data: {
       data: { list: cpList },
@@ -51,6 +56,19 @@ export default function ReadRoomTypeList() {
   }
   const result = useRecoilValue(readCompanyByNoSelector(readCompanyByNoParameter))
   const companyName = result?.data?.data?.name
+
+  const readCompanyListParameter = {
+    cpNo: user.cpNo === 1 ? '0' : undefined,
+    name: '',
+    startRow: `0`,
+    rowCount: `999`,
+  }
+
+  const {
+    data: {
+      data: { list: companyList },
+    },
+  } = useRecoilValue(readCompanyListSelector(readCompanyListParameter))
   useEffect(() => {
     setTotalCount(totalCount)
     resetReadRoomTypeListSelector()
@@ -73,7 +91,13 @@ export default function ReadRoomTypeList() {
                 </span>
               </td>
               <td>{textWithLink(roomType.rtNo)}</td>
-              <td>{textWithLink(companyName)}</td>
+              <td>
+                {textWithLink(
+                  user.cpNo === 1
+                    ? companyList.find((company) => company.cpNo === roomType.cpNo).name
+                    : companyName
+                )}
+              </td>
               <td>{textWithLink(roomType.acName)}</td>
               <td>{textWithLink(roomType.roomTypeName)}</td>
               <td>{textWithLink(roomType.roomTotalNum)}</td>
