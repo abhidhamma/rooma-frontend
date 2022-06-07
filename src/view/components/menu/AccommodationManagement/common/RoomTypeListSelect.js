@@ -8,7 +8,12 @@ export default function RoomTypeListSelect({ register, watch }) {
   console.log('RoomTypeListSelect called...')
   console.log(watch('acNo'))
   const user = loadItem('user')
-  let initialParameter = { cpNo: user.cpNo, roomTypeName: '', startRow: 0, rowCount: 999 }
+  let initialParameter = {
+    cpNo: user.cpNo === 1 ? '0' : user.cpNo,
+    roomTypeName: '',
+    startRow: 0,
+    rowCount: 999,
+  }
   const addAcNo = (acNo) =>
     typeof Number(acNo) === 'number' && typeof acNo !== 'undefined' && acNo !== 'unSelected'
       ? { ...initialParameter, acNo }

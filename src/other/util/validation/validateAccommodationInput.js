@@ -17,6 +17,8 @@ export const validateAccommodationInput = (createAccommodationData) => {
     // positionX,
     // positionY,
     saleStartdate,
+    checkinTime,
+    checkoutTime,
   } = createAccommodationData
 
   const validationArray = [
@@ -27,6 +29,8 @@ export const validateAccommodationInput = (createAccommodationData) => {
     // { compare: positionY === '', message: POSITIONY_IS_EMPTY },
     // { compare: positionX === '', message: POSITIONX_IS_EMPTY },
     { compare: saleStartdate === '', message: SALESTARTDATE_IS_EMPTY },
+    { compare: checkinTime === '', message: '체크인시간을 입력해주세요' },
+    { compare: checkoutTime === '', message: '체크아웃시간을 입력해주세요' },
   ]
 
   const { isValid, message } = validationWithMessage(validationArray)

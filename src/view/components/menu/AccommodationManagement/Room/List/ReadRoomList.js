@@ -23,7 +23,7 @@ export default function ReadRoomList() {
   const currentIndex = (currentPage - 1) * rowCount
 
   const data = {
-    cpNo: user?.cpNo,
+    cpNo: user.cpNo === 1 ? '0' : user.cpNo,
     name: searchKeyword,
     startRow: `${currentIndex}`,
     rowCount: `${rowCount}`,
@@ -40,7 +40,12 @@ export default function ReadRoomList() {
   console.log(list)
 
   //숙소명 찾기
-  const readAccommodationParameter = { cpNo: '1', name: '', startRow: 0, rowCount: 999 }
+  const readAccommodationParameter = {
+    cpNo: user.cpNo === 1 ? '0' : user.cpNo,
+    name: '',
+    startRow: 0,
+    rowCount: 999,
+  }
   const {
     data: {
       data: { list: acList },
@@ -50,7 +55,7 @@ export default function ReadRoomList() {
 
   //객실타입 찾기
   const readRoomTypeParameter = {
-    cpNo: user?.cpNo,
+    cpNo: user.cpNo === 1 ? '0' : user.cpNo,
     roomTypeName: '',
     startRow: 0,
     rowCount: 999,
