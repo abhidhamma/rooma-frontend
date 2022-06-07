@@ -1,5 +1,6 @@
 import { ROOMTYPE_LIST_URL } from '@constant/locationURLs'
 import useCreateAccommodationCallback from '@hook/apiHook/useCreateAccommodationCallback'
+import { readAccommodationSelector } from '@state/accommodationManagement/accommodation'
 import {
   breakfastConfigOptionCountAtom,
   createRoomTypeSelector,
@@ -12,9 +13,10 @@ import { numberToArray } from '@util/common/lodash'
 import { validateRoomTypeForm } from '@util/validation/validateRoomTypeForm'
 import { addDays } from 'date-fns'
 import _ from 'lodash/fp'
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { useRecoilValue } from 'recoil'
+import { useRecoilRefresher_UNSTABLE, useRecoilValue } from 'recoil'
 import RoomTypeForm from './Form'
 
 export default function CreateRoomType() {
@@ -104,6 +106,18 @@ export default function CreateRoomType() {
     roomShortDesc: '',
   }
   const { register, handleSubmit, watch, reset, getValues } = useForm({ defaultValues })
+
+  //셀렉트박스에서 acNo가 바뀌었을때 cpNo를 가져와 바꿔준다
+  const {
+    data: { data: accommodationData },
+  } = useRecoilValue(readAccommodationSelector({ acNo: watch('acNo') }))
+  const resetReadAccommodationSelector = useRecoilRefresher_UNSTABLE(
+    readAccommodationSelector({ acNo: watch('acNo') })
+  )
+  useEffect(() => {
+    resetReadAccommodationSelector()
+    reset({ ...getValues(), cpNo: accommodationData?.cpNo })
+  }, [watch('acNo')])
 
   const onSubmit = _.flow(
     validateRoomTypeForm,

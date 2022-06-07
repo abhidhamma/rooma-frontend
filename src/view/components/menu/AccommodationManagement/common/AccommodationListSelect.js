@@ -1,9 +1,10 @@
 import { readAccommodationListSelector } from '@state/accommodationManagement/accommodation'
 import { getFormDataFromJson } from '@util/common/axiosUtil'
 import { loadItem } from '@util/common/localStorage'
+import { useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
 
-export default function AccommodationListSelect({ register }) {
+export default function AccommodationListSelect({ register, watch, reset, getValues }) {
   const user = loadItem('user')
   const parameter = {
     cpNo: user?.cpNo === 1 ? '0' : user?.cpNo,
@@ -16,6 +17,7 @@ export default function AccommodationListSelect({ register }) {
       data: { list },
     },
   } = useRecoilValue(readAccommodationListSelector(getFormDataFromJson(parameter)))
+
   return (
     <select {...register('acNo')} defaultValue={'unSelected'}>
       <option value={'unSelected'}>숙소명선택</option>

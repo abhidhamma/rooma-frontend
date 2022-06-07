@@ -40,8 +40,13 @@ export const readAccommodationSelector = selectorFamily({
   key: READ_ACCOMMODATION_SELECTOR_KEY,
   get:
     ({ acNo }) =>
-    async () =>
-      await readAccommodation({ acNo }),
+    async () => {
+      if (acNo === undefined) {
+        return { data: { data: {} } }
+      } else {
+        return await readAccommodation({ acNo })
+      }
+    },
 })
 
 export const readAccommodationListSelector = selectorFamily({

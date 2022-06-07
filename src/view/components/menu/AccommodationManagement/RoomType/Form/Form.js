@@ -1,5 +1,5 @@
 import SideBar from '@components/menu/AccommodationManagement/SideBar'
-import { Suspense } from 'react'
+import { Suspense, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import AccommodationListSelect from '../../common/AccommodationListSelect'
 import RoomSetting from './RoomSetting'
@@ -12,7 +12,13 @@ import PictureForm from '../../common/PictureForm'
 import SaleDateForm from '../../common/SaleDateForm'
 import { ROOMTYPE_LIST_URL } from '@constant/locationURLs'
 import { sidebarOpenAtom } from '@state/common/common'
-import { useRecoilValue } from 'recoil'
+import { useRecoilRefresher_UNSTABLE, useRecoilValue } from 'recoil'
+import { loadItem } from '@util/common/localStorage'
+import { getFormDataFromJson } from '@util/common/axiosUtil'
+import {
+  readAccommodationListSelector,
+  readAccommodationSelector,
+} from '@state/accommodationManagement/accommodation'
 
 export default function RoomTypeForm({
   register,
@@ -70,7 +76,12 @@ export default function RoomTypeForm({
                         </select>
                       }
                     >
-                      <AccommodationListSelect register={register} />
+                      <AccommodationListSelect
+                        register={register}
+                        watch={watch}
+                        reset={reset}
+                        getValues={getValues}
+                      />
                     </Suspense>
                   </dd>
                 </dl>
