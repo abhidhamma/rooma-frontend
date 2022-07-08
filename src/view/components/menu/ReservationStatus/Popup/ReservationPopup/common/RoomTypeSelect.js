@@ -11,7 +11,7 @@ export default function AddRoomTypeSelect({ roomType, setRoomType, setRoom, acNo
 
   const user = loadItem('user')
   const data = {
-    cpNo: user.cpNo,
+    cpNo: user.cpNo === 1 ? '0' : user.cpNo,
     roomTypeName: '',
     startRow: '0',
     rowCount: '999',
